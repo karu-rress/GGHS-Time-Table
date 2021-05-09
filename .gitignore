@@ -215,13 +215,13 @@ ecf/
 rcf/
 
 # Windows Store app package directories and files
-#AppPackages/
+AppPackages/
 BundleArtifacts/
-#Package.StoreAssociation.xml
+Package.StoreAssociation.xml
 _pkginfo.txt
-#*.appx
-#*.appxbundle
-#*.appxupload
+*.appx
+*.appxbundle
+*.appxupload
 
 # Visual Studio cache files
 # files ending in .cache can be ignored
@@ -236,7 +236,7 @@ ClientBin/
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
-#*.pfx
+*.pfx
 *.publishsettings
 orleans.codegen.cs
 
@@ -361,5 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-TimeTableWPF/

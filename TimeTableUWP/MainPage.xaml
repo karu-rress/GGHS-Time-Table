@@ -130,13 +130,13 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
-                    <RowDefinition Height="99" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <!--#region MONDAY TO FRIDAY-->

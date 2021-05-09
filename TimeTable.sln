@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79E9D860-335F-4D39-9E42-FD48526FFBBB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Changelog.txt = Changelog.txt
+		Datas.txt = Datas.txt
+		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
 Global

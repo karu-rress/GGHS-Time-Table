@@ -21,13 +21,13 @@
                     <RowDefinition Height="54*" />
                     <RowDefinition Height="75*"/>
                     <RowDefinition Height="55*" />
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75*"/>
                     <RowDefinition Height="54*" />
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75*"/>
                     <RowDefinition Height="55*" />
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75*"/>
                     <RowDefinition Height="52*" />
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="75*"/>
 
                 </Grid.RowDefinitions>
                 <Grid.Resources>
@@ -111,7 +111,7 @@
                         <Setter Property="FontSize" Value="30" />
                         <Setter Property="FontFamily" Value="Malgun Gothic Semilight"/>
                         <Setter Property="FontWeight" Value="Normal"/>
-                        <Setter Property="Content" Value="문학"/>
+                        <!--Setter Property="Content" Value="문학"/-->
                         <Setter Property="Width" Value="160"/>
                         <Setter Property="Height" Value="93"/>
                         <Setter Property="Foreground" Value="White"/>

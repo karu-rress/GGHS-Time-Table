@@ -1,36 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using static System.DayOfWeek;
-using RollingRess;
 
-
-
-// Activate Keys are in ActivateDialog.xaml.cs file
-namespace RollingRess.GGHS
+namespace GGHS
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
-    public sealed class RefersToCellNameAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
-    public sealed class RefersToComboBoxNameAttribute : Attribute
-    {
-    }
-
     namespace Grade2
     {
-        [RefersToCellName]
-        
-
-        [RefersToCellName]
         public static class TimeTables
         {
             static TimeTables()
             {
-                foreach (var item in new[] { Class1, Class2, Class3, Class4, Class5, Class6, Class7, Class8})
+                foreach (var item in new[] { Class1, Class2, Class3, Class4, Class5, Class6, Class7, Class8 })
                 {
                     item[0, 5] = item[0, 6] = item[4, 4] = item[4, 5] = Subjects.CellName.Others;
                     item[4, 6] = Subjects.CellName.HomeComing;
@@ -95,7 +78,7 @@ namespace RollingRess.GGHS
                         Class6[1, 1] = Class6[2, 4] = Class6[4, 3] = Subjects.Social1.Selected = Subjects.Social1.Environment;
                         Class6[0, 4] = Class6[3, 6] = Class6[4, 2] = Subjects.Social2.Selected;
                         Class6[1, 3] = Class6[3, 1] = Class6[4, 1] = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                        Class6[1, 6] = Class6[2, 3] = Class6[3, 2] = Subjects.Sciences.Selected = Subjects.Sciences.Biology; 
+                        Class6[1, 6] = Class6[2, 3] = Class6[3, 2] = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
                         break;
                     case 7:
                         Class7[0, 2] = Class7[3, 6] = Class7[4, 0] = Subjects.Social1.Selected;
@@ -174,131 +157,6 @@ namespace RollingRess.GGHS
             { Subjects.Sciences.Selected, Subjects.Social1.Selected, Subjects.CellName.Literature, Subjects.Social2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "B", Subjects.Languages.Selected},
             { Subjects.CellName.Mathematics, Subjects.Social1.Selected, Subjects.CellName.CreativeSolve, Subjects.Social2.Selected, null, null, null}
         };
-        }
-
-        public static class Subjects
-        {
-            //using static Subjects.CellName?
-
-            /// <summary>
-            /// ComboBoxName: Used in ComboBox Text
-            /// </summary>
-            public class ComboBoxName
-            {
-                // 이걸 상위 하위 변환이 가능한가?
-                public const string Literature = "문학";
-                public const string Mathematics = "수학Ⅰ";
-                public const string CriticalEnglish = "비판적 영어 글쓰기와 말하기";
-                public const string Sport = "운동과 건강";
-                public const string CreativeSolve = "창의적 문제 해결 기법";
-                public const string MathResearch = "수학과제탐구";
-                public const string Others = "창의적 체험활동";
-                public const string HomeComing = "홈커밍";
-
-                public const string Physics = "물리학Ⅰ";
-                public const string Chemistry = "화학Ⅰ";
-                public const string Biology = "생명과학Ⅰ";
-
-                public const string Ethics = "실천 윤리학의 이해";
-                public const string Environment = "인간과 환경";
-
-                public const string History = "세계사";
-                public const string Geography = "세계지리";
-                public const string Politics = "정치와 법";
-                public const string Economy = "경제";
-
-                public const string Japanese = "일본어Ⅰ";
-                public const string Spanish = "스페인어Ⅰ";
-                public const string Chinese = "중국어Ⅰ";
-            }
-            /// <summary>
-            /// CellName: Used in TimeTable Text or Pop-up Dialogs
-            /// </summary>
-            public class CellName : ComboBoxName
-            {
-                new public const string CriticalEnglish = "비영";
-                new public const string Sport = "운동";
-                new public const string CreativeSolve = "창문해";
-                new public const string MathResearch = "수과탐";
-                new public const string Others = "창체";
-                new public const string Ethics = "실윤이";
-                new public const string Environment = "인환";
-            }
-
-            //
-            //  enum에서 모두 property {get;}으로 만들것
-            //  상속을 이용한다
-            //  implicit operator을 이용해서 자동으로 string으로 변환되게끔
-            //  public static implicit operator String(LogCategory category) { return Value; } // 정한 값
-            //  각각 class마다 default 값을 추가하고
-            //  멤버 변수를 하나 두자. 뭐가 설정되었는지.
-            //
-
-            /// <summary>
-            /// (Extended) Return the string value if it is in the string[] list.
-            /// </summary>
-            /// <param name="var">this string value</param>
-            /// <param name="else">Returned if var is not in array</param>
-            /// <param name="array">Containers to check if var is in</param>
-            /// <returns>original variable if in the list, else return @else</returns>
-            static string ReturnIfHasInOrElse(this string var, string @else, params string[] array) => Array.IndexOf(array, var) > -1? var : @else;
-            /// <summary>
-            /// Reset All the subjects as None
-            /// </summary>
-            public static void Clear()
-            {
-                Sciences.Selected = Sciences.None;
-                Social1.Selected = Social1.None;
-                Social2.Selected = Social2.None;
-                Languages.Selected = Languages.None;
-            }
-
-            [RefersToCellName]
-            public static class Sciences // sealed
-            {
-                // 여기는 어쩔 수 없이 switch 때문에 const가 되어야 함...
-                public const string Physics = CellName.Physics;
-                public const string Chemistry = CellName.Chemistry;
-                public const string Biology = CellName.Biology;
-                public const string None = "과탐";
-                static string selected = None;
-                public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Physics,Chemistry,Biology); }
-            }
-
-            [RefersToCellName]
-            public static class Social1
-            {
-                public const string Ethics = CellName.Ethics;
-                public const string Environment = CellName.Environment;
-                public const string None = "전문";
-                static string selected = None;
-
-                // 이거 읽기 전용으로 만들고 get set 다가진 selected를 추가하자 그리고 변환 메서드도 만들고..
-                public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Ethics, Environment); }
-            }
-
-            [RefersToCellName]
-            public static class Social2
-            {
-                public const string History = CellName.History;
-                public const string Geography = CellName.Geography;
-                public const string Politics = CellName.Politics;
-                public const string Economy = CellName.Economy;
-                public const string None = "사탐";
-                static string selected = None;
-                public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, History, Geography, Politics, Economy); }
-            }
-
-            [RefersToCellName]
-            public class Languages
-            {
-                public const string Japanese = CellName.Japanese;
-                public const string Spanish = CellName.Spanish;
-                public const string Chinese = CellName.Chinese;
-                public const string None = "외국어";
-                static string selected = None;
-                public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Japanese, Spanish, Chinese); }
-            }
         }
     }
 }

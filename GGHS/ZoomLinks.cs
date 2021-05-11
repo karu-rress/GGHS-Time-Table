@@ -1,10 +1,6 @@
-﻿using RollingRess.GGHS.Grade2;
-using System;
+﻿using GGHS.Grade2;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 // Enables using record types as tuple-like types.
 namespace System.Runtime.CompilerServices
@@ -35,7 +31,7 @@ namespace GGHS
             public static readonly ZoomInfo CriticalEnglishC = new("https://zoom.us/j/5365083101?pwd=VDV4VHA5MVUrcDV4cDV1RitZeHovZz09", "536 508 3101", "2021");
             public static readonly ZoomInfo CriticalEnglishD = new("https://zoom.us/j/7936438089?pwd=UkZNaWhFUTE5R2xIYkRxWTRSTC90QT09", "793 643 8089", "1234");
 
-            // Social2
+            // Socials
             public static readonly ZoomInfo Politics = new("https://zoom.us/j/4613355190?pwd=WEZzaFhtTVpDZVk4L09XK1VlQ3Z5UT09", "461 335 5190", "1111");
             public static readonly ZoomInfo Economy = new("https://zoom.us/j/2521095403?pwd=MVBmOURvRGU1azRwY0lnejVwa2tjUT09", "252 109 5403", "2021");
             // public static readonly ZoomInfo History = new("");
@@ -47,7 +43,7 @@ namespace GGHS
             public static readonly ZoomInfo Chemistry = new("https://zoom.us/j/93595351190?pwd=eHVIMXVGSnFTaGhYWVprNm4xTEh0Zz09", "935 9535 1190", "2021gghs");
             public static readonly ZoomInfo Biology = new("https://zoom.us/j/4153909733?pwd=M2h3eVp5WnNPUTdJdlBwMkd1VGs1dz09", "415 390 9733", "1111");
 
-            // Social1 [Completed]
+            // Specials [Completed]
             public static readonly ZoomInfo Ethics = new("https://zoom.us/j/9401959597?pwd=TE5BSW5jSUFpaE1xKytzZ2I4Q2FWUT09", "940 195 9597", "255226");
             public static readonly ZoomInfo Environment = new("https://zoom.us/j/94849418747", "948 4941 8747", "geogeo");
 
@@ -97,6 +93,24 @@ namespace GGHS
             [Subjects.CellName.Environment] = Common.Environment,
             [Subjects.CellName.Chinese] = Common.Chinese,
             // Spanish
+            [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
+        };
+
+        public static readonly Dictionary<string, ZoomInfo> Class6 = new()
+        {
+            [Subjects.CellName.Literature] = Common.Literature4to6,
+            [Subjects.CellName.Mathematics] = Common.Math4to6,
+
+            [Subjects.CellName.CriticalEnglish + "A"] = Common.CriticalEnglishA5to8,
+            [Subjects.CellName.CriticalEnglish + "C"] = Common.CriticalEnglishC,
+            [Subjects.CellName.CriticalEnglish + "D"] = Common.CriticalEnglishD,
+
+            [Subjects.CellName.Politics] = Common.Politics,
+            [Subjects.CellName.Economy] = Common.Economy,
+
+            [Subjects.CellName.Biology] = Common.Biology,
+            [Subjects.CellName.Environment] = Common.Environment,
+            // TODO: Spanish
             [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
         };
 

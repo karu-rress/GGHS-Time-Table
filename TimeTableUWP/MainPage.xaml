@@ -9,7 +9,7 @@
     Background="#FF1C1C1C">
     <ScrollViewer HorizontalScrollBarVisibility="Visible" HorizontalScrollMode="Enabled">
         <Grid Background="#FF2E2E2E" Margin="2,0,-2,0">
-            <Grid Background="Black" Height="176" VerticalAlignment="Bottom" Margin="0,0,0,904">
+            <Grid Background="Black" Margin="0,0,0,904">
                 <TextBlock Margin="110,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft JhengHei UI Light" FontSize="65" HorizontalAlignment="Left" Width="625" Text="GGHS Time Table"></TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="1384,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="25" Width="502"><Run Text="Copyright © 2021 Sunwoo Na"/><LineBreak/><Run Text="All right reserved."/><LineBreak/><Run Text="Contact: instagram @nsun527"/></TextBlock>
             </Grid>
@@ -70,19 +70,19 @@
                     <x:String>중국어Ⅰ</x:String>
                     <x:String>일본어Ⅰ</x:String>
                 </ComboBox>
-                <TextBlock Text="Select 전문선택:" Grid.Row="6"/>
+                <TextBlock Text="Select special:" Grid.Row="6"/>
                 <ComboBox x:Name="s1comboBox" SelectionChanged="s1comboBox_SelectionChanged"  Grid.Row="7">
                     <x:String>실천 윤리학의 이해</x:String>
                     <x:String>인간과 환경</x:String>
                 </ComboBox>
-                <TextBlock Text="Select 사탐:" Grid.Row="8"/>
+                <TextBlock Text="Select social:" Grid.Row="8"/>
                 <ComboBox x:Name="s2comboBox" SelectionChanged="s2comboBox_SelectionChanged"  Grid.Row="9">
                     <x:String>세계지리</x:String>
                     <x:String>세계사</x:String>
                     <x:String>정치와 법</x:String>
                     <x:String>경제</x:String>
                 </ComboBox>
-                <TextBlock Text="Select 과탐:" Grid.Row="10"/>
+                <TextBlock Text="Select science:" Grid.Row="10"/>
                 <ComboBox x:Name="scComboBox" SelectionChanged="scComboBox_SelectionChanged"  Grid.Row="11">
                     <x:String>물리학Ⅰ</x:String>
                     <x:String>화학Ⅰ</x:String>
@@ -223,7 +223,7 @@
                 <Button Content="Use 24-hour format" Click="Button_Click_1" Grid.Row="1"/>
                 <Button Content="Example 1" Width="184" Click="Button_Click_2" Grid.Row="2"/>
                 <Button Content="Example 2" Width="184" Click="Button_Click_3" Grid.Row="2" HorizontalAlignment="Right"/>
-                <Button x:Name="zoomLinkButton" Content="How are you?" Click="Button_Click_4" Grid.Row="3"/>
+                <Button Content="(Reserved for future)" Click="Button_Click_4" Grid.Row="3"/>
 
             </Grid>
         </Grid>

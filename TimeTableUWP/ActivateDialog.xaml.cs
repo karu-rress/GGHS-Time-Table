@@ -30,14 +30,10 @@ namespace TimeTableUWP
 
     public enum ActivateLevel
     {
+        Test,
         Developer,
         Grade2,
         None
-    }
-
-    static class StaticClass
-    {
-
     }
 
     /*
@@ -59,7 +55,7 @@ namespace TimeTableUWP
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (StaticClass.AreNullOrEmpty(keyBox1.Text, keyBox2.Text, keyBox3.Text, keyBox4.Text, keyBox5.Text))
+            if (Librarys.AreNullOrEmpty(keyBox1.Text, keyBox2.Text, keyBox3.Text, keyBox4.Text, keyBox5.Text))
             {
                 MessageDialog messageDialog = new("Please enter the entire key", "Error");
                 _ = messageDialog.ShowAsync();
@@ -72,12 +68,15 @@ namespace TimeTableUWP
             switch (key.ToUpper())
             {
                 case ActivateKeys.Test:
+                    ActivateResult = ActivateLevel.Test;
                     license = "TEST";
                     break;
                 case ActivateKeys.Developer:
+                    ActivateResult = ActivateLevel.Developer;
                     license = "developer"; // TODO: make this as an enum? class?
                     break;
                 case ActivateKeys.Grade2:
+                    ActivateResult = ActivateLevel.Grade2;
                     license = "GGHS 10th";
                     break;
                 default:

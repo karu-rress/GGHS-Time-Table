@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,13 +10,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using TimeTableUWP.ComboboxItem;
 using Windows.ApplicationModel.Core;
-using System.Text;
-using System.ComponentModel;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Documents;
+using System.Windows;
 using GGHS;
-using RollingRess.GGHS.Grade2;
-using RollingRess.GGHS;
+using GGHS.Grade2;
+using RollingRess;
+using System.IO;
+using Windows.Storage;
+using System.Text;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,26 +34,6 @@ using RollingRess.GGHS;
 
 namespace TimeTableUWP
 {
-    namespace ComboboxItem
-    {
-        public static class Grade
-        {
-            public const string Grade1 = "Grade 1";
-            public const string Grade2 = "Grade 2";
-            public const string Grade3 = "Grade 3";
-        }
-        public static class Class
-        {
-            public const string Class1 = "Class 1";
-            public const string Class2 = "Class 2";
-            public const string Class3 = "Class 3";
-            public const string Class4 = "Class 4";
-            public const string Class5 = "Class 5";
-            public const string Class6 = "Class 6";
-            public const string Class7 = "Class 7";
-            public const string Class8 = "Class 8";
-        } 
-    }
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -65,42 +44,65 @@ namespace TimeTableUWP
         private int @class = 8;
         private bool use24hour = false;
 
-        enum DateType
-        {
-            YYYYMMDD,
-            MMDDYYYY,
-            YYYYMMDD2
-        }
         DateType dateType = DateType.MMDDYYYY;
         DateTime now = DateTime.Now;
-
-        static class MessageTitle
-        {
-            public const string FeatrueNotImplemented = "Featrue not implemented yet";
-        }
+        const string dataFile = "gttdat.sav";
+        const string keyFile = "gttactv.key";
 
         public MainPage()
         {
             this.InitializeComponent();
 
+            if (File.Exists(dataFile))
+            {
+                using StreamReader sr = new(dataFile);
+                string buf;
+                gradeComboBox.Text = sr.ReadLine();
+                classComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
+                langComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
+                s1comboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
+                s2comboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
+                scComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
+            }
+            if (File.Exists(keyFile))
+            {
+                using StreamReader sr = new(keyFile);
+                ActivateDialog.IsActivated = Convert.ToBoolean(sr.ReadLine());
+                ActivateDialog.ActivateResult = (ActivateLevel)Convert.ToInt32(sr.ReadLine());
+                // 읽었다는 메시지?    
+            }
             RefreshTime();
             DrawTimeTable();
 
-            classComboBox.IsEnabled
-            = langComboBox.IsEnabled
-            = s1comboBox.IsEnabled
-            = s2comboBox.IsEnabled
-            = scComboBox.IsEnabled = false;
+            Librarys.Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
+        }
+
+        async void WriteFile()
+        {
+            // TODO: 이거 파일 출력이 조금 이상함. 왜 빈 파일만 나오는지..
+            // 유니코드를 사용해야 하는 건가?
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile datFile = await storageFolder.CreateFileAsync(dataFile, CreationCollisionOption.ReplaceExisting);
+            StringBuilder sb = new();
+            sb.AppendLine(gradeComboBox.SelectedItem as string ?? "NULL");
+            sb.AppendLine(classComboBox.SelectedItem as string ?? "NULL");
+            sb.AppendLine(langComboBox.SelectedItem as string ?? "NULL");
+            sb.AppendLine(s1comboBox.SelectedItem as string ?? "NULL");
+            sb.AppendLine(s2comboBox.SelectedItem as string ?? "NULL");
+            sb.AppendLine(scComboBox.SelectedItem as string ?? "NULL");
+            await FileIO.WriteTextAsync(datFile, sb.ToString());
         }
 
         ~MainPage()
         {
-            // 현재 선택 상태 저장
             // 현재 인증 상태 저장
+            if (ActivateDialog.IsActivated)
+            {
+                using StreamWriter sw = new(keyFile);
+                sw.WriteLine(true);
+                sw.WriteLine((int)ActivateDialog.ActivateResult);
+            }
         }
-
-        private void EmptyComboBox(ref ComboBox cb)
-        => cb.SelectedIndex = -1;
 
         private async void ShowMessage(string context, string title = "")
         => await new MessageDialog(context) { Title = title }.ShowAsync();
@@ -214,11 +216,7 @@ namespace TimeTableUWP
 
         #region ComboBox
         private void EnableAllCombobox()
-        => langComboBox.IsEnabled
-            = s1comboBox.IsEnabled 
-            = s2comboBox.IsEnabled
-            = scComboBox.IsEnabled
-            = true;
+        => Librarys.Enable(langComboBox, s1comboBox, s2comboBox, scComboBox);
 
         private void gradeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -230,7 +228,8 @@ namespace TimeTableUWP
             if (grade is not 2)
             {
                 ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatrueNotImplemented);
-                EmptyComboBox(ref gradeComboBox);
+                Librarys.Empty(gradeComboBox);
+                Librarys.Disable(classComboBox);
             }
 
             /* TODO: for future
@@ -241,92 +240,65 @@ namespace TimeTableUWP
             EmptyComboBox(ref s2comboBox);
 
             */
-            classComboBox.IsEnabled = true;
+            Librarys.Enable(classComboBox);
         }
 
         private void SetComboBoxAsClass1()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Ethics;
-            s2comboBox.SelectedItem = Subjects.ComboBoxName.Politics;
-            langComboBox.SelectedItem = Subjects.ComboBoxName.Spanish;
-            scComboBox.SelectedItem = Subjects.ComboBoxName.Biology;
+            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
+            s2comboBox.SelectedItem = Subjects.RawName.Politics;
+            langComboBox.SelectedItem = Subjects.RawName.Spanish;
+            scComboBox.SelectedItem = Subjects.RawName.Biology;
 
-            s1comboBox.IsEnabled = false;
-            s2comboBox.IsEnabled = false;
-            langComboBox.IsEnabled = false;
-            scComboBox.IsEnabled = false;
+            Librarys.Disable(s1comboBox, s2comboBox, langComboBox, scComboBox);
         }
         private void SetComboBoxAsClass2()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Ethics;
-            scComboBox.SelectedItem = Subjects.ComboBoxName.Biology;
+            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
+            scComboBox.SelectedItem = Subjects.RawName.Biology;
 
-            s1comboBox.IsEnabled = false;
-            scComboBox.IsEnabled = false;
-
-            EmptyComboBox(ref langComboBox);
-            EmptyComboBox(ref s2comboBox);
+            Librarys.Disable(s1comboBox, scComboBox);
+            Librarys.Empty(langComboBox, s2comboBox);
         }
         private void SetComboBoxAsClass3()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Ethics;
-            s1comboBox.IsEnabled = false;
-
-            EmptyComboBox(ref langComboBox);
-            EmptyComboBox(ref scComboBox);
-            EmptyComboBox(ref s2comboBox);
+            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
+            Librarys.Disable(s1comboBox);
+            Librarys.Empty(langComboBox, scComboBox, s2comboBox);
         }
         private void SetComboBoxAsClass4()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Ethics;
-            langComboBox.SelectedItem = Subjects.ComboBoxName.Chinese;
-            scComboBox.SelectedItem = Subjects.ComboBoxName.Biology;
-
-            s1comboBox.IsEnabled = false;
-            langComboBox.IsEnabled = false;
-            scComboBox.IsEnabled = false;
-
-            EmptyComboBox(ref s2comboBox);
+            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
+            langComboBox.SelectedItem = Subjects.RawName.Chinese;
+            scComboBox.SelectedItem = Subjects.RawName.Biology;
+            Librarys.Disable(s1comboBox, langComboBox, scComboBox);
+            Librarys.Empty(s2comboBox);
         }
         private void SetComboBoxAsClass5()
         {
-            langComboBox.SelectedItem = Subjects.ComboBoxName.Spanish;
-            langComboBox.IsEnabled = false;
-
-            EmptyComboBox(ref scComboBox);
-            EmptyComboBox(ref s1comboBox);
-            EmptyComboBox(ref s2comboBox);
+            langComboBox.SelectedItem = Subjects.RawName.Spanish;
+            Librarys.Disable(langComboBox);
+            Librarys.Empty(scComboBox, s1comboBox, s2comboBox);
         }
         private void SetComboBoxAsClass6()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Environment;
-            langComboBox.SelectedItem = Subjects.ComboBoxName.Spanish;
-            scComboBox.SelectedItem = Subjects.ComboBoxName.Biology;
-
-            s1comboBox.IsEnabled = false;
-            langComboBox.IsEnabled = false;
-            scComboBox.IsEnabled = false;
-
-            EmptyComboBox(ref s2comboBox);
+            s1comboBox.SelectedItem = Subjects.RawName.Environment;
+            langComboBox.SelectedItem = Subjects.RawName.Spanish;
+            scComboBox.SelectedItem = Subjects.RawName.Biology;
+            Librarys.Disable(s1comboBox, langComboBox, scComboBox);
+            Librarys.Empty(s2comboBox);
         }
         private void SetComboBoxAsClass7()
         {
-            EmptyComboBox(ref langComboBox);
-            EmptyComboBox(ref scComboBox);
-            EmptyComboBox(ref s1comboBox);
-            EmptyComboBox(ref s2comboBox);
+            Librarys.Empty(langComboBox, scComboBox, s1comboBox, s2comboBox);
         }
         private void SetComboBoxAsClass8()
         {
-            s1comboBox.SelectedItem = Subjects.ComboBoxName.Environment;
-            s1comboBox.IsEnabled = false;
-
-            EmptyComboBox(ref langComboBox);
-            EmptyComboBox(ref scComboBox);
-            EmptyComboBox(ref s2comboBox);
+            s1comboBox.SelectedItem = Subjects.RawName.Environment;
+            Librarys.Disable(s1comboBox);
+            Librarys.Empty(langComboBox, scComboBox, s2comboBox);
         }
 
-        delegate void SetSubjectDelegate();
         private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (classComboBox.SelectedItem is null)
@@ -353,7 +325,6 @@ namespace TimeTableUWP
             DrawTimeTable();
         }
 
-        [RefersToComboBoxName]
         private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (langComboBox.SelectedItem is null)
@@ -362,30 +333,27 @@ namespace TimeTableUWP
             DrawTimeTable();
         }
 
-        [RefersToCellName]
         private void s1comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (s1comboBox.SelectedItem is null)
                 return;
-            Subjects.Social1.Selected = (s1comboBox.SelectedItem as string) switch
+            Subjects.Specials.Selected = (s1comboBox.SelectedItem as string) switch
             {
-                Subjects.ComboBoxName.Ethics => Subjects.Social1.Ethics,
-                Subjects.ComboBoxName.Environment => Subjects.Social1.Environment,
+                Subjects.RawName.Ethics => Subjects.Specials.Ethics,
+                Subjects.RawName.Environment => Subjects.Specials.Environment,
                 _ => throw new Exception("ComboBox.SelectedItem returned wrong value")
             };
             DrawTimeTable();
         }
 
-        [RefersToComboBoxName]
         private void s2comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (s2comboBox.SelectedItem is null)
                 return;
-            Subjects.Social2.Selected = s2comboBox.SelectedItem as string;
+            Subjects.Socials.Selected = s2comboBox.SelectedItem as string;
             DrawTimeTable();
         }
 
-        [RefersToComboBoxName]
         private void scComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (scComboBox.SelectedItem is null)
@@ -409,23 +377,21 @@ namespace TimeTableUWP
         => use24hour = !use24hour;
         #endregion
 
-        [RefersToComboBoxName]
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             gradeComboBox.SelectedItem = Grade.Grade2;
             classComboBox.SelectedItem = Class.Class4;
-            s2comboBox.SelectedItem = Subjects.ComboBoxName.Politics;
+            s2comboBox.SelectedItem = Subjects.RawName.Politics;
             DrawTimeTable();
         }
 
-        [RefersToComboBoxName]
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             gradeComboBox.SelectedItem = Grade.Grade2;
             classComboBox.SelectedItem = Class.Class8;
-            langComboBox.SelectedItem = Subjects.ComboBoxName.Chinese;
-            s2comboBox.SelectedItem = Subjects.ComboBoxName.Economy;
-            scComboBox.SelectedItem = Subjects.ComboBoxName.Chemistry;
+            langComboBox.SelectedItem = Subjects.RawName.Chinese;
+            s2comboBox.SelectedItem = Subjects.RawName.Economy;
+            scComboBox.SelectedItem = Subjects.RawName.Chemistry;
             DrawTimeTable();
         }
 
@@ -435,7 +401,12 @@ namespace TimeTableUWP
 
         private async Task ShowSubjectZoom(string subjectCellName)
         {
-            if (@class != 4 && @class != 8)
+            if (subjectCellName is null)
+            {
+                ShowMessage("Please select your grade and class first.", "Error");
+                return;
+            }
+            if (@class is not (4 or 5 or 6 or 8))
             {
                 ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.", MessageTitle.FeatrueNotImplemented);
                 return;
@@ -459,6 +430,8 @@ namespace TimeTableUWP
             var thisClass = @class switch
             {
                 4 => ZoomLinks.Class4,
+                5 => ZoomLinks.Class5,
+                6 => ZoomLinks.Class6,
                 8 => ZoomLinks.Class8,
                 _ => throw new NotImplementedException()
             };

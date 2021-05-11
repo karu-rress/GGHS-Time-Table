@@ -8,10 +8,10 @@
 
   <Identity
     Name="43869RollingRess.GGHSTimeTable"
-    Publisher="CN=Rolling Ress"
-    Version="1.6.1.0" />
+    Publisher="CN=A20999E7-9369-49AA-B89C-1CC2A7AAB5EA"
+    Version="1.7.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="cfe779af-888f-4012-aa7f-cfe511683617" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f4bfbbab-91e2-4503-b736-47debf171798" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>GGHS Time Table</DisplayName>

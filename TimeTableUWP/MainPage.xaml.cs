@@ -13,11 +13,12 @@ using Windows.UI.Xaml.Media;
 using TimeTableUWP.ComboboxItem;
 using Windows.ApplicationModel.Core;
 using System.Text;
-using GGHS.Grade2;
 using System.ComponentModel;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Documents;
 using GGHS;
+using RollingRess.GGHS.Grade2;
+using RollingRess.GGHS;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -90,6 +91,12 @@ namespace TimeTableUWP
             = s1comboBox.IsEnabled
             = s2comboBox.IsEnabled
             = scComboBox.IsEnabled = false;
+        }
+
+        ~MainPage()
+        {
+            // 현재 선택 상태 저장
+            // 현재 인증 상태 저장
         }
 
         private void EmptyComboBox(ref ComboBox cb)
@@ -433,6 +440,21 @@ namespace TimeTableUWP
                 ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.", MessageTitle.FeatrueNotImplemented);
                 return;
             }
+
+            if (ActivateDialog.IsActivated is false)
+            {
+                ActivateDialog activateDialog = new();
+                var activeSelection = await activateDialog.ShowAsync();
+
+                // 인증을 하지 않았다면 return
+                if (activeSelection is not ContentDialogResult.Primary || ActivateDialog.IsActivated is false)
+                {
+                    return;
+                }
+            }
+
+            // TODO: Activate Dialog 개발자, 3학년, 2학년, 1학년 따라 나누는 것도 해야 함.
+
             ZoomLinks.ZoomInfo zoomInfo;
             var thisClass = @class switch
             {
@@ -462,7 +484,7 @@ PW: {zoomInfo.Pw}
 Click 'Open Zoom Meeting' or the link above to join the zoom." });
             ContentDialog contentDialog = new()
             {
-                Title = $"{subjectCellName} Zoom Link",
+                Title = $"{classComboBox.SelectedItem as string} {subjectCellName} Zoom Link",
                 Content = tb,
                 PrimaryButtonText = "Open Zoom Meeting",
                 CloseButtonText = "Close",

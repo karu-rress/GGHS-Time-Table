@@ -36,6 +36,7 @@
                     <Setter Property="Height" Value="35"/>
                     <Setter Property="Width" Value="75"/>
                     <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="MaxLength" Value="5"/>
                     <Setter Property="VerticalAlignment" Value="Top"/>
                 </Style>
                 <Style TargetType="TextBlock">
@@ -43,11 +44,11 @@
                     <Setter Property="Text" Value="―"/>
                 </Style>
             </Grid.Resources>
-            <TextBox x:Name="keyBox1" Grid.Column="0" />
-            <TextBox x:Name="keyBox2" Grid.Column="2" />
-            <TextBox x:Name="keyBox3" Grid.Column="4" />
-            <TextBox x:Name="keyBox4" Grid.Column="6" />
-            <TextBox x:Name="keyBox5" Grid.Column="8" />
+            <TextBox x:Name="keyBox1" Grid.Column="0" TextChanged="keyBox1_TextChanged" />
+            <TextBox x:Name="keyBox2" Grid.Column="2" TextChanged="keyBox2_TextChanged" />
+            <TextBox x:Name="keyBox3" Grid.Column="4" TextChanged="keyBox3_TextChanged" />
+            <TextBox x:Name="keyBox4" Grid.Column="6" TextChanged="keyBox4_TextChanged"/>
+            <TextBox x:Name="keyBox5" Grid.Column="8" TextChanged="keyBox5_TextChanged"/>
 
             <TextBlock Grid.Column="1"/>
             <TextBlock Grid.Column="3"/>

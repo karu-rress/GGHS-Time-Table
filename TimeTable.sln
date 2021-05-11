@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTableUWP", "TimeTableUWP\TimeTableUWP.csproj", "{92506C5F-8D99-4AE7-95DA-E1CAAEFAFA19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectsDll", "SubjectsDll\SubjectsDll.csproj", "{A9DB5170-1E37-4A7C-8169-7355118A16F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTableDatas", "SubjectsDll\TimeTableDatas.csproj", "{A9DB5170-1E37-4A7C-8169-7355118A16F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79E9D860-335F-4D39-9E42-FD48526FFBBB}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Datas.txt = Datas.txt
 		TODO.txt = TODO.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGHS", "GGHS\GGHS.csproj", "{4A076ADA-C21D-4AC5-9158-3FE548B566C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,26 @@ Global
 		{A9DB5170-1E37-4A7C-8169-7355118A16F7}.Release|x64.Build.0 = Release|x64
 		{A9DB5170-1E37-4A7C-8169-7355118A16F7}.Release|x86.ActiveCfg = Release|x86
 		{A9DB5170-1E37-4A7C-8169-7355118A16F7}.Release|x86.Build.0 = Release|x86
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|ARM.Build.0 = Debug|ARM
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|ARM64.Build.0 = Debug|ARM64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|x64.ActiveCfg = Debug|x64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|x64.Build.0 = Debug|x64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|x86.ActiveCfg = Debug|x86
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Debug|x86.Build.0 = Debug|x86
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|ARM.ActiveCfg = Release|ARM
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|ARM.Build.0 = Release|ARM
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|ARM64.ActiveCfg = Release|ARM64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|ARM64.Build.0 = Release|ARM64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|x64.ActiveCfg = Release|x64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|x64.Build.0 = Release|x64
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|x86.ActiveCfg = Release|x86
+		{4A076ADA-C21D-4AC5-9158-3FE548B566C0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,13 +21,14 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>A5CD26F99AA7D081212C90A38ADBB06AF1FDCD60</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>462D8F5E84764E80DF0E36DA748C47A1DB793110</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <PackageCertificateKeyFile />
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
     <AppInstallerUri>https://drive.google.com/drive/folders/1awYn3zFfrBMs3hxu3YXscrzvtcilgJ3w%3fusp=sharing</AppInstallerUri>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -226,9 +227,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SubjectsDll\SubjectsDll.csproj">
+    <ProjectReference Include="..\GGHS\GGHS.csproj">
+      <Project>{4a076ada-c21d-4ac5-9158-3fe548b566c0}</Project>
+      <Name>GGHS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubjectsDll\TimeTableDatas.csproj">
       <Project>{a9db5170-1e37-4a7c-8169-7355118a16f7}</Project>
-      <Name>SubjectsDll</Name>
+      <Name>TimeTableDatas</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

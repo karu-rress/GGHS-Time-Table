@@ -18,6 +18,8 @@ using RollingRess;
 using System.IO;
 using Windows.Storage;
 using System.Text;
+using static RollingRess.Librarys;
+using System.Collections.Generic;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,6 +40,8 @@ namespace TimeTableUWP
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     /// 
+
+
     public sealed partial class MainPage : Page
     {
         private int grade;
@@ -46,13 +50,13 @@ namespace TimeTableUWP
 
         DateType dateType = DateType.MMDDYYYY;
         DateTime now = DateTime.Now;
-        const string dataFile = "gttdat.sav";
-        const string keyFile = "gttactv.key";
 
         public MainPage()
         {
-            this.InitializeComponent();
-
+            InitializeComponent();
+            /*
+            #region 파일 읽기
+            bool resutl = await SaveData.ReadDataAsync()
             if (File.Exists(dataFile))
             {
                 using StreamReader sr = new(dataFile);
@@ -67,54 +71,20 @@ namespace TimeTableUWP
             if (File.Exists(keyFile))
             {
                 using StreamReader sr = new(keyFile);
-                ActivateDialog.IsActivated = Convert.ToBoolean(sr.ReadLine());
+                SaveData.IsActivated = Convert.ToBoolean(sr.ReadLine());
                 ActivateDialog.ActivateResult = (ActivateLevel)Convert.ToInt32(sr.ReadLine());
                 // 읽었다는 메시지?    
             }
-            RefreshTime();
+            #endregion
+            */
+            _ = LoopTime();
             DrawTimeTable();
 
-            Librarys.Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
-        }
-
-        async void WriteFile()
-        {
-            // TODO: 이거 파일 출력이 조금 이상함. 왜 빈 파일만 나오는지..
-            // 유니코드를 사용해야 하는 건가?
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            StorageFile datFile = await storageFolder.CreateFileAsync(dataFile, CreationCollisionOption.ReplaceExisting);
-            StringBuilder sb = new();
-            sb.AppendLine(gradeComboBox.SelectedItem as string ?? "NULL");
-            sb.AppendLine(classComboBox.SelectedItem as string ?? "NULL");
-            sb.AppendLine(langComboBox.SelectedItem as string ?? "NULL");
-            sb.AppendLine(s1comboBox.SelectedItem as string ?? "NULL");
-            sb.AppendLine(s2comboBox.SelectedItem as string ?? "NULL");
-            sb.AppendLine(scComboBox.SelectedItem as string ?? "NULL");
-            await FileIO.WriteTextAsync(datFile, sb.ToString());
-        }
-
-        ~MainPage()
-        {
-            // 현재 인증 상태 저장
-            if (ActivateDialog.IsActivated)
-            {
-                using StreamWriter sw = new(keyFile);
-                sw.WriteLine(true);
-                sw.WriteLine((int)ActivateDialog.ActivateResult);
-            }
+            Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
         }
 
         private async void ShowMessage(string context, string title = "")
         => await new MessageDialog(context) { Title = title }.ShowAsync();
-
-        private async void ShowContent(string content, string title = "")
-            => await new ContentDialog() { Title = title, Content = content, CloseButtonText = "OK" }.ShowAsync();
-
-        private void ShowErrorMessage(Exception arg)
-        => ShowMessage(arg.ToString(), "An error has occured.");
-
-        private void RefreshTime()
-        => _ = LoopTime();
 
         private async Task LoopTime() => await Task.Factory.StartNew(() =>
         {
@@ -129,7 +99,7 @@ namespace TimeTableUWP
                 };
             while (true)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(200);
                 now = DateTime.Now;
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -173,33 +143,40 @@ namespace TimeTableUWP
                     16 => 7,
                     _ => throw new IndexOutOfRangeException()
                 };
+
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () => table[pos.day - 1, pos.time - 1].Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD)));
+                () => {
+                    foreach (var item in table)
+                    {
+                        if (item.Background == new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD)))
+                            item.Background = new SolidColorBrush(Colors.Black);
+                        if (item.Foreground == new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD)))
+                            item.Foreground = new SolidColorBrush(Colors.White);
+                    }
+                    table[pos.day - 1, pos.time - 1].Background =
+                    new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                    if (pos.time is <= 6) {
+                        table[pos.day - 1, pos.time].Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                    }
+                    });
             }
         });
 
         private void DrawTimeTable()
         {
             TimeTables.ResetByClass(@class);
-            string[,] table = @class switch
-            {
-                1 => TimeTables.Class1.Clone() as string[,],
-                2 => TimeTables.Class2.Clone() as string[,],
-                3 => TimeTables.Class3.Clone() as string[,],
-                4 => TimeTables.Class4.Clone() as string[,],
-                5 => TimeTables.Class5.Clone() as string[,],
-                6 => TimeTables.Class6.Clone() as string[,],
-                7 => TimeTables.Class7.Clone() as string[,],
-                8 => TimeTables.Class8.Clone() as string[,],
-                _ => throw new NotImplementedException()
-            };
+            string[,] table = SetArrayByClass();
 
             // 월 6, 7 / 금 5, 6은 어차피 창체, 금 7도 어차피 홈커밍
             mon6Button.Content = mon7Button.Content = fri5Button.Content = fri6Button.Content = Subjects.CellName.Others;
             fri7Button.Content = Subjects.CellName.HomeComing;
+            AssignButtonsByTable(table);
+        }
 
+        private void AssignButtonsByTable(string[,] table)
+        {
             (mon1Button.Content, mon2Button.Content, mon3Button.Content, mon4Button.Content, mon5Button.Content) =
-                (table[0, 0], table[0, 1], table[0, 2], table[0, 3], table[0, 4]);
+                            (table[0, 0], table[0, 1], table[0, 2], table[0, 3], table[0, 4]);
 
             (tue1Button.Content, tue2Button.Content, tue3Button.Content, tue4Button.Content, tue5Button.Content, tue6Button.Content, tue7Button.Content) =
                 (table[1, 0], table[1, 1], table[1, 2], table[1, 3], table[1, 4], table[1, 5], table[1, 6]);
@@ -214,6 +191,19 @@ namespace TimeTableUWP
                 (table[4, 0], table[4, 1], table[4, 2], table[4, 3]);
         }
 
+        private string[,] SetArrayByClass() => @class switch
+        {
+            1 => TimeTables.Class1.Clone() as string[,],
+            2 => TimeTables.Class2.Clone() as string[,],
+            3 => TimeTables.Class3.Clone() as string[,],
+            4 => TimeTables.Class4.Clone() as string[,],
+            5 => TimeTables.Class5.Clone() as string[,],
+            6 => TimeTables.Class6.Clone() as string[,],
+            7 => TimeTables.Class7.Clone() as string[,],
+            8 => TimeTables.Class8.Clone() as string[,],
+            _ => throw new Exception()
+        };
+
         #region ComboBox
         private void EnableAllCombobox()
         => Librarys.Enable(langComboBox, s1comboBox, s2comboBox, scComboBox);
@@ -222,25 +212,23 @@ namespace TimeTableUWP
         {
             // EnableAllCombobox();
             if (gradeComboBox.SelectedItem is null)
+            {
                 return;
+            }
 
-            grade = (((gradeComboBox.SelectedItem as string)?[6]) ?? '8') - '0';
-            if (grade is not 2)
+            SaveData.GradeComboBoxText = gradeComboBox.SelectedItem as string;
+            grade = SaveData.GradeComboBoxText[6] - '0';
+            if (grade is 2)
+            {
+                Librarys.Enable(classComboBox);
+            }
+            else
             {
                 ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatrueNotImplemented);
                 Librarys.Empty(gradeComboBox);
                 Librarys.Disable(classComboBox);
             }
-
-            /* TODO: for future
-            EmptyComboBox(ref classComboBox);
-            EmptyComboBox(ref langComboBox);
-            EmptyComboBox(ref scComboBox);
-            EmptyComboBox(ref s1comboBox);
-            EmptyComboBox(ref s2comboBox);
-
-            */
-            Librarys.Enable(classComboBox);
+            // TODO: for future, empty all combobox except grade & class
         }
 
         private void SetComboBoxAsClass1()
@@ -302,34 +290,59 @@ namespace TimeTableUWP
         private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (classComboBox.SelectedItem is null)
+            {
                 return;
+            }
             EnableAllCombobox();
             Subjects.Clear();
 
             // Get & Set Class
-            @class = (classComboBox.SelectedItem as string)[6] - '0';
+            SaveData.ClassComboBoxText = classComboBox.SelectedItem as string;
+            @class = SaveData.ClassComboBoxText[6] - '0';
             TimeTables.ResetByClass(@class);
-            Action setComboBox = @class switch
-            {
-                1 => SetComboBoxAsClass1,
-                2 => SetComboBoxAsClass2,
-                3 => SetComboBoxAsClass3,
-                4 => SetComboBoxAsClass4,
-                5 => SetComboBoxAsClass5,
-                6 => SetComboBoxAsClass6,
-                7 => SetComboBoxAsClass7,
-                8 => SetComboBoxAsClass8,
-                _ => throw new IndexOutOfRangeException()
-            };
-            setComboBox();
+            SetComboBoxAsClass();
             DrawTimeTable();
+            
+        }
+
+        private void SetComboBoxAsClass()
+        {
+            switch (@class)
+            {
+                case 1:
+                    SetComboBoxAsClass1();
+                    return;
+                case 2:
+                    SetComboBoxAsClass2();
+                    return;
+                case 3:
+                    SetComboBoxAsClass3();
+                    return;
+                case 4:
+                    SetComboBoxAsClass4();
+                    return;
+                case 5:
+                    SetComboBoxAsClass5();
+                    return;
+                case 6:
+                    SetComboBoxAsClass6();
+                    return;
+                case 7:
+                    SetComboBoxAsClass7();
+                    return;
+                case 8:
+                    SetComboBoxAsClass8();
+                    return;
+            }
         }
 
         private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (langComboBox.SelectedItem is null)
+            {
                 return;
-            Subjects.Languages.Selected = langComboBox.SelectedItem as string;
+            }
+            SaveData.LangComboBoxText = Subjects.Languages.Selected = langComboBox.SelectedItem as string;
             DrawTimeTable();
         }
 
@@ -337,7 +350,8 @@ namespace TimeTableUWP
         {
             if (s1comboBox.SelectedItem is null)
                 return;
-            Subjects.Specials.Selected = (s1comboBox.SelectedItem as string) switch
+            SaveData.SpecialComboBoxText = s1comboBox.SelectedItem as string;
+            Subjects.Specials.Selected = SaveData.SpecialComboBoxText switch
             {
                 Subjects.RawName.Ethics => Subjects.Specials.Ethics,
                 Subjects.RawName.Environment => Subjects.Specials.Environment,
@@ -350,7 +364,7 @@ namespace TimeTableUWP
         {
             if (s2comboBox.SelectedItem is null)
                 return;
-            Subjects.Socials.Selected = s2comboBox.SelectedItem as string;
+            SaveData.SocialComboBoxText = Subjects.Socials.Selected = s2comboBox.SelectedItem as string;
             DrawTimeTable();
         }
 
@@ -358,7 +372,7 @@ namespace TimeTableUWP
         {
             if (scComboBox.SelectedItem is null)
                 return;
-            Subjects.Sciences.Selected = scComboBox.SelectedItem as string;
+            SaveData.ScienceComboBoxText = Subjects.Sciences.Selected = scComboBox.SelectedItem as string;
             DrawTimeTable();
         }
         #endregion
@@ -412,13 +426,13 @@ namespace TimeTableUWP
                 return;
             }
 
-            if (ActivateDialog.IsActivated is false)
+            if (SaveData.IsActivated is false)
             {
                 ActivateDialog activateDialog = new();
                 var activeSelection = await activateDialog.ShowAsync();
 
                 // 인증을 하지 않았다면 return
-                if (activeSelection is not ContentDialogResult.Primary || ActivateDialog.IsActivated is false)
+                if (activeSelection is not ContentDialogResult.Primary || SaveData.IsActivated is false)
                 {
                     return;
                 }
@@ -426,17 +440,8 @@ namespace TimeTableUWP
 
             // TODO: Activate Dialog 개발자, 3학년, 2학년, 1학년 따라 나누는 것도 해야 함.
 
-            ZoomLinks.ZoomInfo zoomInfo;
-            var thisClass = @class switch
-            {
-                4 => ZoomLinks.Class4,
-                5 => ZoomLinks.Class5,
-                6 => ZoomLinks.Class6,
-                8 => ZoomLinks.Class8,
-                _ => throw new NotImplementedException()
-            };
-
-            if (thisClass.TryGetValue(subjectCellName, out zoomInfo) is false)
+            // ZoomLinks.ZoomInfo zoomInfo;
+            if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false)
             {
                 ShowMessage($"Zoom Link for {subjectCellName} is not available.", "No Data for Zoom Link");
                 return;
@@ -469,6 +474,18 @@ Click 'Open Zoom Meeting' or the link above to join the zoom." });
             {
                 await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
             }
+        }
+
+        private Dictionary<string, ZoomLinks.ZoomInfo> GetClassZoomLink()
+        {
+            return @class switch
+            {
+                4 => ZoomLinks.Class4,
+                5 => ZoomLinks.Class5,
+                6 => ZoomLinks.Class6,
+                8 => ZoomLinks.Class8,
+                _ => throw new NotImplementedException()
+            };
         }
 
         #region Cell Buttons

@@ -49,8 +49,6 @@ namespace TimeTableUWP
             this.InitializeComponent();
         }
 
-        public static bool IsActivated { get; set; } = false;
-        public static ActivateLevel ActivateResult { get; set; } = ActivateLevel.None;
         // TextBox[] keyBoxArray = new TextBox[5];
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -68,21 +66,21 @@ namespace TimeTableUWP
             switch (key.ToUpper())
             {
                 case ActivateKeys.Test:
-                    ActivateResult = ActivateLevel.Test;
+                    SaveData.ActivateStatus = ActivateLevel.Test;
                     license = "TEST";
                     break;
                 case ActivateKeys.Developer:
-                    ActivateResult = ActivateLevel.Developer;
+                    SaveData.ActivateStatus = ActivateLevel.Developer;
                     license = "developer"; // TODO: make this as an enum? class?
                     break;
                 case ActivateKeys.Grade2:
-                    ActivateResult = ActivateLevel.Grade2;
+                    SaveData.ActivateStatus = ActivateLevel.Grade2;
                     license = "GGHS 10th";
                     break;
                 default:
                     return;
             }
-            IsActivated = true;
+            SaveData.IsActivated = true;
             MessageDialog message = new($"Activated as {license}.", "Activated successfully");
             _ = message.ShowAsync();
         }

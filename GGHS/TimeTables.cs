@@ -25,8 +25,8 @@ namespace GGHS
             {
                 foreach (var item in new[] { Class1, Class2, Class3, Class4, Class5, Class6, Class7, Class8 })
                 {
-                    item[0, 5] = item[0, 6] = item[4, 4] = item[4, 5] = Subjects.CellName.Others;
-                    item[4, 6] = Subjects.CellName.HomeComing;
+                    item.Of(Monday, 6) = item.Of(Monday, 7) = item.Of(Friday, 5) = item.Of(Friday, 6) = Subjects.CellName.Others;
+                    item.Of(Friday, 7) = Subjects.CellName.HomeComing;
                 }
                 ResetByClass(8);
             }
@@ -49,57 +49,57 @@ namespace GGHS
                 return ref @class[(int)day - 1, time - 1];
             }
 
+            // 모든 선택과목 업데이ㅡ
             public static void ResetByClass(int @class)
             {
-                // TODO: Change all to SubjectOf() for future?
                 switch (@class)
                 {
                     case 1:
-                        Class1[1, 0] = Class1[3, 2] = Class1[4, 1] = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                        Class1[0, 0] = Class1[1, 6] = Class1[2, 3] = Subjects.Socials.Selected = Subjects.Socials.Politics;
-                        Class1[0, 1] = Class1[3, 0] = Class1[4, 0] = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                        Class1[1, 2] = Class1[2, 6] = Class1[4, 3] = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
+                        Class1.Of(Tuesday, 1) = Class1.Of(Thursday, 3) = Class1.Of(Friday, 2) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
+                        Class1.Of(Monday, 1) = Class1.Of(Tuesday, 7) = Class1.Of(Wednesday, 4) = Subjects.Socials.Selected = Subjects.Socials.Politics;
+                        Class1.Of(Monday, 2) = Class1.Of(Thursday, 1) = Class1.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        Class1.Of(Tuesday, 3) = Class1.Of(Wednesday, 7) = Class1.Of(Friday, 4) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
                         break;
                     case 2:
-                        Class2[1, 1] = Class2[2, 6] = Class2[3, 4] = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                        Class2[0, 4] = Class2[3, 6] = Class2[4, 2] = Subjects.Socials.Selected;
-                        Class2[0, 0] = Class2[2, 5] = Class2[3, 5] = Subjects.Languages.Selected;
-                        Class2[1, 4] = Class2[2, 0] = Class2[4, 0] = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
+                        Class2.Of(Tuesday, 2) = Class2.Of(Wednesday, 7) = Class2.Of(Thursday, 5) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
+                        Class2.Of(Monday, 5) = Class2.Of(Thursday, 7) = Class2.Of(Friday, 3) = Subjects.Socials.Selected;
+                        Class2.Of(Monday, 1) = Class2.Of(Wednesday, 6) = Class2.Of(Thursday, 6) = Subjects.Languages.Selected;
+                        Class2.Of(Tuesday, 5) = Class2.Of(Wednesday, 1) = Class2.Of(Friday, 1) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
                         break;
                     case 3:
-                        Class3[0, 4] = Class3[1, 5] = Class3[3, 1] = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                        Class3[1, 3] = Class3[3, 3] = Class3[4, 3] = Subjects.Socials.Selected;
-                        Class3[1, 6] = Class3[2, 3] = Class3[3, 6] = Subjects.Languages.Selected;
-                        Class3[0, 1] = Class3[2, 4] = Class3[3, 4] = Subjects.Sciences.Selected;
+                        Class3.Of(Monday, 5) = Class3.Of(Tuesday, 6) = Class3.Of(Thursday, 2) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
+                        Class3.Of(Tuesday, 4) = Class3.Of(Thursday, 4) = Class3.Of(Friday, 4) = Subjects.Socials.Selected;
+                        Class3.Of(Tuesday, 7) = Class3.Of(Wednesday, 4) = Class3.Of(Thursday, 7) = Subjects.Languages.Selected;
+                        Class3.Of(Monday, 2) = Class3.Of(Wednesday, 5) = Class3.Of(Thursday, 5) = Subjects.Sciences.Selected;
                         break;
                     case 4:
-                        Class4[0, 1] = Class4[1, 6] = Class4[2, 5] = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                        Class4[0, 4] = Class4[3, 6] = Class4[4, 2] = Subjects.Socials.Selected;
-                        Class4[1, 0] = Class4[3, 4] = Class4[4, 0] = Subjects.Languages.Selected = Subjects.Languages.Chinese;
-                        Class4[0, 2] = Class4[3, 5] = Class4[4, 1] = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
+                        Class4.Of(Monday, 2) = Class4.Of(Tuesday, 7) = Class4.Of(Wednesday, 6) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
+                        Class4.Of(Monday, 5) = Class4.Of(Thursday, 7) = Class4.Of(Friday, 3) = Subjects.Socials.Selected;
+                        Class4.Of(Tuesday, 1) = Class4.Of(Thursday, 5) = Class4.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Chinese;
+                        Class4.Of(Monday, 3) = Class4.Of(Thursday, 6) = Class4.Of(Friday, 2) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
                         break;
                     case 5:
-                        Class5[0, 2] = Class5[3, 6] = Class5[4, 0] = Subjects.Specials.Selected;
-                        Class5[1, 3] = Class5[3, 3] = Class5[4, 3] = Subjects.Socials.Selected;
-                        Class5[0, 3] = Class5[1, 2] = Class5[2, 1] = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                        Class5[0, 1] = Class5[2, 4] = Class5[3, 4] = Subjects.Sciences.Selected;
+                        Class5.Of(Monday, 3) = Class5.Of(Thursday, 7) = Class5.Of(Friday, 1) = Subjects.Specials.Selected;
+                        Class5.Of(Tuesday, 4) = Class5.Of(Thursday, 4) = Class5.Of(Friday, 4) = Subjects.Socials.Selected;
+                        Class5.Of(Monday, 4) = Class5.Of(Tuesday, 3) = Class5.Of(Wednesday, 2) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        Class5.Of(Monday, 2) = Class5.Of(Wednesday, 5) = Class5.Of(Thursday, 5) = Subjects.Sciences.Selected;
                         break;
                     case 6:
-                        Class6[1, 1] = Class6[2, 4] = Class6[4, 3] = Subjects.Specials.Selected = Subjects.Specials.Environment;
-                        Class6[0, 4] = Class6[3, 6] = Class6[4, 2] = Subjects.Socials.Selected;
-                        Class6[1, 3] = Class6[3, 1] = Class6[4, 1] = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                        Class6[1, 6] = Class6[2, 3] = Class6[3, 2] = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
+                        Class6.Of(Tuesday, 2) = Class6.Of(Wednesday, 5) = Class6.Of(Friday, 4) = Subjects.Specials.Selected = Subjects.Specials.Environment;
+                        Class6.Of(Monday, 5) = Class6.Of(Thursday, 7) = Class6.Of(Friday, 3) = Subjects.Socials.Selected;
+                        Class6.Of(Tuesday, 4) = Class6.Of(Thursday, 2) = Class6.Of(Friday, 2) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        Class6.Of(Tuesday, 7) = Class6.Of(Wednesday, 4) = Class6.Of(Thursday, 3) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
                         break;
                     case 7:
-                        Class7[0, 2] = Class7[3, 6] = Class7[4, 0] = Subjects.Specials.Selected;
-                        Class7[1, 3] = Class7[3, 3] = Class7[4, 3] = Subjects.Socials.Selected;
-                        Class7[0, 0] = Class7[2, 5] = Class7[3, 5] = Subjects.Languages.Selected;
-                        Class7[0, 4] = Class7[2, 1] = Class7[3, 0] = Subjects.Sciences.Selected;
+                        Class7.Of(Monday, 3) = Class7.Of(Thursday, 7) = Class7.Of(Friday, 1) = Subjects.Specials.Selected;
+                        Class7.Of(Tuesday, 4) = Class7.Of(Thursday, 4) = Class7.Of(Friday, 4) = Subjects.Socials.Selected;
+                        Class7.Of(Monday, 1) = Class7.Of(Wednesday, 6) = Class7.Of(Thursday, 6) = Subjects.Languages.Selected;
+                        Class7.Of(Monday, 5) = Class7.Of(Wednesday, 2) = Class7.Of(Thursday, 1) = Subjects.Sciences.Selected;
                         break;
                     case 8:
-                        Class8[1, 5] = Class8[3, 1] = Class8[4, 1] = Subjects.Specials.Selected = Subjects.Specials.Environment;
-                        Class8[1, 3] = Class8[3, 3] = Class8[4, 3] = Subjects.Socials.Selected;
-                        Class8[1, 6] = Class8[2, 3] = Class8[3, 6] = Subjects.Languages.Selected;
+                        Class8.Of(Tuesday, 6) = Class8.Of(Thursday, 2) = Class8.Of(Friday, 2) = Subjects.Specials.Selected = Subjects.Specials.Environment;
+                        Class8.Of(Tuesday, 4) = Class8.Of(Thursday, 4) = Class8.Of(Friday, 4) = Subjects.Socials.Selected;
+                        Class8.Of(Tuesday, 7) = Class8.Of(Wednesday, 4) = Class8.Of(Thursday, 7) = Subjects.Languages.Selected;
                         Class8.Of(Monday, 5) = Class8.Of(Wednesday, 2) = Class8.Of(Thursday, 1) = Subjects.Sciences.Selected;
                         break;
                 }

@@ -27,9 +27,4 @@ namespace TimeTableUWP
     {
         public const string FeatrueNotImplemented = "Featrue not implemented yet";
     }
-    public class CoreData
-    {
-        public const string dataFile = "";
-        public const string keyFile = "";
-    }
 }

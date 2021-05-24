@@ -11,13 +11,9 @@ using Windows.UI.Xaml.Media;
 using TimeTableUWP.ComboboxItem;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Documents;
-using System.Windows;
 using GGHS;
 using GGHS.Grade2;
 using RollingRess;
-using System.IO;
-using Windows.Storage;
-using System.Text;
 using static RollingRess.Librarys;
 using System.Collections.Generic;
 
@@ -54,39 +50,32 @@ namespace TimeTableUWP
         public MainPage()
         {
             InitializeComponent();
-            /*
-            #region 파일 읽기
-            bool resutl = await SaveData.ReadDataAsync()
-            if (File.Exists(dataFile))
-            {
-                using StreamReader sr = new(dataFile);
-                string buf;
-                gradeComboBox.Text = sr.ReadLine();
-                classComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
-                langComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
-                s1comboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
-                s2comboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
-                scComboBox.Text = (buf = sr.ReadLine()) is "NULL" ? null : buf;
-            }
-            if (File.Exists(keyFile))
-            {
-                using StreamReader sr = new(keyFile);
-                SaveData.IsActivated = Convert.ToBoolean(sr.ReadLine());
-                ActivateDialog.ActivateResult = (ActivateLevel)Convert.ToInt32(sr.ReadLine());
-                // 읽었다는 메시지?    
-            }
-            #endregion
-            */
-            _ = LoopTime();
-            DrawTimeTable();
-
+            _ = LoopTimeAsync();
             Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
+            _ = LoadDataFromFileAsync();
+        }
+
+        private async Task LoadDataFromFileAsync()
+        {
+            if (await SaveData.LoadDataAsync() is true)
+            {
+                SaveData.SetGradeAndClass(ref grade, ref @class);
+                SetComboBoxAsClass();
+                SaveData.SetComboBoxes(
+                    ref gradeComboBox,
+                    ref classComboBox,
+                    ref s1comboBox,
+                    ref s2comboBox,
+                    ref langComboBox,
+                    ref scComboBox
+                    );
+            }
         }
 
         private async void ShowMessage(string context, string title = "")
         => await new MessageDialog(context) { Title = title }.ShowAsync();
 
-        private async Task LoopTime() => await Task.Factory.StartNew(() =>
+        private async Task LoopTimeAsync() => await Task.Factory.StartNew(() =>
         {
             (int day, int time) pos;
             Button[,] table =
@@ -148,9 +137,7 @@ namespace TimeTableUWP
                 () => {
                     foreach (var item in table)
                     {
-                        if (item.Background == new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD)))
                             item.Background = new SolidColorBrush(Colors.Black);
-                        if (item.Foreground == new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD)))
                             item.Foreground = new SolidColorBrush(Colors.White);
                     }
                     table[pos.day - 1, pos.time - 1].Background =
@@ -216,7 +203,7 @@ namespace TimeTableUWP
                 return;
             }
 
-            SaveData.GradeComboBoxText = gradeComboBox.SelectedItem as string;
+            SaveData.GradeComboBoxText = gradeComboBox.SelectedItem as string;      
             grade = SaveData.GradeComboBoxText[6] - '0';
             if (grade is 2)
             {
@@ -302,7 +289,6 @@ namespace TimeTableUWP
             TimeTables.ResetByClass(@class);
             SetComboBoxAsClass();
             DrawTimeTable();
-            
         }
 
         private void SetComboBoxAsClass()
@@ -409,8 +395,50 @@ namespace TimeTableUWP
             DrawTimeTable();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
         {
+            Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527") };
+            hyperlink.Inlines.Add(new Run() { Text = "개발자 블로그 1 (네이버: 카루)" });
+
+            Hyperlink hyperlink2 = new() { NavigateUri = new("https://rress.tistory.com") };
+            hyperlink2.Inlines.Add(new Run() { Text = "개발자 블로그 2 (티스토리: Rolling Ress)" });
+
+            TextBlock tb = new();
+            tb.Inlines.Add(new Run()
+            {
+                Text = @"환영합니다, Rolling Ress의 카루입니다.
+
+GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한 많은 분들께
+이 프로그램을 알려주세요.
+기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
+인스타그램 @nsun527로 제보해주시면 감사하겠습니다.
+
+카루 블로그 링크:
+"
+            });
+            tb.Inlines.Add(hyperlink);
+            tb.Inlines.Add(new Run() { Text = "\n" });
+            tb.Inlines.Add(hyperlink2);
+
+            ContentDialog contentDialog = new()
+            {
+                Title = "About GGHS Time Table",
+                Content = tb,
+                PrimaryButtonText = "Open Naver Blog",
+                SecondaryButtonText = "Open Tistory",
+                CloseButtonText = "Close",
+                DefaultButton = ContentDialogButton.Primary,
+            };
+            var selection = await contentDialog.ShowAsync();
+
+            if (selection is ContentDialogResult.Primary)
+            {
+                await Windows.System.Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
+            }
+            if (selection is ContentDialogResult.Secondary)
+            {
+                await Windows.System.Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
+            }
         }
 
         private async Task ShowSubjectZoom(string subjectCellName)
@@ -420,9 +448,9 @@ namespace TimeTableUWP
                 ShowMessage("Please select your grade and class first.", "Error");
                 return;
             }
-            if (@class is not (4 or 5 or 6 or 8))
+            if (@class is not (3 or 4 or 5 or 6 or 8))
             {
-                ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.", MessageTitle.FeatrueNotImplemented);
+                ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", MessageTitle.FeatrueNotImplemented);
                 return;
             }
 
@@ -440,10 +468,9 @@ namespace TimeTableUWP
 
             // TODO: Activate Dialog 개발자, 3학년, 2학년, 1학년 따라 나누는 것도 해야 함.
 
-            // ZoomLinks.ZoomInfo zoomInfo;
-            if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false)
+            if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
             {
-                ShowMessage($"Zoom Link for {subjectCellName} is not available.", "No Data for Zoom Link");
+                ShowMessage($"Zoom Link for {subjectCellName} is not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link");
                 return;
             }
 
@@ -458,6 +485,7 @@ namespace TimeTableUWP
 
 ID: {zoomInfo.Id}
 PW: {zoomInfo.Pw}
+Teacher: {zoomInfo.Teacher} 선생님
 
 Click 'Open Zoom Meeting' or the link above to join the zoom." });
             ContentDialog contentDialog = new()
@@ -480,6 +508,7 @@ Click 'Open Zoom Meeting' or the link above to join the zoom." });
         {
             return @class switch
             {
+                3 => ZoomLinks.Class3,
                 4 => ZoomLinks.Class4,
                 5 => ZoomLinks.Class5,
                 6 => ZoomLinks.Class6,
@@ -514,12 +543,12 @@ Click 'Open Zoom Meeting' or the link above to join the zoom." });
         private void wed5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed5Button.Content as string);
         private void thu5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu5Button.Content as string);
         private void fri5Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간");
-        private void mon6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon6Button.Content as string);
+        private void mon6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("인문학 / 세계시민 프로젝트 시간입니다.", "창의적 체험활동");
         private void tue6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue6Button.Content as string);
         private void wed6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed6Button.Content as string);
         private void thu6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu6Button.Content as string);
         private void fri6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간"); 
-        private void mon7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon7Button.Content as string);
+        private void mon7Button_Click(object sender, RoutedEventArgs e) => ShowMessage("인문학 / 세계시민 프로젝트 시간입니다.", "창의적 체험활동");
         private void tue7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue7Button.Content as string);
         private void wed7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed7Button.Content as string);
         private void thu7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu7Button.Content as string);

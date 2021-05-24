@@ -197,10 +197,10 @@
                 <!-- #endregion -->
             </Grid>
 
-            <TextBlock x:Name="clock" HorizontalAlignment="Left" Margin="1398,216,0,0" Text="08:24" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="White" Foreground="White" FontSize="90"/>
-            <TextBlock x:Name="dateBlock" HorizontalAlignment="Left" Margin="1630,243,0,0" Text="05/03/2021" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Normal"/>
-            <TextBlock x:Name="dayBlock" HorizontalAlignment="Left" Margin="1715,282,0,0" Text="Mon" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Normal"/>
-            <TextBlock x:Name="amorpmBox" HorizontalAlignment="Left" Margin="1631,281,0,0" Text="AM" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Bold"/>
+            <TextBlock x:Name="clock" HorizontalAlignment="Left" Margin="1398,211,0,0" Text="08:24" TextWrapping="Wrap" VerticalAlignment="Top" FocusVisualPrimaryBrush="White" Foreground="White" FontSize="90"/>
+            <TextBlock x:Name="dateBlock" HorizontalAlignment="Left" Margin="1630,238,0,0" Text="05/03/2021" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Normal"/>
+            <TextBlock x:Name="dayBlock" HorizontalAlignment="Left" Margin="1715,277,0,0" Text="Mon" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Normal"/>
+            <TextBlock x:Name="amorpmBox" HorizontalAlignment="Left" Margin="1631,276,0,0" Text="AM" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" FontWeight="Bold"/>
 
             <Grid Margin="1377,0,0,79" Width="420" HorizontalAlignment="Left" Height="637" VerticalAlignment="Bottom">
                 <Grid.Resources>
@@ -223,7 +223,7 @@
                 <Button Content="Use 24-hour format" Click="Button_Click_1" Grid.Row="1"/>
                 <Button Content="Example 1" Width="184" Click="Button_Click_2" Grid.Row="2"/>
                 <Button Content="Example 2" Width="184" Click="Button_Click_3" Grid.Row="2" HorizontalAlignment="Right"/>
-                <Button Content="(Reserved for future)" Click="Button_Click_4" Grid.Row="3"/>
+                <Button Content="About" Click="Button_Click_4" Grid.Row="3"/>
 
             </Grid>
         </Grid>

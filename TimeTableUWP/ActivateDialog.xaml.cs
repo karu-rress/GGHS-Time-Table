@@ -23,17 +23,15 @@ namespace TimeTableUWP
     // TODO: ActivateKeys랑 ActivateLvel...enum 구조 재정리? 아님 Dll에 또 넣어야 하나...
     static class ActivateKeys
     {
-        public const string Test = "00001-00001-00001-00001-00001";
         public const string Developer = "RRESS-D83JF-KMX91-MXBF7-ZNX93";
         public const string Grade2 = "GGGHS-IRWFE-H9SOX-WF0JQ-ZJ39S";
     }
 
     public enum ActivateLevel
     {
-        Test,
-        Developer,
-        Grade2,
-        None
+        Developer = 3,
+        Grade2 = 5,
+        None = 7
     }
 
     /*
@@ -65,10 +63,6 @@ namespace TimeTableUWP
 
             switch (key.ToUpper())
             {
-                case ActivateKeys.Test:
-                    SaveData.ActivateStatus = ActivateLevel.Test;
-                    license = "TEST";
-                    break;
                 case ActivateKeys.Developer:
                     SaveData.ActivateStatus = ActivateLevel.Developer;
                     license = "developer"; // TODO: make this as an enum? class?

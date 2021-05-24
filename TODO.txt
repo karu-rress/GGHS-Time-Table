@@ -24,3 +24,5 @@ Add-on 지원
 // 해서 인증되면 표시 올리고....
 
 2.0 버전까지는 스토어 기반 Activation이나 Add-on 사용하지 말것.
+
+RESERVED FOR FUTURE: 이거 그 뭐냐 인증 해제로 바꿀 것(인증 레벨 변경?)

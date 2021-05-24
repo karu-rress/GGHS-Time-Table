@@ -6,13 +6,207 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="#FF1C1C1C">
+    Background="#FF1C1C1C" Width="1785">
     <Frame>
-        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 2 Preview" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
+        <Grid Name="mainGrid">
+            <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 2 Preview" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
+            <TextBlock x:Name="mainText2" HorizontalAlignment="Left" Margin="181,143,0,0" Text="Codename Fluent" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
+
+            <Grid Name="clockGrid" Margin="0,55,0,880" HorizontalAlignment="Right" Width="500" Background="Black">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </Grid.Resources>
+                <TextBlock x:Name="clock"  Text="08:24" FontSize="90" Margin="10,13,201,19" />
+                <TextBlock x:Name="dateBlock" HorizontalAlignment="Left"  Text="05/03/2021"   FontSize="30" FontWeight="Normal" Margin="250,36,0,63"/>
+                <TextBlock x:Name="dayBlock" Text="Mon" TextWrapping="Wrap" FontSize="30" FontWeight="Normal" Margin="335,74,14,29"/>
+                <TextBlock x:Name="amorpmBox" Text="AM" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Margin="250,73,120,26"/>
+            </Grid>
+
+            <Grid Name="timeTableGrid" Margin="61,233,329,37">
+                <Grid Margin="0,0,0,0">
+                    <Grid.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="Grid.Row" Value="0"/>
+                            <Setter Property="Background" Value="DarkSlateBlue"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="BorderThickness" Value="5"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="25"/>
+                            <Setter Property="FontFamily" Value="Segoe Print"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="Button">
+                            <Setter Property="FontSize" Value="30" />
+                            <Setter Property="FontFamily" Value="Malgun Gothic Semilight"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderThickness" Value="5"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="Background" Value="#FF353535"/>
+                            <Setter Property="VerticalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Content" Value="TEST"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.6*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0">
+                        <TextBlock><Run Text="Monday"/></TextBlock>
+                    </Border>
+                    <Border Grid.Column="1">
+                        <TextBlock><Run Text="Tuesday"/></TextBlock>
+                    </Border>
+                    <Border Grid.Column="2">
+                        <TextBlock><Run Text="Wednesday"/></TextBlock>
+                    </Border>
+                    <Border Grid.Column="3">
+                        <TextBlock><Run Text="Thursday"/></TextBlock>
+                    </Border>
+                    <Border Grid.Column="4">
+                        <TextBlock><Run Text="Friday"/></TextBlock>
+                    </Border>
+                    <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="mon1Button_Click" />
+                    <Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" Click="tue1Button_Click" />
+                    <Button x:Name="wed1Button"  Grid.Row="1" Grid.Column="2" Click="wed1Button_Click" />
+                    <Button x:Name="thu1Button" Grid.Row="1" Grid.Column="3" Click="thu1Button_Click" />
+                    <Button x:Name="fri1Button" Grid.Row="1" Grid.Column="4" Click="fri1Button_Click" />
+                    <Button x:Name="mon2Button" Grid.Row="2" Grid.Column="0" Click="mon2Button_Click" />
+                    <Button x:Name="tue2Button" Grid.Row="2" Grid.Column="1" Click="tue2Button_Click" />
+                    <Button x:Name="wed2Button" Grid.Row="2" Grid.Column="2" Click="wed2Button_Click" />
+                    <Button x:Name="thu2Button" Grid.Row="2" Grid.Column="3" Click="thu2Button_Click" />
+                    <Button x:Name="fri2Button" Grid.Row="2" Grid.Column="4" Click="fri2Button_Click" />
+                    <Button x:Name="mon3Button" Grid.Row="3" Grid.Column="0" Click="mon3Button_Click" />
+                    <Button x:Name="tue3Button" Grid.Row="3" Grid.Column="1" Click="tue3Button_Click" />
+                    <Button x:Name="wed3Button" Grid.Row="3" Grid.Column="2" Click="wed3Button_Click" />
+                    <Button x:Name="thu3Button" Grid.Row="3" Grid.Column="3" Click="thu3Button_Click" />
+                    <Button x:Name="fri3Button" Grid.Row="3" Grid.Column="4" Click="fri3Button_Click" />
+                    <Button x:Name="mon4Button" Grid.Row="4" Grid.Column="0" Click="mon4Button_Click" />
+                    <Button x:Name="tue4Button" Grid.Row="4" Grid.Column="1" Click="tue4Button_Click" />
+                    <Button x:Name="wed4Button" Grid.Row="4" Grid.Column="2" Click="wed4Button_Click" />
+                    <Button x:Name="thu4Button" Grid.Row="4" Grid.Column="3" Click="thu4Button_Click" />
+                    <Button x:Name="fri4Button" Grid.Row="4" Grid.Column="4" Click="fri4Button_Click" />
+                    <Button x:Name="mon5Button" Grid.Row="5" Grid.Column="0" Click="mon5Button_Click" />
+                    <Button x:Name="tue5Button" Grid.Row="5" Grid.Column="1" Click="tue5Button_Click" />
+                    <Button x:Name="wed5Button" Grid.Row="5" Grid.Column="2" Click="wed5Button_Click" />
+                    <Button x:Name="thu5Button" Grid.Row="5" Grid.Column="3" Click="thu5Button_Click" />
+                    <Button x:Name="fri5Button" Grid.Row="5" Grid.Column="4" Click="fri5Button_Click" />
+                    <Button x:Name="mon6Button" Grid.Row="6" Grid.Column="0" Click="mon6Button_Click" />
+                    <Button x:Name="tue6Button" Grid.Row="6" Grid.Column="1" Click="tue6Button_Click" />
+                    <Button x:Name="wed6Button" Grid.Row="6" Grid.Column="2" Click="wed6Button_Click" />
+                    <Button x:Name="thu6Button" Grid.Row="6" Grid.Column="3" Click="thu6Button_Click" />
+                    <Button x:Name="fri6Button" Grid.Row="6" Grid.Column="4" Click="fri6Button_Click" />
+                    <Button x:Name="mon7Button" Grid.Row="7" Grid.Column="0" Click="mon7Button_Click" />
+                    <Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" Click="tue7Button_Click" />
+                    <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="wed7Button_Click" />
+                    <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="thu7Button_Click" />
+                    <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="fri7Button_Click" />
+                </Grid>
+            </Grid>
+            <Grid Name="comboBoxGrid" Margin="0,0,60,165" Height="637" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="250">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="53*" />
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="54*" />
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="55*" />
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="75*"/>
+                    <RowDefinition Height="75*"/>
+
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="30"/>
+                    </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Width" Value="250"/>
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="Background" Value="#66FFFFFF"/>
+                        <Setter Property="FontSize" Value="25"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+
+                <TextBlock TextWrapping="Wrap" Text="Grade" Grid.Row="0"/>
+                <ComboBox x:Name="gradeComboBox" SelectionChanged="gradeComboBox_SelectionChanged"  Grid.Row="1">
+                    <x:String>Grade 1</x:String>
+                    <x:String>Grade 2</x:String>
+                    <x:String>Grade 3</x:String>
+                </ComboBox>
+                <TextBlock TextWrapping="Wrap" Text="Class" Grid.Row="2"/>
+                <ComboBox x:Name="classComboBox" SelectionChanged="classComboBox_SelectionChanged"  Grid.Row="3">
+                    <x:String>Class 1</x:String>
+                    <x:String>Class 2</x:String>
+                    <x:String>Class 3</x:String>
+                    <x:String>Class 4</x:String>
+                    <x:String>Class 5</x:String>
+                    <x:String>Class 6</x:String>
+                    <x:String>Class 7</x:String>
+                    <x:String>Class 8</x:String>
+                </ComboBox>
+                <TextBlock Text="Subjects" Grid.Row="4"/>
+                <ComboBox x:Name="langComboBox" SelectionChanged="langComboBox_SelectionChanged" Grid.Row="5">
+                    <x:String>스페인어Ⅰ</x:String>
+                    <x:String>중국어Ⅰ</x:String>
+                    <x:String>일본어Ⅰ</x:String>
+                </ComboBox>
+                <ComboBox x:Name="s1comboBox" SelectionChanged="s1comboBox_SelectionChanged"  Grid.Row="6">
+                    <x:String>실천 윤리학의 이해</x:String>
+                    <x:String>인간과 환경</x:String>
+                </ComboBox>
+                <ComboBox x:Name="s2comboBox" SelectionChanged="s2comboBox_SelectionChanged"  Grid.Row="7">
+                    <x:String>세계지리</x:String>
+                    <x:String>세계사</x:String>
+                    <x:String>정치와 법</x:String>
+                    <x:String>경제</x:String>
+                </ComboBox>
+                <ComboBox x:Name="scComboBox" SelectionChanged="scComboBox_SelectionChanged"  Grid.Row="8">
+                    <x:String>물리학Ⅰ</x:String>
+                    <x:String>화학Ⅰ</x:String>
+                    <x:String>생명과학Ⅰ</x:String>
+                </ComboBox>
+            </Grid>
+            <Button Margin="0,0,70,53" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="230" Height="90">
+                <TextBlock>
+                    <Run Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="27"/>
+                    <Run Text="Settings" FontFamily="Segoe MDL2 Assets"/>
+                </TextBlock>
+
+            </Button>
+
+        </Grid>
+
     </Frame>
-
-
-
 
 </Page>
 
@@ -24,7 +218,8 @@
                 <TextBlock Margin="1384,45,34,36" TextWrapping="Wrap" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="25"><Run Text="Copyright © 2021 Sunwoo Na"/><LineBreak/><Run Text="All right reserved."/><LineBreak/><Run Text="Contact: instagram @nsun527"/></TextBlock>
             </Grid>
 
-            <Grid Margin="115,0,0,65" HorizontalAlignment="Left" Width="298" Height="773" VerticalAlignment="Bottom">
+            
+<Grid Margin="115,0,0,65" HorizontalAlignment="Left" Width="298" Height="773" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="53*" />
                     <RowDefinition Height="75*"/>
@@ -100,105 +295,6 @@
                 </ComboBox>
             </Grid>
 
-            <Grid Margin="485,0,0,79" HorizontalAlignment="Left" Width="830" Height="746" VerticalAlignment="Bottom">
-                <Grid.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="Grid.Row" Value="0"/>
-                        <Setter Property="Height" Value="50"/>
-                        <Setter Property="Width" Value="160"/>
-                        <Setter Property="Background" Value="#FF414183"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="25"/>
-                        <Setter Property="FontFamily" Value="Segoe Print"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                    <Style TargetType="Button">
-                        <Setter Property="FontSize" Value="30" />
-                        <Setter Property="FontFamily" Value="Malgun Gothic Semilight"/>
-                        <Setter Property="FontWeight" Value="Normal"/>
-<Setter Property="Width" Value="160"/>
-<Setter Property="Height" Value="93"/>
-<Setter Property="Foreground" Value="White"/>
-<Setter Property="Background" Value="#FF1B1B23"/>
-<Setter Property="VerticalAlignment" Value="Top"/>
-<Setter Property="HorizontalAlignment" Value="Left"/>
-</Style>
-</Grid.Resources>
-
-<Grid.ColumnDefinitions>
-    <ColumnDefinition />
-    <ColumnDefinition />
-    <ColumnDefinition />
-    <ColumnDefinition />
-    <ColumnDefinition />
-</Grid.ColumnDefinitions>
-<Grid.RowDefinitions>
-    <RowDefinition Height="60" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-    <RowDefinition Height="*" />
-</Grid.RowDefinitions>
-
-<Border Grid.Column="0">
-    <TextBlock>Monday</TextBlock>
-</Border>
-<Border Grid.Column="1">
-    <TextBlock>Tuesday</TextBlock>
-</Border>
-<Border Grid.Column="2">
-    <TextBlock>Wednesday</TextBlock>
-</Border>
-<Border Grid.Column="3">
-    <TextBlock>Thursday</TextBlock>
-</Border>
-<Border Grid.Column="4">
-    <TextBlock>Friday</TextBlock>
-</Border>
-<Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="mon1Button_Click" />
-<Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" Click="tue1Button_Click" />
-<Button x:Name="wed1Button"  Grid.Row="1" Grid.Column="2" Click="wed1Button_Click" />
-<Button x:Name="thu1Button" Grid.Row="1" Grid.Column="3" Click="thu1Button_Click" />
-<Button x:Name="fri1Button" Grid.Row="1" Grid.Column="4" Click="fri1Button_Click" />
-<Button x:Name="mon2Button" Grid.Row="2" Grid.Column="0" Click="mon2Button_Click" />
-<Button x:Name="tue2Button" Grid.Row="2" Grid.Column="1" Click="tue2Button_Click" />
-<Button x:Name="wed2Button" Grid.Row="2" Grid.Column="2" Click="wed2Button_Click" />
-<Button x:Name="thu2Button" Grid.Row="2" Grid.Column="3" Click="thu2Button_Click" />
-<Button x:Name="fri2Button" Grid.Row="2" Grid.Column="4" Click="fri2Button_Click" />
-<Button x:Name="mon3Button" Grid.Row="3" Grid.Column="0" Click="mon3Button_Click" />
-<Button x:Name="tue3Button" Grid.Row="3" Grid.Column="1" Click="tue3Button_Click" />
-<Button x:Name="wed3Button" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,6,0" Click="wed3Button_Click" />
-<Button x:Name="thu3Button" Grid.Row="3" Grid.Column="3" Click="thu3Button_Click" />
-<Button x:Name="fri3Button" Grid.Row="3" Grid.Column="4" Click="fri3Button_Click" />
-<Button x:Name="mon4Button" Grid.Row="4" Grid.Column="0" Click="mon4Button_Click" />
-<Button x:Name="tue4Button" Grid.Row="4" Grid.Column="1" Click="tue4Button_Click" />
-<Button x:Name="wed4Button" Grid.Row="4" Grid.Column="2" Click="wed4Button_Click" />
-<Button x:Name="thu4Button" Grid.Row="4" Grid.Column="3" Click="thu4Button_Click" />
-<Button x:Name="fri4Button" Grid.Row="4" Grid.Column="4" Click="fri4Button_Click" />
-<Button x:Name="mon5Button" Grid.Row="5" Grid.Column="0" Click="mon5Button_Click" />
-<Button x:Name="tue5Button" Grid.Row="5" Grid.Column="1" Click="tue5Button_Click" />
-<Button x:Name="wed5Button" Grid.Row="5" Grid.Column="2" Click="wed5Button_Click" />
-<Button x:Name="thu5Button" Grid.Row="5" Grid.Column="3" Click="thu5Button_Click" />
-<Button x:Name="fri5Button" Grid.Row="5" Grid.Column="4" Click="fri5Button_Click" />
-<Button x:Name="mon6Button" Grid.Row="6" Grid.Column="0" Click="mon6Button_Click" />
-<Button x:Name="tue6Button" Grid.Row="6" Grid.Column="1" Click="tue6Button_Click" />
-<Button x:Name="wed6Button" Grid.Row="6" Grid.Column="2" Click="wed6Button_Click" />
-<Button x:Name="thu6Button" Grid.Row="6" Grid.Column="3" Click="thu6Button_Click" />
-<Button x:Name="fri6Button" Grid.Row="6" Grid.Column="4" Click="fri6Button_Click" />
-<Button x:Name="mon7Button" Grid.Row="7" Grid.Column="0" Click="mon7Button_Click" />
-<Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" Click="tue7Button_Click" />
-<Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="wed7Button_Click" />
-<Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="thu7Button_Click" />
-<Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="fri7Button_Click" />
-</Grid>
 
 <TextBlock x:Name="clock" HorizontalAlignment="Left" Margin="1398,211,0,749" Text="08:24" TextWrapping="Wrap" FocusVisualPrimaryBrush="White" Foreground="White" FontSize="90"/>
 <TextBlock x:Name="dateBlock" HorizontalAlignment="Left" Margin="1630,238,0,802" Text="05/03/2021" TextWrapping="Wrap" Foreground="White" FontSize="30" FontWeight="Normal"/>

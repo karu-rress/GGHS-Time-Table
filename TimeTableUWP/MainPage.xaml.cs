@@ -43,12 +43,6 @@ namespace TimeTableUWP
         #region HAHAHA
 
         ComboBox gradeComboBox, classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox;
-        Button mon1Button, mon2Button, mon3Button, mon4Button, mon5Button, mon6Button, mon7Button
-    ,
-                     tue1Button, tue2Button, tue3Button, tue4Button, tue5Button, tue6Button, tue7Button,
-                     wed1Button, wed2Button, wed3Button, wed4Button, wed5Button, wed6Button, wed7Button,
-                     thu1Button, thu2Button, thu3Button, thu4Button, thu5Button, thu6Button, thu7Button,
-                     fri1Button, fri2Button, fri3Button, fri4Button, fri5Button, fri6Button, fri7Button;
 
         TextBlock clock, dayBlock, dateBlock, amorpmBox;
 #endregion

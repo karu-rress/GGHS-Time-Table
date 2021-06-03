@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 
 namespace RollingRess
 {
@@ -24,8 +25,13 @@ namespace RollingRess
 
     }
 
-    public sealed class Librarys
+    public static class Librarys
     {
+        public static bool IsOneOf(this object item, params object[] options)
+        {
+            return options.Contains(item);
+        }
+
         public static bool AreNullOrEmpty(params string[] arr)
         {
             foreach (var item in arr)
@@ -75,6 +81,16 @@ namespace RollingRess
                     default: throw new ArgumentException();
                 }
             }
+        }
+
+        public static void AddText(this TextBlock tb, string text)
+        {
+            tb.Inlines.Add(new Run() { Text = text });
+        }
+
+        public static void AddTextLine(this TextBlock tb, string text)
+        {
+            tb.Inlines.Add(new Run() { Text = text + Environment.NewLine });
         }
     }
 }

@@ -41,6 +41,7 @@ namespace GGHS
             public static ref string Of(this string[,] @class, DayOfWeek day, int time)
             {
                 if (@class != Class1 && @class != Class2 && @class != Class3 && @class != Class4 && @class != Class5 && @class != Class6 && @class != Class7 && @class != Class8)
+                    // if (@class != Class1 && @class != Class2 && @class != Class3 && @class != Class4 && @class != Class5 && @class != Class6 && @class != Class7 && @class != Class8)
                     throw new ArgumentException("Only accepts TimeTables' member array");
                 if (day is Saturday or Sunday)
                     throw new ArgumentException("No class in weekend!");

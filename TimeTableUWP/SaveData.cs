@@ -23,6 +23,12 @@ namespace TimeTableUWP
         public static string SocialComboBoxText { get => social; set => social = value ?? "NULL"; }
         public static string LangComboBoxText { get => lang; set => lang = value ?? "NULL"; }
         public static string ScienceComboBoxText { get => science; set => science = value ?? "NULL"; }
+        public static int GradeComboBoxIndex { get; set; } = -1;
+        public static int ClassComboBoxIndex { get; set; } = -1;
+        public static int SpecialComboBoxIndex { get; set; } = -1;
+        public static int SocialComboBoxIndex { get; set; } = -1;
+        public static int LangComboBoxIndex { get; set; } = -1;
+        public static int ScienceComboBoxIndex { get; set; } = -1;
 
         public static async Task SaveDataAsync()
         {

@@ -72,8 +72,6 @@ namespace TimeTableUWP
                     license = "GGHS 10th";
                     break;
                 default:
-                    MessageDialog messageDialog = new("Please double-check your activation key.", "Activation Failed");
-                    _ = messageDialog.ShowAsync();
                     return;
             }
             SaveData.IsActivated = true;

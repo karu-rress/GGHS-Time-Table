@@ -36,15 +36,12 @@ namespace TimeTableUWP
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     /// 
-
-
     public sealed partial class MainPage : Page
     {
+        public static MainPage Current;
         #region HAHAHA
 
-        ComboBox gradeComboBox, classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox;
 
-        TextBlock clock, dayBlock, dateBlock, amorpmBox;
 #endregion
 
 
@@ -553,6 +550,7 @@ Click 'Open Zoom Meeting' or the link above to join the zoom." });
         private void fri5Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간");
         private void mon6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("인문학 / 세계시민 프로젝트 시간입니다.", "창의적 체험활동");
         private void tue6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue6Button.Content as string);
+
         private void wed6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed6Button.Content as string);
         private void thu6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu6Button.Content as string);
         private void fri6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간"); 
@@ -562,5 +560,10 @@ Click 'Open Zoom Meeting' or the link above to join the zoom." });
         private void thu7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu7Button.Content as string);
         private void fri7Button_Click(object sender, RoutedEventArgs e) => ShowMessage("즐거운 홈커밍 데이 :)", "Homecoming");
         #endregion
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsPage));
+        }
     }
 }

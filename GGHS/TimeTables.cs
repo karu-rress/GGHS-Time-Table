@@ -49,7 +49,7 @@ namespace GGHS
                 return ref @class[(int)day - 1, time - 1];
             }
 
-            // 모든 선택과목 업데이ㅡ
+            // 모든 선택과목 업데이트
             public static void ResetByClass(int @class)
             {
                 switch (@class)

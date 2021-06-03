@@ -147,4 +147,7 @@ namespace TimeTableUWP
         }
     }
 
+
+    // TODO: Use dynamic APIs
+    // Check for C# reference in microsoft.
 }

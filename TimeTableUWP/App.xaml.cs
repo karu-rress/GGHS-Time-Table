@@ -33,6 +33,7 @@ namespace TimeTableUWP
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.CompactOverlay;
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += TimeTableException.HandleException;
         }
 
         /// <summary>

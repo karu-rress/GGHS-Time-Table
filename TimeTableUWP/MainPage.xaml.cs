@@ -11,11 +11,13 @@ using Windows.UI.Xaml.Media;
 using TimeTableUWP.ComboboxItem;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Documents;
+using System.Linq;
 using GGHS;
 using GGHS.Grade2;
 using RollingRess;
 using static RollingRess.Librarys;
 using System.Collections.Generic;
+using System.Collections;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,11 +41,6 @@ namespace TimeTableUWP
     public sealed partial class MainPage : Page
     {
         public static MainPage Current;
-        #region HAHAHA
-
-
-#endregion
-
 
 private int grade;
         private int @class = 8;
@@ -83,14 +80,6 @@ private int grade;
         private async Task LoopTimeAsync() => await Task.Factory.StartNew(() =>
         {
             (int day, int time) pos;
-            Button[,] table =
-                {
-                    { mon1Button, mon2Button, mon3Button,mon4Button,mon5Button,mon6Button,mon7Button},
-                    { tue1Button, tue2Button, tue3Button, tue4Button, tue5Button, tue6Button, tue7Button, },
-                    { wed1Button, wed2Button, wed3Button, wed4Button, wed5Button, wed6Button, wed7Button},
-                    { thu1Button, thu2Button, thu3Button, thu4Button, thu5Button, thu6Button, thu7Button },
-                    { fri1Button, fri2Button, fri3Button, fri4Button, fri5Button, fri6Button, fri7Button, }
-                };
             while (true)
             {
                 Thread.Sleep(200);
@@ -116,39 +105,27 @@ private int grade;
                     continue;
                 }
 
-                pos.day = now.DayOfWeek switch
-                {
-                    DayOfWeek.Monday => 1,
-                    DayOfWeek.Tuesday => 2,
-                    DayOfWeek.Wednesday => 3,
-                    DayOfWeek.Thursday => 4,
-                    DayOfWeek.Friday => 5,
-                    _ => throw new IndexOutOfRangeException()
-                };
-
+                pos.day = (int)now.DayOfWeek;
                 pos.time = now.Hour switch
                 {
-                    9 => 1,
-                    10 => 2,
-                    11 => 3,
-                    12 => 4,
-                    14 => 5,
-                    15 => 6,
-                    16 => 7,
+                    9 or 10 or 11 or 12 => now.Hour - 8,
+                    14 or 15 or 16 => now.Hour - 9,
                     _ => throw new IndexOutOfRangeException()
                 };
 
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () => {
-                    foreach (var item in table)
+                    foreach (var item in GetButtons())
                     {
-                            item.Background = new SolidColorBrush(Colors.Black);
-                            item.Foreground = new SolidColorBrush(Colors.White);
+                        item.Background = new SolidColorBrush(Colors.Black);
+                        item.Foreground = new SolidColorBrush(Colors.White);
                     }
-                    table[pos.day - 1, pos.time - 1].Background =
-                    new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                    // [a, b] => 7a + b
+                    // [pos.day - 1, pos.time - 1] => 7*(pos.day - 1) + (pos.time - 1)
+                    GetButtons().ElementAt((7 * (pos.day-1)) + (pos.time-1)).Background =
+                        new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
                     if (pos.time is <= 6) {
-                        table[pos.day - 1, pos.time].Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                        GetButtons().ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
                     }
                     });
             }
@@ -160,27 +137,62 @@ private int grade;
             string[,] table = SetArrayByClass();
 
             // 월 6, 7 / 금 5, 6은 어차피 창체, 금 7도 어차피 홈커밍
+            AssignButtonsByTable(table);
             mon6Button.Content = mon7Button.Content = fri5Button.Content = fri6Button.Content = Subjects.CellName.Others;
             fri7Button.Content = Subjects.CellName.HomeComing;
-            AssignButtonsByTable(table);
         }
 
         private void AssignButtonsByTable(string[,] table)
         {
-            (mon1Button.Content, mon2Button.Content, mon3Button.Content, mon4Button.Content, mon5Button.Content) =
-                            (table[0, 0], table[0, 1], table[0, 2], table[0, 3], table[0, 4]);
+            var subjects = ((IEnumerable)table).Cast<string>();
+            var lists = GetButtons().Zip(subjects, (Button btn, string tb) => (btn, tb));
+            foreach (var item in lists)
+            {
+                item.btn.Content = item.tb;
+            }
+        }
 
-            (tue1Button.Content, tue2Button.Content, tue3Button.Content, tue4Button.Content, tue5Button.Content, tue6Button.Content, tue7Button.Content) =
-                (table[1, 0], table[1, 1], table[1, 2], table[1, 3], table[1, 4], table[1, 5], table[1, 6]);
+        private IEnumerable<Button> GetButtons()
+        {
+            yield return mon1Button;
+            yield return mon2Button;
+            yield return mon3Button;
+            yield return mon4Button;
+            yield return mon5Button;
+            yield return mon6Button;
+            yield return mon7Button;
 
-            (wed1Button.Content, wed2Button.Content, wed3Button.Content, wed4Button.Content, wed5Button.Content, wed6Button.Content, wed7Button.Content) =
-                (table[2, 0], table[2, 1], table[2, 2], table[2, 3], table[2, 4], table[2, 5], table[2, 6]);
+            yield return tue1Button;
+            yield return tue2Button;
+            yield return tue3Button;
+            yield return tue4Button;
+            yield return tue5Button;
+            yield return tue6Button;
+            yield return tue7Button;
 
-            (thu1Button.Content, thu2Button.Content, thu3Button.Content, thu4Button.Content, thu5Button.Content, thu6Button.Content, thu7Button.Content) =
-                (table[3, 0], table[3, 1], table[3, 2], table[3, 3], table[3, 4], table[3, 5], table[3, 6]);
+            yield return wed1Button;
+            yield return wed2Button;
+            yield return wed3Button;
+            yield return wed4Button;
+            yield return wed5Button;
+            yield return wed6Button;
+            yield return wed7Button;
 
-            (fri1Button.Content, fri2Button.Content, fri3Button.Content, fri4Button.Content) =
-                (table[4, 0], table[4, 1], table[4, 2], table[4, 3]);
+            yield return thu1Button;
+            yield return thu2Button;
+            yield return thu3Button;
+            yield return thu4Button;
+            yield return thu5Button;
+            yield return thu6Button;
+            yield return thu7Button;
+
+            yield return fri1Button;
+            yield return fri2Button;
+            yield return fri3Button;
+            yield return fri4Button;
+            yield return fri5Button;
+            yield return fri6Button;
+            yield return fri7Button;
         }
 
         private string[,] SetArrayByClass() => @class switch
@@ -193,7 +205,7 @@ private int grade;
             6 => TimeTables.Class6.Clone() as string[,],
             7 => TimeTables.Class7.Clone() as string[,],
             8 => TimeTables.Class8.Clone() as string[,],
-            _ => throw new Exception()
+            _ => throw new DataAccessException($"SetArrayByClass(): @class: 1~8 expected, but given {@class}.")
         };
 
         #region ComboBox
@@ -298,43 +310,26 @@ private int grade;
 
         private void SetComboBoxAsClass()
         {
-            switch (@class)
-            {
-                case 1:
-                    SetComboBoxAsClass1();
-                    return;
-                case 2:
-                    SetComboBoxAsClass2();
-                    return;
-                case 3:
-                    SetComboBoxAsClass3();
-                    return;
-                case 4:
-                    SetComboBoxAsClass4();
-                    return;
-                case 5:
-                    SetComboBoxAsClass5();
-                    return;
-                case 6:
-                    SetComboBoxAsClass6();
-                    return;
-                case 7:
-                    SetComboBoxAsClass7();
-                    return;
-                case 8:
-                    SetComboBoxAsClass8();
-                    return;
-            }
+            Action[] setComboBox = {
+                SetComboBoxAsClass1,
+                SetComboBoxAsClass2,
+                SetComboBoxAsClass3,
+                SetComboBoxAsClass4,
+                SetComboBoxAsClass5,
+                SetComboBoxAsClass6,
+                SetComboBoxAsClass7,
+                SetComboBoxAsClass8,
+            };
+            setComboBox[@class - 1]();
         }
 
-        private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
         {
-            if (langComboBox.SelectedItem is null)
+            if (langComboBox.SelectedItem is not null)
             {
-                return;
+                SaveData.LangComboBoxText = Subjects.Languages.Selected = langComboBox.SelectedItem as string;
+                DrawTimeTable();
             }
-            SaveData.LangComboBoxText = Subjects.Languages.Selected = langComboBox.SelectedItem as string;
-            DrawTimeTable();
         }
 
         private void s1comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -346,7 +341,7 @@ private int grade;
             {
                 Subjects.RawName.Ethics => Subjects.Specials.Ethics,
                 Subjects.RawName.Environment => Subjects.Specials.Environment,
-                _ => throw new Exception("ComboBox.SelectedItem returned wrong value")
+                _ => throw new ComboBoxDataException("ComboBox.SelectedItem returned wrong value")
             };
             DrawTimeTable();
         }
@@ -434,16 +429,12 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
                 CloseButtonText = "Close",
                 DefaultButton = ContentDialogButton.Primary,
             };
-            var selection = await contentDialog.ShowAsync();
 
+            var selection = await contentDialog.ShowAsync();
             if (selection is ContentDialogResult.Primary)
-            {
                 await Windows.System.Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
-            }
-            if (selection is ContentDialogResult.Secondary)
-            {
+            if (selection is ContentDialogResult.Secondary)        
                 await Windows.System.Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
-            }
         }
 
         private async Task ShowSubjectZoom(string subjectCellName)
@@ -455,7 +446,8 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
             }
             if (@class is not (3 or 4 or 5 or 6 or 8))
             {
-                ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", MessageTitle.FeatrueNotImplemented);
+                ShowMessage($"Sorry, displaying Zoom link is not available in class {@class}.\n" + 
+                    "개발자에게 줌 링크 추가를 요청해보세요.", MessageTitle.FeatrueNotImplemented);
                 return;
             }
 
@@ -479,91 +471,37 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
                 return;
             }
 
-            TextBlock tb = new();
-            Hyperlink hyperlink = new();
-            hyperlink.NavigateUri = new(zoomInfo.Link);
-            hyperlink.Inlines.Add(new Run() { Text = zoomInfo.Link });
-            //TODO: 링크가 잘림. split?
-            tb.Inlines.Add(new Run() { Text = "LINK: " });
-            tb.Inlines.Add(hyperlink);
-            tb.Inlines.Add(new Run() { Text = @$"
-
-ID: {zoomInfo.Id}
-PW: {zoomInfo.Pw}
-Teacher: {zoomInfo.Teacher} 선생님
-
-Click 'Open Zoom Meeting' or the link above to join the zoom." });
-            ContentDialog contentDialog = new()
-            {
-                Title = $"{classComboBox.SelectedItem as string} {subjectCellName} Zoom Link",
-                Content = tb,
-                PrimaryButtonText = "Open Zoom Meeting",
-                CloseButtonText = "Close",
-                DefaultButton = ContentDialogButton.Primary,
-            };
-            var selection = await contentDialog.ShowAsync();
-
-            if (selection is ContentDialogResult.Primary)
-            {
-                await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
-            }
+            ZoomDialog contentDialog = new(@class, subjectCellName, zoomInfo);
+            await contentDialog.ShowAsync();
         }
 
-        private Dictionary<string, ZoomLinks.ZoomInfo> GetClassZoomLink()
+        private Dictionary<string, ZoomLinks.ZoomInfo> GetClassZoomLink() => @class switch
         {
-            return @class switch
-            {
-                3 => ZoomLinks.Class3,
-                4 => ZoomLinks.Class4,
-                5 => ZoomLinks.Class5,
-                6 => ZoomLinks.Class6,
-                8 => ZoomLinks.Class8,
-                _ => throw new NotImplementedException()
-            };
-        }
-
-        #region Cell Buttons
-        private void mon1Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon1Button.Content as string);
-        private void tue1Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue1Button.Content as string);
-        private void wed1Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed1Button.Content as string);
-        private void thu1Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu1Button.Content as string);
-        private void fri1Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(fri1Button.Content as string);
-        private void mon2Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon2Button.Content as string);
-        private void tue2Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue2Button.Content as string);
-        private void wed2Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed2Button.Content as string);
-        private void thu2Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu2Button.Content as string);
-        private void fri2Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(fri2Button.Content as string);
-        private void mon3Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon3Button.Content as string);
-        private void tue3Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue3Button.Content as string);
-        private void wed3Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed3Button.Content as string);
-        private void thu3Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu3Button.Content as string);
-        private void fri3Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(fri3Button.Content as string);
-        private void mon4Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon4Button.Content as string);
-        private void tue4Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue4Button.Content as string);
-        private void wed4Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed4Button.Content as string);
-        private void thu4Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu4Button.Content as string);
-        private void fri4Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(fri4Button.Content as string);
-        private void mon5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(mon5Button.Content as string);
-        private void tue5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue5Button.Content as string);
-        private void wed5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed5Button.Content as string);
-        private void thu5Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu5Button.Content as string);
-        private void fri5Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간");
-        private void mon6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("인문학 / 세계시민 프로젝트 시간입니다.", "창의적 체험활동");
-        private void tue6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue6Button.Content as string);
-
-        private void wed6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed6Button.Content as string);
-        private void thu6Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu6Button.Content as string);
-        private void fri6Button_Click(object sender, RoutedEventArgs e) => ShowMessage("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간"); 
-        private void mon7Button_Click(object sender, RoutedEventArgs e) => ShowMessage("인문학 / 세계시민 프로젝트 시간입니다.", "창의적 체험활동");
-        private void tue7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(tue7Button.Content as string);
-        private void wed7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(wed7Button.Content as string);
-        private void thu7Button_Click(object sender, RoutedEventArgs e) => _ = ShowSubjectZoom(thu7Button.Content as string);
-        private void fri7Button_Click(object sender, RoutedEventArgs e) => ShowMessage("즐거운 홈커밍 데이 :)", "Homecoming");
-        #endregion
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+            3 => ZoomLinks.Class3,
+            4 => ZoomLinks.Class4,
+            5 => ZoomLinks.Class5,
+            6 => ZoomLinks.Class6,
+            8 => ZoomLinks.Class8,
+            _ => throw new DataAccessException(
+                $"GetClassZoomLink(): Class out of range: 3, 4, 5, 8, 6 expected, but given {@class}")
+        };
+        
+        private void TableButtons_Click(object sender, RoutedEventArgs e)
+        => _ = ShowSubjectZoom((sender as Button).Content as string);
+        
+        private void SpecialButtons_Click(object sender, RoutedEventArgs _)
         {
-            Frame.Navigate(typeof(SettingsPage));
+            var (msg, txt) = (sender as Button).Name switch
+            {
+                "fri5Button" or "fri6Button" => ("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간"),
+                "mon6Button" or "mon7Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
+                "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
+                _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{(sender as Button).Name}'")
+            };
+            ShowMessage(msg, txt);
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(SettingsPage));
+        
     }
 }

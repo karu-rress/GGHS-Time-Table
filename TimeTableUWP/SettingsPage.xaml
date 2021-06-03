@@ -6,9 +6,43 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        Background="#FF1C1C1C">
+    <Page.Resources>
+        <SolidColorBrush x:Key="ToggleSwitchCurtainBackgroundThemeBrush" Color="#FF5729C1" />
+        <SolidColorBrush x:Key="ToggleSwitchCurtainDisabledBackgroundThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="ToggleSwitchCurtainPointerOverBackgroundThemeBrush" Color="#FF6E46CA" />
+        <SolidColorBrush x:Key="ToggleSwitchCurtainPressedBackgroundThemeBrush" Color="#FF7E4FEC" />
 
-    <Grid>
+        <SolidColorBrush x:Key="ToggleSwitchDisabledForegroundThemeBrush" Color="#66FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchForegroundThemeBrush" Color="#FFFFFFFF" />
+
+        <SolidColorBrush x:Key="ToggleSwitchHeaderDisabledForegroundThemeBrush" Color="#66FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchHeaderForegroundThemeBrush" Color="#FFFFFFFF" />
+
+        <SolidColorBrush x:Key="ToggleSwitchOuterBorderBorderThemeBrush" Color="#59FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchOuterBorderDisabledBorderThemeBrush" Color="#33FFFFFF" />
+
+        <SolidColorBrush x:Key="ToggleSwitchThumbBackgroundThemeBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbBorderThemeBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbDisabledBackgroundThemeBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbDisabledBorderThemeBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbPointerOverBackgroundThemeBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbPointerOverBorderThemeBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbPressedBackgroundThemeBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchThumbPressedForegroundThemeBrush" Color="#FFFFFFFF" />
+
+        <SolidColorBrush x:Key="ToggleSwitchTrackBackgroundThemeBrush" Color="#42FFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchTrackBorderThemeBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="ToggleSwitchTrackDisabledBackgroundThemeBrush" Color="#1FFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchTrackPointerOverBackgroundThemeBrush" Color="#4AFFFFFF" />
+        <SolidColorBrush x:Key="ToggleSwitchTrackPressedBackgroundThemeBrush" Color="#59FFFFFF" />
+    </Page.Resources>
+    <Grid x:Name="mainGrid">
+        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top" Width="679"><Run Text="GGHS Time Table "/><Run Text="2 Settings"/></TextBlock>
+        <TextBlock x:Name="textBox0" HorizontalAlignment="Left" Margin="203,180,0,0" Text="Global Settings" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="40"/>
+        <ToggleSwitch Header="Use 24 hour format" Margin="203,315,0,0" VerticalAlignment="Top" FontSize="25" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FocusVisualPrimaryBrush="White" FocusVisualSecondaryBrush="White" Foreground="White"  >
+            
+        </ToggleSwitch>
 
     </Grid>
 </Page>

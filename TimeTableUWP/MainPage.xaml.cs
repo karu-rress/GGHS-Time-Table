@@ -44,9 +44,7 @@ namespace TimeTableUWP
 
 private int grade;
         private int @class = 8;
-        private bool use24hour = false;
 
-        DateType dateType = DateType.MMDDYYYY;
         DateTime now = DateTime.Now;
 
         public MainPage()
@@ -86,9 +84,9 @@ private int grade;
                 now = DateTime.Now;
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    clock.Text = now.ToString(use24hour ? "HH:mm" : "hh:mm");
-                    amorpmBox.Text = use24hour ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
-                    dateBlock.Text = now.ToString(dateType switch
+                    clock.Text = now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
+                    amorpmBox.Text = SettingsPage.Use24Hour ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
+                    dateBlock.Text = now.ToString(SettingsPage.DateFormat switch
                     {
                         DateType.MMDDYYYY => "MM/dd/yyyy",
                         DateType.YYYYMMDD => "yyyy/MM/dd",
@@ -363,19 +361,7 @@ private int grade;
         }
         #endregion
 
-        #region Button
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        => dateType = dateType switch {
-                DateType.YYYYMMDD => DateType.MMDDYYYY,
-                DateType.MMDDYYYY => DateType.YYYYMMDD2,
-                DateType.YYYYMMDD2 => DateType.YYYYMMDD,
-                _ => throw new NotImplementedException()
-            };
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        => use24hour = !use24hour;
-        #endregion
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {

@@ -23,7 +23,7 @@ namespace TimeTableUWP
     public sealed partial class ZoomDialog : ContentDialog
     {
         const string None = "(None)";
-        ZoomInfo zoomInfo;
+        readonly ZoomInfo zoomInfo;
 
         public ZoomDialog(int @class, string subject, ZoomInfo zoomInfo)
         {

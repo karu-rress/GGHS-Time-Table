@@ -48,7 +48,18 @@ namespace TimeTableUWP
                 await message.ShowAsync();
                 return;
             }
-            sendingMsgText.Visibility = Visibility.Visible;
+
+            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + textBox.Text, 
+                $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
+            MessageDialog messageDialog = new("Sending feedback. Please wait for a while...", "Feedback");
+            await messageDialog.ShowAsync();
+            await smtp.SendAsync(msg);
+            messageDialog = new("Feedback sent! Thank you.", "Success");
+            await messageDialog.ShowAsync();
+        }
+
+        public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
+        {
             MailAddress send = new("gghstimetable@gmail.com");
             MailAddress to = new("nsun527@naver.com");
             SmtpClient smtp = new()
@@ -59,18 +70,12 @@ namespace TimeTableUWP
                 Credentials = new NetworkCredential(send.Address, "rflnapjbcqznllqu"),
                 Timeout = 20_000
             };
-            MailMessage msg = new(send, to)
+            msg = new(send, to)
             {
-                Subject = $"GGHS Time Table Feedback for V{MainPage.Version}",
-                Body = (string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + textBox.Text
+                Subject = subject,
+                Body = body
             };
-            MessageDialog messageDialog = new("Sending feedback. Please wait for a while...", "Feedback");
-            var sendTask = smtp.SendAsync(msg);
-            Task.WaitAll(messageDialog.ShowAsync().AsTask(), sendTask);
-            sendingMsgText.Visibility = Visibility.Collapsed;
-
-            messageDialog = new("Feedback sent! Thank you.", "Success");
-            await messageDialog.ShowAsync();
+            return smtp;
         }
     }
 }

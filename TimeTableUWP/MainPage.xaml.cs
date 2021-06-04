@@ -19,6 +19,7 @@ using GGHS.Grade2;
 using TimeTableUWP.ComboboxItem;
 using RollingRess;
 using static RollingRess.Librarys;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -47,7 +48,7 @@ namespace TimeTableUWP
 
         DateTime now = DateTime.Now;
 
-        bool hasReadFile = false;
+        readonly bool hasReadFile = false;
 
         static PackageVersion version = Package.Current.Id.Version;
         public static string Version { get => $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}"; }
@@ -116,8 +117,7 @@ namespace TimeTableUWP
                         _ => throw new NotImplementedException()
                     });
                     dayBlock.Text = now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
-                }
-                );
+                });
 
                 if (now.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday ||
                     now.Hour is >= 17 or < 9 or 13)
@@ -130,7 +130,7 @@ namespace TimeTableUWP
                 {
                     9 or 10 or 11 or 12 => now.Hour - 8,
                     14 or 15 or 16 => now.Hour - 9,
-                    _ => throw new IndexOutOfRangeException()
+                    _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
                 };
 
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -148,6 +148,8 @@ namespace TimeTableUWP
                         GetButtons().ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(SettingsPage.ColorType);
                     }
                     });
+
+                // 토스트 Notification도 고려해볼 것.
             }
         });
 
@@ -166,9 +168,9 @@ namespace TimeTableUWP
         {
             var subjects = ((IEnumerable)table).Cast<string>();
             var lists = GetButtons().Zip(subjects, (Button btn, string tb) => (btn, tb));
-            foreach (var item in lists)
+            foreach (var (btn, tb) in lists)
             {
-                item.btn.Content = item.tb;
+                btn.Content = tb;
             }
         }
 
@@ -384,7 +386,7 @@ namespace TimeTableUWP
         #endregion
 
 
-
+        /*
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             gradeComboBox.SelectedItem = Grade.Grade2;
@@ -402,7 +404,7 @@ namespace TimeTableUWP
             scComboBox.SelectedItem = Subjects.RawName.Chemistry;
             DrawTimeTable();
         }
-
+        */
 
 
         private async Task ShowSubjectZoom(string subjectCellName)

@@ -37,7 +37,7 @@ namespace TimeTableUWP
         public static DateType DateFormat { get; private set; } = DateType.MMDDYYYY;
         public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
-        Dictionary<DateType, int> dateFormatDict = new()
+        readonly Dictionary<DateType, int> dateFormatDict = new()
         {
             [DateType.YYYYMMDD] = 0,
             [DateType.YYYYMMDD2] = 1,
@@ -73,11 +73,6 @@ namespace TimeTableUWP
 
         private void ColorPicker_ColorChanged(Microsoft.UI.Xaml.Controls.ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args) 
             => ColorType = colorPicker.Color;
-
-        private async Task ComposeEmail(Contact recipient, string subject, string messageBody)
-        {
-
-        }
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {

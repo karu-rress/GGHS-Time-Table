@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -43,18 +45,22 @@ namespace TimeTableUWP
         {
             e.Handled = true;
             Exception exception = e.Exception;
-            int? code = null;
-
-            if (exception is TimeTableException te)
-            {
-                code = te.ErrorCode;
-            }
-
-            MessageDialog messageDialog = new(
-                @$"에러가 발생했습니다. 개발자에게 아래 정보를 전송해주세요.
+            int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
+            string errorMsg = @$"에러가 발생했습니다. 개발자에게 아래 정보를 전송해주세요.
 {(code is not null ? $"\nError code: {code}" : "")}
-{exception}", "An error has occured.");
-            await messageDialog.ShowAsync();
+{exception}";
+            var smtp = FeedbackDialog.PrepareSendMail(errorMsg,
+                $"GGHS Time Table EXCEPTION OCCURED in V{MainPage.Version}", out var msg);
+
+            try
+            {
+                await smtp.SendAsync(msg);
+            }
+            finally
+            {
+                MessageDialog messageDialog = new(errorMsg, "An error has occured.");
+                await messageDialog.ShowAsync();
+            }
         }
     }
 

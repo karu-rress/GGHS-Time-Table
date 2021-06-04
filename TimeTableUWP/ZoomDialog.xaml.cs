@@ -54,6 +54,7 @@ namespace TimeTableUWP
                 tb.AddTextLine("Not available");
                 tb.AddTextLine("개발자에게 줌 링크 추가를 요청해보세요.");
                 IsPrimaryButtonEnabled = false;
+                DefaultButton = ContentDialogButton.Secondary;
             }
             tb.AddText("\nClassroom: ");
             if (zoomInfo.ClassRoom is not null)

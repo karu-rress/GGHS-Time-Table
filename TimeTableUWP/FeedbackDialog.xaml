@@ -1,0 +1,26 @@
+﻿<ContentDialog
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TimeTableUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
+    x:Class="TimeTableUWP.FeedbackDialog"
+    mc:Ignorable="d"
+    Title="Send Feedback"
+    PrimaryButtonText="Send"
+    CloseButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="인증키가 필요하거나, 과목 추가를 원하거나, 오류가 발생한 경우 아래에 작성해주세요." TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="453"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19,67,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="senderBox" HorizontalAlignment="Left" Margin="260,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" Background="White" Foreground="Black"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="452" Height="285" Background="White" Foreground="Black" />
+        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Center" Margin="0,106,0,0" Text="Sending feedback. Please wait for a while..." TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Yellow" Visibility="Collapsed" />
+
+
+
+
+
+    </Grid>
+</ContentDialog>

@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Media;
-using TimeTableUWP.ComboboxItem;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Documents;
-using System.Linq;
 using GGHS;
 using GGHS.Grade2;
+using TimeTableUWP.ComboboxItem;
 using RollingRess;
 using static RollingRess.Librarys;
-using System.Collections.Generic;
-using System.Collections;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 
 /// <TODO>
 /// 
@@ -40,19 +41,40 @@ namespace TimeTableUWP
     /// 
     public sealed partial class MainPage : Page
     {
-        public static MainPage Current;
 
-private int grade;
+        private int grade;
         private int @class = 8;
 
         DateTime now = DateTime.Now;
 
+        bool hasReadFile = false;
+
+        static PackageVersion version = Package.Current.Id.Version;
+        public static string Version { get => $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}"; }
+
         public MainPage()
         {
             InitializeComponent();
+            SetColor();
             _ = LoopTimeAsync();
             Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
-            _ = LoadDataFromFileAsync();
+            if (hasReadFile is false)
+            {
+                _ = LoadDataFromFileAsync();
+                hasReadFile = true;
+            }
+        }
+
+        private void SetColor()
+        {
+            foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
+            {
+                border.Background = new SolidColorBrush(SettingsPage.ColorType);
+            }
+            foreach (var comboBox in new[] {gradeComboBox, classComboBox, s1comboBox, s2comboBox, langComboBox, scComboBox})
+            {
+                comboBox.BorderBrush = new SolidColorBrush(SettingsPage.ColorType);
+            }
         }
 
         private async Task LoadDataFromFileAsync()
@@ -75,7 +97,7 @@ private int grade;
         private async void ShowMessage(string context, string title = "")
         => await new MessageDialog(context) { Title = title }.ShowAsync();
 
-        private async Task LoopTimeAsync() => await Task.Factory.StartNew(() =>
+        private async Task LoopTimeAsync() => await Task.Run(() =>
         {
             (int day, int time) pos;
             while (true)
@@ -121,9 +143,9 @@ private int grade;
                     // [a, b] => 7a + b
                     // [pos.day - 1, pos.time - 1] => 7*(pos.day - 1) + (pos.time - 1)
                     GetButtons().ElementAt((7 * (pos.day-1)) + (pos.time-1)).Background =
-                        new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                        new SolidColorBrush(SettingsPage.ColorType);
                     if (pos.time is <= 6) {
-                        GetButtons().ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x6D, 0x6D, 0xBD));
+                        GetButtons().ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(SettingsPage.ColorType);
                     }
                     });
             }
@@ -381,47 +403,7 @@ private int grade;
             DrawTimeTable();
         }
 
-        private async void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527") };
-            hyperlink.Inlines.Add(new Run() { Text = "개발자 블로그 1 (네이버: 카루)" });
 
-            Hyperlink hyperlink2 = new() { NavigateUri = new("https://rress.tistory.com") };
-            hyperlink2.Inlines.Add(new Run() { Text = "개발자 블로그 2 (티스토리: Rolling Ress)" });
-
-            TextBlock tb = new();
-            tb.Inlines.Add(new Run()
-            {
-                Text = @"환영합니다, Rolling Ress의 카루입니다.
-
-GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한 많은 분들께
-이 프로그램을 알려주세요.
-기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
-인스타그램 @nsun527로 제보해주시면 감사하겠습니다.
-
-카루 블로그 링크:
-"
-            });
-            tb.Inlines.Add(hyperlink);
-            tb.Inlines.Add(new Run() { Text = "\n" });
-            tb.Inlines.Add(hyperlink2);
-
-            ContentDialog contentDialog = new()
-            {
-                Title = "About GGHS Time Table",
-                Content = tb,
-                PrimaryButtonText = "Open Naver Blog",
-                SecondaryButtonText = "Open Tistory",
-                CloseButtonText = "Close",
-                DefaultButton = ContentDialogButton.Primary,
-            };
-
-            var selection = await contentDialog.ShowAsync();
-            if (selection is ContentDialogResult.Primary)
-                await Windows.System.Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
-            if (selection is ContentDialogResult.Secondary)        
-                await Windows.System.Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
-        }
 
         private async Task ShowSubjectZoom(string subjectCellName)
         {
@@ -488,6 +470,5 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(SettingsPage));
-        
     }
 }

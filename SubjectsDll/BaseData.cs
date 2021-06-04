@@ -1,7 +1,29 @@
 ﻿using System;
+using Windows.ApplicationModel.Contacts;
 
 namespace TimeTableUWP
 {
+    public static class Data
+    {
+
+        public static Contact karu = new()
+        {
+            Nickname = "Karu",
+            FirstName = "Sunwoo",
+            LastName = "Na",
+        };
+
+        static Data()
+        {
+            ContactEmail email = new()
+            {
+                Address = "nsun527@naver.com",
+                Kind = ContactEmailKind.Personal
+            };
+            karu.Emails.Add(email);
+        }
+    }
+
     namespace ComboboxItem
     {
         public static class Grade

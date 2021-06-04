@@ -42,24 +42,42 @@
     </Page.Resources>
     <Grid x:Name="mainGrid">
         <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top" Width="679"><Run Text="GGHS Time Table "/><Run Text="2 Settings"/></TextBlock>
-        <TextBlock x:Name="textBox0" HorizontalAlignment="Left" Margin="203,180,0,0" Text="Global Settings" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="45"/>
+        <TextBlock x:Name="textBox0" HorizontalAlignment="Left" Margin="203,170,0,0" Text="Global Settings" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="45"/>
         <Button Margin="0,0,70,53" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="230" Height="90" Click="Button_Click" >
             <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe MDL2 Assets"/></TextBlock>
         </Button>
 
 
-        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" RequestedTheme="Dark" Margin="203,295,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled"/>
+        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" RequestedTheme="Dark" Margin="203,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled"/>
 
-        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" RequestedTheme="Dark" HorizontalAlignment="Left" Height="182" Margin="203,403,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged">
+        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" RequestedTheme="Dark" HorizontalAlignment="Left" Height="182" Margin="203,353,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged">
             <x:String>2020/06/03</x:String>
             <x:String>2020-06-03</x:String>
             <x:String>06/03/2020</x:String>
         </muxc:RadioButtons>
 
 
+        <muxc:ColorPicker x:Name="colorPicker"
+      ColorSpectrumShape="Ring"
+      IsMoreButtonVisible="False"
+      IsColorSliderVisible="True"
+      IsColorChannelTextInputVisible="False"
+      IsHexInputVisible="False"
+      IsAlphaEnabled="False"
+      IsAlphaSliderVisible="True"
+      IsAlphaTextInputVisible="True" Margin="196,564,1300,30" ColorChanged="ColorPicker_ColorChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="203,516,0,0" Text="Select color" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25"/>
+        <Button Margin="0,0,132,636" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="505" Height="90" Click="Button_Click_1" >
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe MDL2 Assets"/></TextBlock>
+        </Button>
+        <Button Margin="0,0,132,450" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="505" Height="90" Click="Button_Click_2" >
+            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Segoe MDL2 Assets"/></TextBlock>
+        </Button>
 
-
-
+        <!-- E77B Contact 
+        E946 Info
+        
+        -->
 
     </Grid>
 </Page>

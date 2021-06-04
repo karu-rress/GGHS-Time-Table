@@ -62,5 +62,10 @@ namespace TimeTableUWP
                 };
             }
         }
+
+        /*
+         * 버튼 하나 더 만들고
+         * About 크레딧 넣기
+         */
     }
 }

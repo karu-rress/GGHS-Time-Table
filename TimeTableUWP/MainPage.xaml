@@ -9,8 +9,8 @@
     Background="#FF1C1C1C">
 
     <Grid Name="mainGrid" Margin="0,0,0,0">
-        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 2 Preview" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
-        <TextBlock x:Name="mainText2" HorizontalAlignment="Left" Margin="181,143,0,0" Text="Codename Fluent" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
+        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 2" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
+        <TextBlock x:Name="mainText2" HorizontalAlignment="Left" Margin="181,143,0,0" Text="by Karu, Rolling Ress" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30"/>
 
         <Grid Name="clockGrid" Margin="0,45,0,0" HorizontalAlignment="Right" Width="500" Background="#FF1C1C1C" Height="165" VerticalAlignment="Top">
             <Grid.Resources>
@@ -34,7 +34,7 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
                         <Setter Property="BorderThickness" Value="5"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderBrush" Value="#FF1C1C1C"/>
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="25"/>

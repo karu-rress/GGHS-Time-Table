@@ -12,12 +12,11 @@
     PrimaryButtonText="Activate"
     DefaultButton="Primary"
     CloseButtonText="Cancel"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    CloseButtonClick="ContentDialog_CloseButtonClick">
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
 
     <Grid Margin="0,0,0,-19" Width="500" Height="150">
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="보안상의 문제로 인해 ZOOM 링크 기능을 사용하려면 제품 인증을 해야 합니다. 개발자에게 제공받은 제품키를 입력하세요. &#xA;제품키는 총 25자리로 구성되어 있으며, '"/><Run Text="-"/><Run Text="'를 제외하고 입력합니다. &#xA;인증키를 모르는 경우 개발자에게 문의하세요."/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="보안상의 문제로 인해 ZOOM 링크 기능을 사용하려면 제품 인증을 해야 합니다. 개발자에게 제공받은 인증키를 입력하세요. &#xA;인증키는 총 25자리로 구성되어 있으며, '-'를 제외하고 입력합니다. &#xA;인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요."/></TextBlock>
         <Grid Width="500" Height="60" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

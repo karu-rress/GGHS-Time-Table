@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
 namespace TimeTableUWP
@@ -69,6 +70,10 @@ namespace TimeTableUWP
             var storageFolder = ApplicationData.Current.LocalFolder;
             if (await storageFolder.TryGetItemAsync(dataFileName) is not StorageFile dataFile)
             {
+                MessageDialog messageDialog = new(@"환영합니다, Rolling Ress의 카루입니다.
+GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
+꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 2");
+                await messageDialog.ShowAsync();
                 return false;
             }
 
@@ -79,11 +84,7 @@ namespace TimeTableUWP
                 using var dataReader = new DataReader(inputStream);
                 uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
                 string text = dataReader.ReadString(numBytesLoaded);
-
-                string[] lines = text.Split(
-                    new[] { "\r\n", "\r", "\n" },
-                    StringSplitOptions.None
-                    );
+                string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                 GradeComboBoxText = lines[0];
                 ClassComboBoxText = lines[1];
@@ -131,7 +132,6 @@ namespace TimeTableUWP
         public static void SetGradeAndClass(ref int grade, ref int @class)
         => (grade, @class) = (GradeComboBoxText[6] - '0', ClassComboBoxText[6] - '0');
         
-
         static string MakeString(this ActivateLevel val)
         {
             int converted = (int)val;
@@ -146,7 +146,6 @@ namespace TimeTableUWP
             return (ActivateLevel)converted;
         }
     }
-
 
     // TODO: Use dynamic APIs
     // Check for C# reference in microsoft.

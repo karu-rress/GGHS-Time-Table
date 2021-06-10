@@ -20,50 +20,50 @@ namespace GGHS
         private static class Common
         {
             // Literature
-            public static readonly ZoomInfo Literature1to3 = new("https://zoom.us/j/92759524061?pwd=dHUwZllmSEp2NWpRYlVTbmdjODR3dz09", "927 5952 4061", "0203", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "백지혜");
-            public static readonly ZoomInfo Literature4to6 = new("https://zoom.us/j/85644781112?pwd=SC8xWDBZbVRpNW1TSXF6QjRNQk8zQT09", "856 4478 1112", "0204", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "윤채영");
-            public static readonly ZoomInfo Literature7to8 = new("https://zoom.us/j/97317948690?pwd=WWovQUdBQS8rVVMzMUNyZmNPSDY3Zz09", "973 1794 8690", "626239", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "임제완");
+            public static ZoomInfo Literature1to3 { get; } = new("https://zoom.us/j/92759524061?pwd=dHUwZllmSEp2NWpRYlVTbmdjODR3dz09", "927 5952 4061", "0203", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "백지혜");
+            public static ZoomInfo Literature4to6 { get; } = new("https://zoom.us/j/85644781112?pwd=SC8xWDBZbVRpNW1TSXF6QjRNQk8zQT09", "856 4478 1112", "0204", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "윤채영");
+            public static ZoomInfo Literature7to8 { get; } = new("https://zoom.us/j/97317948690?pwd=WWovQUdBQS8rVVMzMUNyZmNPSDY3Zz09", "973 1794 8690", "626239", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "임제완");
 
             // Math
-            public static readonly ZoomInfo Math1to3 = new(null, null, null, "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "이혜란");
-            public static readonly ZoomInfo Math4to6 = new("https://zoom.us/j/7014267742?pwd=eFAvUWQweVdSbmc4Q2JLNGlQWTdsZz09", "701 426 7742", "1111", "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "박지영");
-            public static readonly ZoomInfo Math7to8 = new(null, null, null, "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "공현진");
+            public static ZoomInfo Math1to3 { get; } = new(null, null, null, "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "이혜란");
+            public static ZoomInfo Math4to6 { get; } = new("https://zoom.us/j/7014267742?pwd=eFAvUWQweVdSbmc4Q2JLNGlQWTdsZz09", "701 426 7742", "1111", "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "박지영");
+            public static ZoomInfo Math7to8 { get; } = new(null, null, null, "https://classroom.google.com/c/MjgzNDM1NjIyODM0", "공현진");
 
             //English
-            public static readonly ZoomInfo CriticalEnglishA1to4 = new("https://zoom.us/j/5472878985?pwd=RlIzSmJnWHBRaWhkRTNkOEJ6UUF5UT09", "547 287 8985", "0512", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "김찬미");
-            public static readonly ZoomInfo CriticalEnglishA5to8 = new("https://zoom.us/j/5031101343?pwd=QTRmbnRLSHFPamh4U3d2ZS9JTXdrUT09", "503 110 1343", "1111", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "김한나");
-            public static readonly ZoomInfo CriticalEnglishB = new(null, null, null, "https://classroom.google.com/c/Mjc3NzExMjYyMTg2", "Lubi");
-            public static readonly ZoomInfo CriticalEnglishC = new("https://zoom.us/j/5365083101?pwd=VDV4VHA5MVUrcDV4cDV1RitZeHovZz09", "536 508 3101", "2021", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "허진");
-            public static readonly ZoomInfo CriticalEnglishD = new("https://zoom.us/j/7936438089?pwd=UkZNaWhFUTE5R2xIYkRxWTRSTC90QT09", "793 643 8089", "1234", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "장종윤");
+            public static ZoomInfo CriticalEnglishA1to4 { get; } = new("https://zoom.us/j/5472878985?pwd=RlIzSmJnWHBRaWhkRTNkOEJ6UUF5UT09", "547 287 8985", "0512", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "김찬미");
+            public static ZoomInfo CriticalEnglishA5to8 { get; } = new("https://zoom.us/j/5031101343?pwd=QTRmbnRLSHFPamh4U3d2ZS9JTXdrUT09", "503 110 1343", "1111", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "김한나");
+            public static ZoomInfo CriticalEnglishB { get; } = new(null, null, null, "https://classroom.google.com/c/Mjc3NzExMjYyMTg2", "Lubi");
+            public static ZoomInfo CriticalEnglishC { get; } = new("https://zoom.us/j/5365083101?pwd=VDV4VHA5MVUrcDV4cDV1RitZeHovZz09", "536 508 3101", "2021", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "허진");
+            public static ZoomInfo CriticalEnglishD { get; } = new("https://zoom.us/j/7936438089?pwd=UkZNaWhFUTE5R2xIYkRxWTRSTC90QT09", "793 643 8089", "1234", "https://classroom.google.com/c/Mjc3NTczMTU4MzE3", "장종윤");
 
             // Socials
-            public static readonly ZoomInfo Politics = new("https://zoom.us/j/4613355190?pwd=WEZzaFhtTVpDZVk4L09XK1VlQ3Z5UT09", "461 335 5190", "1111", null, "정슬기");
-            public static readonly ZoomInfo Economy = new("https://zoom.us/j/2521095403?pwd=MVBmOURvRGU1azRwY0lnejVwa2tjUT09", "252 109 5403", "2021", null, "김용지");
-            public static readonly ZoomInfo History = new("https://zoom.us/j/91236721004?pwd=MkhMN3FLdXZsbW1LbExqWWNkaGhHdz09", "912 3672 1004", "duhanworld", null, "이두한");
-            // public static readonly ZoomInfo Geography = new("");
+            public static ZoomInfo Politics { get; } = new("https://zoom.us/j/4613355190?pwd=WEZzaFhtTVpDZVk4L09XK1VlQ3Z5UT09", "461 335 5190", "1111", null, "정슬기");
+            public static ZoomInfo Economy { get; } = new("https://zoom.us/j/2521095403?pwd=MVBmOURvRGU1azRwY0lnejVwa2tjUT09", "252 109 5403", "2021", null, "김용지");
+            public static ZoomInfo History { get; } = new("https://zoom.us/j/91236721004?pwd=MkhMN3FLdXZsbW1LbExqWWNkaGhHdz09", "912 3672 1004", "duhanworld", null, "이두한");
+            // public static ZoomInfo Geography { get; } = new("");
 
             // Science
-            // public static readonly ZoomInfo Physics = new("");
-            public static readonly ZoomInfo Chemistry = new("https://zoom.us/j/93595351190?pwd=eHVIMXVGSnFTaGhYWVprNm4xTEh0Zz09", "935 9535 1190", "2021gghs", null, "이지은");
-            public static readonly ZoomInfo Biology = new("https://zoom.us/j/4153909733?pwd=M2h3eVp5WnNPUTdJdlBwMkd1VGs1dz09", "415 390 9733", "1111", null, "이지원");
+            // public static ZoomInfo Physics { get; } = new("");
+            public static ZoomInfo Chemistry { get; } = new("https://zoom.us/j/93595351190?pwd=eHVIMXVGSnFTaGhYWVprNm4xTEh0Zz09", "935 9535 1190", "2021gghs", null, "이지은");
+            public static ZoomInfo Biology { get; } = new("https://zoom.us/j/4153909733?pwd=M2h3eVp5WnNPUTdJdlBwMkd1VGs1dz09", "415 390 9733", "1111", null, "이지원");
 
             // Specials [Completed]
-            public static readonly ZoomInfo Ethics = new("https://zoom.us/j/9401959597?pwd=TE5BSW5jSUFpaE1xKytzZ2I4Q2FWUT09", "940 195 9597", "255226", null, "류제광");
-            public static readonly ZoomInfo Environment = new("https://zoom.us/j/94849418747", "948 4941 8747", "geogeo", null, "조한솔");
+            public static ZoomInfo Ethics { get; } = new("https://zoom.us/j/9401959597?pwd=TE5BSW5jSUFpaE1xKytzZ2I4Q2FWUT09", "940 195 9597", "255226", null, "류제광");
+            public static ZoomInfo Environment { get; } = new("https://zoom.us/j/94849418747", "948 4941 8747", "geogeo", null, "조한솔");
 
             // Language
-            // public static readonly ZoomInfo Spanish = new("https://us02web.zoom.us/j/7411091130?pwd=M0tZTXJwaFRXb3RmZm1jODNhdUtqUT09");
-            public static readonly ZoomInfo Chinese = new("https://zoom.us/j/99535123743?pwd=d0dPemVjNXIxcks5RCt0OFc1aGg0Zz09", "995 3512 3743", "1eMXJM", null, "김나연");
-            // public static readonly ZoomInfo Japanese = new("");
+            // public static ZoomInfo Spanish { get; } = new("https://us02web.zoom.us/j/7411091130?pwd=M0tZTXJwaFRXb3RmZm1jODNhdUtqUT09");
+            public static ZoomInfo Chinese { get; } = new("https://zoom.us/j/99535123743?pwd=d0dPemVjNXIxcks5RCt0OFc1aGg0Zz09", "995 3512 3743", "1eMXJM", null, "김나연");
+            // public static ZoomInfo Japanese { get; } = new("");
 
             // Others
-            public static readonly ZoomInfo CreativeSolve = new("https://meet.google.com/lookup/bgt6c65ccm", null, null, null, "조광진");
-            public static readonly ZoomInfo Sport1to4 = new("https://zoom.us/j/3373011774?pwd=QWYybW1SMlljVlVFRzRTY0RvenVrUT09", "337 301 1774", "123456", null, "허진용");
-            public static readonly ZoomInfo Sport5to8 = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
+            public static ZoomInfo CreativeSolve { get; } = new("https://meet.google.com/lookup/bgt6c65ccm", null, null, null, "조광진");
+            public static ZoomInfo Sport1to4 { get; } = new("https://zoom.us/j/3373011774?pwd=QWYybW1SMlljVlVFRzRTY0RvenVrUT09", "337 301 1774", "123456", null, "허진용");
+            public static ZoomInfo Sport5to8 { get; } = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             //
         }
 
-        public static readonly Dictionary<string, ZoomInfo> Class3 = new()
+        public static Dictionary<string, ZoomInfo> Class3 { get; } = new()
         {
             [Subjects.CellName.Literature] = Common.Literature1to3,
             [Subjects.CellName.Mathematics] = Common.Math1to3,
@@ -98,7 +98,7 @@ namespace GGHS
         };
 
         // FINISHED
-        public static readonly Dictionary<string, ZoomInfo> Class4 = new()
+        public static Dictionary<string, ZoomInfo> Class4 { get; } = new()
         {
             [Subjects.CellName.Literature] = Common.Literature4to6,
             [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -129,7 +129,7 @@ namespace GGHS
             [Subjects.CellName.MathResearch] = null, // RANDOM
         };
 
-        public static readonly Dictionary<string, ZoomInfo> Class5 = new()
+        public static Dictionary<string, ZoomInfo> Class5 { get; } = new()
         {
             [Subjects.CellName.Literature] = Common.Literature4to6,
             [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -163,7 +163,7 @@ namespace GGHS
             [Subjects.CellName.MathResearch] = null, // RANDOM
         };
 
-        public static readonly Dictionary<string, ZoomInfo> Class6 = new()
+        public static Dictionary<string, ZoomInfo> Class6 { get; } = new()
         {
             [Subjects.CellName.Literature] = Common.Literature4to6,
             [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -194,7 +194,7 @@ namespace GGHS
             [Subjects.CellName.MathResearch] = null, // RANDOM
         };
 
-        public static readonly Dictionary<string, ZoomInfo> Class8 = new()
+        public static Dictionary<string, ZoomInfo> Class8 { get; } = new()
         {
             [Subjects.CellName.Literature] = Common.Literature7to8,
             [Subjects.CellName.Mathematics] = Common.Math7to8,

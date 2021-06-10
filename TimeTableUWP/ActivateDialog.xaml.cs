@@ -81,10 +81,6 @@ namespace TimeTableUWP
             _ = message.ShowAsync();
         }
 
-        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
         protected override void OnPreviewKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Key is VirtualKey.Space)
@@ -94,8 +90,18 @@ namespace TimeTableUWP
             base.OnPreviewKeyDown(e);
         }
 
+        private void UpperTextBox(object textBox)
+        {
+            var sender = textBox as TextBox;
+            var selectionStart = sender.SelectionStart;
+            sender.Text = sender.Text.ToUpper();
+            sender.SelectionStart = selectionStart;
+            sender.SelectionLength = 0;
+        }
+
         private void keyBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
+            UpperTextBox(sender);
             if (keyBox1.Text.Length == keyBox1.MaxLength)
             {
                 keyBox2.Focus(FocusState.Keyboard);
@@ -104,6 +110,7 @@ namespace TimeTableUWP
 
         private void keyBox2_TextChanged(object sender, TextChangedEventArgs e)
         {
+            UpperTextBox(sender);
             if (keyBox2.Text.Length == keyBox1.MaxLength)
             {
                 keyBox3.Focus(FocusState.Keyboard);
@@ -112,6 +119,7 @@ namespace TimeTableUWP
 
         private void keyBox3_TextChanged(object sender, TextChangedEventArgs e)
         {
+            UpperTextBox(sender);
             if (keyBox3.Text.Length == keyBox1.MaxLength)
             {
                 keyBox4.Focus(FocusState.Keyboard);
@@ -120,15 +128,13 @@ namespace TimeTableUWP
 
         private void keyBox4_TextChanged(object sender, TextChangedEventArgs e)
         {
+            UpperTextBox(sender);
             if (keyBox4.Text.Length == keyBox1.MaxLength)
             {
                 keyBox5.Focus(FocusState.Keyboard);
             }
         }
 
-        private void keyBox5_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        private void keyBox5_TextChanged(object sender, TextChangedEventArgs e) => UpperTextBox(sender);
     }
 }

@@ -21,6 +21,7 @@ using System.Net;
 using Windows.UI.Popups;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using Windows.UI.Text;
 //using EASendMail;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -30,11 +31,11 @@ namespace TimeTableUWP
     static class SmtpExtension
     {
         public static Task SendAsync(this SmtpClient smtp, MailMessage msg) => Task.Run(() => smtp.Send(msg));
-        
     }
 
     public sealed partial class FeedbackDialog : ContentDialog
     {
+        bool isSending = false;
         public FeedbackDialog()
         {
             this.InitializeComponent();
@@ -42,20 +43,24 @@ namespace TimeTableUWP
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (string.IsNullOrEmpty(textBox.Text))
+            var text = textBox.Text;
+            if (string.IsNullOrWhiteSpace(text))
             {
                 MessageDialog message = new("Please enter text.", "Error");
                 await message.ShowAsync();
                 return;
             }
 
-            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + textBox.Text, 
+            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + text, 
                 $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
-            MessageDialog messageDialog = new("Sending feedback. Please wait for a while...", "Feedback");
-            await messageDialog.ShowAsync();
+            isSending = true;
+            sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
+            IsPrimaryButtonEnabled = IsSecondaryButtonEnabled = false;
             await smtp.SendAsync(msg);
-            messageDialog = new("Feedback sent! Thank you.", "Success");
-            await messageDialog.ShowAsync();
+            isSending = false;
+            progressRing.Value = 100;
+            sendingMsgText.Text = "Successfully sent!";
+            Hide();
         }
 
         public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
@@ -76,6 +81,19 @@ namespace TimeTableUWP
                 Body = body
             };
             return smtp;
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (isSending)
+            {
+                args.Cancel = true;
+            }
         }
     }
 }

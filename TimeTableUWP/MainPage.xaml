@@ -181,17 +181,17 @@
                 <x:String>중국어Ⅰ</x:String>
                 <x:String>일본어Ⅰ</x:String>
             </ComboBox>
-            <ComboBox x:Name="s1comboBox" SelectionChanged="s1comboBox_SelectionChanged"  Grid.Row="6">
+            <ComboBox x:Name="specialComboBox" SelectionChanged="specialComboBox_SelectionChanged"  Grid.Row="6">
                 <x:String>실천 윤리학의 이해</x:String>
                 <x:String>인간과 환경</x:String>
             </ComboBox>
-            <ComboBox x:Name="s2comboBox" SelectionChanged="s2comboBox_SelectionChanged"  Grid.Row="7">
+            <ComboBox x:Name="socialComboBox" SelectionChanged="socialComboBox_SelectionChanged"  Grid.Row="7">
                 <x:String>세계지리</x:String>
                 <x:String>세계사</x:String>
                 <x:String>정치와 법</x:String>
                 <x:String>경제</x:String>
             </ComboBox>
-            <ComboBox x:Name="scComboBox" SelectionChanged="scComboBox_SelectionChanged"  Grid.Row="8">
+            <ComboBox x:Name="scienceComboBox" SelectionChanged="scienceComboBox_SelectionChanged"  Grid.Row="8">
                 <x:String>물리학Ⅰ</x:String>
                 <x:String>화학Ⅰ</x:String>
                 <x:String>생명과학Ⅰ</x:String>

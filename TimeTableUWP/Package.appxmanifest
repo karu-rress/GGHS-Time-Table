@@ -9,7 +9,7 @@
   <Identity
     Name="43869RollingRess.GGHSTimeTable"
     Publisher="CN=A20999E7-9369-49AA-B89C-1CC2A7AAB5EA"
-    Version="2.1.3.0" />
+    Version="2.2.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="03e493a9-b29a-40fe-bfc1-31bed4f7e9cc" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

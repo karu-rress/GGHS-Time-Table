@@ -30,39 +30,56 @@ using Microsoft.Toolkit.Uwp.Notifications;
 /// BORDER BRUSH: 버튼 이거를 화이트로 강조할 것
 /// 
 // 
-/// foreground가 글자색
+/// nameof() 연산자로 이름을 문자열로 만들 수 있음
+/// 
+/// 
 /// 
 /// </TODO>
 
 namespace TimeTableUWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
+
     public sealed partial class MainPage : Page
     {
-
         private int grade;
         private int @class = 8;
 
         DateTime now = DateTime.Now;
 
-        readonly bool hasReadFile = false;
+        static bool hasReadFile = false;
 
         static PackageVersion version = Package.Current.Id.Version;
         public static string Version { get => $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}"; }
+
+        static (int grade, int @class, int lang, int special, int social, int science) comboBoxSelection = (-1, -1, -1, -1, -1, -1);
 
         public MainPage()
         {
             InitializeComponent();
             SetColor();
             _ = LoopTimeAsync();
-            Disable(classComboBox, langComboBox, s1comboBox, s2comboBox, scComboBox);
-            if (hasReadFile is false)
+            Disable(classComboBox, langComboBox, specialComboBox, socialComboBox, scienceComboBox);
+            if (!hasReadFile)
             {
                 _ = LoadDataFromFileAsync();
                 hasReadFile = true;
+            }
+           
+            if (comboBoxSelection.grade is not -1)
+                (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex, specialComboBox.SelectedIndex,
+                    socialComboBox.SelectedIndex, scienceComboBox.SelectedIndex) = comboBoxSelection;
+        }
+
+        IEnumerable<ComboBox> ComboBoxes
+        {
+            get
+            {
+                yield return gradeComboBox;
+                yield return classComboBox;
+                yield return langComboBox;
+                yield return specialComboBox;
+                yield return socialComboBox;
+                yield return scienceComboBox;
             }
         }
 
@@ -72,7 +89,7 @@ namespace TimeTableUWP
             {
                 border.Background = new SolidColorBrush(SettingsPage.ColorType);
             }
-            foreach (var comboBox in new[] {gradeComboBox, classComboBox, s1comboBox, s2comboBox, langComboBox, scComboBox})
+            foreach (var comboBox in ComboBoxes)
             {
                 comboBox.BorderBrush = new SolidColorBrush(SettingsPage.ColorType);
             }
@@ -87,16 +104,25 @@ namespace TimeTableUWP
                 SaveData.SetComboBoxes(
                     ref gradeComboBox,
                     ref classComboBox,
-                    ref s1comboBox,
-                    ref s2comboBox,
+                    ref specialComboBox,
+                    ref socialComboBox,
                     ref langComboBox,
-                    ref scComboBox
+                    ref scienceComboBox
                     );
             }
         }
 
         private async void ShowMessage(string context, string title = "")
-        => await new MessageDialog(context) { Title = title }.ShowAsync();
+        {
+            ContentDialog contentDialog = new()
+            {
+                Title = title,
+                Content = context,
+                CloseButtonText = "OK",
+            };
+            await contentDialog.ShowAsync();
+        }
+        //=> await new MessageDialog(context) { Title = title }.ShowAsync();
 
         private async Task LoopTimeAsync() => await Task.Run(() =>
         {
@@ -135,17 +161,17 @@ namespace TimeTableUWP
 
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () => {
-                    foreach (var item in GetButtons())
+                    foreach (var item in Buttons)
                     {
                         item.Background = new SolidColorBrush(Colors.Black);
                         item.Foreground = new SolidColorBrush(Colors.White);
                     }
                     // [a, b] => 7a + b
                     // [pos.day - 1, pos.time - 1] => 7*(pos.day - 1) + (pos.time - 1)
-                    GetButtons().ElementAt((7 * (pos.day-1)) + (pos.time-1)).Background =
+                    Buttons.ElementAt((7 * (pos.day-1)) + (pos.time-1)).Background =
                         new SolidColorBrush(SettingsPage.ColorType);
                     if (pos.time is <= 6) {
-                        GetButtons().ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(SettingsPage.ColorType);
+                        Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(SettingsPage.ColorType);
                     }
                     });
 
@@ -167,54 +193,57 @@ namespace TimeTableUWP
         private void AssignButtonsByTable(string[,] table)
         {
             var subjects = ((IEnumerable)table).Cast<string>();
-            var lists = GetButtons().Zip(subjects, (Button btn, string tb) => (btn, tb));
+            var lists = Buttons.Zip(subjects, (Button btn, string tb) => (btn, tb));
             foreach (var (btn, tb) in lists)
             {
                 btn.Content = tb;
             }
         }
 
-        private IEnumerable<Button> GetButtons()
+        private IEnumerable<Button> Buttons
         {
-            yield return mon1Button;
-            yield return mon2Button;
-            yield return mon3Button;
-            yield return mon4Button;
-            yield return mon5Button;
-            yield return mon6Button;
-            yield return mon7Button;
+            get
+            {
+                yield return mon1Button;
+                yield return mon2Button;
+                yield return mon3Button;
+                yield return mon4Button;
+                yield return mon5Button;
+                yield return mon6Button;
+                yield return mon7Button;
 
-            yield return tue1Button;
-            yield return tue2Button;
-            yield return tue3Button;
-            yield return tue4Button;
-            yield return tue5Button;
-            yield return tue6Button;
-            yield return tue7Button;
+                yield return tue1Button;
+                yield return tue2Button;
+                yield return tue3Button;
+                yield return tue4Button;
+                yield return tue5Button;
+                yield return tue6Button;
+                yield return tue7Button;
 
-            yield return wed1Button;
-            yield return wed2Button;
-            yield return wed3Button;
-            yield return wed4Button;
-            yield return wed5Button;
-            yield return wed6Button;
-            yield return wed7Button;
+                yield return wed1Button;
+                yield return wed2Button;
+                yield return wed3Button;
+                yield return wed4Button;
+                yield return wed5Button;
+                yield return wed6Button;
+                yield return wed7Button;
 
-            yield return thu1Button;
-            yield return thu2Button;
-            yield return thu3Button;
-            yield return thu4Button;
-            yield return thu5Button;
-            yield return thu6Button;
-            yield return thu7Button;
+                yield return thu1Button;
+                yield return thu2Button;
+                yield return thu3Button;
+                yield return thu4Button;
+                yield return thu5Button;
+                yield return thu6Button;
+                yield return thu7Button;
 
-            yield return fri1Button;
-            yield return fri2Button;
-            yield return fri3Button;
-            yield return fri4Button;
-            yield return fri5Button;
-            yield return fri6Button;
-            yield return fri7Button;
+                yield return fri1Button;
+                yield return fri2Button;
+                yield return fri3Button;
+                yield return fri4Button;
+                yield return fri5Button;
+                yield return fri6Button;
+                yield return fri7Button;
+            }
         }
 
         private string[,] SetArrayByClass() => @class switch
@@ -232,7 +261,7 @@ namespace TimeTableUWP
 
         #region ComboBox
         private void EnableAllCombobox()
-        => Librarys.Enable(langComboBox, s1comboBox, s2comboBox, scComboBox);
+        => Librarys.Enable(langComboBox, specialComboBox, socialComboBox, scienceComboBox);
 
         private void gradeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -259,58 +288,58 @@ namespace TimeTableUWP
 
         private void SetComboBoxAsClass1()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
-            s2comboBox.SelectedItem = Subjects.RawName.Politics;
+            specialComboBox.SelectedItem = Subjects.RawName.Ethics;
+            socialComboBox.SelectedItem = Subjects.RawName.Politics;
             langComboBox.SelectedItem = Subjects.RawName.Spanish;
-            scComboBox.SelectedItem = Subjects.RawName.Biology;
+            scienceComboBox.SelectedItem = Subjects.RawName.Biology;
 
-            Librarys.Disable(s1comboBox, s2comboBox, langComboBox, scComboBox);
+            Librarys.Disable(specialComboBox, socialComboBox, langComboBox, scienceComboBox);
         }
         private void SetComboBoxAsClass2()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
-            scComboBox.SelectedItem = Subjects.RawName.Biology;
+            specialComboBox.SelectedItem = Subjects.RawName.Ethics;
+            scienceComboBox.SelectedItem = Subjects.RawName.Biology;
 
-            Librarys.Disable(s1comboBox, scComboBox);
-            Librarys.Empty(langComboBox, s2comboBox);
+            Disable(specialComboBox, scienceComboBox);
+            Librarys.Empty(langComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass3()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
-            Librarys.Disable(s1comboBox);
-            Librarys.Empty(langComboBox, scComboBox, s2comboBox);
+            specialComboBox.SelectedItem = Subjects.RawName.Ethics;
+            Librarys.Disable(specialComboBox);
+            Librarys.Empty(langComboBox, scienceComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass4()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Ethics;
+            specialComboBox.SelectedItem = Subjects.RawName.Ethics;
             langComboBox.SelectedItem = Subjects.RawName.Chinese;
-            scComboBox.SelectedItem = Subjects.RawName.Biology;
-            Librarys.Disable(s1comboBox, langComboBox, scComboBox);
-            Librarys.Empty(s2comboBox);
+            scienceComboBox.SelectedItem = Subjects.RawName.Biology;
+            Librarys.Disable(specialComboBox, langComboBox, scienceComboBox);
+            Librarys.Empty(socialComboBox);
         }
         private void SetComboBoxAsClass5()
         {
             langComboBox.SelectedItem = Subjects.RawName.Spanish;
             Librarys.Disable(langComboBox);
-            Librarys.Empty(scComboBox, s1comboBox, s2comboBox);
+            Librarys.Empty(scienceComboBox, specialComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass6()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Environment;
+            specialComboBox.SelectedItem = Subjects.RawName.Environment;
             langComboBox.SelectedItem = Subjects.RawName.Spanish;
-            scComboBox.SelectedItem = Subjects.RawName.Biology;
-            Librarys.Disable(s1comboBox, langComboBox, scComboBox);
-            Librarys.Empty(s2comboBox);
+            scienceComboBox.SelectedItem = Subjects.RawName.Biology;
+            Librarys.Disable(specialComboBox, langComboBox, scienceComboBox);
+            Librarys.Empty(socialComboBox);
         }
         private void SetComboBoxAsClass7()
         {
-            Librarys.Empty(langComboBox, scComboBox, s1comboBox, s2comboBox);
+            Librarys.Empty(langComboBox, scienceComboBox, specialComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass8()
         {
-            s1comboBox.SelectedItem = Subjects.RawName.Environment;
-            Librarys.Disable(s1comboBox);
-            Librarys.Empty(langComboBox, scComboBox, s2comboBox);
+            specialComboBox.SelectedItem = Subjects.RawName.Environment;
+            Librarys.Disable(specialComboBox);
+            Librarys.Empty(langComboBox, scienceComboBox, socialComboBox);
         }
 
         private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -354,57 +383,36 @@ namespace TimeTableUWP
             }
         }
 
-        private void s1comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void specialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (s1comboBox.SelectedItem is null)
+            if (specialComboBox.SelectedItem is null)
                 return;
-            SaveData.SpecialComboBoxText = s1comboBox.SelectedItem as string;
-            Subjects.Specials.Selected = SaveData.SpecialComboBoxText switch
-            {
-                Subjects.RawName.Ethics => Subjects.Specials.Ethics,
-                Subjects.RawName.Environment => Subjects.Specials.Environment,
-                _ => throw new ComboBoxDataException("ComboBox.SelectedItem returned wrong value")
-            };
+            SaveData.SpecialComboBoxText = specialComboBox.SelectedItem as string;
+
+            if (SaveData.SpecialComboBoxText == Subjects.RawName.Ethics)
+                Subjects.Specials.Selected = Subjects.Specials.Ethics;
+            else if (SaveData.SpecialComboBoxText == Subjects.RawName.Environment)
+                Subjects.Specials.Selected = Subjects.Specials.Environment;
+            
             DrawTimeTable();
         }
 
-        private void s2comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void socialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (s2comboBox.SelectedItem is null)
+            if (socialComboBox.SelectedItem is null)
                 return;
-            SaveData.SocialComboBoxText = Subjects.Socials.Selected = s2comboBox.SelectedItem as string;
+            SaveData.SocialComboBoxText = Subjects.Socials.Selected = socialComboBox.SelectedItem as string;
             DrawTimeTable();
         }
 
-        private void scComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void scienceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (scComboBox.SelectedItem is null)
+            if (scienceComboBox.SelectedItem is null)
                 return;
-            SaveData.ScienceComboBoxText = Subjects.Sciences.Selected = scComboBox.SelectedItem as string;
+            SaveData.ScienceComboBoxText = Subjects.Sciences.Selected = scienceComboBox.SelectedItem as string;
             DrawTimeTable();
         }
         #endregion
-
-
-        /*
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            gradeComboBox.SelectedItem = Grade.Grade2;
-            classComboBox.SelectedItem = Class.Class4;
-            s2comboBox.SelectedItem = Subjects.RawName.Politics;
-            DrawTimeTable();
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            gradeComboBox.SelectedItem = Grade.Grade2;
-            classComboBox.SelectedItem = Class.Class8;
-            langComboBox.SelectedItem = Subjects.RawName.Chinese;
-            s2comboBox.SelectedItem = Subjects.RawName.Economy;
-            scComboBox.SelectedItem = Subjects.RawName.Chemistry;
-            DrawTimeTable();
-        }
-        */
 
 
         private async Task ShowSubjectZoom(string subjectCellName)
@@ -434,9 +442,9 @@ namespace TimeTableUWP
             }
 
             // TODO: Activate Dialog 개발자, 3학년, 2학년, 1학년 따라 나누는 것도 해야 함.
-
             if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
             {
+                // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
                 ShowMessage($"Zoom Link for {subjectCellName} is not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link");
                 return;
             }
@@ -471,6 +479,11 @@ namespace TimeTableUWP
             ShowMessage(msg, txt);
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(SettingsPage));
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            comboBoxSelection = (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex,
+                specialComboBox.SelectedIndex, socialComboBox.SelectedIndex, scienceComboBox.SelectedIndex);
+            Frame.Navigate(typeof(SettingsPage));
+        }
     }
 }

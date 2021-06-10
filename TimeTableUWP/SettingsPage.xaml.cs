@@ -34,7 +34,7 @@ namespace TimeTableUWP
     public sealed partial class SettingsPage : Page
     {
         public static bool Use24Hour { get; private set; } = false;
-        public static DateType DateFormat { get; private set; } = DateType.MMDDYYYY;
+        public static DateType DateFormat { get; private set; } = DateType.YYYYMMDD;
         public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
         readonly Dictionary<DateType, int> dateFormatDict = new()

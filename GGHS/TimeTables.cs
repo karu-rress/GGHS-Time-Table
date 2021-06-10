@@ -23,12 +23,11 @@ namespace GGHS
         {
             static TimeTables()
             {
-                foreach (var item in new[] { Class1, Class2, Class3, Class4, Class5, Class6, Class7, Class8 })
+                foreach (var item in Classes)
                 {
                     item.Of(Monday, 6) = item.Of(Monday, 7) = item.Of(Friday, 5) = item.Of(Friday, 6) = Subjects.CellName.Others;
                     item.Of(Friday, 7) = Subjects.CellName.HomeComing;
                 }
-                ResetByClass(8);
             }
 
             /// <summary>
@@ -105,7 +104,23 @@ namespace GGHS
                         break;
                 }
             }
-            public static readonly string[,] Class1 = new string[5, 7]
+
+            public static IEnumerable<string[,]> Classes
+            {
+                get
+                {
+                    yield return Class1;
+                    yield return Class2;
+                    yield return Class3;
+                    yield return Class4;
+                    yield return Class5;
+                    yield return Class6;
+                    yield return Class7;
+                    yield return Class8;
+                }
+            }
+
+            public static string[,] Class1 { get; } = new string[5, 7]
             {
             { Subjects.Socials.Selected, Subjects.Languages.Selected, Subjects.CellName.Literature, Subjects.CellName.CriticalEnglish + "B", Subjects.CellName.CriticalEnglish + "C", null, null},
             { Subjects.Specials.Selected, Subjects.CellName.CreativeSolve, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.CellName.CriticalEnglish + "A", Subjects.Socials.Selected },
@@ -113,7 +128,7 @@ namespace GGHS
             { Subjects.Languages.Selected, Subjects.CellName.Sport, Subjects.Specials.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Literature, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "D"},
             { Subjects.Languages.Selected, Subjects.Specials.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, null, null, null }
             };
-            public static readonly string[,] Class2 = new string[5, 7]
+            public static string[,] Class2 { get; } = new string[5, 7]
             {
             { Subjects.Languages.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Socials.Selected, null, null },
             { Subjects.CellName.Literature, Subjects.Specials.Selected, Subjects.CellName.Sport, Subjects.CellName.CreativeSolve, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "D" },
@@ -121,7 +136,7 @@ namespace GGHS
             { Subjects.CellName.Literature, Subjects.CellName.CreativeSolve, Subjects.CellName.CriticalEnglish + "C", Subjects.CellName.Mathematics, Subjects.Specials.Selected, Subjects.Languages.Selected, Subjects.Socials.Selected},
             { Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.Socials.Selected, Subjects.CellName.CriticalEnglish + "A", null, null, null }
             };
-            public static readonly string[,] Class3 = new string[5, 7]
+            public static string[,] Class3 { get; } = new string[5, 7]
             {
             { Subjects.CellName.Mathematics, Subjects.Sciences.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.Sport,  Subjects.Specials.Selected, null, null},
             { Subjects.CellName.CriticalEnglish + "D",  Subjects.CellName.Literature,  Subjects.CellName.Mathematics,  Subjects.Socials.Selected,  Subjects.CellName.CriticalEnglish + "B",  Subjects.Specials.Selected, Subjects.Languages.Selected},
@@ -129,7 +144,7 @@ namespace GGHS
             { Subjects.CellName.Mathematics, Subjects.Specials.Selected, Subjects.CellName.Literature, Subjects.Socials.Selected, Subjects.Sciences.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.Languages.Selected},
             { Subjects.CellName.CriticalEnglish + "C", Subjects.CellName.CreativeSolve, Subjects.CellName.Literature, Subjects.Socials.Selected, null, null, null }
             };
-            public static readonly string[,] Class4 = new string[5, 7]
+            public static string[,] Class4 { get; } = new string[5, 7]
             {
             { Subjects.CellName.CreativeSolve, Subjects.Specials.Selected, Subjects.Sciences.Selected, Subjects.CellName.Literature, Subjects.Socials.Selected, null, null },
             { Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "B", Subjects.CellName.Literature, Subjects.CellName.Sport, Subjects.CellName.CriticalEnglish + "C", Subjects.Specials.Selected },
@@ -137,7 +152,7 @@ namespace GGHS
             { Subjects.CellName.CriticalEnglish+"A", Subjects.CellName.CriticalEnglish+"D", Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.Socials.Selected},
             { Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.Socials.Selected, Subjects.CellName.Mathematics, null, null, null }
             };
-            public static readonly string[,] Class5 = new string[5, 7]
+            public static string[,] Class5 { get; } = new string[5, 7]
     {
             { Subjects.CellName.CriticalEnglish + "C", Subjects.Sciences.Selected, Subjects.Specials.Selected, Subjects.Languages.Selected, Subjects.CellName.Mathematics, null, null },
             { Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Languages.Selected, Subjects.Socials.Selected, Subjects.CellName.CriticalEnglish + "D", Subjects.CellName.CriticalEnglish + "B", Subjects.CellName.CreativeSolve},
@@ -145,7 +160,7 @@ namespace GGHS
             { Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Sport, Subjects.CellName.Literature, Subjects.Socials.Selected, Subjects.Sciences.Selected, Subjects.CellName.CreativeSolve, Subjects.Specials.Selected},
             { Subjects.Specials.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Socials.Selected, null, null, null }
     };
-            public static readonly string[,] Class6 = new string[5, 7]
+            public static string[,] Class6 { get; } = new string[5, 7]
             {
             { Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Literature, Subjects.CellName.CreativeSolve,  Subjects.Socials.Selected,  Subjects.CellName.Others,  Subjects.CellName.Others },
             { Subjects.CellName.CriticalEnglish + "C",  Subjects.Specials.Selected,  Subjects.CellName.Sport,  Subjects.Languages.Selected,  Subjects.CellName.Mathematics,  Subjects.CellName.Literature, Subjects.Sciences.Selected},
@@ -153,7 +168,7 @@ namespace GGHS
             { Subjects.CellName.Literature, Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.CriticalEnglish + "B", Subjects.CellName.Mathematics, Subjects.Socials.Selected},
             { Subjects.CellName.CriticalEnglish + "A", Subjects.Languages.Selected, Subjects.Socials.Selected, Subjects.Specials.Selected, null, null, null }
             };
-            public static readonly string[,] Class7 = new string[5, 7]
+            public static string[,] Class7 { get; } = new string[5, 7]
             {
             { Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.Specials.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, null, null },
             { Subjects.CellName.CreativeSolve, Subjects.CellName.CriticalEnglish+"D", Subjects.CellName.CriticalEnglish + "C", Subjects.Socials.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.MathResearch, Subjects.CellName.Literature },
@@ -161,7 +176,7 @@ namespace GGHS
             { Subjects.Sciences.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Mathematics, Subjects.Socials.Selected, Subjects.CellName.Literature, Subjects.Languages.Selected, Subjects.Specials.Selected},
             { Subjects.Specials.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Socials.Selected, null, null, null }
             };
-            public static readonly string[,] Class8 = new string[5, 7] {
+            public static string[,] Class8 { get; } = new string[5, 7] {
             { Subjects.CellName.Literature, Subjects.CellName.CriticalEnglish + "D", Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Mathematics, Subjects.Sciences.Selected, null, null },
             { Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.Socials.Selected, Subjects.CellName.Sport, Subjects.Specials.Selected, Subjects.Languages.Selected },
             { Subjects.CellName.Literature, Subjects.Sciences.Selected, Subjects.CellName.CriticalEnglish + "C", Subjects.Languages.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.MathResearch, Subjects.CellName.Sport},

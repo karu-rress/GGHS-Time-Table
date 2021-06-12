@@ -128,13 +128,13 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ActivateDialog.xaml.cs">
+    <Compile Include="Dialogs\ActivateDialog.xaml.cs">
       <DependentUpon>ActivateDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FeedbackDialog.xaml.cs">
+    <Compile Include="Dialogs\FeedbackDialog.xaml.cs">
       <DependentUpon>FeedbackDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
@@ -150,7 +150,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TimeTableException.cs" />
-    <Compile Include="ZoomDialog.xaml.cs">
+    <Compile Include="Dialogs\ZoomDialog.xaml.cs">
       <DependentUpon>ZoomDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -223,11 +223,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ActivateDialog.xaml">
+    <Page Include="Dialogs\ActivateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FeedbackDialog.xaml">
+    <Page Include="Dialogs\FeedbackDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ZoomDialog.xaml">
+    <Page Include="Dialogs\ZoomDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

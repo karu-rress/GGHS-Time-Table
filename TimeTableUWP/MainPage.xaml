@@ -11,7 +11,7 @@
         <Grid Background="#FF2E2E2E" Margin="2,0,-2,0">
             <Grid Background="Black" Margin="0,0,0,904">
                 <TextBlock Margin="110,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft JhengHei UI Light" FontSize="65" HorizontalAlignment="Left" Width="625" Text="GGHS Time Table"></TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="1384,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="25" Width="502"><Run Text="Copyright © 2021 Sunwoo Na"/><LineBreak/><Run Text="All right reserved."/><LineBreak/><Run Text="Contact: instagram @nsun527"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="1384,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="25" Width="502"><Run Text="GGHS Time Table v1.10.0"/><LineBreak/><Run Text="(안내) 1.x 버전의 지원이 곧 종료됩니다."/><LineBreak/><Run Text="새롭개 개편될 2.0 버전을 기대해주세요."/></TextBlock>
             </Grid>
 
             <Grid Margin="115,0,0,65" HorizontalAlignment="Left" Width="298" Height="773" VerticalAlignment="Bottom">

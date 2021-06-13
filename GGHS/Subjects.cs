@@ -13,7 +13,6 @@ namespace GGHS
         int Semester { get; }
     }
 
-
     namespace Grade2
     {
         public class Subjects : ISubjects
@@ -129,7 +128,7 @@ namespace GGHS
             }
 
 
-            public class Languages
+            public static class Languages
             {
                 public static string Japanese { get; } = CellName.Japanese;
                 public static string Spanish { get; } = CellName.Spanish;

@@ -49,7 +49,7 @@ namespace GGHS
 
             // Specials [Completed]
             public static ZoomInfo Ethics { get; } = new("https://zoom.us/j/9401959597?pwd=TE5BSW5jSUFpaE1xKytzZ2I4Q2FWUT09", "940 195 9597", "255226", null, "류제광");
-            public static ZoomInfo Environment { get; } = new("https://zoom.us/j/94849418747", "948 4941 8747", "geogeo", null, "조한솔");
+            public static ZoomInfo Environment { get; } = new("https://zoom.us/j/94849418747", "948 4941 8747", "geogeo", "https://classroom.google.com/u/0/c/MjgyOTMwNTQ2NTU5", "조한솔");
 
             // Language
             // public static ZoomInfo Spanish { get; } = new("https://us02web.zoom.us/j/7411091130?pwd=M0tZTXJwaFRXb3RmZm1jODNhdUtqUT09");
@@ -57,7 +57,7 @@ namespace GGHS
             // public static ZoomInfo Japanese { get; } = new("");
 
             // Others
-            public static ZoomInfo CreativeSolve { get; } = new("https://meet.google.com/lookup/bgt6c65ccm", null, null, null, "조광진");
+            public static ZoomInfo CreativeSolve { get; } = new("https://meet.google.com/lookup/bgt6c65ccm", null, null, "https://classroom.google.com/u/0/c/Mjc3MDAwNjYxOTcx", "조광진");
             public static ZoomInfo Sport1to4 { get; } = new("https://zoom.us/j/3373011774?pwd=QWYybW1SMlljVlVFRzRTY0RvenVrUT09", "337 301 1774", "123456", null, "허진용");
             public static ZoomInfo Sport5to8 { get; } = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             //

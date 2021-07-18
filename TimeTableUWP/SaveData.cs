@@ -1,11 +1,15 @@
-﻿using System;
+﻿#nullable disable
+
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
@@ -13,11 +17,12 @@ namespace TimeTableUWP
 {
     public static class SaveData
     {
-        const string dataFileName = "gttdat.sav", keyFileName = "gttact.key";
+        const string dataFileName = "gttdat.sav", keyFileName = "gttact.key", settingsFileName = "gttsets.sav";
         
         private static string grade, @class, special, social, lang, science;
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
+        public static Color ColorType { get; set; } = Colors.DarkSlateBlue;
         public static string GradeComboBoxText { get => grade; set => grade = value ?? "NULL"; }
         public static string ClassComboBoxText { get => @class; set => @class = value ?? "NULL"; }
         public static string SpecialComboBoxText { get => special; set => special = value ?? "NULL"; }
@@ -25,17 +30,28 @@ namespace TimeTableUWP
         public static string LangComboBoxText { get => lang; set => lang = value ?? "NULL"; }
         public static string ScienceComboBoxText { get => science; set => science = value ?? "NULL"; }
 
+        static IEnumerable<string> ComboBoxTexts
+        {
+            get
+            {
+                yield return GradeComboBoxText;
+                yield return ClassComboBoxText;
+                yield return SpecialComboBoxText;
+                yield return SocialComboBoxText;
+                yield return LangComboBoxText;
+                yield return ScienceComboBoxText;
+            }
+        }
+
+
         public static async Task SaveDataAsync()
         {
-            if (GradeComboBoxText is "NULL")
-            {
-                return;
-            }
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            StorageFile dataFile = await storageFolder.CreateFileAsync(dataFileName, CreationCollisionOption.ReplaceExisting);
 
-            using (var stream = await dataFile.OpenAsync(FileAccessMode.ReadWrite))
+            if (GradeComboBoxText is not "NULL")
             {
+                var dataFile = await storageFolder.CreateFileAsync(dataFileName, CreationCollisionOption.ReplaceExisting);
+                using var stream = await dataFile.OpenAsync(FileAccessMode.ReadWrite);
                 using var outputStream = stream.GetOutputStreamAt(0);
                 using var dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteString(
@@ -50,17 +66,25 @@ namespace TimeTableUWP
                 await outputStream.FlushAsync();
             }
 
-            if (IsActivated is false)
+            if (IsActivated is true)
             {
-                return;
-            }
-            StorageFile keyFile = await storageFolder.CreateFileAsync(keyFileName, CreationCollisionOption.ReplaceExisting);
-            using (var stream = await keyFile.OpenAsync(FileAccessMode.ReadWrite))
-            {
+                var keyFile = await storageFolder.CreateFileAsync(keyFileName, CreationCollisionOption.ReplaceExisting);
+                using var stream = await keyFile.OpenAsync(FileAccessMode.ReadWrite);
                 using var outputStream = stream.GetOutputStreamAt(0);
                 using var keyWriter = new DataWriter(outputStream);
                 keyWriter.WriteString(ActivateStatus.MakeString());
                 await keyWriter.StoreAsync();
+                await outputStream.FlushAsync();
+            }
+
+            {
+                var settingsFile = await storageFolder.CreateFileAsync(settingsFileName, CreationCollisionOption.ReplaceExisting);
+                using var stream = await settingsFile.OpenAsync(FileAccessMode.ReadWrite);
+                using var outputStream = stream.GetOutputStreamAt(0);
+                using var settingsWriter = new DataWriter(outputStream);
+                string hexValue = $"#{ColorType.A:X}{ColorType.R:X}{ColorType.G:X}{ColorType.B:X}";
+                settingsWriter.WriteString(hexValue);
+                await settingsWriter.StoreAsync();
                 await outputStream.FlushAsync();
             }
         }
@@ -77,10 +101,10 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
                 return false;
             }
 
-            var stream = await dataFile.OpenAsync(FileAccessMode.Read);
-            ulong size = stream.Size;
-            using (var inputStream = stream.GetInputStreamAt(0))
+            using (var stream = await dataFile.OpenAsync(FileAccessMode.Read))
             {
+                var size = stream.Size;
+                using var inputStream = stream.GetInputStreamAt(0);
                 using var dataReader = new DataReader(inputStream);
                 uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
                 string text = dataReader.ReadString(numBytesLoaded);
@@ -92,41 +116,48 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
                 SpecialComboBoxText = lines[3];
                 SocialComboBoxText = lines[4];
                 ScienceComboBoxText = lines[5];
+                stream.Dispose();
             }
 
-            if (await storageFolder.TryGetItemAsync(keyFileName) is not StorageFile keyFile)
+            if (await storageFolder.TryGetItemAsync(keyFileName) is StorageFile keyFile)
             {
-                return true;
-            }
-            stream = await keyFile.OpenAsync(FileAccessMode.Read);
-            size = stream.Size;
-            using (var inputStream = stream.GetInputStreamAt(0))
-            {
+                using var stream = await keyFile.OpenAsync(FileAccessMode.Read);
+                var size = stream.Size;
+                using var inputStream = stream.GetInputStreamAt(0);
                 using var keyReader = new DataReader(inputStream);
                 uint numBytesLoaded = await keyReader.LoadAsync((uint)size);
-                string text = keyReader.ReadString(numBytesLoaded);
+                string key = keyReader.ReadString(numBytesLoaded);
 
-                ActivateStatus = text.MakeActivateLevel();
+                ActivateStatus = key.MakeActivateLevel();
                 IsActivated = true;
+            }
+
+            if (await storageFolder.TryGetItemAsync(settingsFileName) is StorageFile settingsFile)
+            {
+                using var stream = await settingsFile.OpenAsync(FileAccessMode.Read);
+                var size = stream.Size;
+                using var inputStream = stream.GetInputStreamAt(0);
+                using var keyReader = new DataReader(inputStream);
+                uint numBytesLoaded = await keyReader.LoadAsync((uint)size);
+                string hexColor = keyReader.ReadString(numBytesLoaded);
+
+                var (a, r, g, b) = (byte.Parse(hexColor.Substring(1, 2), NumberStyles.HexNumber),
+                    byte.Parse(hexColor.Substring(3, 2), NumberStyles.HexNumber),
+                    byte.Parse(hexColor.Substring(5, 2), NumberStyles.HexNumber),
+                    byte.Parse(hexColor.Substring(7, 2), NumberStyles.HexNumber));
+
+                ColorType = Color.FromArgb(a, r, g, b);
             }
             return true;
         }
 
-        public static void SetComboBoxes(
-            ref ComboBox gradeComboBox,
-            ref ComboBox classComboBox,
-            ref ComboBox specialComboBox,
-            ref ComboBox socialComboBox,
-            ref ComboBox langComboBox,
-            ref ComboBox scienceComboBox
-            )
+        public static void SetComboBoxes(IEnumerable<ComboBox> comboBoxes)
         {
-            gradeComboBox.SelectedItem = GradeComboBoxText is "NULL" ? null : GradeComboBoxText;
-            classComboBox.SelectedItem = ClassComboBoxText is "NULL" ? null : ClassComboBoxText;
-            specialComboBox.SelectedItem = SpecialComboBoxText is "NULL" ? null : SpecialComboBoxText;
-            socialComboBox.SelectedItem = SocialComboBoxText is "NULL" ? null : SocialComboBoxText;
-            langComboBox.SelectedItem = LangComboBoxText is "NULL" ? null : LangComboBoxText;
-            scienceComboBox.SelectedItem = ScienceComboBoxText is "NULL" ? null : ScienceComboBoxText;
+            var tupleList = comboBoxes.Zip(ComboBoxTexts, (comboBox, text) => (comboBox, text));
+            foreach (var (comboBox, text) in tupleList)
+            {
+                comboBox.SelectedItem = text is "NULL" ? null : text;
+            }
         }
 
         public static void SetGradeAndClass(ref int grade, ref int @class)

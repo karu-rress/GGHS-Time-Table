@@ -12,12 +12,58 @@ namespace GGHS_Time_Table_Creator
 {
     public partial class Form1 : Form
     {
-        public static string code;
+        public static string code; // TotalCode
         Dictionary<string, string> subjectDict = new Dictionary<string, string>()
         {
-            ["예시"] = "모습",
+            ["독서"] = "Reading",
+            ["수학Ⅱ"] = "Mathematics",
+            ["심화영어Ⅰ"] = "AdvancedEnglish",
+            ["운동과 건강"] = "Sport",
+            ["창의적 문제 해결 기법"] = "CreativeSolve",
+            ["수학과제탐구"] = "MathResearch",
+            ["창의적 체험활동"] = "Others",
+            ["홈커밍"] = "HomeComing",
+
+            ["과학선택"] = "Sciences",
+            ["과학사"] = "ScienceHistory",
+            ["생활과 과학"] = "LifeAndScience",
+
+            ["전문1"] = "Specials1",
+            ["전문2"] = "Specials2",
+            ["국제경제"] = "GlobalEconomics",
+            ["국제정치"] = "GlobalPolitics",
+            ["비교문화"] = "CompareCulture",
+            ["동양근대사"] = "EasternHistory",
+            ["세계 역사와 문화"] = "HistoryAndCulture",
+            ["현대정치철학의 이해"] = "PoliticsPhilosophy",
+            ["세계 지역 연구"] = "RegionResearch",
+            ["공간 정보와 공간 분석"] = "GISAnalyze",
+
+            ["외국어"] = "Languages",
+            ["일본어Ⅰ"] = "Japanese",
+            ["스페인어Ⅰ"] = "Spanish",
+            ["중국어Ⅰ"] = "Chinese",
         };
-        string[,] array = new string[5, 7];
+
+        string[,] array = new string[5, 7]; // Subject Array
+
+        string[] subjects = new string[]
+        {
+            "독서",
+            "수학Ⅱ",
+            "심화영어Ⅰ",
+            "운동과 건강",
+            "창의적 문제 해결 기법",
+            "수학과제탐구",
+            "창의적 체험활동",
+            "홈커밍",
+            "과학선택",
+            "전문1",
+            "전문2",
+            "외국어",
+        };
+
+        int @class = 0;
 
         public Form1()
         {
@@ -25,11 +71,7 @@ namespace GGHS_Time_Table_Creator
             comboBox1.Items.AddRange(new object[]{1, 2, 3, 4, 5, 6, 7, 8});
             foreach (var comboBox in ComboBoxes())
             {
-                comboBox.Items.AddRange(new object[]
-                {
-                    "문학",
-                    "비영",
-                });
+                comboBox.Items.AddRange(subjects);
             }
         }
 
@@ -56,18 +98,18 @@ namespace GGHS_Time_Table_Creator
             yield return comboBox20;
             yield return comboBox21;
             yield return comboBox22;
-            yield return comboBox23;
-            yield return comboBox24;
-            yield return comboBox25;
-            yield return comboBox26;
             yield return comboBox27;
+            yield return comboBox23;
+            yield return comboBox32;
             yield return comboBox28;
+            yield return comboBox24;
+            yield return comboBox33;
             yield return comboBox29;
+            yield return comboBox25;
+            yield return comboBox34;
+            yield return comboBox26;
             yield return comboBox30;
             yield return comboBox31;
-            yield return comboBox32;
-            yield return comboBox33;
-            yield return comboBox34;
             yield return comboBox35;
             yield return comboBox36;
         }
@@ -86,6 +128,8 @@ namespace GGHS_Time_Table_Creator
 
         }
 
+
+        // ...Selected
         void SetString()
         {
             code = $@"
@@ -101,17 +145,43 @@ public static readonly string[,] Class{comboBox1.Text} = new string[5, 7]
 }}; ";
         }
 
-        private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
+        private bool IsSelectiveSubject(string subject) => subject switch
         {
-            
+            "과학선택" or "전문1" or "전문2" or "외국어" => true,
+            _ => false,
+        };
+
+        private void comboBoxChange(object sender, EventArgs e)
+        {
+            if (sender is ComboBox cb)
+            {
+                string subject = cb.Text;
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (var item in ComboBoxes())
+            @class = int.Parse(comboBox1.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int comboBoxIndex = 0;
+            
+
+            for (int y = 0; y < 7; y++)
             {
-                item.SelectedIndex = -1;
+                for (int x = 0; x < 5; x++)
+                {
+                    var subject = ComboBoxes().ElementAt(comboBoxIndex).Text;
+                    array[x, y] = IsSelectiveSubject(subject) ? $"{subjectDict[subject]}.Selected" : subjectDict[subject];
+                    comboBoxIndex++;
+                }
             }
+
+            SetString();
+            Form2 frm = new Form2();
+            frm.Show();
         }
     }
 }

@@ -9,8 +9,8 @@
     Background="#FF1C1C1C">
 
     <Grid Name="mainGrid" Margin="0,0,0,0">
-        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 2" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
-        <TextBlock x:Name="mainText2" HorizontalAlignment="Left" Margin="181,143,0,0" Text="To help you not to be late" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Width="399"/>
+        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" Text="GGHS Time Table 3" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top"/>
+        <TextBlock x:Name="mainText2" HorizontalAlignment="Left" Margin="181,143,0,0" Text="I'm back! 나는 뒤로 갔다!" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="30" Width="399"/>
 
         <Grid Name="clockGrid" Margin="0,45,0,0" HorizontalAlignment="Right" Width="500" Background="#FF1C1C1C" Height="165" VerticalAlignment="Top">
             <Grid.Resources>
@@ -38,7 +38,7 @@
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="25"/>
-                        <Setter Property="FontFamily" Value="Segoe Print"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
                         <Setter Property="FontWeight" Value="Bold"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -75,19 +75,19 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Column="0" x:Name="monBorder">
-                    <TextBlock><Run Text="Monday"/></TextBlock>
+                    <TextBlock Margin="0,7,0,-7" FontWeight="Normal"><Run Text="Monday"/></TextBlock>
                 </Border>
                 <Border Grid.Column="1" x:Name="tueBorder">
-                    <TextBlock><Run Text="Tuesday"/></TextBlock>
+                    <TextBlock Margin="0,7,0,-7" FontWeight="Normal"><Run Text="Tuesday"/></TextBlock>
                 </Border>
                 <Border Grid.Column="2" x:Name="wedBorder">
-                    <TextBlock><Run Text="Wednesday"/></TextBlock>
+                    <TextBlock Margin="0,7,0,-7" FontWeight="Normal"><Run Text="Wednesday"/></TextBlock>
                 </Border>
                 <Border Grid.Column="3" x:Name="thuBorder">
-                    <TextBlock><Run Text="Thursday"/></TextBlock>
+                    <TextBlock Margin="0,7,0,-7" FontWeight="Normal"><Run Text="Thursday"/></TextBlock>
                 </Border>
                 <Border Grid.Column="4" x:Name="friBorder">
-                    <TextBlock><Run Text="Friday"/></TextBlock>
+                    <TextBlock Margin="0,7,0,-7" FontWeight="Normal"><Run Text="Friday"/></TextBlock>
                 </Border>
                 <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="TableButtons_Click" />
                 <Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" Click="TableButtons_Click" />

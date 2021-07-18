@@ -1,4 +1,6 @@
-﻿using RollingRess;
+﻿#nullable enable
+
+using RollingRess;
 using System;
 using System.Collections.Generic;
 using System.IO;

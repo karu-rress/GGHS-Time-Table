@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -44,9 +46,9 @@ namespace TimeTableUWP
         public static async void HandleException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            Exception exception = e.Exception;
+            var exception = e.Exception;
             int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
-            string errorMsg = @$"에러가 발생했습니다. 개발자에게 아래 정보를 전송해주세요.
+            string errorMsg = @$"에러가 발생했습니다.
 {(code is not null ? $"\nError code: {code}" : "")}
 {exception}";
             var smtp = FeedbackDialog.PrepareSendMail(errorMsg,

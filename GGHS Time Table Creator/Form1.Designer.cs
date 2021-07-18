@@ -64,20 +64,21 @@ namespace GGHS_Time_Table_Creator
             this.comboBox20 = new System.Windows.Forms.ComboBox();
             this.comboBox21 = new System.Windows.Forms.ComboBox();
             this.comboBox22 = new System.Windows.Forms.ComboBox();
-            this.comboBox23 = new System.Windows.Forms.ComboBox();
-            this.comboBox24 = new System.Windows.Forms.ComboBox();
-            this.comboBox25 = new System.Windows.Forms.ComboBox();
-            this.comboBox26 = new System.Windows.Forms.ComboBox();
             this.comboBox27 = new System.Windows.Forms.ComboBox();
+            this.comboBox23 = new System.Windows.Forms.ComboBox();
+            this.comboBox32 = new System.Windows.Forms.ComboBox();
             this.comboBox28 = new System.Windows.Forms.ComboBox();
+            this.comboBox24 = new System.Windows.Forms.ComboBox();
+            this.comboBox33 = new System.Windows.Forms.ComboBox();
             this.comboBox29 = new System.Windows.Forms.ComboBox();
+            this.comboBox25 = new System.Windows.Forms.ComboBox();
+            this.comboBox34 = new System.Windows.Forms.ComboBox();
+            this.comboBox26 = new System.Windows.Forms.ComboBox();
             this.comboBox30 = new System.Windows.Forms.ComboBox();
             this.comboBox31 = new System.Windows.Forms.ComboBox();
-            this.comboBox32 = new System.Windows.Forms.ComboBox();
-            this.comboBox33 = new System.Windows.Forms.ComboBox();
-            this.comboBox34 = new System.Windows.Forms.ComboBox();
             this.comboBox35 = new System.Windows.Forms.ComboBox();
             this.comboBox36 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -226,6 +227,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(104, 24);
             this.comboBox2.TabIndex = 4;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox3
             // 
@@ -235,6 +237,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(104, 24);
             this.comboBox3.TabIndex = 4;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox4
             // 
@@ -244,6 +247,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(104, 24);
             this.comboBox4.TabIndex = 4;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox5
             // 
@@ -253,6 +257,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(104, 24);
             this.comboBox5.TabIndex = 4;
+            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox6
             // 
@@ -262,6 +267,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(104, 24);
             this.comboBox6.TabIndex = 4;
+            this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox7
             // 
@@ -271,6 +277,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox7.Name = "comboBox7";
             this.comboBox7.Size = new System.Drawing.Size(104, 24);
             this.comboBox7.TabIndex = 4;
+            this.comboBox7.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox8
             // 
@@ -280,6 +287,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox8.Name = "comboBox8";
             this.comboBox8.Size = new System.Drawing.Size(104, 24);
             this.comboBox8.TabIndex = 4;
+            this.comboBox8.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox9
             // 
@@ -289,6 +297,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox9.Name = "comboBox9";
             this.comboBox9.Size = new System.Drawing.Size(104, 24);
             this.comboBox9.TabIndex = 4;
+            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox10
             // 
@@ -298,7 +307,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox10.Name = "comboBox10";
             this.comboBox10.Size = new System.Drawing.Size(104, 24);
             this.comboBox10.TabIndex = 4;
-            this.comboBox10.SelectedIndexChanged += new System.EventHandler(this.comboBox10_SelectedIndexChanged);
+            this.comboBox10.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox11
             // 
@@ -308,6 +317,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox11.Name = "comboBox11";
             this.comboBox11.Size = new System.Drawing.Size(104, 24);
             this.comboBox11.TabIndex = 4;
+            this.comboBox11.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox12
             // 
@@ -317,6 +327,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox12.Name = "comboBox12";
             this.comboBox12.Size = new System.Drawing.Size(104, 24);
             this.comboBox12.TabIndex = 4;
+            this.comboBox12.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox13
             // 
@@ -326,6 +337,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox13.Name = "comboBox13";
             this.comboBox13.Size = new System.Drawing.Size(104, 24);
             this.comboBox13.TabIndex = 4;
+            this.comboBox13.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox14
             // 
@@ -335,6 +347,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox14.Name = "comboBox14";
             this.comboBox14.Size = new System.Drawing.Size(104, 24);
             this.comboBox14.TabIndex = 4;
+            this.comboBox14.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox15
             // 
@@ -344,6 +357,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox15.Name = "comboBox15";
             this.comboBox15.Size = new System.Drawing.Size(104, 24);
             this.comboBox15.TabIndex = 4;
+            this.comboBox15.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox16
             // 
@@ -353,6 +367,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox16.Name = "comboBox16";
             this.comboBox16.Size = new System.Drawing.Size(104, 24);
             this.comboBox16.TabIndex = 4;
+            this.comboBox16.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox17
             // 
@@ -362,6 +377,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox17.Name = "comboBox17";
             this.comboBox17.Size = new System.Drawing.Size(104, 24);
             this.comboBox17.TabIndex = 4;
+            this.comboBox17.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox18
             // 
@@ -371,6 +387,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox18.Name = "comboBox18";
             this.comboBox18.Size = new System.Drawing.Size(104, 24);
             this.comboBox18.TabIndex = 4;
+            this.comboBox18.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox19
             // 
@@ -380,6 +397,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox19.Name = "comboBox19";
             this.comboBox19.Size = new System.Drawing.Size(104, 24);
             this.comboBox19.TabIndex = 4;
+            this.comboBox19.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox20
             // 
@@ -389,6 +407,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox20.Name = "comboBox20";
             this.comboBox20.Size = new System.Drawing.Size(104, 24);
             this.comboBox20.TabIndex = 4;
+            this.comboBox20.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox21
             // 
@@ -398,6 +417,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox21.Name = "comboBox21";
             this.comboBox21.Size = new System.Drawing.Size(104, 24);
             this.comboBox21.TabIndex = 4;
+            this.comboBox21.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox22
             // 
@@ -407,60 +427,67 @@ namespace GGHS_Time_Table_Creator
             this.comboBox22.Name = "comboBox22";
             this.comboBox22.Size = new System.Drawing.Size(104, 24);
             this.comboBox22.TabIndex = 4;
-            // 
-            // comboBox23
-            // 
-            this.comboBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox23.FormattingEnabled = true;
-            this.comboBox23.Location = new System.Drawing.Point(119, 304);
-            this.comboBox23.Name = "comboBox23";
-            this.comboBox23.Size = new System.Drawing.Size(104, 24);
-            this.comboBox23.TabIndex = 4;
-            // 
-            // comboBox24
-            // 
-            this.comboBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox24.FormattingEnabled = true;
-            this.comboBox24.Location = new System.Drawing.Point(248, 268);
-            this.comboBox24.Name = "comboBox24";
-            this.comboBox24.Size = new System.Drawing.Size(104, 24);
-            this.comboBox24.TabIndex = 4;
-            // 
-            // comboBox25
-            // 
-            this.comboBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox25.FormattingEnabled = true;
-            this.comboBox25.Location = new System.Drawing.Point(119, 338);
-            this.comboBox25.Name = "comboBox25";
-            this.comboBox25.Size = new System.Drawing.Size(104, 24);
-            this.comboBox25.TabIndex = 4;
-            // 
-            // comboBox26
-            // 
-            this.comboBox26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox26.FormattingEnabled = true;
-            this.comboBox26.Location = new System.Drawing.Point(248, 304);
-            this.comboBox26.Name = "comboBox26";
-            this.comboBox26.Size = new System.Drawing.Size(104, 24);
-            this.comboBox26.TabIndex = 4;
+            this.comboBox22.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox27
             // 
             this.comboBox27.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox27.FormattingEnabled = true;
-            this.comboBox27.Location = new System.Drawing.Point(374, 269);
+            this.comboBox27.Location = new System.Drawing.Point(119, 304);
             this.comboBox27.Name = "comboBox27";
             this.comboBox27.Size = new System.Drawing.Size(104, 24);
             this.comboBox27.TabIndex = 4;
+            this.comboBox27.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox23
+            // 
+            this.comboBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox23.FormattingEnabled = true;
+            this.comboBox23.Location = new System.Drawing.Point(248, 268);
+            this.comboBox23.Name = "comboBox23";
+            this.comboBox23.Size = new System.Drawing.Size(104, 24);
+            this.comboBox23.TabIndex = 4;
+            this.comboBox23.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox32
+            // 
+            this.comboBox32.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox32.FormattingEnabled = true;
+            this.comboBox32.Location = new System.Drawing.Point(119, 338);
+            this.comboBox32.Name = "comboBox32";
+            this.comboBox32.Size = new System.Drawing.Size(104, 24);
+            this.comboBox32.TabIndex = 4;
+            this.comboBox32.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox28
             // 
             this.comboBox28.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox28.FormattingEnabled = true;
-            this.comboBox28.Location = new System.Drawing.Point(248, 338);
+            this.comboBox28.Location = new System.Drawing.Point(248, 304);
             this.comboBox28.Name = "comboBox28";
             this.comboBox28.Size = new System.Drawing.Size(104, 24);
             this.comboBox28.TabIndex = 4;
+            this.comboBox28.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox24
+            // 
+            this.comboBox24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox24.FormattingEnabled = true;
+            this.comboBox24.Location = new System.Drawing.Point(374, 269);
+            this.comboBox24.Name = "comboBox24";
+            this.comboBox24.Size = new System.Drawing.Size(104, 24);
+            this.comboBox24.TabIndex = 4;
+            this.comboBox24.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox33
+            // 
+            this.comboBox33.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox33.FormattingEnabled = true;
+            this.comboBox33.Location = new System.Drawing.Point(248, 338);
+            this.comboBox33.Name = "comboBox33";
+            this.comboBox33.Size = new System.Drawing.Size(104, 24);
+            this.comboBox33.TabIndex = 4;
+            this.comboBox33.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox29
             // 
@@ -470,52 +497,57 @@ namespace GGHS_Time_Table_Creator
             this.comboBox29.Name = "comboBox29";
             this.comboBox29.Size = new System.Drawing.Size(104, 24);
             this.comboBox29.TabIndex = 4;
+            this.comboBox29.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
-            // comboBox30
+            // comboBox25
             // 
-            this.comboBox30.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox30.FormattingEnabled = true;
-            this.comboBox30.Location = new System.Drawing.Point(516, 268);
-            this.comboBox30.Name = "comboBox30";
-            this.comboBox30.Size = new System.Drawing.Size(104, 24);
-            this.comboBox30.TabIndex = 4;
-            this.comboBox30.SelectedIndexChanged += new System.EventHandler(this.comboBox10_SelectedIndexChanged);
-            // 
-            // comboBox31
-            // 
-            this.comboBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox31.FormattingEnabled = true;
-            this.comboBox31.Location = new System.Drawing.Point(374, 338);
-            this.comboBox31.Name = "comboBox31";
-            this.comboBox31.Size = new System.Drawing.Size(104, 24);
-            this.comboBox31.TabIndex = 4;
-            // 
-            // comboBox32
-            // 
-            this.comboBox32.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox32.FormattingEnabled = true;
-            this.comboBox32.Location = new System.Drawing.Point(650, 268);
-            this.comboBox32.Name = "comboBox32";
-            this.comboBox32.Size = new System.Drawing.Size(104, 24);
-            this.comboBox32.TabIndex = 4;
-            // 
-            // comboBox33
-            // 
-            this.comboBox33.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.comboBox33.FormattingEnabled = true;
-            this.comboBox33.Location = new System.Drawing.Point(516, 304);
-            this.comboBox33.Name = "comboBox33";
-            this.comboBox33.Size = new System.Drawing.Size(104, 24);
-            this.comboBox33.TabIndex = 4;
+            this.comboBox25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox25.FormattingEnabled = true;
+            this.comboBox25.Location = new System.Drawing.Point(516, 268);
+            this.comboBox25.Name = "comboBox25";
+            this.comboBox25.Size = new System.Drawing.Size(104, 24);
+            this.comboBox25.TabIndex = 4;
+            this.comboBox25.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox34
             // 
             this.comboBox34.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.comboBox34.FormattingEnabled = true;
-            this.comboBox34.Location = new System.Drawing.Point(650, 304);
+            this.comboBox34.Location = new System.Drawing.Point(374, 338);
             this.comboBox34.Name = "comboBox34";
             this.comboBox34.Size = new System.Drawing.Size(104, 24);
             this.comboBox34.TabIndex = 4;
+            this.comboBox34.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox26
+            // 
+            this.comboBox26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox26.FormattingEnabled = true;
+            this.comboBox26.Location = new System.Drawing.Point(650, 268);
+            this.comboBox26.Name = "comboBox26";
+            this.comboBox26.Size = new System.Drawing.Size(104, 24);
+            this.comboBox26.TabIndex = 4;
+            this.comboBox26.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox30
+            // 
+            this.comboBox30.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox30.FormattingEnabled = true;
+            this.comboBox30.Location = new System.Drawing.Point(516, 304);
+            this.comboBox30.Name = "comboBox30";
+            this.comboBox30.Size = new System.Drawing.Size(104, 24);
+            this.comboBox30.TabIndex = 4;
+            this.comboBox30.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // comboBox31
+            // 
+            this.comboBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.comboBox31.FormattingEnabled = true;
+            this.comboBox31.Location = new System.Drawing.Point(650, 304);
+            this.comboBox31.Name = "comboBox31";
+            this.comboBox31.Size = new System.Drawing.Size(104, 24);
+            this.comboBox31.TabIndex = 4;
+            this.comboBox31.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox35
             // 
@@ -525,6 +557,7 @@ namespace GGHS_Time_Table_Creator
             this.comboBox35.Name = "comboBox35";
             this.comboBox35.Size = new System.Drawing.Size(104, 24);
             this.comboBox35.TabIndex = 4;
+            this.comboBox35.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
             // 
             // comboBox36
             // 
@@ -534,40 +567,52 @@ namespace GGHS_Time_Table_Creator
             this.comboBox36.Name = "comboBox36";
             this.comboBox36.Size = new System.Drawing.Size(104, 24);
             this.comboBox36.TabIndex = 4;
+            this.comboBox36.SelectedIndexChanged += new System.EventHandler(this.comboBoxChange);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(679, 391);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox36);
             this.Controls.Add(this.comboBox21);
             this.Controls.Add(this.comboBox35);
             this.Controls.Add(this.comboBox20);
-            this.Controls.Add(this.comboBox34);
-            this.Controls.Add(this.comboBox16);
-            this.Controls.Add(this.comboBox33);
-            this.Controls.Add(this.comboBox15);
-            this.Controls.Add(this.comboBox32);
             this.Controls.Add(this.comboBox31);
-            this.Controls.Add(this.comboBox11);
+            this.Controls.Add(this.comboBox16);
             this.Controls.Add(this.comboBox30);
+            this.Controls.Add(this.comboBox15);
+            this.Controls.Add(this.comboBox26);
+            this.Controls.Add(this.comboBox34);
+            this.Controls.Add(this.comboBox11);
+            this.Controls.Add(this.comboBox25);
             this.Controls.Add(this.comboBox19);
             this.Controls.Add(this.comboBox29);
             this.Controls.Add(this.comboBox10);
             this.Controls.Add(this.comboBox14);
-            this.Controls.Add(this.comboBox28);
+            this.Controls.Add(this.comboBox33);
             this.Controls.Add(this.comboBox6);
-            this.Controls.Add(this.comboBox27);
+            this.Controls.Add(this.comboBox24);
             this.Controls.Add(this.comboBox18);
-            this.Controls.Add(this.comboBox26);
+            this.Controls.Add(this.comboBox28);
             this.Controls.Add(this.comboBox9);
             this.Controls.Add(this.comboBox13);
-            this.Controls.Add(this.comboBox25);
+            this.Controls.Add(this.comboBox32);
             this.Controls.Add(this.comboBox5);
-            this.Controls.Add(this.comboBox24);
-            this.Controls.Add(this.comboBox17);
             this.Controls.Add(this.comboBox23);
+            this.Controls.Add(this.comboBox17);
+            this.Controls.Add(this.comboBox27);
             this.Controls.Add(this.comboBox8);
             this.Controls.Add(this.comboBox12);
             this.Controls.Add(this.comboBox22);
@@ -634,19 +679,20 @@ namespace GGHS_Time_Table_Creator
         private System.Windows.Forms.ComboBox comboBox20;
         private System.Windows.Forms.ComboBox comboBox21;
         private System.Windows.Forms.ComboBox comboBox22;
-        private System.Windows.Forms.ComboBox comboBox23;
-        private System.Windows.Forms.ComboBox comboBox24;
-        private System.Windows.Forms.ComboBox comboBox25;
-        private System.Windows.Forms.ComboBox comboBox26;
         private System.Windows.Forms.ComboBox comboBox27;
+        private System.Windows.Forms.ComboBox comboBox23;
+        private System.Windows.Forms.ComboBox comboBox32;
         private System.Windows.Forms.ComboBox comboBox28;
+        private System.Windows.Forms.ComboBox comboBox24;
+        private System.Windows.Forms.ComboBox comboBox33;
         private System.Windows.Forms.ComboBox comboBox29;
+        private System.Windows.Forms.ComboBox comboBox25;
+        private System.Windows.Forms.ComboBox comboBox34;
+        private System.Windows.Forms.ComboBox comboBox26;
         private System.Windows.Forms.ComboBox comboBox30;
         private System.Windows.Forms.ComboBox comboBox31;
-        private System.Windows.Forms.ComboBox comboBox32;
-        private System.Windows.Forms.ComboBox comboBox33;
-        private System.Windows.Forms.ComboBox comboBox34;
         private System.Windows.Forms.ComboBox comboBox35;
         private System.Windows.Forms.ComboBox comboBox36;
+        private System.Windows.Forms.Button button1;
     }
 }

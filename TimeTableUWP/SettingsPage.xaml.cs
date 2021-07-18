@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable disable
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,7 +37,7 @@ namespace TimeTableUWP
     {
         public static bool Use24Hour { get; private set; } = false;
         public static DateType DateFormat { get; private set; } = DateType.YYYYMMDD;
-        public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
+        // public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
         readonly Dictionary<DateType, int> dateFormatDict = new()
         {
@@ -48,7 +50,7 @@ namespace TimeTableUWP
             this.InitializeComponent();
             use24Toggle.IsOn = Use24Hour;
             dateFormatRadio.SelectedIndex = dateFormatDict[DateFormat];
-            colorPicker.Color = ColorType;
+            colorPicker.Color = SaveData.ColorType;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
@@ -72,7 +74,7 @@ namespace TimeTableUWP
         }
 
         private void ColorPicker_ColorChanged(Microsoft.UI.Xaml.Controls.ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args) 
-            => ColorType = colorPicker.Color;
+            => SaveData.ColorType = colorPicker.Color;
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -85,7 +87,9 @@ namespace TimeTableUWP
             TextBlock tb = new();
             tb.Inlines.Add(new Run()
             {
-                Text = @"환영합니다, Rolling Ress의 카루입니다.
+                Text = @$"GGHS Time Table V{MainPage.Version}
+
+환영합니다, Rolling Ress의 카루입니다.
 
 GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한 많은 분들께
 이 프로그램을 알려주세요.

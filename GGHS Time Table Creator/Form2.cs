@@ -19,6 +19,11 @@ namespace GGHS_Time_Table_Creator
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            textBox1.Text = Form1.code;
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

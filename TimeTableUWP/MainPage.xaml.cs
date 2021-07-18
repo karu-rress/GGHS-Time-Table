@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Globalization;
@@ -49,28 +51,40 @@ namespace TimeTableUWP
         static bool hasReadFile = false;
 
         static PackageVersion version = Package.Current.Id.Version;
-        public static string Version { get => $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}"; }
+
+        public static string Version { get => $"{version.Major}.{version.Minor}.{version.Build}"; }
 
         static (int grade, int @class, int lang, int special, int social, int science) comboBoxSelection = (-1, -1, -1, -1, -1, -1);
 
         public MainPage()
         {
             InitializeComponent();
-            SetColor();
-            _ = LoopTimeAsync();
-            Disable(classComboBox, langComboBox, specialComboBox, socialComboBox, scienceComboBox);
-            if (!hasReadFile)
+            _ = LoopTimeAsync(); // detach. OK.
+            ReadFile();
+            InitializeUI();
+
+            async void ReadFile()
             {
-                _ = LoadDataFromFileAsync();
+                if (!hasReadFile)
+                {
+                    await LoadDataFromFileAsync();
+                }
                 hasReadFile = true;
             }
-           
-            if (comboBoxSelection.grade is not -1)
-                (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex, specialComboBox.SelectedIndex,
-                    socialComboBox.SelectedIndex, scienceComboBox.SelectedIndex) = comboBoxSelection;
         }
 
-        IEnumerable<ComboBox> ComboBoxes
+        void InitializeUI()
+        {
+            Disable(classComboBox, langComboBox, specialComboBox, socialComboBox, scienceComboBox);
+            SetColor();
+            if (comboBoxSelection.grade is not -1)
+            {
+                (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex, specialComboBox.SelectedIndex,
+                    socialComboBox.SelectedIndex, scienceComboBox.SelectedIndex) = comboBoxSelection;
+            }
+        }
+
+        private IEnumerable<ComboBox> ComboBoxes
         {
             get
             {
@@ -87,11 +101,11 @@ namespace TimeTableUWP
         {
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
             {
-                border.Background = new SolidColorBrush(SettingsPage.ColorType);
+                border.Background = new SolidColorBrush(SaveData.ColorType);
             }
             foreach (var comboBox in ComboBoxes)
             {
-                comboBox.BorderBrush = new SolidColorBrush(SettingsPage.ColorType);
+                comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
             }
         }
 
@@ -101,14 +115,7 @@ namespace TimeTableUWP
             {
                 SaveData.SetGradeAndClass(ref grade, ref @class);
                 SetComboBoxAsClass();
-                SaveData.SetComboBoxes(
-                    ref gradeComboBox,
-                    ref classComboBox,
-                    ref specialComboBox,
-                    ref socialComboBox,
-                    ref langComboBox,
-                    ref scienceComboBox
-                    );
+                SaveData.SetComboBoxes(ComboBoxes);
             }
         }
 
@@ -123,61 +130,6 @@ namespace TimeTableUWP
             await contentDialog.ShowAsync();
         }
         //=> await new MessageDialog(context) { Title = title }.ShowAsync();
-
-        private async Task LoopTimeAsync() => await Task.Run(() =>
-        {
-            (int day, int time) pos;
-            while (true)
-            {
-                Thread.Sleep(200);
-                now = DateTime.Now;
-                _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    clock.Text = now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
-                    amorpmBox.Text = SettingsPage.Use24Hour ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
-                    dateBlock.Text = now.ToString(SettingsPage.DateFormat switch
-                    {
-                        DateType.MMDDYYYY => "MM/dd/yyyy",
-                        DateType.YYYYMMDD => "yyyy/MM/dd",
-                        DateType.YYYYMMDD2 => "yyyy-MM-dd",
-                        _ => throw new NotImplementedException()
-                    });
-                    dayBlock.Text = now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
-                });
-
-                if (now.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday ||
-                    now.Hour is >= 17 or < 9 or 13)
-                {
-                    continue;
-                }
-
-                pos.day = (int)now.DayOfWeek;
-                pos.time = now.Hour switch
-                {
-                    9 or 10 or 11 or 12 => now.Hour - 8,
-                    14 or 15 or 16 => now.Hour - 9,
-                    _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
-                };
-
-                _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () => {
-                    foreach (var item in Buttons)
-                    {
-                        item.Background = new SolidColorBrush(Colors.Black);
-                        item.Foreground = new SolidColorBrush(Colors.White);
-                    }
-                    // [a, b] => 7a + b
-                    // [pos.day - 1, pos.time - 1] => 7*(pos.day - 1) + (pos.time - 1)
-                    Buttons.ElementAt((7 * (pos.day-1)) + (pos.time-1)).Background =
-                        new SolidColorBrush(SettingsPage.ColorType);
-                    if (pos.time is <= 6) {
-                        Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = new SolidColorBrush(SettingsPage.ColorType);
-                    }
-                    });
-
-                // 토스트 Notification도 고려해볼 것.
-            }
-        });
 
         private void DrawTimeTable()
         {
@@ -261,7 +213,7 @@ namespace TimeTableUWP
 
         #region ComboBox
         private void EnableAllCombobox()
-        => Librarys.Enable(langComboBox, specialComboBox, socialComboBox, scienceComboBox);
+        => Enable(langComboBox, specialComboBox, socialComboBox, scienceComboBox);
 
         private void gradeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -275,13 +227,13 @@ namespace TimeTableUWP
             grade = SaveData.GradeComboBoxText[6] - '0';
             if (grade is 2)
             {
-                Librarys.Enable(classComboBox);
+                Enable(classComboBox);
             }
             else
             {
                 ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatrueNotImplemented);
-                Librarys.Empty(gradeComboBox);
-                Librarys.Disable(classComboBox);
+                Empty(gradeComboBox);
+                Disable(classComboBox);
             }
             // TODO: for future, empty all combobox except grade & class
         }
@@ -293,7 +245,7 @@ namespace TimeTableUWP
             langComboBox.SelectedItem = Subjects.RawName.Spanish;
             scienceComboBox.SelectedItem = Subjects.RawName.Biology;
 
-            Librarys.Disable(specialComboBox, socialComboBox, langComboBox, scienceComboBox);
+            Disable(specialComboBox, socialComboBox, langComboBox, scienceComboBox);
         }
         private void SetComboBoxAsClass2()
         {
@@ -301,27 +253,27 @@ namespace TimeTableUWP
             scienceComboBox.SelectedItem = Subjects.RawName.Biology;
 
             Disable(specialComboBox, scienceComboBox);
-            Librarys.Empty(langComboBox, socialComboBox);
+            Empty(langComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass3()
         {
             specialComboBox.SelectedItem = Subjects.RawName.Ethics;
-            Librarys.Disable(specialComboBox);
-            Librarys.Empty(langComboBox, scienceComboBox, socialComboBox);
+            Disable(specialComboBox);
+            Empty(langComboBox, scienceComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass4()
         {
             specialComboBox.SelectedItem = Subjects.RawName.Ethics;
             langComboBox.SelectedItem = Subjects.RawName.Chinese;
             scienceComboBox.SelectedItem = Subjects.RawName.Biology;
-            Librarys.Disable(specialComboBox, langComboBox, scienceComboBox);
-            Librarys.Empty(socialComboBox);
+            Disable(specialComboBox, langComboBox, scienceComboBox);
+            Empty(socialComboBox);
         }
         private void SetComboBoxAsClass5()
         {
             langComboBox.SelectedItem = Subjects.RawName.Spanish;
-            Librarys.Disable(langComboBox);
-            Librarys.Empty(scienceComboBox, specialComboBox, socialComboBox);
+            Disable(langComboBox);
+            Empty(scienceComboBox, specialComboBox, socialComboBox);
         }
         private void SetComboBoxAsClass6()
         {

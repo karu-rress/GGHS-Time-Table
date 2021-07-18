@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using RollingRess;
-
+using System.Diagnostics.CodeAnalysis;
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP
@@ -90,7 +92,7 @@ namespace TimeTableUWP
             base.OnPreviewKeyDown(e);
         }
 
-        private void UpperTextBox(object textBox)
+        private void UpperTextBox([DisallowNull] object textBox)
         {
             var sender = textBox as TextBox;
             var selectionStart = sender.SelectionStart;

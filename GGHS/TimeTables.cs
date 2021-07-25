@@ -24,6 +24,7 @@ internal static class StringOfExtension
 
 namespace GGHS
 {
+
 public interface ITimeTable
 {
     string[,] Class1 { get; }
@@ -53,7 +54,7 @@ namespace Grade2.Semester2
 {
     public class TimeTables : ITimeTable
     {
-        TimeTables()
+        public TimeTables()
         {
             Initialize();
         }
@@ -100,7 +101,7 @@ namespace Grade2.Semester2
 
 
         // 각 반에서 공통으로 듣는 선택과목이 있을 경우 
-        public void ResetByClass(int @class) // ITimeTable.ResetByClass(int)
+        public  void ResetByClass(int @class) // ITimeTable.ResetByClass(int)
         {
             /*
             switch (@class)
@@ -158,12 +159,25 @@ namespace Grade2.Semester2
             */
         }
 
-        public string[,] Class1 { get; } = new string[5, 7]
-        {{ },
-            { },
-            { },
-            { },
-            { }
+
+            // TODO: 실제 개발시에는 아래대로 바꾸기. 이대로 하면 터진다.
+            public string[,] Class1 => throw new NotImplementedException();
+            public string[,] Class2 => throw new NotImplementedException();
+            public string[,] Class3 => throw new NotImplementedException();
+            public string[,] Class4 => throw new NotImplementedException();
+            public string[,] Class5 => throw new NotImplementedException();
+            public string[,] Class6 => throw new NotImplementedException();
+            public string[,] Class7 => throw new NotImplementedException();
+            public string[,] Class8 => throw new NotImplementedException();
+
+            /*
+        public static string[,] Class1 { get; } = new string[5, 7]
+        {
+        { Subjects.Socials.Selected, Subjects.Languages.Selected, Subjects.CellName.Literature, Subjects.CellName.CriticalEnglish + "B", Subjects.CellName.CriticalEnglish + "C", null, null},
+        { Subjects.Specials.Selected, Subjects.CellName.CreativeSolve, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Literature, Subjects.CellName.CriticalEnglish + "A", Subjects.Socials.Selected },
+        { Subjects.CellName.CreativeSolve, Subjects.CellName.Mathematics, Subjects.CellName.MathResearch, Subjects.Socials.Selected, Subjects.CellName.Literature, Subjects.CellName.Sport, Subjects.Sciences.Selected },
+        { Subjects.Languages.Selected, Subjects.CellName.Sport, Subjects.Specials.Selected, Subjects.CellName.CriticalEnglish + "A", Subjects.CellName.Literature, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "D"},
+        { Subjects.Languages.Selected, Subjects.Specials.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, null, null, null }
         };
         public string[,] Class2 { get; } = new string[5, 7]
         {
@@ -220,8 +234,9 @@ namespace Grade2.Semester2
         { Subjects.Sciences.Selected, Subjects.Specials.Selected, Subjects.CellName.Literature, Subjects.Socials.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CriticalEnglish + "B", Subjects.Languages.Selected},
         { Subjects.CellName.Mathematics, Subjects.Specials.Selected, Subjects.CellName.CreativeSolve, Subjects.Socials.Selected, null, null, null}
         }; 
+            */
+        }
     }
-}
 namespace Grade2.Semester1
 {
     public static class TimeTables

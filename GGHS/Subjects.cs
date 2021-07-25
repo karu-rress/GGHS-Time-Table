@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,7 +71,7 @@ namespace GGHS
                     // public static string HomeComing { get; } = RawName.HomeComing;
 
                     // public static string ScienceHistory { get; } = RawName.ScienceHistory;
-                    public static new string LifeAndScience { get; } = "생과";
+                    public static new string LifeAndScience { get; } = "생활과학";
 
                     // public static string GlobalEconomics { get; } = RawName.GlobalEconomics;
                     // public static string GlobalPolitics { get; } = RawName.GlobalPolitics;
@@ -101,7 +103,8 @@ namespace GGHS
                     public static string ScienceHistory { get; } = CellName.ScienceHistory;
                     public static string LifeAndScience { get; } = CellName.LifeAndScience;
                     public static string None { get; } = "과학선택";
-                    static string selected = None;
+
+                    private static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, ScienceHistory, LifeAndScience); }
                 }
 
@@ -116,7 +119,7 @@ namespace GGHS
                     public static string RegionResearch { get; } = CellName.RegionResearch;
                     public static string GISAnalyze { get; } = CellName.GISAnalyze;
                     public static string None { get; } = "전문1";
-                    static string selected = None;
+                    private static string selected = None;
                     public static string Selected
                     {
                         get => selected; set => selected = value.ReturnIfHasInOrElse(None,
@@ -136,7 +139,7 @@ RegionResearch, GISAnalyze);
                     public static string RegionResearch { get; } = CellName.RegionResearch;
                     public static string GISAnalyze { get; } = CellName.GISAnalyze;
                     public static string None { get; } = "전문2";
-                    static string selected = None;
+                    private static string selected = None;
                     public static string Selected
                     {
                         get => selected; set => selected = value.ReturnIfHasInOrElse(None,

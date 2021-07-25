@@ -2,27 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Threading;
-using Windows.UI;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Email;
-using Windows.ApplicationModel.Contacts;
 using Windows.UI.Xaml.Documents;
+using MsCtrl = Microsoft.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,6 +20,7 @@ namespace TimeTableUWP
     public sealed partial class SettingsPage : Page
     {
         public static bool Use24Hour { get; private set; } = false;
+        public static bool IsDarkMode { get; private set; } = false;
         public static DateType DateFormat { get; private set; } = DateType.YYYYMMDD;
         // public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
@@ -49,13 +34,14 @@ namespace TimeTableUWP
         {
             this.InitializeComponent();
             use24Toggle.IsOn = Use24Hour;
+            RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
             dateFormatRadio.SelectedIndex = dateFormatDict[DateFormat];
             colorPicker.Color = SaveData.ColorType;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
+        private void Button_Click(object _, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
 
-        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) => Use24Hour = use24Toggle.IsOn;
+        private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Use24Hour = use24Toggle.IsOn;
 
         private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -73,7 +59,7 @@ namespace TimeTableUWP
             }
         }
 
-        private void ColorPicker_ColorChanged(Microsoft.UI.Xaml.Controls.ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args) 
+        private void ColorPicker_ColorChanged(MsCtrl.ColorPicker sender, MsCtrl.ColorChangedEventArgs args) 
             => SaveData.ColorType = colorPicker.Color;
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -125,6 +111,8 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
             FeedbackDialog feedbackDialog = new();
             await feedbackDialog.ShowAsync();
         }
+
+        private void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __) => IsDarkMode = darkToggle.IsOn;
         /*
 * 버튼 하나 더 만들고
 * About 크레딧 넣기

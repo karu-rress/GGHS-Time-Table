@@ -32,7 +32,10 @@ namespace GGHS
         {
             private record Common
             {
-                // public static ZoomInfo Literature1to3 { get; } = new("https://zoom.us/j/92759524061?pwd=dHUwZllmSEp2NWpRYlVTbmdjODR3dz09", "927 5952 4061", "0203", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "백지혜");
+                // Reading
+                public static ZoomInfo Reading1to3 { get; } = new("https://zoom.us/j/92759524061?pwd=dHUwZllmSEp2NWpRYlVTbmdjODR3dz09", "927 5952 4061", "0203", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "백지혜");
+                public static ZoomInfo Reading4to6 { get; } = new("https://zoom.us/j/85644781112?pwd=SC8xWDBZbVRpNW1TSXF6QjRNQk8zQT09", "856 4478 1112", "0204", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "윤채영");
+                public static ZoomInfo Reading7to8 { get; } = new("https://zoom.us/j/97317948690?pwd=WWovQUdBQS8rVVMzMUNyZmNPSDY3Zz09", "973 1794 8690", "626239", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "임제완");
 
             }
 

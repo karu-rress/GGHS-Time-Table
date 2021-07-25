@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using System.Collections.Generic;
 using System.Collections;
 using System.Globalization;
 using System.Threading;
@@ -9,25 +8,69 @@ using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel;
 using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.Core;
-using Windows.UI.Xaml.Documents;
-using GGHS;
-using GGHS.Grade2;
-using TimeTableUWP.ComboboxItem;
-using RollingRess;
 using static RollingRess.Librarys;
-using Microsoft.Toolkit.Uwp.Notifications;
+using GGHS.Grade2.Semester2;
 
 namespace TimeTableUWP
 {
 
     public sealed partial class MainPage : Page
     {
+        void InitializeUI()
+        {
+            Disable(classComboBox, langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
+            RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+            SetColor();
+            if (comboBoxSelection.grade is not -1)
+            {
+                (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex, special1ComboBox.SelectedIndex,
+                    special2ComboBox.SelectedIndex, scienceComboBox.SelectedIndex) = comboBoxSelection;
+            }
+        }
+
+        private void SetColor()
+        {
+            foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
+                border.Background = new SolidColorBrush(SaveData.ColorType);
+
+            foreach (var comboBox in ComboBoxes)
+                comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
+        }
+
+        private async void ShowMessage(string context, string title = "")
+        {
+            ContentDialog contentDialog = new()
+            {
+                Title = title,
+                Content = context,
+                CloseButtonText = "OK",
+            };
+            await contentDialog.ShowAsync();
+        }
+
+        private void DrawTimeTable()
+        {
+            timeTable.ResetByClass(@class);
+            string[,] subjectTable = SetArrayByClass();
+
+            // 월 6, 7 / 금 5, 6은 어차피 창체, 금 7도 어차피 홈커밍
+            AssignButtonsByTable(subjectTable);
+            mon6Button.Content = mon7Button.Content = fri5Button.Content = fri6Button.Content = Subjects.CellName.Others;
+            fri7Button.Content = Subjects.CellName.HomeComing;
+        }
+
+        private void AssignButtonsByTable(string[,] subjectTable)
+        {
+            var subjects = ((IEnumerable)subjectTable).Cast<string>();
+            var lists = Buttons.Zip(subjects, (Button btn, string subject) => (btn, subject));
+            foreach (var (btn, subject) in lists)
+                btn.Content = subject;
+        }
+
         private async Task LoopTimeAsync()
         {
             await Task.Run(() => LoopTime());

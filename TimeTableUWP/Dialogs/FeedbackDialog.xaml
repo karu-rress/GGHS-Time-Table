@@ -12,16 +12,27 @@
     CloseButtonText="Cancel"
     DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    Closing="ContentDialog_Closing">
+    Closing="ContentDialog_Closing"
+    CornerRadius="10">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="인증키가 필요하거나, 과목 추가를 원하거나, 오류가 발생한 경우 아래에 작성해주세요." TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="453"/>
-        <TextBlock HorizontalAlignment="Left" Margin="19,67,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox x:Name="senderBox" HorizontalAlignment="Left" Margin="260,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202" Background="White" Foreground="Black"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="452" Height="285" Background="White" Foreground="Black" AcceptsReturn="True" />
-        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Yellow" Visibility="Collapsed"  />
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+        </Grid.Resources>
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="인증키가 필요하거나, 과목 추가를 원하거나, 오류가 발생한 경우 아래에 작성해주세요." Height="37" Width="453"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19,67,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" />
+        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." Foreground="#FF222288" Visibility="Collapsed"  />
+        <TextBox x:Name="senderBox" Margin="0,60,0,0" Width="202" HorizontalAlignment="Right" />
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="452" Height="285" AcceptsReturn="True" />
         <Grid Margin="82,98,346,289">
             <Custom:ProgressRing x:Name="progressRing" Height="28" Width="28" Visibility="Collapsed" />
         </Grid>
-
     </Grid>
 </ContentDialog>

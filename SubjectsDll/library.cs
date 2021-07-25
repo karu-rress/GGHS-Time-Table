@@ -37,10 +37,9 @@ namespace RollingRess
             foreach (var item in arr)
             {
                 if (string.IsNullOrEmpty(item))
-                {
                     return true;
-                }
             }
+
             return false;
         }
 
@@ -54,9 +53,7 @@ namespace RollingRess
         public static void Disable(params Control[] controls)
         {
             foreach (var item in controls)
-            {
                 item.IsEnabled = false;
-            }
         }
 
         /// <summary>
@@ -66,9 +63,7 @@ namespace RollingRess
         public static void Enable(params Control[] controls)
         {
             foreach (var item in controls)
-            {
                 item.IsEnabled = true;
-            }
         }
 
         public static void Empty(params Control[] controls)
@@ -77,8 +72,11 @@ namespace RollingRess
             {
                 switch (item)
                 {
-                    case ComboBox cb: cb.SelectedIndex = -1; break;
-                    default: throw new ArgumentException();
+                    case ComboBox cb: 
+                        cb.SelectedIndex = -1; 
+                        break;
+                    default: 
+                        throw new ArgumentException();
                 }
             }
         }

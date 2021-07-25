@@ -17,32 +17,31 @@ namespace TimeTableUWP
 {
     public static class SaveData
     {
-        const string dataFileName = "gttdat.sav", keyFileName = "gttact.key", settingsFileName = "gttsets.sav";
+        private const string dataFileName = "gttdat.sav", keyFileName = "gttact.key", settingsFileName = "gttsets.sav";
         
         private static string grade, @class, special, social, lang, science;
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
-        public static Color ColorType { get; set; } = Colors.DarkSlateBlue;
+        public static Color ColorType { get; set; } = Colors.LightSteelBlue;
         public static string GradeComboBoxText { get => grade; set => grade = value ?? "NULL"; }
         public static string ClassComboBoxText { get => @class; set => @class = value ?? "NULL"; }
-        public static string SpecialComboBoxText { get => special; set => special = value ?? "NULL"; }
-        public static string SocialComboBoxText { get => social; set => social = value ?? "NULL"; }
+        public static string Special1ComboBoxText { get => special; set => special = value ?? "NULL"; }
+        public static string Special2ComboBoxText { get => social; set => social = value ?? "NULL"; }
         public static string LangComboBoxText { get => lang; set => lang = value ?? "NULL"; }
         public static string ScienceComboBoxText { get => science; set => science = value ?? "NULL"; }
 
-        static IEnumerable<string> ComboBoxTexts
+        private static IEnumerable<string> ComboBoxTexts
         {
             get
             {
                 yield return GradeComboBoxText;
                 yield return ClassComboBoxText;
-                yield return SpecialComboBoxText;
-                yield return SocialComboBoxText;
                 yield return LangComboBoxText;
+                yield return Special1ComboBoxText;
+                yield return Special2ComboBoxText;
                 yield return ScienceComboBoxText;
             }
         }
-
 
         public static async Task SaveDataAsync()
         {
@@ -58,8 +57,8 @@ namespace TimeTableUWP
                     GradeComboBoxText + "\n" +
                     ClassComboBoxText + "\n" +
                     LangComboBoxText + "\n" +
-                    SpecialComboBoxText + "\n" +
-                    SocialComboBoxText + "\n" +
+                    Special1ComboBoxText + "\n" +
+                    Special2ComboBoxText + "\n" +
                     ScienceComboBoxText
                     );
                 await dataWriter.StoreAsync();
@@ -96,7 +95,7 @@ namespace TimeTableUWP
             {
                 MessageDialog messageDialog = new(@"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 2");
+꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3");
                 await messageDialog.ShowAsync();
                 return false;
             }
@@ -113,10 +112,9 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
                 GradeComboBoxText = lines[0];
                 ClassComboBoxText = lines[1];
                 LangComboBoxText = lines[2];
-                SpecialComboBoxText = lines[3];
-                SocialComboBoxText = lines[4];
+                Special1ComboBoxText = lines[3];
+                Special2ComboBoxText = lines[4];
                 ScienceComboBoxText = lines[5];
-                stream.Dispose();
             }
 
             if (await storageFolder.TryGetItemAsync(keyFileName) is StorageFile keyFile)

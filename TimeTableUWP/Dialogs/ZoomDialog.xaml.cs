@@ -2,37 +2,26 @@
 
 using RollingRess;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using static GGHS.ZoomLinks;
+using GGHS;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP
 {
+
     public sealed partial class ZoomDialog : ContentDialog
     {
-        const string None = "(None)";
-        readonly ZoomInfo zoomInfo;
+        private const string None = "(None)";
+        private readonly ZoomInfo zoomInfo;
 
         public ZoomDialog(int @class, string subject, ZoomInfo zoomInfo)
         {
             InitializeComponent();
             Title = $"Class {@class} {subject} Links";
             this.zoomInfo = zoomInfo;
-
+            
             SetContent();
         }
 
@@ -47,7 +36,6 @@ namespace TimeTableUWP
                 hyperlink.Inlines.Add(new Run() { Text = zoomInfo.Link });
                 tb.Inlines.Add(hyperlink);
                 tb.AddText("\n");
-
                 tb.AddTextLine($"ID: {zoomInfo.Id ?? None}");
                 tb.AddTextLine($"PW: {zoomInfo.Pw ?? None}");
             }
@@ -58,6 +46,7 @@ namespace TimeTableUWP
                 IsPrimaryButtonEnabled = false;
                 DefaultButton = ContentDialogButton.Secondary;
             }
+
             tb.AddText("\nClassroom: ");
             if (zoomInfo.ClassRoom is not null)
             {
@@ -79,19 +68,14 @@ namespace TimeTableUWP
             Content = tb;
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
         }
 
-        private async void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_SecondaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.ClassRoom));
-        }
-
-        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-
         }
     }
 }

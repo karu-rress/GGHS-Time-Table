@@ -4,53 +4,39 @@
     xmlns:local="using:TimeTableUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.SettingsPage"
-
     mc:Ignorable="d"
-        Background="#FF1C1C1C">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
     <Page.Resources>
-        <SolidColorBrush x:Key="ToggleSwitchCurtainBackgroundThemeBrush" Color="#FF5729C1" />
-        <SolidColorBrush x:Key="ToggleSwitchCurtainDisabledBackgroundThemeBrush" Color="Transparent" />
-        <SolidColorBrush x:Key="ToggleSwitchCurtainPointerOverBackgroundThemeBrush" Color="#FF6E46CA" />
-        <SolidColorBrush x:Key="ToggleSwitchCurtainPressedBackgroundThemeBrush" Color="#FF7E4FEC" />
-
-        <SolidColorBrush x:Key="ToggleSwitchDisabledForegroundThemeBrush" Color="#66FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchForegroundThemeBrush" Color="#FFFFFFFF" />
-
-        <SolidColorBrush x:Key="ToggleSwitchHeaderDisabledForegroundThemeBrush" Color="#66FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchHeaderForegroundThemeBrush" Color="#FFFFFFFF" />
-
-        <SolidColorBrush x:Key="ToggleSwitchOuterBorderBorderThemeBrush" Color="#59FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchOuterBorderDisabledBorderThemeBrush" Color="#33FFFFFF" />
-
-        <SolidColorBrush x:Key="ToggleSwitchThumbBackgroundThemeBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbBorderThemeBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbDisabledBackgroundThemeBrush" Color="#FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbDisabledBorderThemeBrush" Color="#FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbPointerOverBackgroundThemeBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbPointerOverBorderThemeBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbPressedBackgroundThemeBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchThumbPressedForegroundThemeBrush" Color="#FFFFFFFF" />
-
-        <SolidColorBrush x:Key="ToggleSwitchTrackBackgroundThemeBrush" Color="#42FFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchTrackBorderThemeBrush" Color="Transparent" />
-        <SolidColorBrush x:Key="ToggleSwitchTrackDisabledBackgroundThemeBrush" Color="#1FFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchTrackPointerOverBackgroundThemeBrush" Color="#4AFFFFFF" />
-        <SolidColorBrush x:Key="ToggleSwitchTrackPressedBackgroundThemeBrush" Color="#59FFFFFF" />
+        <CornerRadius x:Key="corner">10</CornerRadius>
     </Page.Resources>
     <Grid x:Name="mainGrid">
-        <TextBlock x:Name="mainText" HorizontalAlignment="Left" Margin="181,65,0,0" TextWrapping="Wrap" FontSize="55" FocusVisualPrimaryBrush="White" Foreground="White" Height="73" VerticalAlignment="Top" Width="679"><Run Text="GGHS Time Table "/><Run Text="2 Settings"/></TextBlock>
-        <TextBlock x:Name="textBox0" HorizontalAlignment="Left" Margin="203,170,0,0" Text="Global Settings" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="45"/>
-        <Button Margin="0,0,70,53" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="230" Height="90" Click="Button_Click" >
-            <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe MDL2 Assets"/></TextBlock>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="{StaticResource corner}"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="FontSize" Value="27"/>
+                <Setter Property="Height" Value="90"/>
+            </Style>
+        </Grid.Resources>
+        <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 3 Settings" FontFamily="Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="textBox0"  Margin="203,170,0,0" Text="Global Settings" FontSize="45" FontFamily="Segoe" FontWeight="Bold"/>
+        <Button Margin="0,0,70,53" Width="230" Click="Button_Click" >
+            <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe UI"/></TextBlock>
         </Button>
 
 
-        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" RequestedTheme="Dark" Margin="203,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled"/>
+        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="203,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled" FontFamily="Segoe" />
 
-        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" RequestedTheme="Dark" HorizontalAlignment="Left" Height="182" Margin="203,513,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged">
+        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="203,558,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
             <x:String>2020/06/03</x:String>
             <x:String>2020-06-03</x:String>
             <x:String>06/03/2020</x:String>
@@ -59,20 +45,22 @@
 
         <muxc:ColorPicker x:Name="colorPicker"
       ColorSpectrumShape="Ring"
-      IsMoreButtonVisible="False"
+      IsMoreButtonVisible="True"
       IsColorSliderVisible="True"
       IsColorChannelTextInputVisible="False"
       IsHexInputVisible="False"
       IsAlphaEnabled="False"
-      IsAlphaSliderVisible="True"
-      IsAlphaTextInputVisible="True" Margin="580,310,916,284" ColorChanged="ColorPicker_ColorChanged"/>
-        <TextBlock HorizontalAlignment="Left" Margin="587,262,0,0" Text="Select color" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="25"/>
-        <Button Margin="0,0,132,636" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="388" Height="90" Click="Button_Click_1" >
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe MDL2 Assets"/></TextBlock>
+      IsAlphaSliderVisible="False"
+      IsAlphaTextInputVisible="False" Margin="602,310,894,284" ColorChanged="ColorPicker_ColorChanged"/>
+        <TextBlock Margin="611,262,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Segoe"/>
+
+        <Button Margin="0,0,132,636" Width="388" Click="Button_Click_1" >
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe UI"/></TextBlock>
         </Button>
-        <Button Margin="0,0,132,450" Background="#33FFFFFF" VerticalAlignment="Bottom" FontSize="30" Foreground="White" HorizontalAlignment="Right" Width="388" Height="90" Click="Button_Click_2" >
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Segoe MDL2 Assets"/></TextBlock>
+        <Button Margin="0,0,132,450" Width="388" Click="Button_Click_2" >
+            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Segoe UI"/></TextBlock>
         </Button>
+        <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="203,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
 
         <!-- E77B Contact 
         E946 Info

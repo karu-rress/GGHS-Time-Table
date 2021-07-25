@@ -13,7 +13,6 @@
     DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
-    CloseButtonClick="ContentDialog_CloseButtonClick">
-    
-    <Grid HorizontalAlignment="Center" Width="500"/>
+    CornerRadius="10">
+    <Grid HorizontalAlignment="Center" Width="500" />
 </ContentDialog>

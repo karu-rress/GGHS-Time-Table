@@ -22,13 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace TimeTableUWP
 {
-    // TODO: ActivateKeys랑 ActivateLvel...enum 구조 재정리? 아님 Dll에 또 넣어야 하나...
-    static class ActivateKeys
-    {
-        public const string Developer = "RRESS-D83JF-KMX91-MXBF7-ZNX93";
-        public const string Grade2 = "GGGHS-IRWFE-H9SOX-WF0JQ-ZJ39S";
-    }
-
     public enum ActivateLevel
     {
         Developer = 3,
@@ -36,31 +29,23 @@ namespace TimeTableUWP
         None = 7
     }
 
-    /*
-     * 
-     * 인증키 과정
-     * 
-     * 입력을 받는다
-     */
     public sealed partial class ActivateDialog : ContentDialog
     {
         public ActivateDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        // TextBox[] keyBoxArray = new TextBox[5];
-
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
         {
-            if (Librarys.AreNullOrEmpty(keyBox1.Text, keyBox2.Text, keyBox3.Text, keyBox4.Text, keyBox5.Text))
+            if (Librarys.AreNullOrEmpty(keyBox1.Text, keyBox2.Text))
             {
                 MessageDialog messageDialog = new("Please enter the entire key", "Error");
                 _ = messageDialog.ShowAsync();
                 return;
             }
 
-            string key = $"{keyBox1.Text}-{keyBox2.Text}-{keyBox3.Text}-{keyBox4.Text}-{keyBox5.Text}";
+            string key = $"{keyBox1.Text}-{keyBox2.Text}";
             string license;
 
             switch (key.ToUpper())
@@ -86,57 +71,29 @@ namespace TimeTableUWP
         protected override void OnPreviewKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Key is VirtualKey.Space)
-            {
                 e.Handled = true;
-            }
+            
             base.OnPreviewKeyDown(e);
         }
 
-        private void UpperTextBox([DisallowNull] object textBox)
+        private void UpperTextBox(object textBox)
         {
-            var sender = textBox as TextBox;
-            var selectionStart = sender.SelectionStart;
-            sender.Text = sender.Text.ToUpper();
-            sender.SelectionStart = selectionStart;
-            sender.SelectionLength = 0;
+            if (textBox is TextBox sender)
+            {
+                var selectionStart = sender.SelectionStart;
+                sender.Text = sender.Text.ToUpper();
+                sender.SelectionStart = selectionStart;
+                sender.SelectionLength = 0;
+            }
         }
 
         private void keyBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpperTextBox(sender);
             if (keyBox1.Text.Length == keyBox1.MaxLength)
-            {
-                keyBox2.Focus(FocusState.Keyboard);
-            }
+                _ = keyBox2.Focus(FocusState.Keyboard);
         }
 
-        private void keyBox2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpperTextBox(sender);
-            if (keyBox2.Text.Length == keyBox1.MaxLength)
-            {
-                keyBox3.Focus(FocusState.Keyboard);
-            }
-        }
-
-        private void keyBox3_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpperTextBox(sender);
-            if (keyBox3.Text.Length == keyBox1.MaxLength)
-            {
-                keyBox4.Focus(FocusState.Keyboard);
-            }
-        }
-
-        private void keyBox4_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpperTextBox(sender);
-            if (keyBox4.Text.Length == keyBox1.MaxLength)
-            {
-                keyBox5.Focus(FocusState.Keyboard);
-            }
-        }
-
-        private void keyBox5_TextChanged(object sender, TextChangedEventArgs e) => UpperTextBox(sender);
+        private void keyBox2_TextChanged(object sender, TextChangedEventArgs e) => UpperTextBox(sender);
     }
 }

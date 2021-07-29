@@ -27,8 +27,8 @@
                 <Setter Property="Height" Value="90"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 3 Settings" FontFamily="Segoe" FontWeight="Bold"/>
-        <TextBlock x:Name="textBox0"  Margin="203,170,0,0" Text="Global Settings" FontSize="45" FontFamily="Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 3 Settings" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="textBox0"  Margin="203,170,0,0" Text="Global Settings" FontSize="45" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
         <Button Margin="0,0,70,53" Width="230" Click="Button_Click" >
             <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe UI"/></TextBlock>
         </Button>
@@ -52,7 +52,7 @@
       IsAlphaEnabled="False"
       IsAlphaSliderVisible="False"
       IsAlphaTextInputVisible="False" Margin="602,310,894,284" ColorChanged="ColorPicker_ColorChanged"/>
-        <TextBlock Margin="611,262,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Segoe"/>
+        <TextBlock Margin="611,262,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
 
         <Button Margin="0,0,132,636" Width="388" Click="Button_Click_1" >
             <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe UI"/></TextBlock>

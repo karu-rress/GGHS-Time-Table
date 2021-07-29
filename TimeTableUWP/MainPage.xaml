@@ -26,7 +26,7 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="Foreground" Value="{StaticResource txtColor}"/>
-                <Setter Property="FontFamily" Value="Segoe" />
+                <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3 Preview 1" FontSize="55" Height="73" FontWeight="Bold"/>
@@ -41,7 +41,7 @@
                     <Setter Property="FontSize" Value="30" />
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="clock"  Text="09:19" FontSize="90" FontFamily="Segoe" Margin="10,13,201,19" />
+            <TextBlock x:Name="clock"  Text="09:19" FontSize="90" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" Margin="10,13,201,19" />
             <TextBlock x:Name="dateBlock" Text="07/23/2021" Margin="250,36,0,63"/>
             <TextBlock x:Name="dayBlock" Text="Mon" Margin="335,74,14,29"/>
             <TextBlock x:Name="amorpmBox" Text="AM" Margin="250,75,120,24"/>
@@ -64,7 +64,7 @@
                     <Setter Property="Height" Value="38"/>
                     <Setter Property="FontSize" Value="25"/>
                     <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="FontFamily" Value="Segoe"/>
+                    <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe"/>
                     <Setter Property="Margin" Value="0,10,0,10"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="{StaticResource txtColor}"/>
@@ -167,7 +167,7 @@
             </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="FontFamily" Value="Segoe"/>
+                    <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe"/>
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                     <Setter Property="VerticalAlignment" Value="Stretch"/>
                     <Setter Property="Foreground" Value="{StaticResource txtColor}"/>

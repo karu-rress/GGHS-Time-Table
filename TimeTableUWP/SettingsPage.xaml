@@ -54,10 +54,10 @@
       IsAlphaTextInputVisible="False" Margin="602,310,894,284" ColorChanged="ColorPicker_ColorChanged"/>
         <TextBlock Margin="611,262,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
 
-        <Button Margin="0,0,132,636" Width="388" Click="Button_Click_1" >
+        <Button Margin="0,0,132,636" Width="388" Click="Button_Click_1" Height="70" >
             <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe UI"/></TextBlock>
         </Button>
-        <Button Margin="0,0,132,450" Width="388" Click="Button_Click_2" >
+        <Button Margin="0,0,132,492" Width="388" Click="Button_Click_2" Height="70">
             <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Segoe UI"/></TextBlock>
         </Button>
         <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="203,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />

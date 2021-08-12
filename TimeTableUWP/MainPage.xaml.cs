@@ -61,9 +61,9 @@ namespace TimeTableUWP
             async void ReadFile()
             {
                 if (!hasReadFile)
-                    await LoadDataFromFileAsync();
-                
-                hasReadFile = true;
+                    // await LoadDataFromFileAsync();
+
+                    hasReadFile = true;
             }
         }
 

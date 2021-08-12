@@ -122,7 +122,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseData.cs" />
-    <Compile Include="library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\SubjectsDll.rd.xml" />
   </ItemGroup>

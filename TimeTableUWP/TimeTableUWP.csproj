@@ -266,6 +266,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RollingUWP\RollingUWP\RollingUWP.csproj">
+      <Project>{539d1184-789f-4991-b760-8978e95f6052}</Project>
+      <Name>RollingUWP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GGHS\GGHS.csproj">
       <Project>{4a076ada-c21d-4ac5-9158-3fe548b566c0}</Project>
       <Name>GGHS</Name>

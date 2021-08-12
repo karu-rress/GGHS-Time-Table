@@ -29,7 +29,7 @@
                 <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3 Preview 1" FontSize="55" Height="73" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3 Preview 2" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="181,143,0,0" Text="We're the ones who've made it this far" FontSize="30" Width="544" Foreground="#FF444444"/>
 
         <Grid Name="clockGrid" Margin="0,45,0,0" HorizontalAlignment="Right" Width="500" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Height="165" VerticalAlignment="Top">

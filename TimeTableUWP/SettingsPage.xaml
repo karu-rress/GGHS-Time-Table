@@ -28,15 +28,15 @@
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 3 Settings" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
-        <TextBlock x:Name="textBox0"  Margin="203,170,0,0" Text="Global Settings" FontSize="45" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="textBox0"  Margin="187,170,0,0" Text="Global Settings" FontSize="40" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
         <Button Margin="0,0,70,53" Width="230" Click="Button_Click" >
             <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe UI"/></TextBlock>
         </Button>
 
 
-        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="203,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled" FontFamily="Segoe" />
+        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="189,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled" FontFamily="Segoe" />
 
-        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="203,558,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
+        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="189,558,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
             <x:String>2020/06/03</x:String>
             <x:String>2020-06-03</x:String>
             <x:String>06/03/2020</x:String>
@@ -51,16 +51,16 @@
       IsHexInputVisible="False"
       IsAlphaEnabled="False"
       IsAlphaSliderVisible="False"
-      IsAlphaTextInputVisible="False" Margin="602,310,894,284" ColorChanged="ColorPicker_ColorChanged"/>
-        <TextBlock Margin="611,262,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
+      IsAlphaTextInputVisible="False" Margin="519,327,0,410" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Width="333"/>
+        <TextBlock Margin="519,261,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
 
-        <Button Margin="0,0,132,636" Width="388" Click="Button_Click_1" Height="70" >
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Segoe UI"/></TextBlock>
+        <Button Margin="0,0,70,636" Width="338" Click="Button_Click_1" Height="70" >
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
-        <Button Margin="0,0,132,492" Width="388" Click="Button_Click_2" Height="70">
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Segoe UI"/></TextBlock>
+        <Button Margin="0,0,70,492" Width="338" Click="Button_Click_2" Height="70">
+            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
-        <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="203,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
+        <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="189,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
 
         <!-- E77B Contact 
         E946 Info

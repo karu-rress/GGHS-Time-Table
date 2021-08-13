@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 using System.Net.Mail;
 using System.Net;
-using Windows.UI.Popups;
+using static RollingRess.StaticClass;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,8 +31,7 @@ namespace TimeTableUWP
             var text = textBox.Text;
             if (string.IsNullOrWhiteSpace(text))
             {
-                MessageDialog message = new("Please enter text.", "Error");
-                _ = await message.ShowAsync();
+                await ShowMessageAsync("Please enter text.", "Error");
                 return;
             }
 
@@ -42,9 +41,9 @@ namespace TimeTableUWP
             isSending = true;
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
             IsPrimaryButtonEnabled = IsSecondaryButtonEnabled = false;
+
             await smtp.SendAsync(msg);
             isSending = false;
-
             progressRing.Value = 100;
             sendingMsgText.Text = "Successfully sent!";
             Hide();

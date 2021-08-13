@@ -9,22 +9,9 @@ using Windows.ApplicationModel;
 using GGHS;
 using GGHS.Grade2.Semester2;
 using static RollingRess.StaticClass;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
-/// <TODO>
-/// 
-///   GGHS Time Table 3 Release Plan
-/// 
-/// 
-///     GGHS Time Table 3 Preview 1: First build without running
-///     GGHS Time Table 3 Preview 2: Last build before applying timetable
-///     GGHS Time Table 3 Preview 3: First build with timetable
-///     
-///     GGHS Time Table 3 Release Candidate: Bug fix with 'Preview 3'
-///     GGHS Time Table 3 (Official Release): Bugs fixed, and when the semester starts
-///     
-/// </TODO>
 
 namespace TimeTableUWP
 {
@@ -36,7 +23,7 @@ namespace TimeTableUWP
         private int @class = 8;
         private DateTime now = DateTime.Now;
         private static bool hasReadFile = false;
-        private static readonly PackageVersion version = Package.Current.Id.Version;
+        private static PackageVersion version => Package.Current.Id.Version;
 
         /// <summary>
         /// GGHS Time Table's version: string value with the format "X.X.X"
@@ -48,24 +35,22 @@ namespace TimeTableUWP
         /// </summary>
         static (int grade, int @class, int lang, int special1, int special2, int science) comboBoxSelection = (-1, -1, -1, -1, -1, -1);
 
-        private readonly TimeTables timeTable = new();
-        private readonly ZoomLinks zoomLink = new();
+        private TimeTables timeTable => new();
+        private ZoomLinks zoomLink => new();
 
         public MainPage()
         {
             InitializeComponent();
-            _ = LoopTimeAsync(); // detach. OK.
-            ReadFile();
+            _ = LoopTimeAsync(); // detach.
+            if (!hasReadFile)
+            {
+                _ = ReadFile();
+                Thread.Sleep(100);
+                hasReadFile = true;
+            }
             InitializeUI();
 
-            async void ReadFile()
-            {
-                if (!hasReadFile)
-                {
-                    await LoadDataFromFileAsync();
-                    hasReadFile = true;
-                }
-            }
+            async Task ReadFile() => await LoadDataFromFileAsync();
         }
 
         private async Task LoadDataFromFileAsync()
@@ -159,33 +144,29 @@ namespace TimeTableUWP
             };
             if (ret is null)
                 throw new NullReferenceException($"SetArrayByClass(): Class{@class}.Clone() got null.");
+
             return ret;
         }
 
-            #region ComboBox
-            private void EnableAllCombobox()
+        #region ComboBox
+        private void EnableAllCombobox()
         => Enable(langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
-
 
         private void gradeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // EnableAllCombobox();
-            if (gradeComboBox.SelectedItem is null)
+            if (gradeComboBox.SelectedItem is not string strgrade)
                 return;
 
-            SaveData.GradeComboBoxText = gradeComboBox.SelectedItem as string
-                ?? throw new NullReferenceException("gradeComboBox.SelectedItem is null.");
-
+            SaveData.GradeComboBoxText = strgrade;
             grade = SaveData.GradeComboBoxText[6] - '0';
-            if (grade is 2)
-                Enable(classComboBox);
+            Enable(classComboBox);
+            /*
             else
             {
                 ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatureNotImplemented);
                 Empty(gradeComboBox);
                 Disable(classComboBox);
-            }
-            // TODO: for future, empty all combobox except grade & class
+            }*/
         }
         
 
@@ -343,17 +324,17 @@ namespace TimeTableUWP
         {
             if (subjectCellName is null)
             {
-                ShowMessage("Please select your grade and class first.", "Error");
+                await ShowMessageAsync("Please select your grade and class first.", "Error");
                 return;
             }
-            // TODO: 2학기에도 절반만 지원할 셈이냐?
 
+            /*
             if (@class is not (3 or 4 or 5 or 6 or 8))
             {
-                ShowMessage($"Sorry, displaying Zoom link is currently not available in class {@class}.\n" + 
+                await ShowMessageAsync($"Sorry, displaying Zoom link is currently not available in class {@class}.\n" + 
                     "Please wait until the update will be underway.", MessageTitle.FeatureNotImplemented);
                 return;
-            }
+            }*/
 
             if (SaveData.IsActivated is false)
             {
@@ -368,7 +349,7 @@ namespace TimeTableUWP
             if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-                ShowMessage($"Zoom Link for {subjectCellName} is not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link");
+                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link");
                 return;
             }
 
@@ -387,14 +368,13 @@ namespace TimeTableUWP
                 $"GetClassZoomLink(): Class out of range: 3, 4, 5, 8, 6 expected, but given {@class}")
         };
 
-
         private void TableButtons_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Content is string cellName)
                 _ = ShowSubjectZoom(cellName); 
         }
 
-        private void SpecialButtons_Click(object sender, RoutedEventArgs _)
+        private async void SpecialButtons_Click(object sender, RoutedEventArgs _)
         {
             if (sender is Button btn)
             {
@@ -405,7 +385,7 @@ namespace TimeTableUWP
                     "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
                     _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
                 };
-                ShowMessage(msg, txt);
+                await ShowMessageAsync(msg, txt);
             }
         }
 

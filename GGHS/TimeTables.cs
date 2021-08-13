@@ -124,7 +124,7 @@ public interface ITimeTable
                         Class3.Of(Wednesday, 7) = Class3.Of(Thursday, 5) = Subjects.Sciences.Selected;
                         break;
                     case 4:
-                        Class4.Of(Monday, 1) = Class4.Of(Tuesday, 2) = Class4.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Chinese;
+                        Class4.Of(Monday, 1) = Class4.Of(Tuesday, 4) = Class4.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Chinese;
                         Class4.Of(Wednesday, 3) = Class4.Of(Thursday, 1) = Class4.Of(Friday, 4) = Subjects.Specials1.Selected;
                         Class4.Of(Monday, 4) = Class4.Of(Tuesday, 1) = Class4.Of(Wednesday, 2) = Subjects.Specials2.Selected;
                         Class4.Of(Thursday, 3) = Class4.Of(Friday, 2) = Subjects.Sciences.Selected;
@@ -160,7 +160,7 @@ public interface ITimeTable
             {
                 { Subjects.Sciences.Selected, Subjects.Languages.Selected, Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.MathResearch, Subjects.CellName.Others },
                 { Subjects.Specials2.Selected, Subjects.CellName.Sport, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.CreativeSolve, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.Mathematics },
-                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others },
+                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others },
                 { Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
                 { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "C", Subjects.Languages.Selected, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish, Subjects.Languages.Selected, Subjects.CellName.HomeComing },
             };
@@ -169,7 +169,7 @@ public interface ITimeTable
             {
                 { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
                 { Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
-                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.CreativeSolve, Subjects.CellName.Others },
+                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Reading, Subjects.CellName.Sport, Subjects.CellName.CreativeSolve, Subjects.Sciences.Selected },
                 { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.Others, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A" },
                 { Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.HomeComing },
             };
@@ -177,9 +177,9 @@ public interface ITimeTable
             public string[,] Class3 { get; } = new string[5, 7]
             {
                 { Subjects.CellName.Sport, Subjects.CellName.Sport, Subjects.Languages.Selected, Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
-                { Subjects.Specials2.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "D", Subjects.Languages.Selected, Subjects.CellName.Mathematics },
+                { Subjects.Specials2.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Mathematics, Subjects.Languages.Selected },
                 { Subjects.CellName.AdvancedEnglish + "C", Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Others },
-                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.Others, Subjects.Sciences.Selected, Subjects.CellName.Reading },
+                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Reading },
                 { Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, Subjects.CellName.HomeComing },
             };
 
@@ -187,8 +187,8 @@ public interface ITimeTable
             {
                 { Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "B", Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
                 { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A"  },
-                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Others },
-                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others, Subjects.CellName.Reading, Subjects.CellName.CreativeSolve },
+                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
+                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.CreativeSolve },
                 { Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.Specials1.Selected, Subjects.CellName.MathResearch, Subjects.CellName.Sport, Subjects.CellName.HomeComing },
             };
 
@@ -204,8 +204,8 @@ public interface ITimeTable
             public string[,] Class6 { get; } = new string[5, 7]
             {
                 { Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish  + "D", Subjects.Sciences.Selected, Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Sport, Subjects.CellName.Others },
-                { Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.Others, Subjects.CellName.Sport, Subjects.CellName.AdvancedEnglish },
-                { Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Languages.Selected, Subjects.CellName.Reading, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "C" },
+                { Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.Reading, Subjects.CellName.Sport, Subjects.CellName.Sport },
+                { Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Languages.Selected, Subjects.CellName.Sport, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "C" },
                 { Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CreativeSolve, Subjects.Languages.Selected, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading },
                 { Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.Specials1.Selected, Subjects.CellName.HomeComing },
             };
@@ -214,16 +214,16 @@ public interface ITimeTable
             {
                 { Subjects.CellName.Sport, Subjects.CellName.Sport, Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Languages.Selected, Subjects.CellName.MathResearch, Subjects.CellName.Others },
                 { Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "D", Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading },
-                { Subjects.CellName.AdvancedEnglish + "A", Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish  + "B", Subjects.CellName.Reading },
-                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.Others, Subjects.CellName.CreativeSolve, Subjects.CellName.AdvancedEnglish + "C"},
+                { Subjects.CellName.AdvancedEnglish + "A", Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish  + "B", Subjects.CellName.Reading },
+                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.CreativeSolve, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "C"},
                 { Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Reading, Subjects.CellName.HomeComing },
             };
 
             public string[,] Class8 { get; } = new string[5, 7]
             {
                 { Subjects.CellName.CreativeSolve, Subjects.CellName.Mathematics, Subjects.Languages.Selected, Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.Reading, Subjects.CellName.Others },
-                { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish },
-                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.Sciences.Selected, Subjects.CellName.Sport, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.AdvancedEnglish + "A", Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.Languages.Selected },
+                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.CellName.Sport, Subjects.CellName.Sport },
                 { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.Mathematics },
                 { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.CellName.HomeComing },
             };

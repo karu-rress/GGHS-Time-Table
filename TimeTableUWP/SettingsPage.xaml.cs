@@ -113,9 +113,5 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
         }
 
         private void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __) => IsDarkMode = darkToggle.IsOn;
-        /*
-* 버튼 하나 더 만들고
-* About 크레딧 넣기
-*/
     }
 }

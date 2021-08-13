@@ -68,14 +68,10 @@ namespace TimeTableUWP
             Content = tb;
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
-        }
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args) 
+            => await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
 
-        private async void ContentDialog_SecondaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.ClassRoom));
-        }
+        private async void ContentDialog_SecondaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args) 
+            => await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.ClassRoom));
     }
 }

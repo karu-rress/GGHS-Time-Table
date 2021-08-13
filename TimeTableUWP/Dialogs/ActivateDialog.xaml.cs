@@ -37,7 +37,7 @@ namespace TimeTableUWP
             InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
         {
             if (AreNullOrEmpty(keyBox1.Text, keyBox2.Text))
             {
@@ -60,8 +60,7 @@ namespace TimeTableUWP
                     license = "GGHS 10th";
                     break;
                 default:
-                    MessageDialog messageDialog = new("Please double-check your activation key.", "Activation Failed");
-                    _ = messageDialog.ShowAsync();
+                    await ShowMessageAsync("Please double-check your activation key.", "Activation Failed");
                     return;
             }
             SaveData.IsActivated = true;

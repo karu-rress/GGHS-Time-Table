@@ -12,6 +12,7 @@ using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
+using static RollingRess.StaticClass;
 
 namespace TimeTableUWP
 {
@@ -54,7 +55,7 @@ namespace TimeTableUWP
                 using var outputStream = stream.GetOutputStreamAt(0);
                 using var dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteString(
-                    "3.0.0\n" +
+                    "3.0.0\n" + // Prevent conflict with older version's files
                     GradeComboBoxText + "\n" +
                     ClassComboBoxText + "\n" +
                     LangComboBoxText + "\n" +
@@ -94,10 +95,9 @@ namespace TimeTableUWP
             var storageFolder = ApplicationData.Current.LocalFolder;
             if (await storageFolder.TryGetItemAsync(dataFileName) is not StorageFile dataFile)
             {
-                MessageDialog messageDialog = new(@"환영합니다, Rolling Ress의 카루입니다.
+                await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
 꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3");
-                await messageDialog.ShowAsync();
                 return false;
             }
 
@@ -125,6 +125,9 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
                     if (saveFile is not null)
                         await saveFile.DeleteAsync();
 
+                    await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
+GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
+꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3");
                     return false;
                 }
                 

@@ -26,5 +26,10 @@ namespace GGHS_Time_Table_Creator
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

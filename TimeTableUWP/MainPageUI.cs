@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.Core;
 using static RollingRess.StaticClass;
+using static System.DayOfWeek;
 using GGHS.Grade2.Semester2;
 
 namespace TimeTableUWP
@@ -37,19 +38,8 @@ namespace TimeTableUWP
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
                 border.Background = new SolidColorBrush(SaveData.ColorType);
 
-            foreach (var comboBox in ComboBoxes)
-                comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
-        }
-
-        private async void ShowMessage(string context, string title = "")
-        {
-            ContentDialog contentDialog = new()
-            {
-                Title = title,
-                Content = context,
-                CloseButtonText = "OK",
-            };
-            await contentDialog.ShowAsync();
+            //foreach (var comboBox in ComboBoxes)
+            //    comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
         }
 
         private void DrawTimeTable()
@@ -73,20 +63,17 @@ namespace TimeTableUWP
 
         private async Task LoopTimeAsync()
         {
-            await Task.Run(() => LoopTime());
-        }
-
-        private void LoopTime()
-        {
             (int day, int time) pos;
             while (true)
             {
-                Thread.Sleep(100);
+                await Task.Delay(100);
                 now = DateTime.Now;
-                _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+
+                void SetClock()
                 {
                     clock.Text = now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
-                    amorpmBox.Text = SettingsPage.Use24Hour ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
+                    amorpmBox.Text = SettingsPage.Use24Hour 
+                        ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
                     dateBlock.Text = now.ToString(SettingsPage.DateFormat switch
                     {
                         DateType.MMDDYYYY => "MM/dd/yyyy",
@@ -95,13 +82,11 @@ namespace TimeTableUWP
                         _ => throw new NotImplementedException()
                     });
                     dayBlock.Text = now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
-                });
-
-                if (now.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday ||
-                now.Hour is >= 17 or < 9 or 13)
-                {
-                    continue;
                 }
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, SetClock);
+
+                if (now.DayOfWeek is Sunday or Saturday || now.Hour is >= 17 or < 9 or 13)
+                    continue;
 
                 pos.day = (int)now.DayOfWeek;
                 pos.time = now.Hour switch
@@ -111,22 +96,19 @@ namespace TimeTableUWP
                     _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
                 };
 
-                DispatchedHandler ChangeColor = delegate()
+                void ChangeColor()
                 {
                     foreach (var item in Buttons)
                     {
-                        (item.Background, item.Foreground) = (new SolidColorBrush(Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4)), new SolidColorBrush(Colors.Black));
+                        item.Background = new SolidColorBrush(Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
+                        item.Foreground = new SolidColorBrush(Colors.Black);
                     }
                     var brush = new SolidColorBrush(SaveData.ColorType);
                     Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
                     if (pos.time is <= 6)
-                    {
                         Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
-                    }
-                };
-                _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangeColor);
-
-                // 토스트 Notification도 고려해볼 것.
+                }
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangeColor);
             }
         }
     }

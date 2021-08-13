@@ -81,7 +81,7 @@ namespace TimeTableUWP
             (int day, int time) pos;
             while (true)
             {
-                Thread.Sleep(200);
+                Thread.Sleep(100);
                 now = DateTime.Now;
                 _ = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -115,7 +115,7 @@ namespace TimeTableUWP
                 {
                     foreach (var item in Buttons)
                     {
-                        (item.Background, item.Foreground) = (new SolidColorBrush(Colors.Black), new SolidColorBrush(Colors.White));
+                        (item.Background, item.Foreground) = (new SolidColorBrush(Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4)), new SolidColorBrush(Colors.Black));
                     }
                     var brush = new SolidColorBrush(SaveData.ColorType);
                     Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;

@@ -61,12 +61,22 @@ namespace TimeTableUWP
             async void ReadFile()
             {
                 if (!hasReadFile)
-                    // await LoadDataFromFileAsync();
-                    // TODO
+                {
+                    await LoadDataFromFileAsync();
                     hasReadFile = true;
+                }
             }
         }
 
+        private async Task LoadDataFromFileAsync()
+        {
+            if (await SaveData.LoadDataAsync() is true)
+            {
+                SaveData.SetGradeAndClass(ref grade, ref @class);
+                SetComboBoxAsClass();
+                SaveData.SetComboBoxes(ComboBoxes);
+            }
+        }
 
         #region ENEMERATORS
 
@@ -133,18 +143,6 @@ namespace TimeTableUWP
 
         #endregion
 
-
-        private async Task LoadDataFromFileAsync()
-        {
-            if (await SaveData.LoadDataAsync() is true)
-            {
-                SaveData.SetGradeAndClass(ref grade, ref @class);
-                SetComboBoxAsClass();
-                SaveData.SetComboBoxes(ComboBoxes);
-            }
-        }
-
-
         private string[,] SetArrayByClass()
         {
             var ret = @class switch
@@ -183,7 +181,7 @@ namespace TimeTableUWP
                 Enable(classComboBox);
             else
             {
-                ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatrueNotImplemented);
+                ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatureNotImplemented);
                 Empty(gradeComboBox);
                 Disable(classComboBox);
             }
@@ -218,34 +216,42 @@ namespace TimeTableUWP
                 scienceComboBox.SelectedIndex = 1;
                 langComboBox.SelectedIndex = 0;
                 Disable(scienceComboBox, langComboBox);
+                Empty(special1ComboBox, special2ComboBox);
             }
             void SetComboBoxAsClass2()
             {
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             }
             void SetComboBoxAsClass3()
             {
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             }
             void SetComboBoxAsClass4()
             {
                 langComboBox.SelectedIndex = 1;
                 Disable(langComboBox);
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox);
             }
             void SetComboBoxAsClass5()
             {
                 langComboBox.SelectedIndex = 0;
                 Disable(langComboBox);
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox);
             }
             void SetComboBoxAsClass6()
             {
                 scienceComboBox.SelectedIndex = 1;
                 langComboBox.SelectedIndex = 0;
                 Disable(scienceComboBox, langComboBox);
+                Empty(special1ComboBox, special2ComboBox);
             }
             void SetComboBoxAsClass7()
             {
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             }
             void SetComboBoxAsClass8()
             {
+                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             }
             Action[] setComboBox = {
                 SetComboBoxAsClass1,
@@ -262,9 +268,9 @@ namespace TimeTableUWP
 
         private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
         {
-            if (langComboBox.SelectedItem is not null)
+            if (langComboBox.SelectedItem is string language)
             {
-                SaveData.LangComboBoxText = Subjects.Languages.Selected = langComboBox.SelectedItem as string
+                SaveData.LangComboBoxText = Subjects.Languages.Selected = language
                     ?? throw new NullReferenceException("langComboBox.SelectedItem is null.");
                 DrawTimeTable();
             }
@@ -342,14 +348,10 @@ namespace TimeTableUWP
             }
             // TODO: 2학기에도 절반만 지원할 셈이냐?
 
-            // 8반 & 4반 우선지원 (뒷라인 끝 반 & 앞 라인 끝 반)
-            // 8반 => 5반 역링크, 4반 => 2반 역링크
-            // 하쒸 근데 반배정 기준을 아직도 모르겠단 말이야
-
             if (@class is not (3 or 4 or 5 or 6 or 8))
             {
                 ShowMessage($"Sorry, displaying Zoom link is currently not available in class {@class}.\n" + 
-                    "Please wait until the update will be underway.", MessageTitle.FeatrueNotImplemented);
+                    "Please wait until the update will be underway.", MessageTitle.FeatureNotImplemented);
                 return;
             }
 
@@ -363,7 +365,6 @@ namespace TimeTableUWP
                     return;
             }
 
-            // TODO: Activate Dialog 개발자, 3학년, 2학년, 1학년 따라 나누는 것도 해야 함.
             if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...

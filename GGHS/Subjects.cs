@@ -63,7 +63,7 @@ namespace GGHS
                 {
                     // public static string Reading { get; } = RawName.Reading;
                     // public static string Mathematics { get; } = RawName.Mathematics;
-                    // public static string AdvancedEnglish { get; } = RawName.AdvancedEnglish;
+                    public static new string AdvancedEnglish { get; } = "심영";
                     public static new string Sport { get; } = "운동";
                     public static new string CreativeSolve { get; } = "창문해";
                     public static new string MathResearch { get; } = "수과탐";
@@ -118,7 +118,7 @@ namespace GGHS
                     public static string PoliticsPhilosophy { get; } = CellName.PoliticsPhilosophy;
                     public static string RegionResearch { get; } = CellName.RegionResearch;
                     public static string GISAnalyze { get; } = CellName.GISAnalyze;
-                    public static string None { get; } = "전문1";
+                    public static string None { get; } = "전문A";
                     private static string selected = None;
                     public static string Selected
                     {
@@ -138,7 +138,7 @@ RegionResearch, GISAnalyze);
                     public static string PoliticsPhilosophy { get; } = CellName.PoliticsPhilosophy;
                     public static string RegionResearch { get; } = CellName.RegionResearch;
                     public static string GISAnalyze { get; } = CellName.GISAnalyze;
-                    public static string None { get; } = "전문2";
+                    public static string None { get; } = "전문B";
                     private static string selected = None;
                     public static string Selected
                     {

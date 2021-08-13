@@ -54,6 +54,7 @@ namespace TimeTableUWP
                 using var outputStream = stream.GetOutputStreamAt(0);
                 using var dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteString(
+                    "3.0.0\n" +
                     GradeComboBoxText + "\n" +
                     ClassComboBoxText + "\n" +
                     LangComboBoxText + "\n" +
@@ -109,12 +110,30 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
                 string text = dataReader.ReadString(numBytesLoaded);
                 string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
-                GradeComboBoxText = lines[0];
-                ClassComboBoxText = lines[1];
-                LangComboBoxText = lines[2];
-                Special1ComboBoxText = lines[3];
-                Special2ComboBoxText = lines[4];
-                ScienceComboBoxText = lines[5];
+                // 구버전인 경우
+                if (lines[0] is not "3.0.0")
+                {
+                    var saveFile = await storageFolder.TryGetItemAsync(dataFileName);
+                    if (saveFile is not null)
+                        await saveFile.DeleteAsync();
+
+                    saveFile = await storageFolder.TryGetItemAsync(keyFileName);
+                    if (saveFile is not null)
+                        await saveFile.DeleteAsync();
+
+                    saveFile = await storageFolder.TryGetItemAsync(settingsFileName);
+                    if (saveFile is not null)
+                        await saveFile.DeleteAsync();
+
+                    return false;
+                }
+                
+                GradeComboBoxText = lines[1];
+                ClassComboBoxText = lines[2];
+                LangComboBoxText = lines[3];
+                Special1ComboBoxText = lines[4];
+                Special2ComboBoxText = lines[5];
+                ScienceComboBoxText = lines[6];
             }
 
             if (await storageFolder.TryGetItemAsync(keyFileName) is StorageFile keyFile)

@@ -37,23 +37,57 @@ namespace GGHS
                 public static ZoomInfo Reading4to6 { get; } = new("https://zoom.us/j/85644781112?pwd=SC8xWDBZbVRpNW1TSXF6QjRNQk8zQT09", "856 4478 1112", "0204", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "윤채영");
                 public static ZoomInfo Reading7to8 { get; } = new("https://zoom.us/j/97317948690?pwd=WWovQUdBQS8rVVMzMUNyZmNPSDY3Zz09", "973 1794 8690", "626239", "https://classroom.google.com/c/MjgyNTY3ODQ3MTQ3", "임제완");
 
+                // Language
+                // public static ZoomInfo Spanish { get; } = new("https://us02web.zoom.us/j/7411091130?pwd=M0tZTXJwaFRXb3RmZm1jODNhdUtqUT09");
+                public static ZoomInfo Chinese { get; } = new("https://zoom.us/j/99535123743?pwd=d0dPemVjNXIxcks5RCt0OFc1aGg0Zz09", "995 3512 3743", "1eMXJM", null, "김나연");
+                // public static ZoomInfo Japanese { get; } = new("");
+
+                // Others
+                public static ZoomInfo CreativeSolve { get; } = new("https://meet.google.com/lookup/bgt6c65ccm", null, null, "https://classroom.google.com/u/0/c/Mjc3MDAwNjYxOTcx", "조광진");
+                public static ZoomInfo Sport1to4 { get; } = new("https://zoom.us/j/3373011774?pwd=QWYybW1SMlljVlVFRzRTY0RvenVrUT09", "337 301 1774", "123456", null, "허진용");
+                public static ZoomInfo Sport5to8 { get; } = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             }
 
-            public Dictionary<string, ZoomInfo> Class1 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class1 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading1to3,
+            };
 
-            public Dictionary<string, ZoomInfo> Class2 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class2 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading1to3
+            };
 
-            public Dictionary<string, ZoomInfo> Class3 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class3 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading1to3
+            };
 
-            public Dictionary<string, ZoomInfo> Class4 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class4 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading4to6
+            };
 
-            public Dictionary<string, ZoomInfo> Class5 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class5 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading4to6
+            };
 
-            public Dictionary<string, ZoomInfo> Class6 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class6 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading4to6
+            };
 
-            public Dictionary<string, ZoomInfo> Class7 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class7 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading7to8,
+            };
 
-            public Dictionary<string, ZoomInfo> Class8 => throw new NotImplementedException();
+            public Dictionary<string, ZoomInfo> Class8 { get; } = new()
+            {
+                [Subjects.CellName.Reading] = Common.Reading7to8,
+            };
+
         }
         /*
         public static string Reading { get; } = "독서";

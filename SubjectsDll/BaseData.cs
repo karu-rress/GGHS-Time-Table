@@ -11,6 +11,6 @@ namespace TimeTableUWP
 
     public static class MessageTitle
     {
-        public const string FeatrueNotImplemented = "Featrue not implemented yet";
+        public const string FeatureNotImplemented = "Feature not implemented yet";
     }
 }

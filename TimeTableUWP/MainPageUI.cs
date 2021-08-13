@@ -12,7 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.Core;
-using static RollingRess.Librarys;
+using static RollingRess.StaticClass;
 using GGHS.Grade2.Semester2;
 
 namespace TimeTableUWP

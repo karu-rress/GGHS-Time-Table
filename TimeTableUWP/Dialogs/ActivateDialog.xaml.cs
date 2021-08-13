@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using RollingRess;
 using System.Diagnostics.CodeAnalysis;
+using static RollingRess.StaticClass;
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP
@@ -38,7 +39,7 @@ namespace TimeTableUWP
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
         {
-            if (Librarys.AreNullOrEmpty(keyBox1.Text, keyBox2.Text))
+            if (AreNullOrEmpty(keyBox1.Text, keyBox2.Text))
             {
                 MessageDialog messageDialog = new("Please enter the entire key", "Error");
                 _ = messageDialog.ShowAsync();

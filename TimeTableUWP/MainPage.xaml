@@ -29,7 +29,7 @@
                 <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3 Preview 2" FontSize="55" Height="73" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3 Preview 3" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="181,143,0,0" Text="We're the ones who've made it this far" FontSize="30" Width="544" Foreground="#FF444444"/>
 
         <Grid Name="clockGrid" Margin="0,45,0,0" HorizontalAlignment="Right" Width="500" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Height="165" VerticalAlignment="Top">
@@ -70,7 +70,6 @@
                     <Setter Property="Foreground" Value="{StaticResource txtColor}"/>
                 </Style>
                 <Style TargetType="Button">
-                    <Setter Property="Content" Value="화학Ⅱ"/>
                     <Setter Property="Margin" Value="6,4,6,4"/>
                     <Setter Property="VerticalAlignment" Value="Stretch"/>
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -185,7 +184,7 @@
             </Grid.Resources>
 
             <TextBlock Text="Grade" Grid.Row="0"/>
-            <ComboBox x:Name="gradeComboBox" SelectionChanged="gradeComboBox_SelectionChanged"  Grid.Row="1">
+            <ComboBox x:Name="gradeComboBox" SelectionChanged="gradeComboBox_SelectionChanged"  Grid.Row="1" SelectedIndex="0">
                 <!--x:String>Grade 1</x:String-->
                 <x:String>Grade 2</x:String>
                 <!--x:String>Grade 3</x:String-->

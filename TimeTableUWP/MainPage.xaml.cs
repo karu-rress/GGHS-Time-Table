@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel;
 using GGHS;
 using GGHS.Grade2.Semester2;
-using static RollingRess.Librarys;
+using static RollingRess.StaticClass;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -62,7 +62,7 @@ namespace TimeTableUWP
             {
                 if (!hasReadFile)
                     // await LoadDataFromFileAsync();
-
+                    // TODO
                     hasReadFile = true;
             }
         }
@@ -168,15 +168,16 @@ namespace TimeTableUWP
             private void EnableAllCombobox()
         => Enable(langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
 
+
         private void gradeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // EnableAllCombobox();
-            if (gradeComboBox.SelectedItem is null)    
+            if (gradeComboBox.SelectedItem is null)
                 return;
 
             SaveData.GradeComboBoxText = gradeComboBox.SelectedItem as string
                 ?? throw new NullReferenceException("gradeComboBox.SelectedItem is null.");
-            
+
             grade = SaveData.GradeComboBoxText[6] - '0';
             if (grade is 2)
                 Enable(classComboBox);
@@ -188,6 +189,7 @@ namespace TimeTableUWP
             }
             // TODO: for future, empty all combobox except grade & class
         }
+        
 
         private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -213,6 +215,9 @@ namespace TimeTableUWP
         {
             void SetComboBoxAsClass1()
             {
+                scienceComboBox.SelectedIndex = 1;
+                langComboBox.SelectedIndex = 0;
+                Disable(scienceComboBox, langComboBox);
             }
             void SetComboBoxAsClass2()
             {
@@ -222,12 +227,19 @@ namespace TimeTableUWP
             }
             void SetComboBoxAsClass4()
             {
+                langComboBox.SelectedIndex = 1;
+                Disable(langComboBox);
             }
             void SetComboBoxAsClass5()
             {
+                langComboBox.SelectedIndex = 0;
+                Disable(langComboBox);
             }
             void SetComboBoxAsClass6()
             {
+                scienceComboBox.SelectedIndex = 1;
+                langComboBox.SelectedIndex = 0;
+                Disable(scienceComboBox, langComboBox);
             }
             void SetComboBoxAsClass7()
             {

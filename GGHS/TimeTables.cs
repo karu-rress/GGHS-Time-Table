@@ -50,125 +50,151 @@ public interface ITimeTable
     IEnumerable<string[,]> Classes { get; }
 }
 
-namespace Grade2.Semester2
-{
-    public class TimeTables : ITimeTable
+    namespace Grade2.Semester2
     {
-        public TimeTables()
+        public class TimeTables : ITimeTable
         {
-            Initialize();
-        }
-
-        public void Initialize()
-        {
-            foreach (var item in Classes)
+            public TimeTables()
             {
-                item.Of(Monday, 6) = item.Of(Monday, 7) = item.Of(Friday, 5) = item.Of(Friday, 6) = Subjects.CellName.Others;
-                item.Of(Friday, 7) = Subjects.CellName.HomeComing;
+                Initialize();
             }
-        }
 
-        public IEnumerable<string[,]> Classes
-        {
-            get
+            public void Initialize()
             {
-                yield return Class1;
-                yield return Class2;
-                yield return Class3;
-                yield return Class4;
-                yield return Class5;
-                yield return Class6;
-                yield return Class7;
-                yield return Class8;
+                foreach (var item in Classes)
+                {
+                    item.Of(Monday, 6) = item.Of(Monday, 7) = item.Of(Friday, 5) = item.Of(Friday, 6) = Subjects.CellName.Others;
+                    item.Of(Friday, 7) = Subjects.CellName.HomeComing;
+                }
             }
-        }
 
-        /*
-        public static ref string Of(this string[,] @class, DayOfWeek day, int time)
-        {
-            switch (time)
+            public IEnumerable<string[,]> Classes
             {
-                case var _ when @class != Class1 && @class != Class2 && @class != Class3 && @class != Class4 && @class != Class5 && @class != Class6 && @class != Class7 && @class != Class8:
-                    throw new ArgumentException("Only accepts TimeTables' member array");
-                case var _ when day is Saturday or Sunday:
-                    throw new ArgumentException("No class in weekend!");
-                case var _ when time is <= 0 or > 7:
-                    throw new ArgumentException("Please give 1~7 value");
-                default:
-                    return ref @class[(int)day - 1, time - 1];
+                get
+                {
+                    yield return Class1;
+                    yield return Class2;
+                    yield return Class3;
+                    yield return Class4;
+                    yield return Class5;
+                    yield return Class6;
+                    yield return Class7;
+                    yield return Class8;
+                }
             }
-        }*/
 
-
-        // 각 반에서 공통으로 듣는 선택과목이 있을 경우 
-        public  void ResetByClass(int @class) // ITimeTable.ResetByClass(int)
-        {
             /*
-            switch (@class)
+            public static ref string Of(this string[,] @class, DayOfWeek day, int time)
             {
-                    
-                case 1:
-                    Class1.Of(Tuesday, 1) = Class1.Of(Thursday, 3) = Class1.Of(Friday, 2) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                    Class1.Of(Monday, 1) = Class1.Of(Tuesday, 7) = Class1.Of(Wednesday, 4) = Subjects.Socials.Selected = Subjects.Socials.Politics;
-                    Class1.Of(Monday, 2) = Class1.Of(Thursday, 1) = Class1.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                    Class1.Of(Tuesday, 3) = Class1.Of(Wednesday, 7) = Class1.Of(Friday, 4) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
-                    break;
-                case 2:
-                    Class2.Of(Tuesday, 2) = Class2.Of(Wednesday, 7) = Class2.Of(Thursday, 5) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                    Class2.Of(Monday, 5) = Class2.Of(Thursday, 7) = Class2.Of(Friday, 3) = Subjects.Socials.Selected;
-                    Class2.Of(Monday, 1) = Class2.Of(Wednesday, 6) = Class2.Of(Thursday, 6) = Subjects.Languages.Selected;
-                    Class2.Of(Tuesday, 5) = Class2.Of(Wednesday, 1) = Class2.Of(Friday, 1) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
-                    break;
-                case 3:
-                    Class3.Of(Monday, 5) = Class3.Of(Tuesday, 6) = Class3.Of(Thursday, 2) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                    Class3.Of(Tuesday, 4) = Class3.Of(Thursday, 4) = Class3.Of(Friday, 4) = Subjects.Socials.Selected;
-                    Class3.Of(Tuesday, 7) = Class3.Of(Wednesday, 4) = Class3.Of(Thursday, 7) = Subjects.Languages.Selected;
-                    Class3.Of(Monday, 2) = Class3.Of(Wednesday, 5) = Class3.Of(Thursday, 5) = Subjects.Sciences.Selected;
-                    break;
-                case 4:
-                    Class4.Of(Monday, 2) = Class4.Of(Tuesday, 7) = Class4.Of(Wednesday, 6) = Subjects.Specials.Selected = Subjects.Specials.Ethics;
-                    Class4.Of(Monday, 5) = Class4.Of(Thursday, 7) = Class4.Of(Friday, 3) = Subjects.Socials.Selected;
-                    Class4.Of(Tuesday, 1) = Class4.Of(Thursday, 5) = Class4.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Chinese;
-                    Class4.Of(Monday, 3) = Class4.Of(Thursday, 6) = Class4.Of(Friday, 2) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
-                    break;
-                case 5:
-                    Class5.Of(Monday, 3) = Class5.Of(Thursday, 7) = Class5.Of(Friday, 1) = Subjects.Specials.Selected;
-                    Class5.Of(Tuesday, 4) = Class5.Of(Thursday, 4) = Class5.Of(Friday, 4) = Subjects.Socials.Selected;
-                    Class5.Of(Monday, 4) = Class5.Of(Tuesday, 3) = Class5.Of(Wednesday, 2) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                    Class5.Of(Monday, 2) = Class5.Of(Wednesday, 5) = Class5.Of(Thursday, 5) = Subjects.Sciences.Selected;
-                    break;
-                case 6:
-                    Class6.Of(Tuesday, 2) = Class6.Of(Wednesday, 5) = Class6.Of(Friday, 4) = Subjects.Specials.Selected = Subjects.Specials.Environment;
-                    Class6.Of(Monday, 5) = Class6.Of(Thursday, 7) = Class6.Of(Friday, 3) = Subjects.Socials.Selected;
-                    Class6.Of(Tuesday, 4) = Class6.Of(Thursday, 2) = Class6.Of(Friday, 2) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
-                    Class6.Of(Tuesday, 7) = Class6.Of(Wednesday, 4) = Class6.Of(Thursday, 3) = Subjects.Sciences.Selected = Subjects.Sciences.Biology;
-                    break;
-                case 7:
-                    Class7.Of(Monday, 3) = Class7.Of(Thursday, 7) = Class7.Of(Friday, 1) = Subjects.Specials.Selected;
-                    Class7.Of(Tuesday, 4) = Class7.Of(Thursday, 4) = Class7.Of(Friday, 4) = Subjects.Socials.Selected;
-                    Class7.Of(Monday, 1) = Class7.Of(Wednesday, 6) = Class7.Of(Thursday, 6) = Subjects.Languages.Selected;
-                    Class7.Of(Monday, 5) = Class7.Of(Wednesday, 2) = Class7.Of(Thursday, 1) = Subjects.Sciences.Selected;
-                    break;
-                case 8:
-                    Class8.Of(Tuesday, 6) = Class8.Of(Thursday, 2) = Class8.Of(Friday, 2) = Subjects.Specials.Selected = Subjects.Specials.Environment;
-                    Class8.Of(Tuesday, 4) = Class8.Of(Thursday, 4) = Class8.Of(Friday, 4) = Subjects.Socials.Selected;
-                    Class8.Of(Tuesday, 7) = Class8.Of(Wednesday, 4) = Class8.Of(Thursday, 7) = Subjects.Languages.Selected;
-                    Class8.Of(Monday, 5) = Class8.Of(Wednesday, 2) = Class8.Of(Thursday, 1) = Subjects.Sciences.Selected;
-                    break;
+                switch (time)
+                {
+                    case var _ when @class != Class1 && @class != Class2 && @class != Class3 && @class != Class4 && @class != Class5 && @class != Class6 && @class != Class7 && @class != Class8:
+                        throw new ArgumentException("Only accepts TimeTables' member array");
+                    case var _ when day is Saturday or Sunday:
+                        throw new ArgumentException("No class in weekend!");
+                    case var _ when time is <= 0 or > 7:
+                        throw new ArgumentException("Please give 1~7 value");
+                    default:
+                        return ref @class[(int)day - 1, time - 1];
+                }
+            }*/
+
+
+            // 각 반에서 공통으로 듣는 선택과목이 있을 경우 
+            public void ResetByClass(int @class) // ITimeTable.ResetByClass(int)
+            {
+                switch (@class)
+                {
+                    case 1:
+                        Class1.Of(Monday, 1) = Class1.Of(Thursday, 2) = Subjects.Sciences.Selected = Subjects.Sciences.LifeAndScience;
+                        Class1.Of(Monday, 2) = Class1.Of(Wednesday, 7) = Class1.Of(Friday, 3) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        break;
+                    case 4:
+                        Class4.Of(Monday, 1) = Class4.Of(Tuesday, 2) = Class4.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Chinese;
+                        break;
+                    case 5:
+                        Class5.Of(Wednesday, 1) = Class5.Of(Wednesday, 6) = Class5.Of(Friday, 1) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        break;
+                    case 6:
+                        Class6.Of(Monday, 3) = Class6.Of(Friday, 1) = Subjects.Sciences.Selected = Subjects.Sciences.LifeAndScience;
+                        Class6.Of(Tuesday, 4) = Class6.Of(Wednesday, 4) = Class6.Of(Thursday, 4) = Subjects.Languages.Selected = Subjects.Languages.Spanish;
+                        break;
+                    default: // 2 3 7 8
+                        break;
+                }
             }
-            */
-        }
 
+            public string[,] Class1 { get; } = new string[5, 7]
+            {
+                { Subjects.Sciences.Selected, Subjects.Languages.Selected, Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.MathResearch, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Sport, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.CreativeSolve, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.Mathematics },
+                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others },
+                { Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
+                { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "C", Subjects.Languages.Selected, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish, Subjects.Languages.Selected, Subjects.CellName.HomeComing },
+            };
 
-            // TODO: 실제 개발시에는 아래대로 바꾸기. 이대로 하면 터진다.
-            public string[,] Class1 => throw new NotImplementedException();
-            public string[,] Class2 => throw new NotImplementedException();
-            public string[,] Class3 => throw new NotImplementedException();
-            public string[,] Class4 => throw new NotImplementedException();
-            public string[,] Class5 => throw new NotImplementedException();
-            public string[,] Class6 => throw new NotImplementedException();
-            public string[,] Class7 => throw new NotImplementedException();
-            public string[,] Class8 => throw new NotImplementedException();
+            public string[,] Class2 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
+                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.CreativeSolve, Subjects.CellName.Others },
+                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.Others, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A" },
+                { Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class3 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.Sport, Subjects.CellName.Sport, Subjects.Languages.Selected, Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "D", Subjects.Languages.Selected, Subjects.CellName.Mathematics },
+                { Subjects.CellName.AdvancedEnglish + "C", Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Others },
+                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.Others, Subjects.Sciences.Selected, Subjects.CellName.Reading },
+                { Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class4 { get; } = new string[5, 7]
+            {
+                { Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "B", Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A"  },
+                { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Others },
+                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others, Subjects.CellName.Reading, Subjects.CellName.CreativeSolve },
+                { Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.Specials1.Selected, Subjects.CellName.MathResearch, Subjects.CellName.Sport, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class5 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Sport, Subjects.CellName.MathResearch, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.CreativeSolve, Subjects.CellName.AdvancedEnglish + "A" },
+                { Subjects.Languages.Selected, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.Mathematics },
+                { Subjects.Specials1.Selected, Subjects.CellName.Reading, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
+                { Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.Specials1.Selected, Subjects.CellName.CreativeSolve, Subjects.CellName.Mathematics, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class6 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish  + "D", Subjects.Sciences.Selected, Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Sport, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "A", Subjects.Languages.Selected, Subjects.CellName.Others, Subjects.CellName.Sport, Subjects.CellName.AdvancedEnglish },
+                { Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Languages.Selected, Subjects.CellName.Reading, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "C" },
+                { Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.CreativeSolve, Subjects.Languages.Selected, Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading },
+                { Subjects.Sciences.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "B", Subjects.Specials1.Selected, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class7 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.Sport, Subjects.CellName.Sport, Subjects.CellName.Mathematics, Subjects.Specials2.Selected, Subjects.Languages.Selected, Subjects.CellName.MathResearch, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.AdvancedEnglish + "D", Subjects.Languages.Selected, Subjects.CellName.Mathematics, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading },
+                { Subjects.CellName.AdvancedEnglish + "A", Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish  + "B", Subjects.CellName.Reading },
+                { Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Mathematics, Subjects.CellName.Reading, Subjects.CellName.Others, Subjects.CellName.CreativeSolve, Subjects.CellName.AdvancedEnglish + "C"},
+                { Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.Specials1.Selected, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Reading, Subjects.CellName.HomeComing },
+            };
+
+            public string[,] Class8 { get; } = new string[5, 7]
+            {
+                { Subjects.CellName.CreativeSolve, Subjects.CellName.Mathematics, Subjects.Languages.Selected, Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.Reading, Subjects.CellName.Others },
+                { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish + "B", Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Others, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish },
+                { Subjects.CellName.MathResearch, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.Sciences.Selected, Subjects.Sciences.Selected, Subjects.CellName.Sport, Subjects.CellName.Others },
+                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.Mathematics },
+                { Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.Sport, Subjects.CellName.HomeComing },
+            };
 
             /*
         public static string[,] Class1 { get; } = new string[5, 7]

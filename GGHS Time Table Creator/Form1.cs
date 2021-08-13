@@ -148,7 +148,7 @@ namespace GGHS_Time_Table_Creator
                 for (int x = 0; x < 5; x++)
                 {
                     var subject = ComboBoxes().ElementAt(comboBoxIndex).Text;
-                    array[x, y] = IsSelectiveSubject(subject) ? $"{subjectDict[subject]}.Selected" : subjectDict[subject];
+                    array[x, y] = IsSelectiveSubject(subject) ? $"{subjectDict[subject]}.Selected" : $"CellName.{subjectDict[subject]}";
                     comboBoxIndex++;
                 }
             }
@@ -164,11 +164,11 @@ namespace GGHS_Time_Table_Creator
 
 public string[,] Class{comboBox1.Text} = new string[5, 7]
 {{
-    {{ Subjects.CellName.{ array[0, 0] }, Subjects.CellName.{ array[0, 1]}, Subjects.CellName.{array[0, 2]}, Subjects.CellName.{array[0, 3]}, Subjects.CellName.{array[0, 4]}, Subjects.CellName.{array[0, 5]}, Subjects.CellName.{array[0, 6]} }},
-    {{ Subjects.CellName.{ array[1, 0] }, Subjects.CellName.{ array[1, 1]}, Subjects.CellName.{array[1, 2]}, Subjects.CellName.{array[1, 3]}, Subjects.CellName.{array[1, 4]}, Subjects.CellName.{array[1, 5]}, Subjects.CellName.{array[1, 6]} }},
-    {{ Subjects.CellName.{ array[2, 0] }, Subjects.CellName.{ array[2, 1]}, Subjects.CellName.{array[2, 2]}, Subjects.CellName.{array[2, 3]}, Subjects.CellName.{array[2, 4]}, Subjects.CellName.{array[2, 5]}, Subjects.CellName.{array[2, 6]} }},
-    {{ Subjects.CellName.{ array[3, 0] }, Subjects.CellName.{ array[3, 1]}, Subjects.CellName.{array[3, 2]}, Subjects.CellName.{array[3, 3]}, Subjects.CellName.{array[3, 4]}, Subjects.CellName.{array[3, 5]}, Subjects.CellName.{array[3, 6]} }},
-    {{ Subjects.CellName.{ array[4, 0] }, Subjects.CellName.{ array[4, 1]}, Subjects.CellName.{array[4, 2]}, Subjects.CellName.{array[4, 3]}, Subjects.CellName.{array[4, 4]}, Subjects.CellName.{array[4, 5]}, Subjects.CellName.{array[4, 6]} }},
+    {{ Subjects.{ array[0, 0] }, Subjects.{ array[0, 1]}, Subjects.{array[0, 2]}, Subjects.{array[0, 3]}, Subjects.{array[0, 4]}, Subjects.{array[0, 5]}, Subjects.{array[0, 6]} }},
+    {{ Subjects.{ array[1, 0] }, Subjects.{ array[1, 1]}, Subjects.{array[1, 2]}, Subjects.{array[1, 3]}, Subjects.{array[1, 4]}, Subjects.{array[1, 5]}, Subjects.{array[1, 6]} }},
+    {{ Subjects.{ array[2, 0] }, Subjects.{ array[2, 1]}, Subjects.{array[2, 2]}, Subjects.{array[2, 3]}, Subjects.{array[2, 4]}, Subjects.{array[2, 5]}, Subjects.{array[2, 6]} }},
+    {{ Subjects.{ array[3, 0] }, Subjects.{ array[3, 1]}, Subjects.{array[3, 2]}, Subjects.{array[3, 3]}, Subjects.{array[3, 4]}, Subjects.{array[3, 5]}, Subjects.{array[3, 6]} }},
+    {{ Subjects.{ array[4, 0] }, Subjects.{ array[4, 1]}, Subjects.{array[4, 2]}, Subjects.{array[4, 3]}, Subjects.{array[4, 4]}, Subjects.{array[4, 5]}, Subjects.{array[4, 6]} }},
 }}; ";
             }
         }

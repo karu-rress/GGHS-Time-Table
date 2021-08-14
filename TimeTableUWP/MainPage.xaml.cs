@@ -10,6 +10,8 @@ using GGHS;
 using GGHS.Grade2.Semester2;
 using static RollingRess.StaticClass;
 using System.Threading;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,6 +31,8 @@ namespace TimeTableUWP
         /// GGHS Time Table's version: string value with the format "X.X.X"
         /// </summary>
         public static string Version => $"{version.Major}.{version.Minor}.{version.Build}";
+
+        public static ElementTheme Theme => SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
 
         /// <summary>
         /// Current ComboBox values
@@ -324,7 +328,7 @@ namespace TimeTableUWP
         {
             if (subjectCellName is null)
             {
-                await ShowMessageAsync("Please select your grade and class first.", "Error");
+                await ShowMessageAsync("Please select your grade and class first.", "Error", Theme);
                 return;
             }
 
@@ -336,25 +340,47 @@ namespace TimeTableUWP
                 return;
             }*/
 
+
             if (SaveData.IsActivated is false)
             {
-                ActivateDialog activateDialog = new();
-                var activeSelection = await activateDialog.ShowAsync();
-
                 // 인증을 하지 않았다면 return
-                if (activeSelection is not ContentDialogResult.Primary || SaveData.IsActivated is false)
+                if (await Activate() is false)
                     return;
             }
 
             if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link");
+                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Theme);
                 return;
             }
 
             ZoomDialog contentDialog = new(@class, subjectCellName, zoomInfo);
             await contentDialog.ShowAsync();
+        }
+
+        /// <summary>
+        /// Shows activation dialog and activate.
+        /// </summary>
+        /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
+        /// <returns>true if activated. Otherwise, false</returns>
+        public static async Task<bool> Activate(string? msg = null)
+        {
+            ActivateDialog activateDialog = msg is null ? new() : new(msg);
+            var activeSelection = await activateDialog.ShowAsync();
+
+            if (activeSelection is not ContentDialogResult.Primary || SaveData.IsActivated is false)
+                return false;
+
+            string license = SaveData.ActivateStatus switch
+            {
+                ActivateLevel.Developer => "developer",
+                ActivateLevel.Grade2 => "GGHS 10th",
+                ActivateLevel.Insider => "GTT Insider",
+                _ => throw new Exception("MainPage.Activate(): ActivateLevel value error"),
+            };
+            await ShowMessageAsync($"Activated as {license}.", "Activated successfully", Theme);
+            return true;
         }
 
         private Dictionary<string, ZoomInfo> GetClassZoomLink() => @class switch
@@ -385,7 +411,7 @@ namespace TimeTableUWP
                     "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
                     _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
                 };
-                await ShowMessageAsync(msg, txt);
+                await ShowMessageAsync(msg, txt, Theme);
             }
         }
 

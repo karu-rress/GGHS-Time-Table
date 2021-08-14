@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 using System.Net.Mail;
 using System.Net;
 using static RollingRess.StaticClass;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,32 +22,40 @@ namespace TimeTableUWP
 
     public sealed partial class FeedbackDialog : ContentDialog
     {
-        bool isSending = false;
+
+        Brush TextColor => new SolidColorBrush(SettingsPage.IsDarkMode
+            ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8)
+            : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
+
         public FeedbackDialog()
         {
             InitializeComponent();
+            RequestedTheme = MainPage.Theme;
+            ErrorMsgText.Foreground = TextColor;
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var text = textBox.Text;
+            ErrorMsgText.Visibility = Visibility.Collapsed;
+            args.Cancel = true;
+
             if (string.IsNullOrWhiteSpace(text))
             {
-                await ShowMessageAsync("Please enter text.", "Error");
+                ErrorMsgText.Text = "Please enter text.";
+                ErrorMsgText.Visibility = Visibility.Visible;
                 return;
             }
 
             var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + text, 
                 $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
 
-            isSending = true;
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
-            IsPrimaryButtonEnabled = IsSecondaryButtonEnabled = false;
-
+            IsPrimaryButtonEnabled = false;
             await smtp.SendAsync(msg);
-            isSending = false;
             progressRing.Value = 100;
             sendingMsgText.Text = "Successfully sent!";
+            await Task.Delay(700);
             Hide();
         }
 
@@ -67,12 +77,6 @@ namespace TimeTableUWP
                 Body = body
             };
             return smtp;
-        }
-
-        private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-            if (isSending)
-                args.Cancel = true;
         }
     }
 }

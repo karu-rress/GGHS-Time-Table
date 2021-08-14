@@ -9,7 +9,7 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <Page.Resources>
-        <SolidColorBrush x:Key="txtColor" Color="Black" />
+        <SolidColorBrush x:Key="txtColor" Color="{ThemeResource SystemBaseHighColor}" />
         <SolidColorBrush x:Key="dayColor" Color="LightSteelBlue" />
         <CornerRadius x:Key="corner">10</CornerRadius>
         <!-- Red, LightGreen, LightSteelBlue, HotPink 등등 -->
@@ -30,7 +30,7 @@
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="177,65,0,0" Text="GGHS Time Table 3" FontSize="55" Height="73" FontWeight="Bold"/>
-        <TextBlock x:Name="mainText2" Margin="181,140,0,0" Text="We're the ones who've made it this far" FontSize="30" Width="544" Foreground="#FF444444"/>
+        <TextBlock x:Name="mainText2" Margin="181,140,0,0" Text="We're the ones who've made it this far" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
         <Grid Name="clockGrid" Margin="0,45,0,0" HorizontalAlignment="Right" Width="500" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Height="165" VerticalAlignment="Top">
             <Grid.Resources>

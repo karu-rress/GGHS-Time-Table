@@ -5,6 +5,7 @@ using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using GGHS;
+using Windows.UI.Xaml;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,6 +20,8 @@ namespace TimeTableUWP
         public ZoomDialog(int @class, string subject, ZoomInfo zoomInfo)
         {
             InitializeComponent();
+            RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+
             Title = $"Class {@class} {subject} Links";
             this.zoomInfo = zoomInfo;
             

@@ -27,7 +27,8 @@ namespace TimeTableUWP
     {
         Developer = 3,
         Grade2 = 5,
-        None = 7
+        Insider = 7,
+        None = 9
     }
 
     public sealed partial class ActivateDialog : ContentDialog
@@ -35,37 +36,48 @@ namespace TimeTableUWP
         public ActivateDialog()
         {
             InitializeComponent();
+            RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
+        public ActivateDialog(string msg) : this()
         {
-            if (AreNullOrEmpty(keyBox1.Text, keyBox2.Text))
+            MainTextBlock.Text = $@"{msg}
+개발자에게 제공받은 인증키를 입력하세요.
+인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다.
+인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
+        {
+            if (keyBox1.Text.Length < keyBox1.MaxLength || keyBox2.Text.Length < keyBox2.MaxLength)
             {
-                MessageDialog messageDialog = new("Please enter the entire key", "Error");
-                _ = messageDialog.ShowAsync();
+                ShowErrorMessage("Please enter the entire key.");
                 return;
             }
 
-            string key = $"{keyBox1.Text}-{keyBox2.Text}";
-            string license;
-
-            switch (key.ToUpper())
+            switch ($"{keyBox1.Text}-{keyBox2.Text}".ToUpper())
             {
                 case ActivateKeys.Developer:
                     SaveData.ActivateStatus = ActivateLevel.Developer;
-                    license = "developer"; // TODO: make this as an enum? class?
                     break;
                 case ActivateKeys.Grade2:
                     SaveData.ActivateStatus = ActivateLevel.Grade2;
-                    license = "GGHS 10th";
+                    break;
+                case ActivateKeys.Insider:
+                    SaveData.ActivateStatus = ActivateLevel.Insider;
                     break;
                 default:
-                    await ShowMessageAsync("Please double-check your activation key.", "Activation Failed");
+                    ShowErrorMessage("Sorry, please check your activation key.");
                     return;
             }
             SaveData.IsActivated = true;
-            MessageDialog message = new($"Activated as {license}.", "Activated successfully");
-            _ = message.ShowAsync();
+
+            void ShowErrorMessage(string msg)
+            {
+                ErrorBox.Text = msg;
+                ErrorBox.Visibility = Visibility.Visible;
+                args.Cancel = true;
+            }
         }
 
         protected override void OnPreviewKeyDown(KeyRoutedEventArgs e)
@@ -95,5 +107,11 @@ namespace TimeTableUWP
         }
 
         private void keyBox2_TextChanged(object sender, TextChangedEventArgs e) => UpperTextBox(sender);
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            keyBox1.Text = keyBox2.Text = string.Empty;
+            _ = keyBox1.Focus(FocusState.Keyboard);
+        }
     }
 }

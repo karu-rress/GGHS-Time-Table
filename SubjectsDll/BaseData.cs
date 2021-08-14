@@ -7,6 +7,7 @@ namespace TimeTableUWP
     {
         public const string Developer = "RRESS-X93FSBU";
         public const string Grade2 = "GGGHS-B38XDQP";
+        public const string Insider = "THANK-2KJX8FS";
     }
 
     public static class MessageTitle

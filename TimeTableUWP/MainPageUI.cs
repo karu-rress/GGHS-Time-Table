@@ -85,6 +85,19 @@ namespace TimeTableUWP
                 }
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, SetClock);
 
+                void RefreshColor()
+                {
+                    foreach (var item in Buttons)
+                    {
+                        item.RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+                        item.Background = new SolidColorBrush(SettingsPage.IsDarkMode
+                            ? Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
+                            : Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
+                        item.Foreground = new SolidColorBrush(SettingsPage.IsDarkMode ? Colors.White : Colors.Black);
+                    }
+                }
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RefreshColor);
+
                 if (now.DayOfWeek is Sunday or Saturday || now.Hour is >= 17 or < 9 or 13)
                     continue;
 
@@ -96,16 +109,13 @@ namespace TimeTableUWP
                     _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
                 };
 
+                
+
                 void ChangeColor()
                 {
-                    foreach (var item in Buttons)
-                    {
-                        item.Background = new SolidColorBrush(Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
-                        item.Foreground = new SolidColorBrush(Colors.Black);
-                    }
                     var brush = new SolidColorBrush(SaveData.ColorType);
                     Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
-                    if (pos.time is <= 6)
+                    if (pos.time <= 6)
                         Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
                 }
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangeColor);

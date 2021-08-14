@@ -1,1 +1,18 @@
 ﻿nameof() 연산자로 이름을 문자열로 만들 수 있다.
+
+// GTT Insiders
+
+My lover
+세림이
+
+NOCHES
+박찬호
+손동윤
+심승빈
+염지훈
+
+Color Management
+송다예
+권민수
+이하민
+장은채

@@ -12,7 +12,6 @@
     CloseButtonText="Cancel"
     DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    Closing="ContentDialog_Closing"
     CornerRadius="10">
     <Grid>
         <Grid.Resources>
@@ -28,7 +27,8 @@
         </Grid.Resources>
         <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="인증키가 필요하거나, 과목 추가를 원하거나, 오류가 발생한 경우 아래에 작성해주세요." Height="37" Width="453"/>
         <TextBlock HorizontalAlignment="Left" Margin="19,67,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" />
-        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." Foreground="#FF222288" Visibility="Collapsed"  />
+        <TextBlock x:Name="ErrorMsgText" HorizontalAlignment="Center" Margin="0,106,0,0" Text="Please enter text." Visibility="Collapsed" />
+        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." Visibility="Collapsed"  />
         <TextBox x:Name="senderBox" Margin="0,60,0,0" Width="202" HorizontalAlignment="Right" />
         <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="452" Height="285" AcceptsReturn="True" />
         <Grid Margin="82,98,346,289">

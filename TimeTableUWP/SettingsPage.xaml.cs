@@ -7,6 +7,8 @@ using Windows.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using MsCtrl = Microsoft.UI.Xaml.Controls;
+using RollingRess;
+using static RollingRess.StaticClass;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,6 +24,7 @@ namespace TimeTableUWP
         public static bool Use24Hour { get; private set; } = false;
         public static bool IsDarkMode { get; private set; } = false;
         public static DateType DateFormat { get; private set; } = DateType.YYYYMMDD;
+        private static bool selfToggled = false;
         // public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
         readonly Dictionary<DateType, int> dateFormatDict = new()
@@ -32,11 +35,12 @@ namespace TimeTableUWP
         };
         public SettingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             use24Toggle.IsOn = Use24Hour;
             RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
             dateFormatRadio.SelectedIndex = dateFormatDict[DateFormat];
             colorPicker.Color = SaveData.ColorType;
+            SetDarkToggle(IsDarkMode);
         }
 
         private void Button_Click(object _, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
@@ -97,7 +101,8 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
                 SecondaryButtonText = "Open Tistory",
                 CloseButtonText = "Close",
                 DefaultButton = ContentDialogButton.Primary,
-            };
+                RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light
+        };
 
             var selection = await contentDialog.ShowAsync();
             if (selection is ContentDialogResult.Primary)
@@ -112,6 +117,33 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
             await feedbackDialog.ShowAsync();
         }
 
-        private void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __) => IsDarkMode = darkToggle.IsOn;
+        private async void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __)
+        {
+            if (selfToggled)
+            {
+                selfToggled = false;
+                return;
+            }
+            if (SaveData.ActivateStatus is not (ActivateLevel.Developer or ActivateLevel.Insider))
+                await MainPage.Activate("Insider 전용 기능을 사용하기 위해선 Insider 인증키를 입력해야 합니다.");
+
+            if (SaveData.ActivateStatus is not (ActivateLevel.Developer or ActivateLevel.Insider))
+            {
+                await ShowMessageAsync("You need to be a GTT Insider to use this feature", "Limited feature", MainPage.Theme);
+                SetDarkToggle(false);
+                return;
+            }
+            
+            IsDarkMode = darkToggle.IsOn;
+            RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+        }
+
+        void SetDarkToggle(bool? value)
+        {
+            if (darkToggle.IsOn == value.Value)
+                return;
+            selfToggled = true;
+            darkToggle.IsOn = value is null ? !darkToggle.IsOn : value.Value;
+        }
     }
 }

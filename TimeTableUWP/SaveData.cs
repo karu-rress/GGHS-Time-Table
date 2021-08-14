@@ -97,7 +97,7 @@ namespace TimeTableUWP
             {
                 await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3");
+꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
                 return false;
             }
 
@@ -127,7 +127,7 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
 
                     await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3");
+꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
                     return false;
                 }
                 

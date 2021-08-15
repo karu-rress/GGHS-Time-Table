@@ -46,7 +46,11 @@ namespace TimeTableUWP
         public static async void HandleException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            var exception = e.Exception;
+            await HandleException(e.Exception);
+        }
+
+        public static async Task HandleException(Exception exception)
+        {
             int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
             string errorMsg = @$"에러가 발생했습니다.
 {(code is not null ? $"\nError code: {code}" : "")}

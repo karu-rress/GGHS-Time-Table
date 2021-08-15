@@ -30,6 +30,8 @@ namespace TimeTableUWP
         public static string Special2ComboBoxText { get => social; set => social = value ?? "NULL"; }
         public static string LangComboBoxText { get => lang; set => lang = value ?? "NULL"; }
         public static string ScienceComboBoxText { get => science; set => science = value ?? "NULL"; }
+        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.Insider;
+        public static bool IsNotDeveloperOrInsider => !IsDeveloperOrInsider;
 
         private static IEnumerable<string> ComboBoxTexts
         {

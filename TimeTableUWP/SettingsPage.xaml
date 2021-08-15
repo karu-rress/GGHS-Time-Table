@@ -61,11 +61,8 @@
             <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
         <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="189,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
-
-        <!-- E77B Contact 
-        E946 Info
-        
-        -->
-
+        <Button Margin="0,0,70,348" Width="338" Click="Button_Click_4" Height="70">
+            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Change Activation Key" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+        </Button>
     </Grid>
 </Page>

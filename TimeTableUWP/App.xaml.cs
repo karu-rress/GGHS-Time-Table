@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -101,6 +103,38 @@ namespace TimeTableUWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             await SaveData.SaveDataAsync();
+            deferral.Complete();
+        }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            var deferral = args.TaskInstance.GetDeferral();
+
+            switch (args.TaskInstance.Task.Name)
+            {
+                case "ToastZoomOpen":
+                    var details = args.TaskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
+                    if (details != null)
+                    {
+                        ToastArguments arguments = ToastArguments.Parse(details.Argument);
+                        // var userInput = details.UserInput;
+
+                        // Perform tasks
+                        var task = arguments.Get("action");
+                        string link;
+
+                        if (task is "zoom")
+                            link = arguments.Get("zoomUrl");
+                        
+                        else if (task is "classRoom")
+                            link = arguments.Get("classRoomUrl");
+                        
+                        else return;
+                        await Windows.System.Launcher.LaunchUriAsync(new(link));
+                    }
+                    break;
+            }
+
             deferral.Complete();
         }
     }

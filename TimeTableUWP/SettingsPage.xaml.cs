@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Documents;
 using MsCtrl = Microsoft.UI.Xaml.Controls;
 using RollingRess;
 using static RollingRess.StaticClass;
+using Windows.ApplicationModel.Background;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -124,10 +127,10 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
                 selfToggled = false;
                 return;
             }
-            if (SaveData.ActivateStatus is not (ActivateLevel.Developer or ActivateLevel.Insider))
-                await MainPage.Activate("Insider 전용 기능을 사용하기 위해선 Insider 인증키를 입력해야 합니다.");
+            if (SaveData.IsNotDeveloperOrInsider)
+                await MainPage.ActivateAsync("Insider 전용 기능을 사용하기 위해선 Insider 인증키를 입력해야 합니다.");
 
-            if (SaveData.ActivateStatus is not (ActivateLevel.Developer or ActivateLevel.Insider))
+            if (SaveData.IsNotDeveloperOrInsider)
             {
                 await ShowMessageAsync("You need to be a GTT Insider to use this feature", "Limited feature", MainPage.Theme);
                 SetDarkToggle(false);
@@ -144,6 +147,11 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
                 return;
             selfToggled = true;
             darkToggle.IsOn = value is null ? !darkToggle.IsOn : value.Value;
+        }
+
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            await MainPage.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
         }
     }
 }

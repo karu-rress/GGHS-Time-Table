@@ -1,5 +1,12 @@
 ﻿Changes of GGHS Time Table
 
+V3.3a
+- 무음 모드 추가 (Insider)
+
+V3.2
+- (Insider) 3분 전 알람 기능 추가
+- 인증키 변경 지원
+
 V3.1
 - Insider 레벨 신설
 - (Insider) 앱 전역 다크 모드 지원

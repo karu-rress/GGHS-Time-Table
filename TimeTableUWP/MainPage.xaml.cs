@@ -23,7 +23,7 @@ namespace TimeTableUWP
 
         private int grade;
         private int @class = 8;
-        private DateTime now = DateTime.Now;
+        private DateTime now { get; set; } = DateTime.Now;
         private static bool hasReadFile = false;
         private static PackageVersion version => Package.Current.Id.Version;
 
@@ -55,6 +55,8 @@ namespace TimeTableUWP
             InitializeUI();
 
             async Task ReadFile() => await LoadDataFromFileAsync();
+
+            SetSubText();
         }
 
         private async Task LoadDataFromFileAsync()
@@ -164,13 +166,6 @@ namespace TimeTableUWP
             SaveData.GradeComboBoxText = strgrade;
             grade = SaveData.GradeComboBoxText[6] - '0';
             Enable(classComboBox);
-            /*
-            else
-            {
-                ShowMessage($"Sorry, Grade {grade} has not been implemented yet.", MessageTitle.FeatureNotImplemented);
-                Empty(gradeComboBox);
-                Disable(classComboBox);
-            }*/
         }
         
 
@@ -268,7 +263,7 @@ namespace TimeTableUWP
             SaveData.Special1ComboBoxText = special1ComboBox.SelectedItem as string
                 ?? throw new NullReferenceException("special1ComboBox.SelectedItem is null.");
 
-            // switch expression is not available -- not a constant
+            // switch is not available -- not a constant
             if (SaveData.Special1ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special1ComboBoxText == Subjects.RawName.GlobalPolitics
                 || SaveData.Special1ComboBoxText == Subjects.RawName.CompareCulture || SaveData.Special1ComboBoxText == Subjects.RawName.EasternHistory)
                 Subjects.Specials1.Selected = SaveData.Special1ComboBoxText;
@@ -291,7 +286,7 @@ namespace TimeTableUWP
             SaveData.Special2ComboBoxText = special2ComboBox.SelectedItem as string
                 ?? throw new NullReferenceException("special2ComboBox.SelectedItem is null.");
 
-            // switch expression is not available -- not a constant
+            // switch is not available -- not a constant
             if (SaveData.Special2ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special2ComboBoxText == Subjects.RawName.GlobalPolitics
                 || SaveData.Special2ComboBoxText == Subjects.RawName.CompareCulture || SaveData.Special2ComboBoxText == Subjects.RawName.EasternHistory)
                 Subjects.Specials2.Selected = SaveData.Special2ComboBoxText;
@@ -332,22 +327,13 @@ namespace TimeTableUWP
                 return;
             }
 
-            /*
-            if (@class is not (3 or 4 or 5 or 6 or 8))
-            {
-                await ShowMessageAsync($"Sorry, displaying Zoom link is currently not available in class {@class}.\n" + 
-                    "Please wait until the update will be underway.", MessageTitle.FeatureNotImplemented);
-                return;
-            }*/
-
-
             if (SaveData.IsActivated is false)
             {
                 // 인증을 하지 않았다면 return
-                if (await Activate() is false)
+                if (await ActivateAsync() is false)
                     return;
             }
-
+            SetSubText();
             if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
@@ -364,7 +350,7 @@ namespace TimeTableUWP
         /// </summary>
         /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
         /// <returns>true if activated. Otherwise, false</returns>
-        public static async Task<bool> Activate(string? msg = null)
+        public static async Task<bool> ActivateAsync(string? msg = null)
         {
             ActivateDialog activateDialog = msg is null ? new() : new(msg);
             var activeSelection = await activateDialog.ShowAsync();
@@ -385,13 +371,16 @@ namespace TimeTableUWP
 
         private Dictionary<string, ZoomInfo> GetClassZoomLink() => @class switch
         {
+            1 => zoomLink.Class1,
+            2 => zoomLink.Class2,
             3 => zoomLink.Class3,
             4 => zoomLink.Class4,
             5 => zoomLink.Class5,
             6 => zoomLink.Class6,
+            7 => zoomLink.Class7,
             8 => zoomLink.Class8,
             _ => throw new DataAccessException(
-                $"GetClassZoomLink(): Class out of range: 3, 4, 5, 8, 6 expected, but given {@class}")
+                $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {@class}")
         };
 
         private void TableButtons_Click(object sender, RoutedEventArgs e)

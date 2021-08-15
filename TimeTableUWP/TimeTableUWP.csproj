@@ -162,6 +162,9 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <Content Include="Assets\Alarm01.wav" />
+    <Content Include="Assets\Cloud_Play.png" />
+    <Content Include="Assets\SecurityAndMaintenance.png" />
     <Content Include="Assets\ZegoeLight-U.ttf" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />

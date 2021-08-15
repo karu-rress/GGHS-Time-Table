@@ -1,7 +1,10 @@
-﻿using GGHS.Grade2;
+﻿#nullable enable
+
+using GGHS.Grade2;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using ZoomDictionary = System.Collections.Generic.Dictionary<string, GGHS.ZoomInfo?>;
 
 // Enables using record types as tuple-like types.
 namespace System.Runtime.CompilerServices
@@ -12,18 +15,18 @@ namespace System.Runtime.CompilerServices
 
 namespace GGHS
 {
-    public record ZoomInfo(string Link, string Id, string Pw, string ClassRoom, string Teacher);
+    public record ZoomInfo(string? Link, string? Id, string? Pw, string? ClassRoom, string Teacher);
 
     public interface IZoomLinks
     {
-        Dictionary<string, ZoomInfo> Class1 { get; }
-        Dictionary<string, ZoomInfo> Class2 { get; }
-        Dictionary<string, ZoomInfo> Class3 { get; }
-        Dictionary<string, ZoomInfo> Class4 { get; }
-        Dictionary<string, ZoomInfo> Class5 { get; }
-        Dictionary<string, ZoomInfo> Class6 { get; }
-        Dictionary<string, ZoomInfo> Class7 { get; }
-        Dictionary<string, ZoomInfo> Class8 { get; }
+        ZoomDictionary Class1 { get; }
+        ZoomDictionary Class2 { get; }
+        ZoomDictionary Class3 { get; }
+        ZoomDictionary Class4 { get; }
+        ZoomDictionary Class5 { get; }
+        ZoomDictionary Class6 { get; }
+        ZoomDictionary Class7 { get; }
+        ZoomDictionary Class8 { get; }
     }
 
     namespace Grade2.Semester2
@@ -48,42 +51,42 @@ namespace GGHS
                 public static ZoomInfo Sport5to8 { get; } = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             }
 
-            public Dictionary<string, ZoomInfo> Class1 { get; } = new()
+            public ZoomDictionary Class1 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading1to3,
             };
 
-            public Dictionary<string, ZoomInfo> Class2 { get; } = new()
+            public ZoomDictionary Class2 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading1to3
             };
 
-            public Dictionary<string, ZoomInfo> Class3 { get; } = new()
+            public ZoomDictionary Class3 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading1to3
             };
 
-            public Dictionary<string, ZoomInfo> Class4 { get; } = new()
+            public ZoomDictionary Class4 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading4to6
             };
 
-            public Dictionary<string, ZoomInfo> Class5 { get; } = new()
+            public ZoomDictionary Class5 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading4to6
             };
 
-            public Dictionary<string, ZoomInfo> Class6 { get; } = new()
+            public ZoomDictionary Class6 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading4to6
             };
 
-            public Dictionary<string, ZoomInfo> Class7 { get; } = new()
+            public ZoomDictionary Class7 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading7to8,
             };
 
-            public Dictionary<string, ZoomInfo> Class8 { get; } = new()
+            public ZoomDictionary Class8 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading7to8,
             };
@@ -167,7 +170,7 @@ namespace GGHS
                 //
             }
 
-            public Dictionary<string, ZoomInfo> Class3 { get; } = new()
+            public ZoomDictionary Class3 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature1to3,
                 [Subjects.CellName.Mathematics] = Common.Math1to3,
@@ -202,7 +205,7 @@ namespace GGHS
             };
 
             // FINISHED
-            public Dictionary<string, ZoomInfo> Class4 { get; } = new()
+            public ZoomDictionary Class4 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
                 [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -233,7 +236,7 @@ namespace GGHS
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
-            public Dictionary<string, ZoomInfo> Class5 { get; } = new()
+            public ZoomDictionary Class5 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
                 [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -267,7 +270,7 @@ namespace GGHS
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
-            public Dictionary<string, ZoomInfo> Class6 { get; } = new()
+            public ZoomDictionary Class6 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
                 [Subjects.CellName.Mathematics] = Common.Math4to6,
@@ -298,7 +301,7 @@ namespace GGHS
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
-            public Dictionary<string, ZoomInfo> Class8 { get; } = new()
+            public ZoomDictionary Class8 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature7to8,
                 [Subjects.CellName.Mathematics] = Common.Math7to8,
@@ -334,11 +337,11 @@ namespace GGHS
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
-            public Dictionary<string, ZoomInfo> Class1 => throw new NotImplementedException();
+            public ZoomDictionary Class1 => throw new NotImplementedException();
 
-            public Dictionary<string, ZoomInfo> Class2 => throw new NotImplementedException();
+            public ZoomDictionary Class2 => throw new NotImplementedException();
 
-            public Dictionary<string, ZoomInfo> Class7 => throw new NotImplementedException();
+            public ZoomDictionary Class7 => throw new NotImplementedException();
         }
     }
 }

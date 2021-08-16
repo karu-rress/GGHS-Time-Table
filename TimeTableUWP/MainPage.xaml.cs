@@ -48,13 +48,10 @@ namespace TimeTableUWP
             _ = LoopTimeAsync(); // detach.
             if (!hasReadFile)
             {
-                _ = ReadFile();
-                Thread.Sleep(100);
+                _ = LoadDataFromFileAsync(); // 이게 MainPage() 생성자가 끝나고 계속 실행된다.
                 hasReadFile = true;
             }
             InitializeUI();
-
-            async Task ReadFile() => await LoadDataFromFileAsync();
 
             SetSubText();
         }
@@ -66,6 +63,7 @@ namespace TimeTableUWP
                 SaveData.SetGradeAndClass(ref grade, ref @class);
                 SetComboBoxAsClass();
                 SaveData.SetComboBoxes(ComboBoxes);
+                SetColor(); // 초기화 코드를 여기에서도 한 번 넣어줘야 함.
             }
         }
 

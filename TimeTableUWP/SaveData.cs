@@ -23,7 +23,7 @@ namespace TimeTableUWP
         private static string grade, @class, special, social, lang, science;
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
-        public static Color ColorType { get; set; } = Colors.LightSteelBlue;
+        public static Color ColorType  = Colors.LightSteelBlue;
         public static string GradeComboBoxText { get => grade; set => grade = value ?? "NULL"; }
         public static string ClassComboBoxText { get => @class; set => @class = value ?? "NULL"; }
         public static string Special1ComboBoxText { get => special; set => special = value ?? "NULL"; }

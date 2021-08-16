@@ -36,7 +36,6 @@ namespace TimeTableUWP
             }
         }
 
-
         private bool IsSchoolTime(int hour)
         {
             if (hour is 9 or 10 or 11 or 12 or 14 or 15 or 16)
@@ -49,8 +48,7 @@ namespace TimeTableUWP
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
                 border.Background = new SolidColorBrush(SaveData.ColorType);
 
-            //foreach (var comboBox in ComboBoxes)
-            //    comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
+            //foreach (var comboBox in ComboBoxes) comboBox.BorderBrush = new SolidColorBrush(SaveData.ColorType);
         }
 
         private void DrawTimeTable()
@@ -80,16 +78,17 @@ namespace TimeTableUWP
             ActivateLevel.Insider => "GTT3 Insider Preview",
             _ => string.Empty
         };
+
         private async Task LoopTimeAsync()
         {
-
             (int day, int time) pos;
             bool invoke = true;
+
             while (true)
             {
                 try
                 {
-                    await Task.Delay(100); // 100ms 마다 반복하기
+                    await Task.Delay(300); // 300ms 마다 반복하기
                     now = DateTime.Now;
 
                     void SetClock()
@@ -133,14 +132,16 @@ namespace TimeTableUWP
                         _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
                     };
 
-                    void ChangeColor()
+                    void ChangeCellColor()
                     {
                         var brush = new SolidColorBrush(SaveData.ColorType);
                         Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
                         if (pos.time <= 6)
                             Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
                     }
-                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangeColor);
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangeCellColor);
+
+
                     //
                     // 토스트 메시지 출력
                     //
@@ -153,9 +154,6 @@ namespace TimeTableUWP
                     if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
 
                     now = DateTime.Now;
-
-                    
-
                     if (now.Minute is 57 && now.Second is 0 && invoke is true)
                     {
                         await SendToast(); // 여기까진 알고리즘 완벽.

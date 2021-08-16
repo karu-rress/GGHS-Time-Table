@@ -16,7 +16,7 @@
         <SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" />
         <x:String x:Key="gridThick">5</x:String>
         <x:Int32 x:Key="cellFontSize">25</x:Int32>
-        <x:Int32 x:Key="comboFontSize">25</x:Int32>
+        <x:Int32 x:Key="comboFontSize">23</x:Int32>
     </Page.Resources>
 
     <Grid Name="mainGrid" Margin="0,0,0,0">
@@ -62,11 +62,12 @@
                 <Style TargetType="TextBlock">
                     <!-- 요일 칸 텍스트 -->
                     <Setter Property="Height" Value="38"/>
-                    <Setter Property="FontSize" Value="23"/>
+                    <Setter Property="FontSize" Value="22"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe"/>
                     <Setter Property="Margin" Value="0,10,0,10"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Foreground" Value="{StaticResource txtColor}"/>
                 </Style>
                 <Style TargetType="Button">

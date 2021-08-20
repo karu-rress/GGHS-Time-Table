@@ -64,6 +64,7 @@ namespace TimeTableUWP
                 SetComboBoxAsClass();
                 SaveData.SetComboBoxes(ComboBoxes);
                 SetColor(); // 초기화 코드를 여기에서도 한 번 넣어줘야 함.
+                SetSubText();
             }
         }
 

@@ -54,41 +54,73 @@ namespace GGHS
             public ZoomDictionary Class1 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading1to3,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class2 { get; } = new()
             {
-                [Subjects.CellName.Reading] = Common.Reading1to3
+                [Subjects.CellName.Reading] = Common.Reading1to3,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class3 { get; } = new()
             {
-                [Subjects.CellName.Reading] = Common.Reading1to3
+                [Subjects.CellName.Reading] = Common.Reading1to3,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class4 { get; } = new()
             {
-                [Subjects.CellName.Reading] = Common.Reading4to6
+                [Subjects.CellName.Reading] = Common.Reading4to6,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class5 { get; } = new()
             {
-                [Subjects.CellName.Reading] = Common.Reading4to6
+                [Subjects.CellName.Reading] = Common.Reading4to6,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class6 { get; } = new()
             {
-                [Subjects.CellName.Reading] = Common.Reading4to6
+                [Subjects.CellName.Reading] = Common.Reading4to6,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class7 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading7to8,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
             public ZoomDictionary Class8 { get; } = new()
             {
                 [Subjects.CellName.Reading] = Common.Reading7to8,
+
+                [Subjects.CellName.Chinese] = Common.Chinese,
+
+                [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
             };
 
         }

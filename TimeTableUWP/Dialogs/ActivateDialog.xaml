@@ -17,7 +17,7 @@
 
     <Grid Margin="0,0,0,0" Width="450" Height="150">
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-            Text="ZOOM 링크 기능을 사용하려면 인증키가 필요합니다.&#xA;개발자에게 제공받은 인증키를 입력하세요.&#xA;인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다.&#xD;&#xA;인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요."/>
+            Text="ZOOM 링크 기능을 사용하려면 인증키가 필요합니다.&#xA;카루에게 제공받은 인증키를 입력하세요.&#xA;인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다.&#xD;&#xA;인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요."/>
         <Grid Width="320" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,90,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />

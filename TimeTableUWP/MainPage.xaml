@@ -211,21 +211,18 @@
             <ComboBox x:Name="special1ComboBox" SelectionChanged="special1ComboBox_SelectionChanged"  Grid.Row="6">
                 <x:String>국제경제</x:String>
                 <x:String>국제정치</x:String>
-                <x:String>비교문화</x:String>
-                <x:String>동양근대사</x:String>
+                <x:String>비교문화A</x:String>
                 <x:String>세계 역사와 문화</x:String>
                 <x:String>현대정치철학의 이해</x:String>
                 <x:String>세계 지역 연구</x:String>
-                <x:String>공간 정보와 공간 분석</x:String>
             </ComboBox>
             <ComboBox x:Name="special2ComboBox" SelectionChanged="special2ComboBox_SelectionChanged"  Grid.Row="7">
                 <x:String>국제경제</x:String>
                 <x:String>국제정치</x:String>
-                <x:String>비교문화</x:String>
+                <x:String>비교문화B</x:String>
                 <x:String>동양근대사</x:String>
                 <x:String>세계 역사와 문화</x:String>
                 <x:String>현대정치철학의 이해</x:String>
-                <x:String>세계 지역 연구</x:String>
                 <x:String>공간 정보와 공간 분석</x:String>
             </ComboBox>
             <ComboBox x:Name="scienceComboBox" SelectionChanged="scienceComboBox_SelectionChanged"  Grid.Row="8">

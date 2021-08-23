@@ -21,8 +21,8 @@ namespace GGHS
         {
             public class Subjects : ISubjects
             {
-                int ISubjects.Grade { get; } = 2;
-                int ISubjects.Semester { get; } = 2;
+                int ISubjects.Grade => 2;
+                int ISubjects.Semester => 2;
 
                 //using static Subjects.CellName?
                 /// <summary>
@@ -30,30 +30,30 @@ namespace GGHS
                 /// </summary>
                 public class RawName
                 {
-                    public static string Reading { get; } = "독서";
-                    public static string Mathematics { get; } = "수학Ⅱ";
-                    public static string AdvancedEnglish { get; } = "심화영어Ⅰ";
-                    public static string Sport { get; } = "운동과 건강";
-                    public static string CreativeSolve { get; } = "창의적 문제 해결 기법";
-                    public static string MathResearch { get; } = "수학과제탐구";
-                    public static string Others { get; } = "창의적 체험활동";
-                    public static string HomeComing { get; } = "홈커밍";
+                    public static string Reading => "독서";
+                    public static string Mathematics => "수학Ⅱ";
+                    public static string AdvancedEnglish => "심화영어Ⅰ";
+                    public static string Sport => "운동과 건강";
+                    public static string CreativeSolve => "창의적 문제 해결 기법";
+                    public static string MathResearch => "수학과제탐구";
+                    public static string Others => "창의적 체험활동";
+                    public static string HomeComing => "홈커밍";
 
-                    public static string ScienceHistory { get; } = "과학사";
-                    public static string LifeAndScience { get; } = "생활과 과학";
+                    public static string ScienceHistory => "과학사";
+                    public static string LifeAndScience => "생활과 과학";
 
-                    public static string GlobalEconomics { get; } = "국제경제";
-                    public static string GlobalPolitics { get; } = "국제정치";
-                    public static string CompareCulture { get; } = "비교문화";
-                    public static string EasternHistory { get; } = "동양근대사";
-                    public static string HistoryAndCulture { get; } = "세계 역사와 문화";
-                    public static string PoliticsPhilosophy { get; } = "현대정치철학의 이해";
-                    public static string RegionResearch { get; } = "세계 지역 연구";
-                    public static string GISAnalyze { get; } = "공간 정보와 공간 분석";
+                    public static string GlobalEconomics => "국제경제";
+                    public static string GlobalPolitics => "국제정치";
+                    public static string CompareCulture => "비교문화";
+                    public static string EasternHistory => "동양근대사";
+                    public static string HistoryAndCulture => "세계 역사와 문화";
+                    public static string PoliticsPhilosophy => "현대정치철학의 이해";
+                    public static string RegionResearch => "세계 지역 연구";
+                    public static string GISAnalyze => "공간 정보와 공간 분석";
 
-                    public static string Japanese { get; } = "일본어Ⅰ";
-                    public static string Spanish { get; } = "스페인어Ⅰ";
-                    public static string Chinese { get; } = "중국어Ⅰ";
+                    public static string Japanese => "일본어Ⅰ";
+                    public static string Spanish => "스페인어Ⅰ";
+                    public static string Chinese => "중국어Ⅰ";
                 }
 
                 /// <summary>
@@ -61,30 +61,30 @@ namespace GGHS
                 /// </summary>
                 public class CellName : RawName
                 {
-                    // public static string Reading { get; } = RawName.Reading;
-                    // public static string Mathematics { get; } = RawName.Mathematics;
-                    public static new string AdvancedEnglish { get; } = "심영";
-                    public static new string Sport { get; } = "운동";
-                    public static new string CreativeSolve { get; } = "창문해";
-                    public static new string MathResearch { get; } = "수과탐";
-                    public static new string Others { get; } = "창체";
-                    // public static string HomeComing { get; } = RawName.HomeComing;
+                    // public static string Reading => RawName.Reading;
+                    // public static string Mathematics => RawName.Mathematics;
+                    public static new string AdvancedEnglish => "심영Ⅰ";
+                    public static new string Sport => "운동";
+                    public static new string CreativeSolve => "창문해";
+                    public static new string MathResearch => "수과탐";
+                    public static new string Others => "창체";
+                    // public static string HomeComing => RawName.HomeComing;
 
-                    // public static string ScienceHistory { get; } = RawName.ScienceHistory;
-                    public static new string LifeAndScience { get; } = "생활과학";
+                    // public static string ScienceHistory => RawName.ScienceHistory;
+                    // public static new string LifeAndScience => "생활과학";
 
-                    // public static string GlobalEconomics { get; } = RawName.GlobalEconomics;
-                    // public static string GlobalPolitics { get; } = RawName.GlobalPolitics;
-                    // public static string CompareCulture { get; } = RawName.CompareCulture;
-                    // public static string EasternHistory { get; } = RawName.EasternHistory;
-                    public static new string HistoryAndCulture { get; } = "세역문";
-                    public static new string PoliticsPhilosophy { get; } = "현정철";
-                    public static new string RegionResearch { get; } = "세지연";
-                    public static new string GISAnalyze { get; } = "GIS";
+                    // public static string GlobalEconomics => RawName.GlobalEconomics;
+                    // public static string GlobalPolitics => RawName.GlobalPolitics;
+                    // public static string CompareCulture => RawName.CompareCulture;
+                    // public static string EasternHistory => RawName.EasternHistory;
+                    public static new string HistoryAndCulture => "세역문";
+                    public static new string PoliticsPhilosophy => "현정철";
+                    public static new string RegionResearch => "세지연";
+                    public static new string GISAnalyze => "GIS";
 
-                    // public static string Japanese { get; } = RawName.Japanese;
-                    // public static string Spanish { get; } = RawName.Spanish;
-                    // public static string Chinese { get; } = RawName.Chinese;
+                    // public static string Japanese => RawName.Japanese;
+                    // public static string Spanish => RawName.Spanish;
+                    // public static string Chinese => RawName.Chinese;
                 }
 
                 /// <summary>
@@ -100,9 +100,9 @@ namespace GGHS
 
                 public static class Sciences // sealed
                 {
-                    public static string ScienceHistory { get; } = CellName.ScienceHistory;
-                    public static string LifeAndScience { get; } = CellName.LifeAndScience;
-                    public static string None { get; } = "과학선택";
+                    public static string ScienceHistory => CellName.ScienceHistory;
+                    public static string LifeAndScience => CellName.LifeAndScience;
+                    public static string None => "과학선택";
 
                     private static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, ScienceHistory, LifeAndScience); }
@@ -110,15 +110,15 @@ namespace GGHS
 
                 public static class Specials1
                 {
-                    public static string GlobalEconomics { get; } = CellName.GlobalEconomics;
-                    public static string GlobalPolitics { get; } = CellName.GlobalPolitics;
-                    public static string CompareCulture { get; } = CellName.CompareCulture;
-                    public static string EasternHistory { get; } = CellName.EasternHistory;
-                    public static string HistoryAndCulture { get; } = CellName.HistoryAndCulture;
-                    public static string PoliticsPhilosophy { get; } = CellName.PoliticsPhilosophy;
-                    public static string RegionResearch { get; } = CellName.RegionResearch;
-                    public static string GISAnalyze { get; } = CellName.GISAnalyze;
-                    public static string None { get; } = "전문A";
+                    public static string GlobalEconomics => CellName.GlobalEconomics;
+                    public static string GlobalPolitics => CellName.GlobalPolitics;
+                    public static string CompareCulture => CellName.CompareCulture + "A";
+                    public static string EasternHistory => CellName.EasternHistory;
+                    public static string HistoryAndCulture => CellName.HistoryAndCulture;
+                    public static string PoliticsPhilosophy => CellName.PoliticsPhilosophy;
+                    public static string RegionResearch => CellName.RegionResearch;
+                    public static string GISAnalyze => CellName.GISAnalyze;
+                    public static string None => "전문A";
                     private static string selected = None;
                     public static string Selected
                     {
@@ -130,15 +130,15 @@ RegionResearch, GISAnalyze);
 
                 public static class Specials2
                 {
-                    public static string GlobalEconomics { get; } = CellName.GlobalEconomics;
-                    public static string GlobalPolitics { get; } = CellName.GlobalPolitics;
-                    public static string CompareCulture { get; } = CellName.CompareCulture;
-                    public static string EasternHistory { get; } = CellName.EasternHistory;
-                    public static string HistoryAndCulture { get; } = CellName.HistoryAndCulture;
-                    public static string PoliticsPhilosophy { get; } = CellName.PoliticsPhilosophy;
-                    public static string RegionResearch { get; } = CellName.RegionResearch;
-                    public static string GISAnalyze { get; } = CellName.GISAnalyze;
-                    public static string None { get; } = "전문B";
+                    public static string GlobalEconomics => CellName.GlobalEconomics;
+                    public static string GlobalPolitics => CellName.GlobalPolitics;
+                    public static string CompareCulture => CellName.CompareCulture + "B";
+                    public static string EasternHistory => CellName.EasternHistory;
+                    public static string HistoryAndCulture => CellName.HistoryAndCulture;
+                    public static string PoliticsPhilosophy => CellName.PoliticsPhilosophy;
+                    public static string RegionResearch => CellName.RegionResearch;
+                    public static string GISAnalyze => CellName.GISAnalyze;
+                    public static string None => "전문B";
                     private static string selected = None;
                     public static string Selected
                     {
@@ -150,10 +150,10 @@ RegionResearch, GISAnalyze);
 
                 public static class Languages
                 {
-                    public static string Japanese { get; } = CellName.Japanese;
-                    public static string Spanish { get; } = CellName.Spanish;
-                    public static string Chinese { get; } = CellName.Chinese;
-                    public static string None { get; } = "외국어";
+                    public static string Japanese => CellName.Japanese;
+                    public static string Spanish => CellName.Spanish;
+                    public static string Chinese => CellName.Chinese;
+                    public static string None => "외국어";
                     static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Japanese, Spanish, Chinese); }
                 }

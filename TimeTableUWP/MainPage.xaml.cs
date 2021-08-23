@@ -56,18 +56,6 @@ namespace TimeTableUWP
             SetSubText();
         }
 
-        private async Task LoadDataFromFileAsync()
-        {
-            if (await SaveData.LoadDataAsync() is true)
-            {
-                SaveData.SetGradeAndClass(ref grade, ref @class);
-                SetComboBoxAsClass();
-                SaveData.SetComboBoxes(ComboBoxes);
-                SetColor(); // 초기화 코드를 여기에서도 한 번 넣어줘야 함.
-                SetSubText();
-            }
-        }
-
         #region ENEMERATORS
 
         private IEnumerable<ComboBox> ComboBoxes
@@ -264,7 +252,7 @@ namespace TimeTableUWP
 
             // switch is not available -- not a constant
             if (SaveData.Special1ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special1ComboBoxText == Subjects.RawName.GlobalPolitics
-                || SaveData.Special1ComboBoxText == Subjects.RawName.CompareCulture || SaveData.Special1ComboBoxText == Subjects.RawName.EasternHistory)
+                || SaveData.Special1ComboBoxText == Subjects.RawName.CompareCulture + "A" || SaveData.Special1ComboBoxText == Subjects.RawName.EasternHistory)
                 Subjects.Specials1.Selected = SaveData.Special1ComboBoxText;
             else if (SaveData.Special1ComboBoxText == Subjects.RawName.HistoryAndCulture)
                 Subjects.Specials1.Selected = Subjects.Specials1.HistoryAndCulture;
@@ -272,8 +260,6 @@ namespace TimeTableUWP
                 Subjects.Specials1.Selected = Subjects.Specials1.PoliticsPhilosophy;
             else if (SaveData.Special1ComboBoxText == Subjects.RawName.RegionResearch)
                 Subjects.Specials1.Selected = Subjects.Specials1.RegionResearch;
-            else if (SaveData.Special1ComboBoxText == Subjects.RawName.GISAnalyze)
-                Subjects.Specials1.Selected = Subjects.Specials1.GISAnalyze;
 
             DrawTimeTable();
         }
@@ -287,14 +273,14 @@ namespace TimeTableUWP
 
             // switch is not available -- not a constant
             if (SaveData.Special2ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special2ComboBoxText == Subjects.RawName.GlobalPolitics
-                || SaveData.Special2ComboBoxText == Subjects.RawName.CompareCulture || SaveData.Special2ComboBoxText == Subjects.RawName.EasternHistory)
+                || SaveData.Special2ComboBoxText == Subjects.RawName.CompareCulture + "B"|| SaveData.Special2ComboBoxText == Subjects.RawName.EasternHistory)
                 Subjects.Specials2.Selected = SaveData.Special2ComboBoxText;
             else if (SaveData.Special2ComboBoxText == Subjects.RawName.HistoryAndCulture)
                 Subjects.Specials2.Selected = Subjects.Specials2.HistoryAndCulture;
             else if (SaveData.Special2ComboBoxText == Subjects.RawName.PoliticsPhilosophy)
                 Subjects.Specials2.Selected = Subjects.Specials2.PoliticsPhilosophy;
-            else if (SaveData.Special2ComboBoxText == Subjects.RawName.RegionResearch)
-                Subjects.Specials2.Selected = Subjects.Specials2.RegionResearch;
+            //else if (SaveData.Special2ComboBoxText == Subjects.RawName.RegionResearch)
+                //Subjects.Specials2.Selected = Subjects.Specials2.RegionResearch;
             else if (SaveData.Special2ComboBoxText == Subjects.RawName.GISAnalyze)
                 Subjects.Specials2.Selected = Subjects.Specials2.GISAnalyze;
 
@@ -336,7 +322,7 @@ namespace TimeTableUWP
             if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "개발자에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Theme);
+                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Theme);
                 return;
             }
 
@@ -368,7 +354,7 @@ namespace TimeTableUWP
             return true;
         }
 
-        private Dictionary<string, ZoomInfo> GetClassZoomLink() => @class switch
+        private Dictionary<string, ZoomInfo?> GetClassZoomLink() => @class switch
         {
             1 => zoomLink.Class1,
             2 => zoomLink.Class2,

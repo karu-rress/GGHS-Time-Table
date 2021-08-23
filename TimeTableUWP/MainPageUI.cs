@@ -24,6 +24,21 @@ namespace TimeTableUWP
     public sealed partial class MainPage : Page
     {
         private string[,]? SubjectTable { get; set; } // string[5, 7]
+
+        private async Task LoadDataFromFileAsync()
+        {
+            if (await SaveData.LoadDataAsync() is true)
+            {
+                SaveData.SetGradeAndClass(ref grade, ref @class);
+                SetComboBoxAsClass();
+                SaveData.SetComboBoxes(ComboBoxes);
+
+                // Initialization Area
+                SetColor(); // 초기화 코드를 여기에서도 한 번 넣어줘야 함.
+                SetSubText();
+            }
+        }
+
         void InitializeUI()
         {
             Disable(classComboBox, langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
@@ -34,13 +49,6 @@ namespace TimeTableUWP
                 (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex, special1ComboBox.SelectedIndex,
                     special2ComboBox.SelectedIndex, scienceComboBox.SelectedIndex) = comboBoxSelection;
             }
-        }
-
-        private bool IsSchoolTime(int hour)
-        {
-            if (hour is 9 or 10 or 11 or 12 or 14 or 15 or 16)
-                return true;
-            return false;
         }
 
         private void SetColor()
@@ -78,7 +86,6 @@ namespace TimeTableUWP
             ActivateLevel.Insider => "GTT3 Insider Preview",
             _ => string.Empty
         };
-
         private async Task LoopTimeAsync()
         {
             (int day, int time) pos;

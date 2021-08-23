@@ -36,7 +36,7 @@ namespace TimeTableUWP
             {
                 Hyperlink hyperlink = new();
                 hyperlink.NavigateUri = new(zoomInfo.Link);
-                hyperlink.Inlines.Add(new Run() { Text = zoomInfo.Link });
+                hyperlink.Inlines.Add(new Run() { Text = "Click here to open ZOOM meetings" });
                 tb.Inlines.Add(hyperlink);
                 tb.AddText("\n");
                 tb.AddTextLine($"ID: {zoomInfo.Id ?? None}");
@@ -45,7 +45,7 @@ namespace TimeTableUWP
             else
             {
                 tb.AddTextLine("Not available");
-                tb.AddTextLine("개발자에게 줌 링크 추가를 요청해보세요.");
+                tb.AddTextLine("카루자에게 줌 링크 추가를 요청해보세요.");
                 IsPrimaryButtonEnabled = false;
                 DefaultButton = ContentDialogButton.Secondary;
             }
@@ -62,7 +62,7 @@ namespace TimeTableUWP
             else
             {
                 tb.AddTextLine("Not available");
-                tb.AddTextLine("개발자에게 클래스룸 링크 추가를 요청해보세요.");
+                tb.AddTextLine("카루에게 클래스룸 링크 추가를 요청해보세요.");
                 IsSecondaryButtonEnabled = false;
             }
             tb.AddTextLine($"\nTeacher: {zoomInfo.Teacher} 선생님\n");

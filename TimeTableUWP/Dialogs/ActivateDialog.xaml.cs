@@ -42,7 +42,7 @@ namespace TimeTableUWP
         public ActivateDialog(string msg) : this()
         {
             MainTextBlock.Text = $@"{msg}
-개발자에게 제공받은 인증키를 입력하세요.
+카루에게 제공받은 인증키를 입력하세요.
 인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다.
 인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
         }

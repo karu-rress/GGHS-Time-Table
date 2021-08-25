@@ -49,7 +49,7 @@ namespace GGHS
                 public static class Class4to6
                 {
                     public static ZoomInfo Reading => Common.Reading with { Link = "https://zoom.us/j/85644781112?pwd=SC8xWDBZbVRpNW1TSXF6QjRNQk8zQT09", Id = "856 4478 1112", Pw = "0204", Teacher = "윤채영" };
-                    public static ZoomInfo Mathematics => Common.Mathematics with { Teacher = "박지영" };
+                    public static ZoomInfo Mathematics => Common.Mathematics with { Link= "https://zoom.us/j/7014267742?pwd=eFAvUWQweVdSbmc4Q2JLNGlQWTdsZz09", Id = "701 426 7742", Pw = "1111", Teacher = "박지영" };
                 }
                 public static class Class7to8
                 {
@@ -62,7 +62,7 @@ namespace GGHS
                 // Advanced English
                 // (string? Link, string? Id, string? Pw, string? ClassRoom, string Teacher);
                 public static ZoomInfo AdvancedEnglishA1to4 => new("https://zoom.us/j/5472878985?pwd=RlIzSmJnWHBRaWhkRTNkOEJ6UUF5UT09", "547 287 8985", "0512", "https://classroom.google.com/u/0/c/Mjc3NTczMTU4MzE3", "김찬미");
-                public static ZoomInfo AdvancedEnglishA5to8 => new("https://zoom.us/j/5031101343?pwd=QTRmbnRLSHFPamh4U3d2ZS9JTXdrUT09", "503 110 1343", "1111", "https://classroom.google.com/u/0/c/Mjc3NTczMTU4MzE3", "김한나");
+                public static ZoomInfo AdvancedEnglishA5to8 => new("https://zoom.us/j/5031101343?pwd=QXZMWUVoZEkzVnUyY0poanAyclBHdz09", "503 110 1343", "1111", "https://classroom.google.com/u/0/c/Mjc3NTczMTU4MzE3", "김한나");
                 public static ZoomInfo AdvancedEnglishB => new(null, null, null, "https://classroom.google.com/u/0/c/Mzc4Mzc4MDg4NzY4", "Lubi");
                 public static ZoomInfo AdvancedEnglishC => new("https://zoom.us/j/5365083101?pwd=VDV4VHA5MVUrcDV4cDV1RitZeHovZz09", "536 508 3101", "2021", "https://classroom.google.com/u/0/c/Mjc3NTczMTU4MzE3", "허진");
                 public static ZoomInfo AdvancedEnglishD1to2 => new("https://zoom.us/j/5759526245?pwd=akMzYU5kUVpMc202aVkrcWZNRGZSUT09", "575 952 6245", "01020304", "https://classroom.google.com/u/0/c/Mjc3NTczMTU4MzE3", "문선현");
@@ -73,34 +73,25 @@ namespace GGHS
 
                 public static ZoomInfo LifeAndScience => new("https://zoom.us/j/4153909733?pwd=M2h3eVp5WnNPUTdJdlBwMkd1VGs1dz09", "415 390 9733", "1111", "https://classroom.google.com/u/0/c/Mzc4MzMzMzI1MTA1", "이지원");
 
-                public static ZoomInfo GlobalPolitics2to4 => new("https://zoom.us/j/93720213007?pwd=NVhibHlFdk5QK21uenZFdUhDb3VwQT09", "937 2021 3007", "204", "https://classroom.google.com/u/0/c/MzA1OTAyOTM5OTM2", "엄혜용");
+                public static ZoomInfo GlobalPolitics3to4 => new("https://zoom.us/j/93720213007?pwd=NVhibHlFdk5QK21uenZFdUhDb3VwQT09", "937 2021 3007", "204", "https://classroom.google.com/u/0/c/MzA1OTAyOTM5OTM2", "엄혜용");
                 public static ZoomInfo GlobalPolitics1and8 => new("https://zoom.us/j/4613355190?pwd=WEZzaFhtTVpDZVk4L09XK1VlQ3Z5UT09", "461 335 5190", "1111", "https://classroom.google.com/u/0/c/MzA1OTAyOTM5OTM2", "정슬기");
                 public static ZoomInfo CompareCultureA => new("https://zoom.us/j/6941791038?pwd=TUJLRnZEVEhMNGVhRGxtaVBXb3BNZz09", "694 179 1038", "2021", "https://classroom.google.com/u/0/c/Mzc4NzczNjQ1MDU0", "홍정민");
                 public static ZoomInfo CompareCultureB => new("https://zoom.us/j/5467290895?pwd=dUFHMDlEdjk3VzV6dnl0OERCVzlqQT09", "546 729 0895", "2030", "https://classroom.google.com/u/0/c/Mzc4NzczNjQ1MDU0", "정혜영");
-                /*
-public static string Mathematics => "수학Ⅱ";
-public static string Sport => "운동과 건강";
-public static string CreativeSolve => "창의적 문제 해결 기법";
-public static string MathResearch => "수학과제탐구";
-public static string Others => "창의적 체험활동";
-public static string HomeComing => "홈커밍";
 
+
+                public static ZoomInfo PoliticsPhilosophy => new("https://zoom.us/j/9401959597", "940 195 9597", "255226", null, "류제광");
+                public static ZoomInfo RegionResearch => new("https://zoom.us/j/96926016442", "969 2601 6442", "geogeo", null, "조한솔");
+                public static ZoomInfo GISAnalyze => new("https://us02web.zoom.us/j/9055851564?pwd=RENhem04T0JsTEZzNDhBQk4xa3JRUT09", "905 585 1564", "2121", "https://classroom.google.com/u/0/c/Mzc1MzAxOTg3NjM0", "이건");
+                /*
 public static string ScienceHistory => "과학사";
 public static string LifeAndScience => "생활과 과학";
 
 public static string GlobalEconomics => "국제경제";
 public static string GlobalPolitics => "국제정치";
-public static string CompareCulture => "비교문화";
+
 public static string EasternHistory => "동양근대사";
 public static string HistoryAndCulture => "세계 역사와 문화";
-public static string PoliticsPhilosophy => "현대정치철학의 이해";
-public static string RegionResearch => "세계 지역 연구";
-public static string GISAnalyze => "공간 정보와 공간 분석";
 */
-
-
-
-
                 // Language
                 // public static ZoomInfo Spanish => new("https://us02web.zoom.us/j/7411091130?pwd=M0tZTXJwaFRXb3RmZm1jODNhdUtqUT09");
                 public static ZoomInfo Chinese => new("https://zoom.us/j/99535123743?pwd=d0dPemVjNXIxcks5RCt0OFc1aGg0Zz09", "995 3512 3743", "1eMXJM", "https://classroom.google.com/u/0/c/MjgzOTg5NzIyMjQ5", "김나연");
@@ -108,6 +99,8 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
 
                 // Others
                 public static ZoomInfo CreativeSolve => new("https://meet.google.com/lookup/bgt6c65ccm", null, null, "https://classroom.google.com/u/0/c/Mjc3MDAwNjYxOTcx", "조광진");
+                public static ZoomInfo MathResearch2 => new("https://zoom.us/j/6749678415?pwd=ZVpqNmNHMDE3MGZKblF2NnptMzVvQT09", "674 967 8415", "fbpY9j", "https://classroom.google.com/u/0/c/Mjg0MTE0ODQ2Njkx", "김수진");
+                public static ZoomInfo MathResearch5to8 => new(null, null, null, "https://classroom.google.com/u/0/c/MjgzNTMyMTc3NDgw", "공현진");
                 public static ZoomInfo Sport1to4 => new("https://zoom.us/j/3373011774?pwd=QWYybW1SMlljVlVFRzRTY0RvenVrUT09", "337 301 1774", "123456", null, "허진용");
                 public static ZoomInfo Sport5to8 => new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             }
@@ -133,6 +126,10 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class2 => new()
@@ -150,14 +147,18 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.Japanese] = Common.Japanese,
 
                 [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
+                [Subjects.CellName.MathResearch] = Common.MathResearch2,
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
-                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics2to4,
+                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics1and8,
 
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class3 => new()
@@ -178,11 +179,14 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
-                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics2to4,
+                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics3to4,
 
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class4 => new()
@@ -203,11 +207,14 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
-                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics2to4,
+                [Subjects.CellName.GlobalPolitics] = Common.GlobalPolitics3to4,
 
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class5 => new()
@@ -224,7 +231,7 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.Chinese] = Common.Chinese,
 
                 [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
-
+                [Subjects.CellName.MathResearch] = Common.MathResearch5to8,
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
@@ -233,6 +240,9 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class6 => new()
@@ -249,7 +259,7 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.Chinese] = Common.Chinese,
 
                 [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
-
+                [Subjects.CellName.MathResearch] = Common.MathResearch5to8,
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
@@ -258,6 +268,9 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class7 => new()
@@ -275,7 +288,7 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.Japanese] = Common.Japanese,
 
                 [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
-
+                [Subjects.CellName.MathResearch] = Common.MathResearch5to8,
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
@@ -284,6 +297,9 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
             public ZoomDictionary Class8 => new()
@@ -300,7 +316,7 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.Chinese] = Common.Chinese,
 
                 [Subjects.CellName.CreativeSolve] = Common.CreativeSolve,
-
+                [Subjects.CellName.MathResearch] = Common.MathResearch5to8,
 
                 [Subjects.CellName.LifeAndScience] = Common.LifeAndScience,
 
@@ -309,6 +325,10 @@ public static string GISAnalyze => "공간 정보와 공간 분석";
                 [Subjects.CellName.GlobalEconomics] = Common.GlobalEconomics,
                 [Subjects.CellName.CompareCulture + "A"] = Common.CompareCultureA,
                 [Subjects.CellName.CompareCulture + "B"] = Common.CompareCultureB,
+
+                [Subjects.CellName.PoliticsPhilosophy] = Common.PoliticsPhilosophy,
+                [Subjects.CellName.RegionResearch] = Common.RegionResearch,
+                [Subjects.CellName.GISAnalyze] = Common.GISAnalyze,
             };
 
         }

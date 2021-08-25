@@ -98,8 +98,11 @@ namespace TimeTableUWP
             if (await storageFolder.TryGetItemAsync(dataFileName) is not StorageFile dataFile)
             {
                 await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
-GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
+GGHS Time Table을 설치해주셔서 감사합니다. 
+
+자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 줌 링크와 클래스룸 링크가 띄워집니다.
+
+수시로 최신 버전이 업데이트되니 꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
                 return false;
             }
 

@@ -52,8 +52,14 @@ namespace TimeTableUWP
         public static async Task HandleException(Exception exception)
         {
             int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
-            string errorMsg = @$"에러가 발생했습니다.
-{(code is not null ? $"\nError code: {code}" : "")}
+            string errorMsg = "에러가 발생했습니다.\n";
+
+            if (SaveData.ActivateStatus is not ActivateLevel.Developer)
+            {
+                errorMsg += "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다.\n\n";
+            }
+
+            errorMsg += @$"{(code is not null ? $"\nError code: {code}" : "")}
 {exception}";
             var smtp = FeedbackDialog.PrepareSendMail(errorMsg,
                 $"GGHS Time Table EXCEPTION OCCURED in V{MainPage.Version}", out var msg);

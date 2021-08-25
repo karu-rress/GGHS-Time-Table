@@ -160,8 +160,11 @@ namespace TimeTableUWP
                     // 동아리(2)나 홈커밍일 때는 토스트 알림 없음.
                     if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
 
+                    // 4시에는 실행하면 안 된다!
+                    if (now.Hour is 16) continue;
+
                     now = DateTime.Now;
-                    if (now.Minute is 57 && now.Second is 0 && invoke is true)
+                    if (now.Minute is 57 && invoke is true) // second is 0
                     {
                         await SendToast(); // 여기까진 알고리즘 완벽.
                         invoke = false;
@@ -181,15 +184,25 @@ namespace TimeTableUWP
                         
                         // TimeTable 표에서 현재 날짜와 시간을 통해 과목 꺼내기. time은 하나 +1 시켜야 함.
                         string? subject = SubjectTable?[pos.day - 1, pos.time];
-                        if ((subject is null) || GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
-                            return; // 값이 없다? 그럼 꺼내지 말아야지.
+                        if (subject is null)
+                            return;
 
                         ToastContentBuilder toast = new ToastContentBuilder()
                             // TODO: 무음모드 일 경우에는 오디오를 꺼야 한다. 빼버리기.
                             .AddAppLogoOverride(new Uri("ms-appx:///Assets/SecurityAndMaintenance.png")) // 동그라미 i 표시
                             .AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav")) // 알람소리
-                            .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1) // 안내문
-                            .AddText($"[{subject}] - {zoomInfo.Teacher} 선생님") // 과목 및 선생님
+                            .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
+
+                        if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
+                        {
+                            toast.AddText($"[{subject}]")
+                                 .AddText(hour > 12 ?
+                                $"{hour - 12}:00 PM - {hour - 12}:50 PM" :
+                                $"{hour}:00 AM - {hour}:50 AM").Show();
+                            return;
+                        }
+
+                        toast.AddText($"[{subject}] - {zoomInfo.Teacher} 선생님") // 과목 및 선생님
                             .AddText(hour > 12 ?
                                 $"{hour - 12}:00 PM - {hour - 12}:50 PM" :
                                 $"{hour}:00 AM - {hour}:50 AM");

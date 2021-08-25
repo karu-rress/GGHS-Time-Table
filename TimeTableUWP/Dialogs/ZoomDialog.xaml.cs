@@ -45,7 +45,7 @@ namespace TimeTableUWP
             else
             {
                 tb.AddTextLine("Not available");
-                tb.AddTextLine("카루자에게 줌 링크 추가를 요청해보세요.");
+                tb.AddTextLine("카루에게 줌 링크 추가를 요청해보세요.");
                 IsPrimaryButtonEnabled = false;
                 DefaultButton = ContentDialogButton.Secondary;
             }

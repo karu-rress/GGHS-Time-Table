@@ -188,7 +188,7 @@ public interface ITimeTable
                 { Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.AdvancedEnglish + "B", Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.AdvancedEnglish, Subjects.CellName.Others },
                 { Subjects.Specials2.Selected, Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.Languages.Selected, Subjects.CellName.AdvancedEnglish + "C", Subjects.CellName.MathResearch, Subjects.CellName.AdvancedEnglish + "A"  },
                 { Subjects.CellName.Reading, Subjects.Specials2.Selected, Subjects.Specials1.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "D", Subjects.CellName.Sport, Subjects.CellName.Sport },
-                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.Mathematics, Subjects.CellName.CreativeSolve },
+                { Subjects.Specials1.Selected, Subjects.CellName.Sport, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.CellName.AdvancedEnglish + "A", Subjects.CellName.Reading, Subjects.CellName.CreativeSolve },
                 { Subjects.Languages.Selected, Subjects.Sciences.Selected, Subjects.CellName.Mathematics, Subjects.Specials1.Selected, Subjects.CellName.Others, Subjects.CellName.Sport, Subjects.CellName.HomeComing },
             };
 

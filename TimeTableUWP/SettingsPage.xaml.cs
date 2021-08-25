@@ -86,12 +86,21 @@ namespace TimeTableUWP
 
 GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한 많은 분들께
 이 프로그램을 알려주세요.
+
+자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 줌 링크와 클래스룸 링크가 띄워집니다.
+
 기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
 설정 창의 'Send Feedback' 버튼을 통해 제보해주시면 감사하겠습니다.
 
-카루 블로그 링크:
-"
+카루 인스타: "
             });
+            Hyperlink hyperlink3 = new Hyperlink() { NavigateUri = new("https://instagram.com/nsun527") };
+            hyperlink3.Inlines.Add(new Run() { Text = "@nsun527" });
+            tb.Inlines.Add(hyperlink3);
+            tb.Inlines.Add(new Run() { Text = @"
+
+카루 블로그 링크:
+" });
             tb.Inlines.Add(hyperlink);
             tb.Inlines.Add(new Run() { Text = "\n" });
             tb.Inlines.Add(hyperlink2);

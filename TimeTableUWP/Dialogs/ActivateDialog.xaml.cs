@@ -1,25 +1,10 @@
 ﻿#nullable enable
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.System;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using RollingRess;
-using System.Diagnostics.CodeAnalysis;
-using static RollingRess.StaticClass;
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using TimeTableUWP.Pages;
 
 namespace TimeTableUWP
 {
@@ -36,7 +21,7 @@ namespace TimeTableUWP
         public ActivateDialog()
         {
             InitializeComponent();
-            RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+            RequestedTheme = MainPage.Theme;
         }
 
         public ActivateDialog(string msg) : this()
@@ -47,7 +32,7 @@ namespace TimeTableUWP
 인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog s, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             if (keyBox1.Text.Length < keyBox1.MaxLength || keyBox2.Text.Length < keyBox2.MaxLength)
             {

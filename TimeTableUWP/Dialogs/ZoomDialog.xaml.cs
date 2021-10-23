@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using GGHS;
 using Windows.UI.Xaml;
+using TimeTableUWP.Pages;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,7 +21,7 @@ namespace TimeTableUWP
         public ZoomDialog(int @class, string subject, ZoomInfo zoomInfo)
         {
             InitializeComponent();
-            RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+            RequestedTheme = MainPage.Theme;
 
             Title = $"Class {@class} {subject} Links";
             this.zoomInfo = zoomInfo;
@@ -54,7 +55,6 @@ namespace TimeTableUWP
             if (zoomInfo.ClassRoom is not null)
             {
                 Hyperlink classroom = new();
-                // TODO: Remove the ?? operator after the classrooms are all filled.
                 classroom.NavigateUri = new(zoomInfo.ClassRoom ?? "https://classroom.google.com/");
                 classroom.Inlines.Add(new Run() { Text = "Click here to open classroom" });
                 tb.Inlines.Add(classroom);

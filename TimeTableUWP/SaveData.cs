@@ -1,5 +1,6 @@
-﻿#nullable disable
+﻿#nullable enable
 
+using RollingRess.UWP.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeTableUWP.Pages;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -18,13 +20,15 @@ namespace TimeTableUWP
 {
     public static class SaveData
     {
-        private const string dataFileName = "gttdat.sav", keyFileName = "gttact.key", settingsFileName = "gttsets.sav";
+        record ComboBoxSave(string Class, string Lang, string Special1, string Special2, string Science);
+
+        private const string dataFileName = "gttdatxml.sav", keyFileName = "gttactxml.key", settingsFileName = "gttsetxml.sav", versionFileName = "gttverxml.sav";
         
         private static string grade, @class, special, social, lang, science;
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
         public static Color ColorType  = Colors.LightSteelBlue;
-        public static string GradeComboBoxText { get => grade; set => grade = value ?? "NULL"; }
+        public static string GradeComboBoxText { get => "Grade 2"; set => grade = value ?? "NULL"; }
         public static string ClassComboBoxText { get => @class; set => @class = value ?? "NULL"; }
         public static string Special1ComboBoxText { get => special; set => special = value ?? "NULL"; }
         public static string Special2ComboBoxText { get => social; set => social = value ?? "NULL"; }
@@ -48,132 +52,56 @@ namespace TimeTableUWP
 
         public static async Task SaveDataAsync()
         {
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-
-            if (GradeComboBoxText is not "NULL")
-            {
-                var dataFile = await storageFolder.CreateFileAsync(dataFileName, CreationCollisionOption.ReplaceExisting);
-                using var stream = await dataFile.OpenAsync(FileAccessMode.ReadWrite);
-                using var outputStream = stream.GetOutputStreamAt(0);
-                using var dataWriter = new DataWriter(outputStream);
-                dataWriter.WriteString(
-                    "3.0.0\n" + // Prevent conflict with older version's files
-                    GradeComboBoxText + "\n" +
-                    ClassComboBoxText + "\n" +
-                    LangComboBoxText + "\n" +
-                    Special1ComboBoxText + "\n" +
-                    Special2ComboBoxText + "\n" +
-                    ScienceComboBoxText
-                    );
-                await dataWriter.StoreAsync();
-                await outputStream.FlushAsync();
-            }
-
             if (IsActivated is true)
             {
-                var keyFile = await storageFolder.CreateFileAsync(keyFileName, CreationCollisionOption.ReplaceExisting);
-                using var stream = await keyFile.OpenAsync(FileAccessMode.ReadWrite);
-                using var outputStream = stream.GetOutputStreamAt(0);
-                using var keyWriter = new DataWriter(outputStream);
-                keyWriter.WriteString(ActivateStatus.MakeString());
-                await keyWriter.StoreAsync();
-                await outputStream.FlushAsync();
+                DataWriter<ActivateLevel> writer = new(keyFileName, ActivateStatus);
+                await writer.WriteAsync();
             }
 
-            {
-                var settingsFile = await storageFolder.CreateFileAsync(settingsFileName, CreationCollisionOption.ReplaceExisting);
-                using var stream = await settingsFile.OpenAsync(FileAccessMode.ReadWrite);
-                using var outputStream = stream.GetOutputStreamAt(0);
-                using var settingsWriter = new DataWriter(outputStream);
-                string hexValue = $"#{ColorType.A:X}{ColorType.R:X}{ColorType.G:X}{ColorType.B:X}";
-                settingsWriter.WriteString(hexValue);
-                await settingsWriter.StoreAsync();
-                await outputStream.FlushAsync();
-            }
+            DataWriter<ComboBoxSave> writeComboBox = new(dataFileName, new(
+                ClassComboBoxText,
+                LangComboBoxText,
+                Special1ComboBoxText,
+                Special2ComboBoxText,
+                ScienceComboBoxText
+                ));
+            DataWriter<Color> writeSettings = new(settingsFileName, ColorType);
+            DataWriter<string> writeVersion = new(versionFileName, MainPage.Version);
+            await Task.WhenAll(writeSettings.WriteAsync(), writeVersion.WriteAsync(), writeComboBox.WriteAsync());
         }
 
-        public static async Task<bool> LoadDataAsync()
-        {
+        public static async Task<TimeTablePage.LoadStatus> LoadDataAsync()
+        { 
             var storageFolder = ApplicationData.Current.LocalFolder;
-            if (await storageFolder.TryGetItemAsync(dataFileName) is not StorageFile dataFile)
+            if (await storageFolder.TryGetItemAsync(versionFileName) is not StorageFile dataFile)
             {
-                await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
-GGHS Time Table을 설치해주셔서 감사합니다. 
-
-자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 줌 링크와 클래스룸 링크가 띄워집니다.
-
-수시로 최신 버전이 업데이트되니 꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
-                return false;
+                return TimeTablePage.LoadStatus.NewUser;
             }
 
-            using (var stream = await dataFile.OpenAsync(FileAccessMode.Read))
-            {
-                var size = stream.Size;
-                using var inputStream = stream.GetInputStreamAt(0);
-                using var dataReader = new DataReader(inputStream);
-                uint numBytesLoaded = await dataReader.LoadAsync((uint)size);
-                string text = dataReader.ReadString(numBytesLoaded);
-                string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            DataReader<Color> readSettings = new(settingsFileName);
+            ColorType = await readSettings.ReadAsync();
 
-                // 구버전인 경우
-                if (lines[0] is not "3.0.0")
-                {
-                    var saveFile = await storageFolder.TryGetItemAsync(dataFileName);
-                    if (saveFile is not null)
-                        await saveFile.DeleteAsync();
-
-                    saveFile = await storageFolder.TryGetItemAsync(keyFileName);
-                    if (saveFile is not null)
-                        await saveFile.DeleteAsync();
-
-                    saveFile = await storageFolder.TryGetItemAsync(settingsFileName);
-                    if (saveFile is not null)
-                        await saveFile.DeleteAsync();
-
-                    await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
-GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
-                    return false;
-                }
-                
-                GradeComboBoxText = lines[1];
-                ClassComboBoxText = lines[2];
-                LangComboBoxText = lines[3];
-                Special1ComboBoxText = lines[4];
-                Special2ComboBoxText = lines[5];
-                ScienceComboBoxText = lines[6];
-            }
+            DataReader<ComboBoxSave> readCombo = new(dataFileName);
+            var Combo = await readCombo.ReadAsync();
+            ClassComboBoxText = Combo.Class;
+            LangComboBoxText = Combo.Lang;
+            Special1ComboBoxText = Combo.Special1;
+            Special2ComboBoxText = Combo.Special2;
+            ScienceComboBoxText = Combo.Science;
 
             if (await storageFolder.TryGetItemAsync(keyFileName) is StorageFile keyFile)
             {
-                using var stream = await keyFile.OpenAsync(FileAccessMode.Read);
-                var size = stream.Size;
-                using var inputStream = stream.GetInputStreamAt(0);
-                using var keyReader = new DataReader(inputStream);
-                uint numBytesLoaded = await keyReader.LoadAsync((uint)size);
-                string key = keyReader.ReadString(numBytesLoaded);
-
-                ActivateStatus = key.MakeActivateLevel();
+                DataReader<ActivateLevel> reader = new(keyFileName);
+                ActivateStatus = await reader.ReadAsync();
                 IsActivated = true;
             }
 
-            if (await storageFolder.TryGetItemAsync(settingsFileName) is StorageFile settingsFile)
+            DataReader<string> readVersion = new(versionFileName);
+            if (await readVersion.ReadAsync() != MainPage.Version)
             {
-                using var stream = await settingsFile.OpenAsync(FileAccessMode.Read);
-                var size = stream.Size;
-                using var inputStream = stream.GetInputStreamAt(0);
-                using var keyReader = new DataReader(inputStream);
-                uint numBytesLoaded = await keyReader.LoadAsync((uint)size);
-                string hexColor = keyReader.ReadString(numBytesLoaded);
-
-                var (a, r, g, b) = (byte.Parse(hexColor.Substring(1, 2), NumberStyles.HexNumber),
-                    byte.Parse(hexColor.Substring(3, 2), NumberStyles.HexNumber),
-                    byte.Parse(hexColor.Substring(5, 2), NumberStyles.HexNumber),
-                    byte.Parse(hexColor.Substring(7, 2), NumberStyles.HexNumber));
-
-                ColorType = Color.FromArgb(a, r, g, b);
+                return TimeTablePage.LoadStatus.Updated;
             }
-            return true;
+            return TimeTablePage.LoadStatus.Default;
         }
 
         public static void SetComboBoxes(IEnumerable<ComboBox> comboBoxes)
@@ -186,21 +114,7 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
         }
 
         public static void SetGradeAndClass(ref int grade, ref int @class)
-        => (grade, @class) = (GradeComboBoxText[6] - '0', ClassComboBoxText[6] - '0');
-        
-        static string MakeString(this ActivateLevel val)
-        {
-            int converted = (int)val;
-            converted = converted * 17 + 19;
-            return converted.ToString();
-        }
-
-        static ActivateLevel MakeActivateLevel(this string val)
-        {
-            int converted = Convert.ToInt32(val);
-            converted = (converted - 19) / 17;
-            return (ActivateLevel)converted;
-        }
+        => (grade, @class) = (2, ClassComboBoxText[6] - '0');
     }
 
     // TODO: Use dynamic APIs

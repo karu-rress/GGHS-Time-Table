@@ -12,6 +12,7 @@ using static RollingRess.StaticClass;
 using Windows.ApplicationModel.Background;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Linq;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,12 +31,14 @@ namespace TimeTableUWP
         private static bool selfToggled = false;
         // public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
-        readonly Dictionary<DateType, int> dateFormatDict = new()
+        private Dictionary<DateType, int> dateFormatDict { get; } = new()
         {
             [DateType.YYYYMMDD] = 0,
             [DateType.YYYYMMDD2] = 1,
             [DateType.MMDDYYYY] = 2,
         };
+        public static bool SilentMode { get; private set; } = false;
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -43,10 +46,11 @@ namespace TimeTableUWP
             RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
             dateFormatRadio.SelectedIndex = dateFormatDict[DateFormat];
             colorPicker.Color = SaveData.ColorType;
+            SilentToggle.IsOn = SilentMode;
             SetDarkToggle(IsDarkMode);
         }
 
-        private void Button_Click(object _, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage));
+        private void Button_Click(object _, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage), null, new DrillInNavigationTransitionInfo());
 
         private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Use24Hour = use24Toggle.IsOn;
 
@@ -84,8 +88,7 @@ namespace TimeTableUWP
 
 환영합니다, Rolling Ress의 카루입니다.
 
-GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한 많은 분들께
-이 프로그램을 알려주세요.
+GGHS Time Table을 설치해주셔서 감사합니다.
 
 자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 줌 링크와 클래스룸 링크가 띄워집니다.
 
@@ -94,7 +97,7 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
 
 카루 인스타: "
             });
-            Hyperlink hyperlink3 = new Hyperlink() { NavigateUri = new("https://instagram.com/nsun527") };
+            Hyperlink hyperlink3 = new() { NavigateUri = new("https://instagram.com/nsun527") };
             hyperlink3.Inlines.Add(new Run() { Text = "@nsun527" });
             tb.Inlines.Add(hyperlink3);
             tb.Inlines.Add(new Run() { Text = @"
@@ -161,6 +164,11 @@ GGHS Time Table을 설치해주셔서 감사합니다. 가능하다면 가능한
         private async void Button_Click_4(object sender, RoutedEventArgs e)
         {
             await MainPage.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
+        }
+
+        private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            SilentMode = SilentToggle.IsOn;
         }
     }
 }

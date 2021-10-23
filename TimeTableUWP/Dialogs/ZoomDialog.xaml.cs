@@ -54,7 +54,6 @@ namespace TimeTableUWP
             if (zoomInfo.ClassRoom is not null)
             {
                 Hyperlink classroom = new();
-                // TODO: Remove the ?? operator after the classrooms are all filled.
                 classroom.NavigateUri = new(zoomInfo.ClassRoom ?? "https://classroom.google.com/");
                 classroom.Inlines.Add(new Run() { Text = "Click here to open classroom" });
                 tb.Inlines.Add(classroom);

@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using System.Globalization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI;
@@ -154,8 +153,8 @@ namespace TimeTableUWP
                     //
                     //
 
-                    // 개발자나 Insider가 아니라면 토스트 메시지를 출력하지 않는다.
-                    if (SaveData.IsNotDeveloperOrInsider) continue;
+                    // GTT 4부터 모든 사용자에게 3분전 알림 개방
+                    // if (SaveData.IsNotDeveloperOrInsider) continue;
 
                     // 동아리(2)나 홈커밍일 때는 토스트 알림 없음.
                     if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
@@ -188,10 +187,14 @@ namespace TimeTableUWP
                             return;
 
                         ToastContentBuilder toast = new ToastContentBuilder()
-                            // TODO: 무음모드 일 경우에는 오디오를 꺼야 한다. 빼버리기.
                             .AddAppLogoOverride(new Uri("ms-appx:///Assets/SecurityAndMaintenance.png")) // 동그라미 i 표시
-                            .AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav")) // 알람소리
                             .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
+
+                        // 무음모드가 아닐 때만 알람음 설정
+                        if (SettingsPage.SilentMode is false)
+                        {
+                            toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav")); // 알람소리
+                        }
 
                         if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
                         {

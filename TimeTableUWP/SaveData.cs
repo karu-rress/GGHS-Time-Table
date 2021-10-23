@@ -57,7 +57,7 @@ namespace TimeTableUWP
                 using var outputStream = stream.GetOutputStreamAt(0);
                 using var dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteString(
-                    "3.0.0\n" + // Prevent conflict with older version's files
+                    $"{MainPage.Version}\n" + // Prevent conflict with older version's files
                     GradeComboBoxText + "\n" +
                     ClassComboBoxText + "\n" +
                     LangComboBoxText + "\n" +
@@ -93,7 +93,7 @@ namespace TimeTableUWP
         }
 
         public static async Task<bool> LoadDataAsync()
-        {
+        { 
             var storageFolder = ApplicationData.Current.LocalFolder;
             if (await storageFolder.TryGetItemAsync(dataFileName) is not StorageFile dataFile)
             {
@@ -116,7 +116,7 @@ GGHS Time Table을 설치해주셔서 감사합니다.
                 string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
                 // 구버전인 경우
-                if (lines[0] is not "3.0.0")
+                if (lines[0][0] is not '3')
                 {
                     var saveFile = await storageFolder.TryGetItemAsync(dataFileName);
                     if (saveFile is not null)
@@ -131,17 +131,28 @@ GGHS Time Table을 설치해주셔서 감사합니다.
                         await saveFile.DeleteAsync();
 
                     await ShowMessageAsync(@"환영합니다, Rolling Ress의 카루입니다.
-GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전이 업데이트되니
-꼭 주기적으로 업데이트를 해주세요. 다양한 기능이 추가될 예정입니다.", "GGHS Time Table 3", MainPage.Theme);
+
+GGHS Time Table을 사용해주셔서 감사합니다. 전면 등교로 인해 버그패치를 제외한 " +
+"더 이상의 업데이트는 진행하지 않습니다. 2022년 1월을 기점으로 마이크로소프트 " +
+"스토어에서 삭제될 예정이니 참고하시기 바랍니다.", "GGHS Time Table 3", MainPage.Theme);
                     return false;
                 }
-                
+
                 GradeComboBoxText = lines[1];
                 ClassComboBoxText = lines[2];
                 LangComboBoxText = lines[3];
                 Special1ComboBoxText = lines[4];
                 Special2ComboBoxText = lines[5];
                 ScienceComboBoxText = lines[6];
+
+                if (lines[0] != MainPage.Version)
+                {
+                    await ShowMessageAsync(@$"GGHS Time Table이 V{MainPage.Version}(으)로 업데이트 되었습니다.
+
+전면 등교로 인해 버그패치를 제외한 " +
+"더 이상의 업데이트는 진행하지 않습니다. 2022년 1월을 기점으로 마이크로소프트 " +
+"스토어에서 삭제될 예정이니 참고하시기 바랍니다.", $"New version installed");
+                }
             }
 
             if (await storageFolder.TryGetItemAsync(keyFileName) is StorageFile keyFile)
@@ -173,6 +184,8 @@ GGHS Time Table을 설치해주셔서 감사합니다. 수시로 최신 버전�
 
                 ColorType = Color.FromArgb(a, r, g, b);
             }
+
+
             return true;
         }
 

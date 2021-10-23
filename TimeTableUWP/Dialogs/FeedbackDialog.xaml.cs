@@ -47,7 +47,7 @@ namespace TimeTableUWP
                 return;
             }
 
-            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"Sender: {senderBox.Text}\n") + text, 
+            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"This feedback is from \"{senderBox.Text}\".\n") + text, 
                 $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
 
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;

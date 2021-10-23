@@ -27,42 +27,43 @@
                 <Setter Property="Height" Value="90"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 3 Settings" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="177,65,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 4 Settings" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
         <TextBlock x:Name="textBox0"  Margin="187,170,0,0" Text="Global Settings" FontSize="40" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
         <Button Margin="0,0,70,53" Width="230" Click="Button_Click" >
             <TextBlock><Run Text="&#xE72B;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Go Back" FontFamily="Segoe UI"/></TextBlock>
         </Button>
 
-
-        <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="189,261,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled" FontFamily="Segoe" />
-
-        <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="189,558,0,0" VerticalAlignment="Top" Width="325" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
-            <x:String>2020/06/03</x:String>
-            <x:String>2020-06-03</x:String>
-            <x:String>06/03/2020</x:String>
-        </muxc:RadioButtons>
-
-
-        <muxc:ColorPicker x:Name="colorPicker"
+        <ScrollViewer Margin="125,260,355,53">
+            <Grid>
+                <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="50,61,0,0" VerticalAlignment="Top" OffContent="Use 12 hour format" OnContent="Use 24 hour format" FontSize="25" Toggled="ToggleSwitch_Toggled" FontFamily="Segoe" />
+                <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="50,182,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
+                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" VerticalAlignment="Top" OffContent="Play alarm sound" OnContent="Mute alarm sound" FontSize="25" Toggled="SilentToggle_Toggled" FontFamily="Segoe" />
+                <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="50,420,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
+                    <x:String>2020/06/03</x:String>
+                    <x:String>2020-06-03</x:String>
+                    <x:String>06/03/2020</x:String>
+                </muxc:RadioButtons>
+                <muxc:ColorPicker x:Name="colorPicker"
       ColorSpectrumShape="Ring"
-      IsMoreButtonVisible="True"
       IsColorSliderVisible="True"
       IsColorChannelTextInputVisible="False"
       IsHexInputVisible="False"
       IsAlphaEnabled="False"
       IsAlphaSliderVisible="False"
-      IsAlphaTextInputVisible="False" Margin="519,327,0,410" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Width="333"/>
-        <TextBlock Margin="519,261,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
+      IsAlphaTextInputVisible="False" Margin="375,117,0,152" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Width="415"/>
+                <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
+            </Grid>
+        </ScrollViewer>
 
-        <Button Margin="0,0,70,636" Width="338" Click="Button_Click_1" Height="70" >
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GGHS Time Table" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+        <Button Margin="0,0,70,636" Width="230" Click="Button_Click_1" Height="70" >
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GTT 4" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
-        <Button Margin="0,0,70,492" Width="338" Click="Button_Click_2" Height="70">
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Send Feedback" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+        <Button Margin="0,0,70,492" Width="230" Click="Button_Click_2" Height="70">
+            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Feedback" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
-        <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="189,399,0,0" VerticalAlignment="Top" OffContent="Light theme" OnContent="Dark theme" FontSize="25" Toggled="DarkToggleSwitch_Toggled" FontFamily="Segoe" />
-        <Button Margin="0,0,70,348" Width="338" Click="Button_Click_4" Height="70">
-            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Change Activation Key" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+        <Button Margin="0,0,70,348" Width="230" Click="Button_Click_4" Height="70">
+            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Upgrade" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
+
     </Grid>
 </Page>

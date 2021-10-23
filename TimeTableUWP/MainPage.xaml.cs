@@ -11,7 +11,7 @@ using GGHS.Grade2.Semester2;
 using static RollingRess.StaticClass;
 using System.Threading;
 using Windows.UI;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -185,14 +185,8 @@ namespace TimeTableUWP
                 Disable(scienceComboBox, langComboBox);
                 Empty(special1ComboBox, special2ComboBox);
             }
-            void SetComboBoxAsClass2()
-            {
-                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
-            }
-            void SetComboBoxAsClass3()
-            {
-                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
-            }
+            void SetComboBoxAsClass2() => Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
+            void SetComboBoxAsClass3() => Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             void SetComboBoxAsClass4()
             {
                 langComboBox.SelectedIndex = 1;
@@ -212,14 +206,8 @@ namespace TimeTableUWP
                 Disable(scienceComboBox, langComboBox);
                 Empty(special1ComboBox, special2ComboBox);
             }
-            void SetComboBoxAsClass7()
-            {
-                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
-            }
-            void SetComboBoxAsClass8()
-            {
-                Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
-            }
+            void SetComboBoxAsClass7() => Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
+            void SetComboBoxAsClass8() => Empty(special1ComboBox, special2ComboBox, scienceComboBox, langComboBox);
             Action[] setComboBox = {
                 SetComboBoxAsClass1,
                 SetComboBoxAsClass2,
@@ -319,7 +307,7 @@ namespace TimeTableUWP
                     return;
             }
             SetSubText();
-            if (GetClassZoomLink().TryGetValue(subjectCellName, out ZoomInfo zoomInfo) is false || (zoomInfo is null))
+            if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
                 await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Theme);
@@ -393,7 +381,7 @@ namespace TimeTableUWP
         {
             comboBoxSelection = (gradeComboBox.SelectedIndex, classComboBox.SelectedIndex, langComboBox.SelectedIndex,
                 special1ComboBox.SelectedIndex, special2ComboBox.SelectedIndex, scienceComboBox.SelectedIndex);
-            _ = Frame.Navigate(typeof(SettingsPage));
+            _ = Frame.Navigate(typeof(SettingsPage), null, new DrillInNavigationTransitionInfo());
         }
     }
 }

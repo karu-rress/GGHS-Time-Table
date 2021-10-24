@@ -171,5 +171,10 @@ GGHS Time Table을 설치해주셔서 감사합니다.
         {
             SilentMode = SilentToggle.IsOn;
         }
+
+        private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            SilentMode = SilentToggle.IsOn;
+        }
     }
 }

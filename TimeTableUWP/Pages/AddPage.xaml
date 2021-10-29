@@ -18,7 +18,7 @@
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
         </Grid.Resources>
-        <Grid Margin="177,65,0,0" HorizontalAlignment="Left" Width="469" Height="118" VerticalAlignment="Top">
+        <Grid Margin="85,10,0,0" HorizontalAlignment="Left" Width="469" Height="85" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>
@@ -28,10 +28,9 @@
                 </Style>
             </Grid.Resources>
             <TextBlock x:Name="mainText" Text="Add New Task" FontSize="55" Height="73" />
-            <TextBlock x:Name="mainText2" Text="GGHS Todo" FontSize="30" Width="544" Foreground="#FF444444" Margin="0,77,0,0" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
         </Grid>
 
-        <Grid Margin="50,232,330,0" Height="80" VerticalAlignment="Top">
+        <Grid Margin="50,100,330,0" Height="80" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -41,23 +40,23 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="305" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="54*" />
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="113*" />
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="310" />
+                <ColumnDefinition Width="95" />
+                <ColumnDefinition Width="85*" />
+                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="114*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Due date" />
-            <DatePicker x:Name="DueDatePicker" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Width="300" />
-            <TextBlock Text="Subject" Grid.Column="2" />
+            <TextBlock Text="Due" Height="34" Width="46" />
+            <DatePicker x:Name="DueDatePicker" Grid.Column="1" HorizontalAlignment="Center" FontSize="25" Width="300" Height="45" />
+            <TextBlock Text="Subject" Grid.Column="2" Height="34" Width="76" />
             <ComboBox x:Name="SubjectPicker" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="21" ItemsSource="{x:Bind Subjects}" Height="45"/>
-            <TextBlock Text="Title" Grid.Column="4" />
-            <TextBox x:Name="TitleTextBox" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="45" FontSize="23" />
+            <TextBlock Text="Title" Grid.Column="4" Height="34" Width="43" />
+            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="23" />
         </Grid>
-        <TextBlock Text="Memo (optional)" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="62,323,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="50,375,330,30" AcceptsReturn="True" FontSize="23"/>
-        <Grid Width="315" HorizontalAlignment="Right" Margin="0,205,10,10">
+        <TextBlock Text="Memo (optional)" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="66,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
+        <TextBox x:Name="BodyTextBox" Margin="50,235,330,30" AcceptsReturn="True" FontSize="23"/>
+        <Grid Width="315" HorizontalAlignment="Right" Margin="0,40,10,10">
             <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="CornerRadius" Value="10" />

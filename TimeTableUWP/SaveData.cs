@@ -20,7 +20,25 @@ namespace TimeTableUWP
 {
     public static class SaveData
     {
-        record ComboBoxSave(string Class, string Lang, string Special1, string Special2, string Science);
+        public class ComboBoxSave
+        {
+            public ComboBoxSave() : this("", "", "", "", "") { }
+            public ComboBoxSave(string @class, string lang, string special1, string special2, string science)
+            {
+                Class = @class;
+                Lang = lang;
+                Special1 = special1;
+                Special2 = special2;
+                Science = science;
+            }
+
+        public string Class { get; set; }
+        public string Lang { get; set; }
+        public string Special1 { get; set; }
+        public string Special2 { get; set; }
+        public string Science { get; set; }
+        }
+
 
         private const string dataFileName = "gttdatxml.sav", keyFileName = "gttactxml.key", settingsFileName = "gttsetxml.sav", versionFileName = "gttverxml.sav";
         
@@ -114,7 +132,10 @@ namespace TimeTableUWP
         }
 
         public static void SetGradeAndClass(ref int grade, ref int @class)
-        => (grade, @class) = (2, ClassComboBoxText[6] - '0');
+        {
+            grade = 2;
+            @class = ClassComboBoxText[6] - '0';
+        }
     }
 
     // TODO: Use dynamic APIs

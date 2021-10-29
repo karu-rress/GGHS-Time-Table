@@ -12,15 +12,13 @@ namespace TimeTableUWP.Todo
 {
     public static class SaveTask
     {
-        private static string FileName => "TodoXML.tks";
+        private static string FileName => "GTDTaskXML.tks";
         private static StorageFolder storageFolder => ApplicationData.Current.LocalFolder;
 
         public static async Task Save()
         {
             DataWriter<List<TodoTask>> writer = new(FileName, TodoPage.TaskList.List);
             await writer.WriteAsync();
-
-            // 디버그 해볼것... 지금 파일 생성이 안 됨...
         }
 
         public static async Task Load()

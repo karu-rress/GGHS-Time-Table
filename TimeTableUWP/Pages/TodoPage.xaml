@@ -14,7 +14,7 @@
                     <Setter Property="TextWrapping" Value="Wrap"/>
                     <Setter Property="VerticalAlignment" Value="Top"/>
                     <Setter Property="HorizontalAlignment" Value="Left"/>
-                    <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe" />
+                    <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
                 </Style>
             </Grid.Resources>
             <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="757"/>
@@ -31,7 +31,7 @@
                 </Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="25"/>
-                    <Setter Property="FontFamily" Value="Assets/ZegoeLight-U.ttf#Segoe" />
+                    <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                 </Style>
             </Grid.Resources>

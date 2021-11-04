@@ -3,9 +3,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using TimeTableUWP.Pages;
+using Windows.UI.Xaml.Controls;
 
 namespace TimeTableUWP.Todo
 {
@@ -14,7 +15,7 @@ namespace TimeTableUWP.Todo
     {
         public List<TodoTask> List { get; set; } = new();
 
-        // Do not use => here. it means 'return new Stack<<<>>>'
+        // Do not use => here. it means 'return new Stack()'
         private Stack<List<TodoTask>> TaskStack { get; } = new();
 
         public TaskList() { }
@@ -28,10 +29,10 @@ namespace TimeTableUWP.Todo
         public int CountAll(Match? match) => match is null ? Count : List.FindAll(match).Count;
 
         /// <summary>
-        /// Finds all that matches the Predicate of Task and return as List of Task
+        /// Finds all that matches the Predicate of Task and return as List of TodoTask
         /// </summary>
         /// <param name="match">Expression to find</param>
-        /// <returns>List of Tasks. If match is null, then an empty List of Task</returns>
+        /// <returns>List of Tasks. If match is null, then an empty List of TodoTask</returns>
         public List<TodoTask> FindAll(Match? match) => match is null ? new() : List.FindAll(match);
 
         /// <summary>
@@ -53,6 +54,23 @@ namespace TimeTableUWP.Todo
             var list = FindAll(match);
             TaskStack.Push(list);
             List = List.Except(list).ToList();
+        }
+
+        public static async Task DeleteTask(string taskName, TodoTask task)
+        {
+            const string title = "Delete";
+            ContentDialog contentDialog = new()
+            {
+                Title = title,
+                Content = $"Are you sure want to delete '{taskName}'?",
+                PrimaryButtonText = "Yes",
+                DefaultButton = ContentDialogButton.Primary,
+                CloseButtonText = "No"
+            };
+            if (await contentDialog.ShowAsync() is not ContentDialogResult.Primary)
+                return;
+
+            TodoPage.TaskList.Remove(task);
         }
 
         public void Remove(in TodoTask task)

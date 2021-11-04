@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace TimeTableUWP
 {
-    [System.AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     sealed class ErrorCodeAttribute : Attribute
     {
         // See the attribute guidelines at 
@@ -39,9 +40,7 @@ namespace TimeTableUWP
         public TimeTableException(string message) : base(message) { }
         public TimeTableException(string message, int errorCode) : this(message) { ErrorCode = errorCode; }
         public TimeTableException(string message, Exception inner) : base(message, inner) { }
-        protected TimeTableException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        protected TimeTableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public static async void HandleException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
@@ -82,9 +81,7 @@ namespace TimeTableUWP
         public TableCellException() { }
         public TableCellException(string message, int errorCode = 2000) : base(message, errorCode) { }
         public TableCellException(string message, Exception inner) : base(message, inner) { }
-        protected TableCellException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        protected TableCellException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
     [Serializable, ErrorCode("3xxx")]

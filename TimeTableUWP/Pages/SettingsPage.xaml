@@ -27,7 +27,7 @@
                 <Setter Property="Height" Value="90"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="111,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 4 Settings" FontFamily="Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="111,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 4 Settings" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontWeight="Bold"/>
 
         <ScrollViewer Margin="45,97,355,53">
             <Grid>
@@ -47,18 +47,18 @@
       IsAlphaEnabled="False"
       IsAlphaSliderVisible="False"
       IsAlphaTextInputVisible="False" Margin="375,117,0,152" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Width="415"/>
-                <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/>
+                <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe"/>
             </Grid>
         </ScrollViewer>
 
         <Button Margin="0,184,70,0" Width="230" Click="Button_Click_1" VerticalAlignment="Top" Height="90" >
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GTT 4" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="About GTT 4" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
         <Button Margin="0,327,70,0" Click="Button_Click_2" Width="230" VerticalAlignment="Top" Height="90">
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Feedback" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Feedback" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
         <Button Margin="0,472,70,0" Width="230" Click="Button_Click_4" VerticalAlignment="Top" Height="90">
-            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Upgrade" FontFamily="Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
+            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="27"/><Run Text=" "/><Run Text="Upgrade" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe"/></TextBlock>
         </Button>
 
     </Grid>

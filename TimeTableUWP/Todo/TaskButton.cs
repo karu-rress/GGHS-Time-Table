@@ -76,7 +76,7 @@ namespace TimeTableUWP.Todo
                 };
                 delete.Click += async (_, e) =>
                 {
-                    await AddPage.DeleteTask(Task.Title, Task);
+                    await TaskList.DeleteTask(Task.Title, Task);
                     await System.Threading.Tasks.Task.Delay(100);
                     if (Window.Current.Content is Frame rootFrame)
                     {

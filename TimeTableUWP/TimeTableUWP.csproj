@@ -26,10 +26,9 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>104B5B16BCAC61F9F4D3C66038DC43504C6E4EA4</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>FF40ABAADA8D2859BB3CAD925575509344F0BD25</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>TimeTableUWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppInstallerUri>https://drive.google.com/drive/folders/1awYn3zFfrBMs3hxu3YXscrzvtcilgJ3w%3fusp=sharing</AppInstallerUri>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -189,7 +188,6 @@
     <Content Include="Assets\Cloud_Play.png" />
     <Content Include="Assets\SecurityAndMaintenance.png" />
     <Content Include="Assets\ZegoeLight-U.ttf" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />

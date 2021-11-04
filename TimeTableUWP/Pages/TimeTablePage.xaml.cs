@@ -5,13 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.ApplicationModel;
 using GGHS;
 using GGHS.Grade2.Semester2;
 using static RollingRess.StaticClass;
-using System.Threading;
-using Windows.UI;
-using Windows.UI.Xaml.Media.Animation;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP.Pages
@@ -24,7 +20,7 @@ namespace TimeTableUWP.Pages
         private int grade;
         private int @class = 8;
 
-        private DateTime now { get; set; } = DateTime.Now;
+        private DateTime Now { get; set; } = DateTime.Now;
 
         public enum LoadStatus
         {
@@ -37,10 +33,10 @@ namespace TimeTableUWP.Pages
         /// <summary>
         /// Current ComboBox values
         /// </summary>
-        public static (int grade, int @class, int lang, int special1, int special2, int science) comboBoxSelection { get; set; } = (0, -1, -1, -1, -1, -1);
+        public static (int grade, int @class, int lang, int special1, int special2, int science) ComboBoxSelection { get; set; } = (0, -1, -1, -1, -1, -1);
 
-        private TimeTables timeTable => new();
-        private ZoomLinks zoomLink => new();
+        private TimeTables TimeTable => new();
+        private ZoomLinks ZoomLink => new();
 
         public TimeTablePage()
         {
@@ -127,14 +123,14 @@ namespace TimeTableUWP.Pages
         {
             var ret = @class switch
             {
-                1 => timeTable.Class1.Clone() as string[,],
-                2 => timeTable.Class2.Clone() as string[,],
-                3 => timeTable.Class3.Clone() as string[,],
-                4 => timeTable.Class4.Clone() as string[,],
-                5 => timeTable.Class5.Clone() as string[,],
-                6 => timeTable.Class6.Clone() as string[,],
-                7 => timeTable.Class7.Clone() as string[,],
-                8 => timeTable.Class8.Clone() as string[,],
+                1 => TimeTable.Class1.Clone() as string[,],
+                2 => TimeTable.Class2.Clone() as string[,],
+                3 => TimeTable.Class3.Clone() as string[,],
+                4 => TimeTable.Class4.Clone() as string[,],
+                5 => TimeTable.Class5.Clone() as string[,],
+                6 => TimeTable.Class6.Clone() as string[,],
+                7 => TimeTable.Class7.Clone() as string[,],
+                8 => TimeTable.Class8.Clone() as string[,],
                 _ => throw new DataAccessException($"SetArrayByClass(): @class: 1~8 expected, but given {@class}.")
             };
             if (ret is null)
@@ -159,7 +155,7 @@ namespace TimeTableUWP.Pages
             SaveData.ClassComboBoxText = classComboBox.SelectedItem as string
                 ?? throw new NullReferenceException("classComboBox.SelectedItem is null.");
             @class = SaveData.ClassComboBoxText[6] - '0';
-            timeTable.ResetByClass(@class);
+            TimeTable.ResetByClass(@class);
             SetComboBoxAsClass();
             DrawTimeTable();
         }
@@ -301,7 +297,8 @@ namespace TimeTableUWP.Pages
             if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n" + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", MainPage.Theme);
+                await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n"
+                    + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", MainPage.Theme);
                 return;
             }
 
@@ -335,14 +332,14 @@ namespace TimeTableUWP.Pages
 
         private Dictionary<string, ZoomInfo?> GetClassZoomLink() => @class switch
         {
-            1 => zoomLink.Class1,
-            2 => zoomLink.Class2,
-            3 => zoomLink.Class3,
-            4 => zoomLink.Class4,
-            5 => zoomLink.Class5,
-            6 => zoomLink.Class6,
-            7 => zoomLink.Class7,
-            8 => zoomLink.Class8,
+            1 => ZoomLink.Class1,
+            2 => ZoomLink.Class2,
+            3 => ZoomLink.Class3,
+            4 => ZoomLink.Class4,
+            5 => ZoomLink.Class5,
+            6 => ZoomLink.Class6,
+            7 => ZoomLink.Class7,
+            8 => ZoomLink.Class8,
             _ => throw new DataAccessException(
                 $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {@class}")
         };
@@ -366,16 +363,6 @@ namespace TimeTableUWP.Pages
                 };
                 await ShowMessageAsync(msg, txt, MainPage.Theme);
             }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void mainGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

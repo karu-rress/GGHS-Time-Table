@@ -115,25 +115,8 @@ namespace TimeTableUWP.Pages
                 return;
             }
 
-            await DeleteTask(TitleTextBox.Text, Task!);
+            await TaskList.DeleteTask(TitleTextBox.Text, Task!);
             Close();
-        }
-
-        public static async Task DeleteTask(string taskName, TodoTask task)
-        {
-            const string title = "Delete";
-            ContentDialog contentDialog = new()
-            {
-                Title = title,
-                Content = $"Are you sure want to delete '{taskName}'?",
-                PrimaryButtonText = "Yes",
-                DefaultButton = ContentDialogButton.Primary,
-                CloseButtonText = "No"
-            };
-            if (await contentDialog.ShowAsync() is not ContentDialogResult.Primary)
-                return;
-
-            TodoPage.TaskList.Remove(task);
         }
 
         private bool Modified

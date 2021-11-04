@@ -3,13 +3,12 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.ComponentModel;
 using Windows.ApplicationModel;
 using RollingRess;
 using Windows.UI.Xaml.Media.Animation;
-using Thrd = System.Threading.Tasks;
 using TimeTableUWP.Todo;
 using TimeTableUWP.Dialogs;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -73,7 +72,7 @@ namespace TimeTableUWP.Pages
         private void AddButton_Click(object _, RoutedEventArgs e)
             => Frame.Navigate(typeof(AddPage), null, new DrillInNavigationTransitionInfo());
 
-        private async Thrd.Task DeleteTasks(Predicate<TodoTask>? match)
+        private async Task DeleteTasks(Predicate<TodoTask>? match)
         {
             if (TaskList.IsNullOrEmpty)
             {
@@ -106,7 +105,7 @@ namespace TimeTableUWP.Pages
             contentDialog = new ContentMessageDialog($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title, "Close");
             await contentDialog.ShowAsync();
 
-            static async System.Threading.Tasks.Task NothingToDelete()
+            static async Task NothingToDelete()
             {
                 ContentMessageDialog message = new("Nothing to delete.", "Delete");
                 await message.ShowAsync();

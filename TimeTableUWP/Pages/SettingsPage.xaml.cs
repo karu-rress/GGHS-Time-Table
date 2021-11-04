@@ -13,6 +13,7 @@ using Windows.ApplicationModel.Background;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -50,16 +51,12 @@ namespace TimeTableUWP.Pages
             SetDarkToggle(IsDarkMode);
         }
 
-        private void Button_Click(object _, RoutedEventArgs e) => Frame.Navigate(typeof(MainPage), null, new DrillInNavigationTransitionInfo());
-
         private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Use24Hour = use24Toggle.IsOn;
 
         private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is RadioButtons rb)
+            if (sender is RadioButtons rb && rb.SelectedItem is string selected)
             {
-                if (rb.SelectedItem is not string selected)
-                    return;
                 DateFormat = selected switch
                 {
                     "2020/06/03" => DateType.YYYYMMDD,
@@ -96,13 +93,6 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
 설정 창의 'Send Feedback' 버튼을 통해 제보해주시면 감사하겠습니다.
 
-카루 인스타: "
-            });
-            Hyperlink hyperlink3 = new() { NavigateUri = new("https://instagram.com/nsun527") };
-            hyperlink3.Inlines.Add(new Run() { Text = "@nsun527" });
-            tb.Inlines.Add(hyperlink3);
-            tb.Inlines.Add(new Run() { Text = @"
-
 카루 블로그 링크:
 " });
             tb.Inlines.Add(hyperlink);
@@ -118,13 +108,13 @@ GGHS Time Table을 설치해주셔서 감사합니다.
                 CloseButtonText = "Close",
                 DefaultButton = ContentDialogButton.Primary,
                 RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light
-        };
+            };
 
             var selection = await contentDialog.ShowAsync();
             if (selection is ContentDialogResult.Primary)
-                await Windows.System.Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
+                await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
             if (selection is ContentDialogResult.Secondary)
-                await Windows.System.Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
+                await Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)

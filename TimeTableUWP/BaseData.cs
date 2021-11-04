@@ -10,8 +10,11 @@ namespace TimeTableUWP
         public const string Insider = "THANK-2KJX8FS";
     }
 
-    public static class MessageTitle
+    public static class SaveFiles
     {
-        public const string FeatureNotImplemented = "Feature not implemented yet";
+        public const string DataFile = "gttdatxml.sav";
+        public const string KeyFile = "gttactxml.key";
+        public const string SettingsFile = "gttsetxml.sav";
+        public const string VersionFile = "gttverxml.sav";
     }
 }

@@ -16,6 +16,7 @@ using static System.DayOfWeek;
 using GGHS.Grade2.Semester2;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.ApplicationModel.Background;
+using System.Collections.Generic;
 
 namespace TimeTableUWP.Pages
 {
@@ -25,9 +26,6 @@ namespace TimeTableUWP.Pages
 
         void InitializeUI()
         {
-            if (gradeComboBox.SelectedIndex is -1)
-                Disable(langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
-
             // Set Color
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
                 border.Background = new SolidColorBrush(SaveData.ColorType);
@@ -44,7 +42,10 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 상단바에서 To do (GTD)를 선택할 경우 
 각종 수행평가를 기록하고, 관리할 수 있습니다.
 상단바 오른쪽 끝 톱니바퀴 모양을 통해 
-설정 메뉴에 들어가실 수 있습니다.", "GGHS Time Table 4", MainPage.Theme);
+설정 메뉴에 들어가실 수 있습니다.
+
+줌 링크가 누락된 경우, 설정 메뉴에서 'Feedback'을 통해
+줌 링크/ID/비밀번호를 전달해주시면 바로 추가하겠습니다.", "GGHS Time Table 4", MainPage.Theme);
             }
             else if (Status is LoadStatus.Updated)
             {
@@ -70,7 +71,7 @@ GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 �
 
         private void DrawTimeTable()
         {
-            timeTable.ResetByClass(@class);
+            TimeTable.ResetByClass(@class);
             SubjectTable = SetArrayByClass();
 
             // 월 6, 7 / 금 5, 6은 어차피 창체, 금 7도 어차피 홈커밍
@@ -83,7 +84,7 @@ GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 �
 
         private void AssignButtonsByTable(string[,] subjectTable)
         {
-            var subjects = ((IEnumerable)subjectTable).Cast<string>();
+            IEnumerable<string>? subjects = ((IEnumerable)subjectTable).Cast<string>();
             var lists = Buttons.Zip(subjects, (Button btn, string subject) => (btn, subject));
             foreach (var (btn, subject) in lists)
                 btn.Content = subject;
@@ -99,21 +100,21 @@ GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 �
                 try
                 {
                     await Task.Delay(300); // 300ms 마다 반복하기
-                    now = DateTime.Now;
+                    Now = DateTime.Now;
 
                     void SetClock()
                     {
-                        clock.Text = now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
+                        clock.Text = Now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
                         amorpmBox.Text = SettingsPage.Use24Hour
-                            ? string.Empty : now.ToString("tt", CultureInfo.InvariantCulture);
-                        dateBlock.Text = now.ToString(SettingsPage.DateFormat switch
+                            ? string.Empty : Now.ToString("tt", CultureInfo.InvariantCulture);
+                        dateBlock.Text = Now.ToString(SettingsPage.DateFormat switch
                         {
                             DateType.MMDDYYYY => "MM/dd/yyyy",
                             DateType.YYYYMMDD => "yyyy/MM/dd",
                             DateType.YYYYMMDD2 => "yyyy-MM-dd",
                             _ => throw new NotImplementedException()
                         });
-                        dayBlock.Text = now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
+                        dayBlock.Text = Now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
                     }
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, SetClock);
 
@@ -131,15 +132,15 @@ GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 �
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RefreshColor);
 
 
-                    if (now.DayOfWeek is Sunday or Saturday || now.Hour is >= 17 or < 9 or 13)
+                    if (Now.DayOfWeek is Sunday or Saturday || Now.Hour is >= 17 or < 9 or 13)
                         continue;
 
-                    pos.day = (int)now.DayOfWeek;
-                    pos.time = now.Hour switch
+                    pos.day = (int)Now.DayOfWeek;
+                    pos.time = Now.Hour switch
                     {
-                        9 or 10 or 11 or 12 => now.Hour - 8,
-                        14 or 15 or 16 => now.Hour - 9,
-                        _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {now.Hour}.")
+                        9 or 10 or 11 or 12 => Now.Hour - 8,
+                        14 or 15 or 16 => Now.Hour - 9,
+                        _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {Now.Hour}.")
                     };
 
                     void ChangeCellColor()
@@ -164,22 +165,22 @@ GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 �
                     if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
 
                     // 4시에는 실행하면 안 된다!
-                    if (now.Hour is 16) continue;
+                    if (Now.Hour is 16) continue;
 
-                    now = DateTime.Now;
-                    if (now.Minute is 57 && invoke is true) // second is 0
+                    Now = DateTime.Now;
+                    if (Now.Minute is 57 && invoke) // second is 0
                     {
                         await SendToast(); // 여기까진 알고리즘 완벽.
                         invoke = false;
                     }
-                    if (now.Minute is 58 && invoke is false)
+                    if (Now.Minute is 58 && invoke is false)
                     {
                         invoke = true; // 알람 폭탄 방지
                     }
 
                     async Task SendToast()
                     {
-                        int hour = now.Hour + 1; // 현재의 다음 시간이니까 +1
+                        int hour = Now.Hour + 1; // 현재의 다음 시간이니까 +1
 
                         // TODO: 이때는 뭘 하지 버튼 없는 토스트?
                         if (pos is ((int)Monday, 6) or ((int)Monday, 7) or ((int)Friday, 5))

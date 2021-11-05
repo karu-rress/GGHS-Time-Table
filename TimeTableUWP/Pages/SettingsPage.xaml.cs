@@ -7,12 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using MsCtrl = Microsoft.UI.Xaml.Controls;
-using RollingRess;
 using static RollingRess.StaticClass;
-using Windows.ApplicationModel.Background;
-using Microsoft.Toolkit.Uwp.Notifications;
-using System.Linq;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.System;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238

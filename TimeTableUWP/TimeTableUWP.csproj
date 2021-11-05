@@ -128,7 +128,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BaseData.cs" />
+    <Compile Include="ConstStrings.cs" />
     <Compile Include="Dialogs\ActivateDialog.xaml.cs">
       <DependentUpon>ActivateDialog.xaml</DependentUpon>
     </Compile>

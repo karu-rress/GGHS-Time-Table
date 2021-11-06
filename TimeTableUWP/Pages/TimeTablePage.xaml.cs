@@ -3,40 +3,37 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+
 using GGHS;
 using GGHS.Grade2.Semester2;
+
 using static RollingRess.StaticClass;
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class TimeTablePage : Page
     {
-        private int grade;
-        private int @class = 8;
-
-        private DateTime Now { get; set; } = DateTime.Now;
-
         public enum LoadStatus
         {
             NewUser,
             Updated,
             Default
         }
-
         public static LoadStatus Status { get; set; }
+
+        private int @class = 8;
+        private DateTime Now { get; set; } = DateTime.Now;
+        private TimeTables TimeTable => new();
+        private ZoomLinks ZoomLink => new();
+
         /// <summary>
         /// Current ComboBox values
         /// </summary>
         public static (int grade, int @class, int lang, int special1, int special2, int science) ComboBoxSelection { get; set; } = (0, -1, -1, -1, -1, -1);
-
-        private TimeTables TimeTable => new();
-        private ZoomLinks ZoomLink => new();
 
         public TimeTablePage()
         {
@@ -47,7 +44,7 @@ namespace TimeTableUWP.Pages
 
             if (Status is not LoadStatus.NewUser)
             {
-                SaveData.SetGradeAndClass(ref grade, ref @class);
+                SaveData.SetClass(ref @class);
                 SetComboBoxAsClass();
                 SaveData.SetComboBoxes(ComboBoxes);
             }
@@ -60,7 +57,6 @@ namespace TimeTableUWP.Pages
         {
             get
             {
-                yield return gradeComboBox;
                 yield return classComboBox;
                 yield return langComboBox;
                 yield return special1ComboBox;
@@ -212,67 +208,60 @@ namespace TimeTableUWP.Pages
         {
             if (langComboBox.SelectedItem is string language)
             {
-                SaveData.LangComboBoxText = Subjects.Languages.Selected = language
-                    ?? throw new NullReferenceException("langComboBox.SelectedItem is null.");
+                SaveData.LangComboBoxText = Subjects.Languages.Selected = language;
                 DrawTimeTable();
             }
         }
 
         private void special1ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (special1ComboBox.SelectedItem is null)
+            if (special1ComboBox.SelectedItem is not string special1)
                 return;
-            SaveData.Special1ComboBoxText = special1ComboBox.SelectedItem as string
-                ?? throw new NullReferenceException("special1ComboBox.SelectedItem is null.");
 
-            // switch is not available -- not a constant
-            if (SaveData.Special1ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special1ComboBoxText == Subjects.RawName.GlobalPolitics
-                || SaveData.Special1ComboBoxText == Subjects.RawName.CompareCulture + "A" || SaveData.Special1ComboBoxText == Subjects.RawName.EasternHistory)
-                Subjects.Specials1.Selected = SaveData.Special1ComboBoxText;
-            else if (SaveData.Special1ComboBoxText == Subjects.RawName.HistoryAndCulture)
-                Subjects.Specials1.Selected = Subjects.Specials1.HistoryAndCulture;
-            else if (SaveData.Special1ComboBoxText == Subjects.RawName.PoliticsPhilosophy)
-                Subjects.Specials1.Selected = Subjects.Specials1.PoliticsPhilosophy;
-            else if (SaveData.Special1ComboBoxText == Subjects.RawName.RegionResearch)
-                Subjects.Specials1.Selected = Subjects.Specials1.RegionResearch;
+            SaveData.Special1ComboBoxText = special1;
+            Subjects.Specials1.Selected = SaveData.Special1ComboBoxText switch
+            {
+                SubjectsFullNames.GlobalEconomics or
+                SubjectsFullNames.GlobalPolitics or
+                SubjectsFullNames.CompareCulture + "A" or
+                SubjectsFullNames.EasternHistory => SaveData.Special1ComboBoxText,
 
+                SubjectsFullNames.HistoryAndCulture => Subjects.Specials1.HistoryAndCulture,
+                SubjectsFullNames.PoliticsPhilosophy => Subjects.Specials1.PoliticsPhilosophy,
+                SubjectsFullNames.RegionResearch => Subjects.Specials1.RegionResearch,
+                _ => throw new TimeTableException($"special1ComboBox_SelectionChanged: No candidate for {SaveData.Special1ComboBoxText}."),
+            };
             DrawTimeTable();
         }
 
         private void special2ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (special2ComboBox.SelectedItem is null)
+            if (special2ComboBox.SelectedItem is not string special2)
                 return;
-            SaveData.Special2ComboBoxText = special2ComboBox.SelectedItem as string
-                ?? throw new NullReferenceException("special2ComboBox.SelectedItem is null.");
 
-            // switch is not available -- not a constant
-            if (SaveData.Special2ComboBoxText == Subjects.RawName.GlobalEconomics || SaveData.Special2ComboBoxText == Subjects.RawName.GlobalPolitics
-                || SaveData.Special2ComboBoxText == Subjects.RawName.CompareCulture + "B" || SaveData.Special2ComboBoxText == Subjects.RawName.EasternHistory)
-                Subjects.Specials2.Selected = SaveData.Special2ComboBoxText;
-            else if (SaveData.Special2ComboBoxText == Subjects.RawName.HistoryAndCulture)
-                Subjects.Specials2.Selected = Subjects.Specials2.HistoryAndCulture;
-            else if (SaveData.Special2ComboBoxText == Subjects.RawName.PoliticsPhilosophy)
-                Subjects.Specials2.Selected = Subjects.Specials2.PoliticsPhilosophy;
-            //else if (SaveData.Special2ComboBoxText == Subjects.RawName.RegionResearch)
-            //Subjects.Specials2.Selected = Subjects.Specials2.RegionResearch;
-            else if (SaveData.Special2ComboBoxText == Subjects.RawName.GISAnalyze)
-                Subjects.Specials2.Selected = Subjects.Specials2.GISAnalyze;
+            SaveData.Special2ComboBoxText = special2;
+            Subjects.Specials2.Selected = SaveData.Special2ComboBoxText switch
+            {
+                SubjectsFullNames.GlobalEconomics or
+                SubjectsFullNames.GlobalPolitics or
+                SubjectsFullNames.CompareCulture + "B" or
+                SubjectsFullNames.EasternHistory => SaveData.Special2ComboBoxText,
 
+                SubjectsFullNames.HistoryAndCulture => Subjects.Specials2.HistoryAndCulture,
+                SubjectsFullNames.PoliticsPhilosophy => Subjects.Specials2.PoliticsPhilosophy,
+                SubjectsFullNames.GISAnalyze => Subjects.Specials2.GISAnalyze,
+                _ => throw new TimeTableException($"special2ComboBox_SelectionChanged: No candidate for {SaveData.Special2ComboBoxText}."),
+            };
             DrawTimeTable();
         }
 
         private void scienceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (scienceComboBox.SelectedItem is null)
+            if (scienceComboBox.SelectedItem is not string science)
                 return;
-            SaveData.ScienceComboBoxText = scienceComboBox.SelectedItem as string
-                ?? throw new NullReferenceException("scienceComboBox.SelectedItem is null.");
 
-            if (SaveData.ScienceComboBoxText == Subjects.RawName.ScienceHistory)
-                Subjects.Sciences.Selected = SaveData.ScienceComboBoxText;
-            else if (SaveData.ScienceComboBoxText == Subjects.RawName.LifeAndScience)
-                Subjects.Sciences.Selected = Subjects.Sciences.LifeAndScience;
+            SaveData.ScienceComboBoxText = science;
+            Subjects.Sciences.Selected = SaveData.ScienceComboBoxText;
 
             DrawTimeTable();
         }
@@ -283,7 +272,7 @@ namespace TimeTableUWP.Pages
         {
             if (subjectCellName is null)
             {
-                await ShowMessageAsync("Please select your grade and class first.", "Error", MainPage.Theme);
+                await ShowMessageAsync("Please select your class first.", "Error", MainPage.Theme);
                 return;
             }
 
@@ -324,7 +313,8 @@ namespace TimeTableUWP.Pages
                 ActivateLevel.Developer => "developer",
                 ActivateLevel.Grade2 => "GGHS 10th",
                 ActivateLevel.Insider => "GTT Insider",
-                _ => throw new Exception("MainPage.Activate(): ActivateLevel value error"),
+                ActivateLevel.ShareTech => "ShareTech",
+                ActivateLevel.None or _ => throw new Exception("MainPage.Activate(): ActivateLevel value error"),
             };
             await ShowMessageAsync($"Activated as {license}.", "Activated successfully", MainPage.Theme);
             return true;
@@ -356,8 +346,8 @@ namespace TimeTableUWP.Pages
             {
                 var (msg, txt) = btn.Name switch
                 {
-                    "fri5Button" or "fri6Button" => ("각자 정규동아리 부장들에게 문의해주세요.", "정규동아리 활동 시간"),
-                    "mon6Button" or "mon7Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
+                    "fri5Button" or "fri6Button" => ("인문학 울림 또는 창의진로프로젝트 시간입니다.", "창의적 체험활동"),
+                    "mon6Button" or "mon7Button" => ("인문학 울림 또는 창의진로프로젝트 시간입니다.", "창의적 체험활동"),
                     "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
                     _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
                 };

@@ -2,21 +2,25 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.Core;
-using static RollingRess.StaticClass;
-using static System.DayOfWeek;
+using Windows.ApplicationModel.Background;
+
 using GGHS.Grade2.Semester2;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Windows.ApplicationModel.Background;
-using System.Collections.Generic;
+
+using static RollingRess.StaticClass;
+using static System.DayOfWeek;
+
 
 namespace TimeTableUWP.Pages
 {
@@ -41,17 +45,17 @@ namespace TimeTableUWP.Pages
                 _ = ShowMessageAsync(Messages.Updated, "New version installed");
             }
             Status = LoadStatus.Default;
+
+            gradeComboBox.SelectedIndex = 0;
         }
 
         private void SetSubText() => mainText2.Text = SaveData.ActivateStatus switch
         {
-            _ => "Welcome back, with the task manager"
-            /*
-            ActivateLevel.Developer => "Welcome, Karu",
-            ActivateLevel.Grade2 => "We're the ones who've made it this far",
-            ActivateLevel.Insider => "GTT3 Insider Preview",
+            ActivateLevel.Developer => SubTitles.Developer,
+            ActivateLevel.Insider => SubTitles.Insider,
+            ActivateLevel.Grade2 => SubTitles.Grade2,
+            ActivateLevel.ShareTech => SubTitles.ShareTech,
             _ => string.Empty
-            */
         };
 
         private void DrawTimeTable()
@@ -153,10 +157,10 @@ namespace TimeTableUWP.Pages
                     if (Now.Hour is 16) continue;
 
                     Now = DateTime.Now;
-                    if (Now.Minute is 57 && invoke) // second is 0
+                    if (Now.Minute is 57 && invoke)
                     {
-                        await SendToast(); // 여기까진 알고리즘 완벽.
                         invoke = false;
+                        _ = SendToast(); // 여기까진 알고리즘 완벽.
                     }
                     if (Now.Minute is 58 && invoke is false)
                     {
@@ -181,10 +185,7 @@ namespace TimeTableUWP.Pages
                             .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
 
                         // 무음모드가 아닐 때만 알람음 설정
-                        if (SettingsPage.SilentMode is false)
-                        {
-                            toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav")); // 알람소리
-                        }
+                        toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, SettingsPage.SilentMode);
 
                         if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
                         {
@@ -216,16 +217,13 @@ namespace TimeTableUWP.Pages
 
                         toast.Show();
 
-                        const string taskName = "ToastZoomOpen";
+                        string taskName = $"ToastZoomOpen-{pos.day}{pos.time}";
 
                         if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
                             return;
 
                         BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-                        BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-                        {
-                            Name = taskName
-                        };
+                        BackgroundTaskBuilder builder = new() { Name = taskName };
                         builder.SetTrigger(new ToastNotificationActionTrigger());
                         BackgroundTaskRegistration registration = builder.Register();
                     }
@@ -235,8 +233,6 @@ namespace TimeTableUWP.Pages
                     await TimeTableException.HandleException(e);
                 }
             }
-
-            
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿#nullable enable
 
-using RollingRess;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
+
 using GGHS;
-using Windows.UI.Xaml;
-using TimeTableUWP.Pages;
+using RollingRess;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

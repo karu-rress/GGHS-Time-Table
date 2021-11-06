@@ -1,32 +1,30 @@
 ﻿#nullable enable
 
-using System;
+using System.Configuration;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
+
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-using System.Net.Mail;
-using System.Net;
-using static RollingRess.StaticClass;
 using Windows.UI.Xaml.Media;
-using Windows.UI;
+
 using TimeTableUWP.Pages;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP
 {
-    static class SmtpExtension
+    public static class SmtpExtension
     {
         public static Task SendAsync(this SmtpClient smtp, MailMessage msg) => Task.Run(() => smtp.Send(msg));
     }
 
     public sealed partial class FeedbackDialog : ContentDialog
     {
-
-        Brush TextColor => new SolidColorBrush(SettingsPage.IsDarkMode
-            ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8)
-            : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
+        private Brush TextColor => new SolidColorBrush(SettingsPage.IsDarkMode
+            ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8) : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
 
         public FeedbackDialog()
         {
@@ -48,7 +46,8 @@ namespace TimeTableUWP
                 return;
             }
 
-            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) ? "" : $"This feedback is from \"{senderBox.Text}\".\n") + text, 
+            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) 
+                ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n") + string.Join("\r\n", text.Split("\r")), // Converts NewLine
                 $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
 
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
@@ -62,14 +61,14 @@ namespace TimeTableUWP
 
         public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
         {
-            MailAddress send = new("gghstimetable@gmail.com");
-            MailAddress to = new("nsun527@naver.com");
+            MailAddress send = new(AppSettings.GTTMail);
+            MailAddress to = new(AppSettings.KaruMail);
             SmtpClient smtp = new()
             {
                 Host = "smtp.gmail.com",
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(send.Address, "rflnapjbcqznllqu"),
+                Credentials = new NetworkCredential(send.Address, AppSettings.MailPassword),
                 Timeout = 20_000
             };
             msg = new(send, to)

@@ -16,18 +16,13 @@ namespace TimeTableUWP
     {
         public class ComboBoxSave
         {
-            public ComboBoxSave()
-            {
-                Class = Lang = Special1 = Special2 = Science = string.Empty;
-            }
+            public string? Class { get; set; }
+            public string? Lang { get; set; }
+            public string? Special1 { get; set; }
+            public string? Special2 { get; set; }
+            public string? Science { get; set; }
 
-            public string Class { get; set; }
-            public string Lang { get; set; }
-            public string Special1 { get; set; }
-            public string Special2 { get; set; }
-            public string Science { get; set; }
-
-            public (string @class, string lang, string special1, string special2, string science) Parse()
+            public (string? @class, string? lang, string? special1, string? special2, string? science) Parse()
             => (Class, Lang, Special1, Special2, Science);
         }
 
@@ -39,21 +34,19 @@ namespace TimeTableUWP
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
 
-        public static Color ColorType = Colors.LightSteelBlue;
-        public static string GradeComboBoxText => "Grade 2";
-        public static string ClassComboBoxText { get; set; } = "";
-        public static string Special1ComboBoxText { get; set; } = "";
-        public static string Special2ComboBoxText { get; set; } = "";
-        public static string LangComboBoxText { get; set; } = "";
-        public static string ScienceComboBoxText { get; set; } = "";
-        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.Insider;
+        public static Color ColorType = Color.FromArgb(0xEE, 0xE3, 0xCA, 0xEB); // pink
+        public static string? ClassComboBoxText { get; set; }
+        public static string? Special1ComboBoxText { get; set; }
+        public static string? Special2ComboBoxText { get; set; }
+        public static string? LangComboBoxText { get; set; }
+        public static string? ScienceComboBoxText { get; set; }
+        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.Insider or ActivateLevel.ShareTech;
         public static bool IsNotDeveloperOrInsider => !IsDeveloperOrInsider;
 
-        private static IEnumerable<string> ComboBoxTexts
+        private static IEnumerable<string?> ComboBoxTexts
         {
             get
             {
-                yield return GradeComboBoxText;
                 yield return ClassComboBoxText;
                 yield return LangComboBoxText;
                 yield return Special1ComboBoxText;
@@ -91,6 +84,7 @@ namespace TimeTableUWP
             // Check the Version File exists. If not, the user is using version 3 or newly installed.
             if (await storageFolder.TryGetItemAsync(versionFileName) is not StorageFile)
             {
+
                 return TimeTablePage.LoadStatus.NewUser;
             }
 
@@ -107,9 +101,11 @@ namespace TimeTableUWP
             await Task.WhenAll(settings, combo, version);
 
             ColorType = await settings;
-            var Combo = await combo;
+            ComboBoxSave? Combo = await combo;
+
             (ClassComboBoxText, LangComboBoxText, Special1ComboBoxText, Special2ComboBoxText, ScienceComboBoxText) = Combo.Parse();
 
+            // If activated
             if (await storageFolder.TryGetItemAsync(keyFileName) is not null)
             {
                 DataReader<ActivateLevel> reader = new(keyFileName);
@@ -117,6 +113,7 @@ namespace TimeTableUWP
                 IsActivated = true;
             }
 
+            // If updated
             if (await version != MainPage.Version)
             {
                 return TimeTablePage.LoadStatus.Updated;
@@ -129,14 +126,14 @@ namespace TimeTableUWP
             var tupleList = comboBoxes.Zip(ComboBoxTexts, (comboBox, text) => (comboBox, text));
             foreach (var (comboBox, text) in tupleList)
             {
-                comboBox.SelectedItem = text is "NULL" ? null : text;
+                comboBox.SelectedItem = string.IsNullOrEmpty(text) ? null : text;
             }
         }
 
-        public static void SetGradeAndClass(ref int grade, ref int @class)
+        public static void SetClass(ref int @class)
         {
-            grade = 2;
-            @class = ClassComboBoxText[6] - '0';
+            if (!string.IsNullOrEmpty(ClassComboBoxText))
+                @class = ClassComboBoxText![6] - '0';
         }
     }
 }

@@ -4,6 +4,7 @@ using RollingRess;
 
 namespace GGHS
 {
+
     public interface ISubjects
     {
         int Grade { get; }
@@ -14,6 +15,34 @@ namespace GGHS
     {
         namespace Semester2
         {
+            public static class SubjectsFullNames
+            {
+                public const string Reading = "독서";
+                public const string Mathematics = "수학Ⅱ";
+                public const string AdvancedEnglish = "심화영어Ⅰ";
+                public const string Sport = "운동과 건강";
+                public const string CreativeSolve = "창의적 문제 해결 기법";
+                public const string MathResearch = "수학과제탐구";
+                public const string Others = "창의적 체험활동";
+                public const string HomeComing = "홈커밍";
+
+                public const string ScienceHistory = "과학사";
+                public const string LifeAndScience = "생활과 과학";
+
+                public const string GlobalEconomics = "국제경제";
+                public const string GlobalPolitics = "국제정치";
+                public const string CompareCulture = "비교문화";
+                public const string EasternHistory = "동양근대사";
+                public const string HistoryAndCulture = "세계 역사와 문화";
+                public const string PoliticsPhilosophy = "현대정치철학의 이해";
+                public const string RegionResearch = "세계 지역 연구";
+                public const string GISAnalyze = "공간 정보와 공간 분석";
+
+                public const string Japanese = "일본어Ⅰ";
+                public const string Spanish = "스페인어Ⅰ";
+                public const string Chinese = "중국어Ⅰ";
+            }
+
             public class Subjects : ISubjects
             {
                 int ISubjects.Grade => 2;
@@ -25,30 +54,30 @@ namespace GGHS
                 /// </summary>
                 public class RawName
                 {
-                    public static string Reading => "독서";
-                    public static string Mathematics => "수학Ⅱ";
-                    public static string AdvancedEnglish => "심화영어Ⅰ";
-                    public static string Sport => "운동과 건강";
-                    public static string CreativeSolve => "창의적 문제 해결 기법";
-                    public static string MathResearch => "수학과제탐구";
-                    public static string Others => "창의적 체험활동";
-                    public static string HomeComing => "홈커밍";
+                    public static string Reading => SubjectsFullNames.Reading;
+                    public static string Mathematics => SubjectsFullNames.Mathematics;
+                    public static string AdvancedEnglish => SubjectsFullNames.AdvancedEnglish;
+                    public static string Sport => SubjectsFullNames.Sport;
+                    public static string CreativeSolve => SubjectsFullNames.CreativeSolve;
+                    public static string MathResearch => SubjectsFullNames.MathResearch;
+                    public static string Others => SubjectsFullNames.Others;
+                    public static string HomeComing => SubjectsFullNames.HomeComing;
 
-                    public static string ScienceHistory => "과학사";
-                    public static string LifeAndScience => "생활과 과학";
+                    public static string ScienceHistory => SubjectsFullNames.ScienceHistory;
+                    public static string LifeAndScience => SubjectsFullNames.LifeAndScience;
 
-                    public static string GlobalEconomics => "국제경제";
-                    public static string GlobalPolitics => "국제정치";
-                    public static string CompareCulture => "비교문화";
-                    public static string EasternHistory => "동양근대사";
-                    public static string HistoryAndCulture => "세계 역사와 문화";
-                    public static string PoliticsPhilosophy => "현대정치철학의 이해";
-                    public static string RegionResearch => "세계 지역 연구";
-                    public static string GISAnalyze => "공간 정보와 공간 분석";
+                    public static string GlobalEconomics => SubjectsFullNames.GlobalEconomics;
+                    public static string GlobalPolitics => SubjectsFullNames.GlobalPolitics;
+                    public static string CompareCulture => SubjectsFullNames.CompareCulture;
+                    public static string EasternHistory => SubjectsFullNames.EasternHistory;
+                    public static string HistoryAndCulture => SubjectsFullNames.HistoryAndCulture;
+                    public static string PoliticsPhilosophy => SubjectsFullNames.PoliticsPhilosophy;
+                    public static string RegionResearch => SubjectsFullNames.RegionResearch;
+                    public static string GISAnalyze => SubjectsFullNames.GISAnalyze;
 
-                    public static string Japanese => "일본어Ⅰ";
-                    public static string Spanish => "스페인어Ⅰ";
-                    public static string Chinese => "중국어Ⅰ";
+                    public static string Japanese => SubjectsFullNames.Japanese;
+                    public static string Spanish => SubjectsFullNames.Spanish;
+                    public static string Chinese => SubjectsFullNames.Chinese;
                 }
 
                 /// <summary>

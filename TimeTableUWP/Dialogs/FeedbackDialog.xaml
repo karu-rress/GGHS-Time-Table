@@ -30,7 +30,7 @@
         <TextBlock x:Name="ErrorMsgText" HorizontalAlignment="Center" Margin="0,106,0,0" Text="Please enter text." Visibility="Collapsed" />
         <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." Visibility="Collapsed"  />
         <TextBox x:Name="senderBox" Margin="0,60,0,0" Width="202" HorizontalAlignment="Right" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="452" Height="285" AcceptsReturn="True" />
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="452" Height="285" AcceptsReturn="True" TextWrapping="Wrap"/>
         <Grid Margin="82,98,346,289">
             <Custom:ProgressRing x:Name="progressRing" Height="28" Width="28" Visibility="Collapsed" />
         </Grid>

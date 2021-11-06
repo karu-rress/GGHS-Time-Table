@@ -13,7 +13,7 @@ namespace GGHS_Time_Table_Creator
     public partial class Form1 : Form
     {
         public static string code; // TotalCode
-        Dictionary<string, string> subjectDict = new Dictionary<string, string>()
+        Dictionary<string, string> subjectDict = new()
         {
             ["독서"] = "Reading",
             ["수학Ⅱ"] = "Mathematics",

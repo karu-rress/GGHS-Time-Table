@@ -4,7 +4,6 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using TimeTableUWP.Pages;
 
 namespace TimeTableUWP
 {
@@ -13,6 +12,7 @@ namespace TimeTableUWP
         Developer = 3,
         Grade2 = 5,
         Insider = 7,
+        ShareTech = 8,
         None = 9
     }
 
@@ -50,6 +50,9 @@ namespace TimeTableUWP
                     break;
                 case ActivateKeys.Insider:
                     SaveData.ActivateStatus = ActivateLevel.Insider;
+                    break;
+                case ActivateKeys.ShareTech:
+                    SaveData.ActivateStatus = ActivateLevel.ShareTech;
                     break;
                 default:
                     ShowErrorMessage("Sorry, please check your activation key.");

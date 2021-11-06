@@ -185,10 +185,8 @@
             </Grid.Resources>
 
             <TextBlock Text="Grade" Grid.Row="0"/>
-            <ComboBox x:Name="gradeComboBox" IsEnabled="False" Grid.Row="1" >
-                <!--x:String>Grade 1</x:String-->
+            <ComboBox x:Name="gradeComboBox" IsEnabled="False" Grid.Row="1">
                 <x:String>Grade 2</x:String>
-                <!--x:String>Grade 3</x:String-->
             </ComboBox>
             <TextBlock Text="Class" Grid.Row="2"/>
             <ComboBox x:Name="classComboBox" SelectionChanged="classComboBox_SelectionChanged"  Grid.Row="3">

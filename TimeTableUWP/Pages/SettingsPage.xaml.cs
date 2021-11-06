@@ -1,14 +1,15 @@
-﻿#nullable disable
+﻿#nullable enable
 
 using System;
 using System.Collections.Generic;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
-using MsCtrl = Microsoft.UI.Xaml.Controls;
-using static RollingRess.StaticClass;
 using Windows.System;
+
+using muxc = Microsoft.UI.Xaml.Controls;
+using static RollingRess.StaticClass;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,9 +26,8 @@ namespace TimeTableUWP.Pages
         public static bool IsDarkMode { get; private set; } = false;
         public static DateType DateFormat { get; private set; } = DateType.YYYYMMDD;
         private static bool selfToggled = false;
-        // public static Color ColorType { get; private set; } = Colors.DarkSlateBlue;
 
-        private Dictionary<DateType, int> dateFormatDict { get; } = new()
+        private Dictionary<DateType, int> DateFormatDict { get; } = new()
         {
             [DateType.YYYYMMDD] = 0,
             [DateType.YYYYMMDD2] = 1,
@@ -40,7 +40,7 @@ namespace TimeTableUWP.Pages
             InitializeComponent();
             use24Toggle.IsOn = Use24Hour;
             RequestedTheme = MainPage.Theme;
-            dateFormatRadio.SelectedIndex = dateFormatDict[DateFormat];
+            dateFormatRadio.SelectedIndex = DateFormatDict[DateFormat];
             colorPicker.Color = SaveData.ColorType;
             SilentToggle.IsOn = SilentMode;
             SetDarkToggle(IsDarkMode);
@@ -50,7 +50,7 @@ namespace TimeTableUWP.Pages
 
         private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is RadioButtons rb && rb.SelectedItem is string selected)
+            if (sender is muxc.RadioButtons rb && rb.SelectedItem is string selected)
             {
                 DateFormat = selected switch
                 {
@@ -62,7 +62,7 @@ namespace TimeTableUWP.Pages
             }
         }
 
-        private void ColorPicker_ColorChanged(MsCtrl.ColorPicker sender, MsCtrl.ColorChangedEventArgs args) 
+        private void ColorPicker_ColorChanged(muxc.ColorPicker sender, muxc.ColorChangedEventArgs args) 
             => SaveData.ColorType = colorPicker.Color;
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
@@ -139,12 +139,12 @@ GGHS Time Table을 설치해주셔서 감사합니다.
             RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
         }
 
-        void SetDarkToggle(bool? value)
+        void SetDarkToggle(bool value)
         {
-            if (darkToggle.IsOn == value.Value)
+            if (darkToggle.IsOn == value)
                 return;
             selfToggled = true;
-            darkToggle.IsOn = value is null ? !darkToggle.IsOn : value.Value;
+            darkToggle.IsOn = value;
         }
 
         private async void Button_Click_4(object sender, RoutedEventArgs e)

@@ -1,10 +1,18 @@
 ﻿namespace TimeTableUWP
 {
+    public static class AppSettings
+    {
+        public const string GTTMail = "gghstimetable@gmail.com";
+        public const string KaruMail = "nsun527@naver.com";
+        public const string MailPassword = "rflnapjbcqznllqu";
+    }
+
     public static class ActivateKeys
     {
         public const string Developer = "RRESS-X93FSBU";
         public const string Grade2 = "GGGHS-B38XDQP";
         public const string Insider = "THANK-2KJX8FS";
+        public const string ShareTech = "SHARE-A8VP36N";
     }
 
     public static class SaveFiles
@@ -13,6 +21,14 @@
         public const string KeyFile = "gttactxml.key";
         public const string SettingsFile = "gttsetxml.sav";
         public const string VersionFile = "gttverxml.sav";
+    }
+
+    public static class SubTitles
+    {
+        public const string Developer = "Welcome to the Ultimate GTT4, Karu";
+        public const string ShareTech = "ShareTech, let's try our hardest";
+        public const string Insider = "Insiders, we're the ones who've made it this far";
+        public const string Grade2 = "Back to online, with the task manager";
     }
 
     public static class Messages
@@ -32,13 +48,10 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 
         public const string GGHSTimeTableWithVer = "GGHS Time Table 4";
 
-        public static string Updated = @$"GGHS Time Table이 V{MainPage.Version}(으)로 업데이트 되었습니다.
+        public static string Updated => @$"GGHS Time Table이 V{MainPage.Version}(으)로 업데이트 되었습니다.
 
 GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 선택하면 " +
 "수행평가 일정 목록을 관리할 수 있습니다. 기존 설정 메뉴는 상단바 " +
 "맨 우측으로 옮겨갔으니 참고하시기 바랍니다.";
-
-        
     }
-
 }

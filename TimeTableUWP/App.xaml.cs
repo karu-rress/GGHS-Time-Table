@@ -38,9 +38,9 @@ namespace TimeTableUWP
         public App()
         {
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.CompactOverlay;
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-            // this.UnhandledException += TimeTableException.HandleException;
+            InitializeComponent();
+            Suspending += OnSuspending;
+            UnhandledException += TimeTableException.HandleException;
         }
 
         /// <summary>
@@ -61,10 +61,12 @@ namespace TimeTableUWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                var taskLoad = SaveTask.Load();
+                var dataLoad = SaveData.LoadDataAsync();
 
-                await SaveTask.Load();
-                TimeTablePage.Status = await SaveData.LoadDataAsync();
-                
+                await Task.WhenAll(taskLoad, dataLoad);
+                TimeTablePage.Status = await dataLoad;
+
 
                 //await Task.WhenAll(SaveTask.Load(), SaveData.LoadDataAsync());
 
@@ -121,29 +123,26 @@ namespace TimeTableUWP
         {
             var deferral = args.TaskInstance.GetDeferral();
 
-            switch (args.TaskInstance.Task.Name)
+            if (args.TaskInstance.Task.Name.Contains("ToastZoomOpen"))
             {
-                case "ToastZoomOpen":
-                    var details = args.TaskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
-                    if (details != null)
-                    {
-                        ToastArguments arguments = ToastArguments.Parse(details.Argument);
-                        // var userInput = details.UserInput;
+                if (args.TaskInstance.TriggerDetails is ToastNotificationActionTriggerDetail details)
+                {
+                    ToastArguments arguments = ToastArguments.Parse(details.Argument);
+                    // var userInput = details.UserInput;
 
-                        // Perform tasks
-                        var task = arguments.Get("action");
-                        string link;
+                    // Perform tasks
+                    var task = arguments.Get("action");
+                    string link;
 
-                        if (task is "zoom")
-                            link = arguments.Get("zoomUrl");
-                        
-                        else if (task is "classRoom")
-                            link = arguments.Get("classRoomUrl");
-                        
-                        else return;
-                        await Windows.System.Launcher.LaunchUriAsync(new(link));
-                    }
-                    break;
+                    if (task is "zoom")
+                        link = arguments.Get("zoomUrl");
+
+                    else if (task is "classRoom")
+                        link = arguments.Get("classRoomUrl");
+
+                    else return;
+                    await Windows.System.Launcher.LaunchUriAsync(new(link));
+                }
             }
 
             deferral.Complete();

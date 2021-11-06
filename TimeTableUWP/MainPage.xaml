@@ -13,8 +13,8 @@
         <muxc:NavigationView x:Name="Navigation" AlwaysShowHeader="False" PaneDisplayMode="Top"
             ItemInvoked="Navigation_ItemInvoked" IsBackButtonVisible="Collapsed">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="GGHS Time Table (GTT)" Tag="timetable"/>
-                <muxc:NavigationViewItem Content="GGHS Todo (GTD)" Tag="todo"/>
+                <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable"/>
+                <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />
         </muxc:NavigationView>

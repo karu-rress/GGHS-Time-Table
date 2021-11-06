@@ -1,6 +1,8 @@
-﻿namespace TimeTableUWP
+﻿#nullable enable
+
+namespace TimeTableUWP
 {
-    public static class AppSettings
+    public static class Sensitive
     {
         public const string GTTMail = "gghstimetable@gmail.com";
         public const string KaruMail = "nsun527@naver.com";
@@ -11,7 +13,7 @@
     {
         public const string Developer = "RRESS-X93FSBU";
         public const string Grade2 = "GGGHS-B38XDQP";
-        public const string Insider = "THANK-2KJX8FS";
+        public const string Insider = "THANK-LX5MBH3";
         public const string ShareTech = "SHARE-A8VP36N";
     }
 
@@ -33,6 +35,8 @@
 
     public static class Messages
     {
+        public const string GGHSTimeTableWithVer = "GGHS Time Table 4";
+
         public const string Welcome = @"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 
 
@@ -45,9 +49,6 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 
 줌 링크가 누락된 경우, 설정 메뉴에서 'Feedback'을 통해
 줌 링크/ID/비밀번호를 전달해주시면 바로 추가하겠습니다.";
-
-        public const string GGHSTimeTableWithVer = "GGHS Time Table 4";
-
         public static string Updated => @$"GGHS Time Table이 V{MainPage.Version}(으)로 업데이트 되었습니다.
 
 GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 선택하면 " +

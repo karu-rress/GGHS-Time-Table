@@ -10,8 +10,6 @@ using TimeTableUWP.Todo;
 using TimeTableUWP.Dialogs;
 using System.Threading.Tasks;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace TimeTableUWP.Pages
 {
     public enum Grades
@@ -22,19 +20,9 @@ namespace TimeTableUWP.Pages
         None,
     }
 
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class TodoPage : Page
     {
         public static TaskList TaskList { get; set; } = new();
-
-        private static PackageVersion version => Package.Current.Id.Version;
-
-        /// <summary>
-        /// Shows the version of GGHS Todo, format in "X.X.X"
-        /// </summary>
-        public static string Version => $"{version.Major}.{version.Minor}.{version.Build}";
 
         public static Grades Grade { get; set; } = Grades.None;
 
@@ -79,6 +67,7 @@ namespace TimeTableUWP.Pages
                 await NothingToDelete();
                 return;
             }
+
             int cnt = TaskList.CountAll(match);
             if (cnt is 0)
             {

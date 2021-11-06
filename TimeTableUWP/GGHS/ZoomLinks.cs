@@ -334,9 +334,11 @@ public static string HistoryAndCulture => "세계 역사와 문화";
     }
     namespace Grade2.Semester1
     {
+        [Obsolete]
         public class ZoomLinks : IZoomLinks
         {
             // TODO: 선생님 성함도?
+            [Obsolete]
             private record Common
             {
                 // Literature
@@ -382,7 +384,7 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 public static ZoomInfo Sport5to8 { get; } = new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
                 //
             }
-
+            [Obsolete]
             public ZoomDictionary Class3 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature1to3,
@@ -418,6 +420,7 @@ public static string HistoryAndCulture => "세계 역사와 문화";
             };
 
             // FINISHED
+            [Obsolete]
             public ZoomDictionary Class4 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
@@ -449,6 +452,7 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
+            [Obsolete]
             public ZoomDictionary Class5 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
@@ -483,6 +487,7 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
+            [Obsolete]
             public ZoomDictionary Class6 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature4to6,
@@ -514,6 +519,7 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
+            [Obsolete]
             public ZoomDictionary Class8 { get; } = new()
             {
                 [Subjects.CellName.Literature] = Common.Literature7to8,
@@ -550,11 +556,11 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 [Subjects.CellName.MathResearch] = null, // RANDOM
             };
 
-            public ZoomDictionary Class1 => throw new NotImplementedException();
+            [Obsolete] public ZoomDictionary Class1 => throw new NotImplementedException();
 
-            public ZoomDictionary Class2 => throw new NotImplementedException();
+            [Obsolete] public ZoomDictionary Class2 => throw new NotImplementedException();
 
-            public ZoomDictionary Class7 => throw new NotImplementedException();
+            [Obsolete] public ZoomDictionary Class7 => throw new NotImplementedException();
         }
     }
 }

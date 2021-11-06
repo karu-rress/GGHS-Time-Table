@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
 using TimeTableUWP.Pages;
+using System.Net.NetworkInformation;
+using RollingRess;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,9 +37,9 @@ namespace TimeTableUWP
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var text = textBox.Text;
-            ErrorMsgText.Visibility = Visibility.Collapsed;
             args.Cancel = true;
+            ErrorMsgText.Visibility = Visibility.Collapsed;
+            var text = textBox.Text;
 
             if (string.IsNullOrWhiteSpace(text))
             {
@@ -46,29 +48,38 @@ namespace TimeTableUWP
                 return;
             }
 
-            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text) 
-                ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n") + string.Join("\r\n", text.Split("\r")), // Converts NewLine
-                $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
+            if (MailSender.IsInternetAvailable is false)
+            {
+                ErrorMsgText.Text = "Sorry. Please check your internet connection.";
+                ErrorMsgText.Visibility = Visibility.Visible;
+                return;
+            }
+
+            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text)
+            ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n") + string.Join("\r\n", text.Split("\r")), // Converts NewLine
+            $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
 
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
             IsPrimaryButtonEnabled = false;
             await smtp.SendAsync(msg);
+
             progressRing.Value = 100;
             sendingMsgText.Text = "Successfully sent!";
             await Task.Delay(700);
+
             Hide();
         }
 
         public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
         {
-            MailAddress send = new(AppSettings.GTTMail);
-            MailAddress to = new(AppSettings.KaruMail);
+            MailAddress send = new(Sensitive.GTTMail);
+            MailAddress to = new(Sensitive.KaruMail);
             SmtpClient smtp = new()
             {
                 Host = "smtp.gmail.com",
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(send.Address, AppSettings.MailPassword),
+                Credentials = new NetworkCredential(send.Address, Sensitive.MailPassword),
                 Timeout = 20_000
             };
             msg = new(send, to)

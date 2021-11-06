@@ -84,7 +84,6 @@ namespace TimeTableUWP
             // Check the Version File exists. If not, the user is using version 3 or newly installed.
             if (await storageFolder.TryGetItemAsync(versionFileName) is not StorageFile)
             {
-
                 return TimeTablePage.LoadStatus.NewUser;
             }
 

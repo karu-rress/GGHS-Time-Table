@@ -12,21 +12,6 @@ using TimeTableUWP.Pages;
 
 namespace TimeTableUWP.Todo
 {
-    /*
-<Button Click="TaskButton_Click" CornerRadius="10">
-    <Grid>
-        <Grid Height="80" Width="2560" Margin="-12,0,0,0" >
-            <Grid Width="65" Margin="10,0,0,0" HorizontalAlignment="Left">
-                <TextBlock FontSize="19" Text="07/29" Margin="0,10,0,46" HorizontalAlignment="Center" FontFamily="Segoe" FontWeight="Bold"/>
-                <TextBlock FontSize="15" Text="D-29" Margin="0,44,0,12" HorizontalAlignment="Center" FontFamily="Consolas" FontWeight="Bold"/>
-            </Grid>
-            <TextBlock FontSize="17" Text="독서" Margin="80,12,0,44" Width="2560"/>
-            <TextBlock FontSize="15" Text="매 시간이 수행평가" Margin="80,43,0,13" HorizontalAlignment="Left" Width="2560" Foreground="#ffa4a4a4"/>
-        </Grid>
-        <TextBlock Text="&#xE76C;" FontFamily="Segoe MDL2 Assets" Width="17" VerticalAlignment="Center"  FontSize="17" Foreground="#ff727272" Margin="0,0,10,0" HorizontalAlignment="Right"/>
-    </Grid>
-</Button>
-     */
     public class TaskButton : Button
     {
         private int ButtonWidth => 2560;

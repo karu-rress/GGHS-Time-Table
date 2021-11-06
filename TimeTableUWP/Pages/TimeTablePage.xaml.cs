@@ -141,15 +141,14 @@ namespace TimeTableUWP.Pages
 
         private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (classComboBox.SelectedItem is null)
+            if (classComboBox.SelectedItem is not string ccb)
                 return;
 
             EnableAllCombobox();
             Subjects.Clear();
 
             // Get & Set Class
-            SaveData.ClassComboBoxText = classComboBox.SelectedItem as string
-                ?? throw new NullReferenceException("classComboBox.SelectedItem is null.");
+            SaveData.ClassComboBoxText = ccb;
             @class = SaveData.ClassComboBoxText[6] - '0';
             TimeTable.ResetByClass(@class);
             SetComboBoxAsClass();
@@ -314,7 +313,7 @@ namespace TimeTableUWP.Pages
                 ActivateLevel.Grade2 => "GGHS 10th",
                 ActivateLevel.Insider => "GTT Insider",
                 ActivateLevel.ShareTech => "ShareTech",
-                ActivateLevel.None or _ => throw new Exception("MainPage.Activate(): ActivateLevel value error"),
+                ActivateLevel.None or _ => throw new DataAccessException("MainPage.Activate(): ActivateLevel value error"),
             };
             await ShowMessageAsync($"Activated as {license}.", "Activated successfully", MainPage.Theme);
             return true;

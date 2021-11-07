@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 using TimeTableUWP.Todo;
 using System.Threading.Tasks;
 using TimeTableUWP.Pages;
+using System.Threading;
 
 namespace TimeTableUWP
 {
@@ -66,6 +67,7 @@ namespace TimeTableUWP
 
                 await Task.WhenAll(taskLoad, dataLoad);
                 TimeTablePage.Status = await dataLoad;
+
 
 
                 //await Task.WhenAll(SaveTask.Load(), SaveData.LoadDataAsync());

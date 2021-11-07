@@ -49,7 +49,11 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 
 줌 링크가 누락된 경우, 설정 메뉴에서 'Feedback'을 통해
 줌 링크/ID/비밀번호를 전달해주시면 바로 추가하겠습니다.";
-        public static string Updated => @$"GGHS Time Table이 V{MainPage.Version}(으)로 업데이트 되었습니다.
+        public static string Updated => @$"GGHS Time Table이 V{MainPage.Version}{MainPage.Version[MainPage.Version.Length - 1] switch
+        {
+            '0' or '3' or '6' => "으로",
+            _ => "로",
+        }} 업데이트 되었습니다.
 
 GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 선택하면 " +
 "수행평가 일정 목록을 관리할 수 있습니다. 기존 설정 메뉴는 상단바 " +

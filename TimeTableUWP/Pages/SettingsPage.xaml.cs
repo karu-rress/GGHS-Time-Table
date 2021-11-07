@@ -10,16 +10,11 @@ using Windows.System;
 
 using muxc = Microsoft.UI.Xaml.Controls;
 using static RollingRess.StaticClass;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using RollingRess;
+using Windows.Storage;
 
 namespace TimeTableUWP.Pages
 {
-
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
     public sealed partial class SettingsPage : Page
     {
         public static bool Use24Hour { get; private set; } = false;
@@ -105,11 +100,15 @@ GGHS Time Table을 설치해주셔서 감사합니다.
                 RequestedTheme = IsDarkMode ? ElementTheme.Dark : ElementTheme.Light
             };
 
-            var selection = await contentDialog.ShowAsync();
-            if (selection is ContentDialogResult.Primary)
-                await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
-            if (selection is ContentDialogResult.Secondary)
-                await Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
+            switch (await contentDialog.ShowAsync())
+            {
+                case ContentDialogResult.Primary:
+                    await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527"));
+                    return;
+                case ContentDialogResult.Secondary:
+                    await Launcher.LaunchUriAsync(new("https://rress.tistory.com"));
+                    return;
+            }
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
@@ -155,6 +154,19 @@ GGHS Time Table을 설치해주셔서 감사합니다.
         private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
         {
             SilentMode = SilentToggle.IsOn;
+        }
+
+        private async void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            ContentMessageDialog dialog = new(
+                "GGHS Time Table 4 사용중 문제가 발생했나요?\n\n" +
+"오류가 난 경우 대부분 개발자에게 자동으로 보고되며, 별다른 조치를 취하실 필요가 없습니다. " +
+"만약 오류 창이 뜨거나 경고 메시지가 뜬 경우 해당 화면을 캡처해서 제게 보내주시기 바랍니다. " +
+"혹은, 'Send Feedback' 버튼을 통해 오류를 제보해주세요.\n\n" +
+"선택과목 및 ZOOM 링크에 오류가 있는 경우에도 제보 부탁드립니다.\n"+
+$"저장된 데이터가 유실된 경우 {ApplicationData.Current.LocalFolder.Path}폴더를 확인하세요.",
+                "Troubleshoot");
+            await dialog.ShowAsync();
         }
     }
 }

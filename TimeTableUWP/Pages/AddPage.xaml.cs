@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using RollingRess;
 using TimeTableUWP.Todo;
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP.Pages
 {
@@ -59,7 +58,9 @@ namespace TimeTableUWP.Pages
                 SubjectPicker.SelectedItem = Task.Subject;
                 TitleTextBox.Text = Task.Title;
                 if (Task.Body is not null)
+                {
                     BodyTextBox.Text = Task.Body;
+                }
             }
         }
 
@@ -97,25 +98,20 @@ namespace TimeTableUWP.Pages
             if (Modified)
             {
                 ContentMessageDialog content = new("This task has been modified. Save or discard changes and try again.", "Couldn't delete");
-                await content.ShowAsync();
+                _ = await content.ShowAsync();
                 return;
             }
 
-            await TaskList.DeleteTask(TitleTextBox.Text, Task!);
-            Close();
-        }
-
-        private bool Modified
-        {
-            get
+            if (await TaskList.DeleteTask(TitleTextBox.Text, Task!) is true)
             {
-                if (Task is null)
-                    return false;
-
-                TodoTask task = new(DueDatePicker.Date.DateTime, SubjectPicker.GetSelectedString(), TitleTextBox.Text,
-        string.IsNullOrWhiteSpace(BodyTextBox.Text) || BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text);
-                return task != Task;
+                Close();
             }
         }
+
+        private bool Modified => Task is null ? false
+                    : DueDatePicker.Date.DateTime != Task.DueDate
+                    || SubjectPicker.GetSelectedString() != Task.Subject
+                    || TitleTextBox.Text != Task.Title
+                    || (BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text) != Task.Body;
     }
 }

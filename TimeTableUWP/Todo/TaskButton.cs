@@ -67,6 +67,7 @@ namespace TimeTableUWP.Todo
                     {
                         // TODO: 이걸 그냥 MainPage의 Reload Task..?
                         // TODO: 이거 그냥 TodoPage로 하면 NavigationView 날아간다. 수정좀.
+                        MainPage.IsGoingToTodoPage = true;
                         rootFrame.Navigate(typeof(MainPage), null, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
                     }
                 };

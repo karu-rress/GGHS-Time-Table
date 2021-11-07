@@ -56,7 +56,7 @@ namespace TimeTableUWP.Todo
             List = List.Except(list).ToList();
         }
 
-        public static async Task DeleteTask(string taskName, TodoTask task)
+        public static async Task<bool> DeleteTask(string taskName, TodoTask task)
         {
             const string title = "Delete";
             ContentDialog contentDialog = new()
@@ -68,9 +68,10 @@ namespace TimeTableUWP.Todo
                 CloseButtonText = "No"
             };
             if (await contentDialog.ShowAsync() is not ContentDialogResult.Primary)
-                return;
+                return false;
 
             TodoPage.TaskList.Remove(task);
+            return true;
         }
 
         public void Remove(in TodoTask task)

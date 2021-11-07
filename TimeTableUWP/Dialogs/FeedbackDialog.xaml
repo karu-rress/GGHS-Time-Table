@@ -25,13 +25,13 @@
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
         </Grid.Resources>
-        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="인증키가 필요하거나, 과목 추가를 원하거나, 오류가 발생한 경우 아래에 작성해주세요." Height="37" Width="453"/>
-        <TextBlock HorizontalAlignment="Left" Margin="19,67,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" />
-        <TextBlock x:Name="ErrorMsgText" HorizontalAlignment="Center" Margin="0,106,0,0" Text="Please enter text." Visibility="Collapsed" />
-        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="120,106,0,0" Text="Sending feedback. Please wait for a while..." Visibility="Collapsed"  />
-        <TextBox x:Name="senderBox" Margin="0,60,0,0" Width="202" HorizontalAlignment="Right" />
-        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="452" Height="285" AcceptsReturn="True" TextWrapping="Wrap"/>
-        <Grid Margin="82,98,346,289">
+        <TextBlock HorizontalAlignment="Center" Text="여기서 작성한 피드백은 카루에게 이메일로 전송됩니다." Height="22" Width="453"/>
+        <TextBlock HorizontalAlignment="Left" Margin="19,30,0,0" Text="(선택) 회신용 이메일 혹은 연락처:" />
+        <TextBlock x:Name="ErrorMsgText" HorizontalAlignment="Center" Margin="0,60,0,0" Text="Please enter text." Visibility="Collapsed" />
+        <TextBlock x:Name="sendingMsgText" HorizontalAlignment="Left" Margin="113,60,0,0" Text="Sending feedback. Please wait for a while..." Visibility="Collapsed" />
+        <TextBox x:Name="senderBox" Margin="0,23,0,0" Width="202" HorizontalAlignment="Right" PlaceholderText="201900@ggg.hs.kr" />
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,94,0,0" Width="452" Height="311" AcceptsReturn="True" PlaceholderText="인증키가 필요하거나, 선택과목 및 ZOOM 링크 추가를 원하거나, GGHS Time Table 사용중 오류가 발생한 경우 여기에 작성해주세요."/>
+        <Grid Margin="80,54,348,333">
             <Custom:ProgressRing x:Name="progressRing" Height="28" Width="28" Visibility="Collapsed" />
         </Grid>
     </Grid>

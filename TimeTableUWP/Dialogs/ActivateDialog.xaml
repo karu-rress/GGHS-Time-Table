@@ -36,8 +36,8 @@
             <TextBox x:Name="keyBox1" Grid.Column="0" TextChanged="keyBox1_TextChanged" Width="85" MaxLength="5" />
             <TextBlock Grid.Column="1" FontSize="20" Text="―"/>
             <TextBox x:Name="keyBox2" Grid.Column="2" TextChanged="keyBox2_TextChanged" Width="140" MaxLength="7"/>
-            <TextBlock x:Name="ErrorBox" VerticalAlignment="Bottom" TextWrapping="Wrap"  Grid.ColumnSpan="4" Foreground="IndianRed" HorizontalAlignment="Center"/>
             <Button x:Name="ClearButton" Content="Clear" Grid.Column="3" Margin="0,2,0,0" VerticalAlignment="Top" Width="60" HorizontalAlignment="Center" Click="ClearButton_Click"/>
+            <TextBlock x:Name="ErrorBox" VerticalAlignment="Bottom" TextWrapping="Wrap"  Grid.ColumnSpan="4" Foreground="IndianRed" HorizontalAlignment="Center"/>
         </Grid>
     </Grid>
 </ContentDialog>

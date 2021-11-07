@@ -14,7 +14,7 @@
     >
 
     <Grid Height="60">
-        <ComboBox x:Name="SubjectComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Top"></ComboBox>
+        <ComboBox x:Name="SubjectComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Top" PlaceholderText="(Select a subject)"></ComboBox>
         <TextBlock x:Name="TextBlock" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Please select a subject." Visibility="Collapsed"/>
     </Grid>
 </ContentDialog>

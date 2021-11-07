@@ -30,9 +30,9 @@
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="121,25,0,0" Text="GGHS Time Table 4" FontSize="55" Height="73" FontWeight="Bold"/>
-        <TextBlock x:Name="mainText2" Margin="125,100,0,0" Text="Happy to meet you again" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
+        <TextBlock x:Name="mainText2" Margin="125,100,0,0" Text="Subtitle for GGHS Time Table 4" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
-        <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Height="165" VerticalAlignment="Top">
+        <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>
@@ -116,7 +116,7 @@
             <Border Grid.Column="4" x:Name="friBorder">
                 <TextBlock Text="Friday"/>
             </Border>
-            <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="TableButtons_Click" />
+            <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="TableButtons_Click"  />
             <Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" Click="TableButtons_Click" />
             <Button x:Name="wed1Button"  Grid.Row="1" Grid.Column="2" Click="TableButtons_Click" />
             <Button x:Name="thu1Button" Grid.Row="1" Grid.Column="3" Click="TableButtons_Click" />

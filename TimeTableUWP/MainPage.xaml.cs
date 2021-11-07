@@ -23,14 +23,25 @@ namespace TimeTableUWP
 
         public static ElementTheme Theme => SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
 
+        public static bool IsGoingToTodoPage { get; set; } = false;
+
         public MainPage()
         {
             InitializeComponent();
 
             // NavigationFrame = Frame;
 
-            ContentFrame.Navigate(typeof(TimeTablePage), null, new DrillInNavigationTransitionInfo());
-            Navigation.SelectedItem = Navigation.MenuItems[0];
+            if (IsGoingToTodoPage)
+            {
+                IsGoingToTodoPage = false;
+                ContentFrame.Navigate(typeof(TodoPage), null, new DrillInNavigationTransitionInfo());
+                Navigation.SelectedItem = Navigation.MenuItems[1];
+            }
+            else
+            {
+                ContentFrame.Navigate(typeof(TimeTablePage), null, new DrillInNavigationTransitionInfo());
+                Navigation.SelectedItem = Navigation.MenuItems[0];
+            }
         }
 
         private void NavigateTo(object tag, NavigationTransitionInfo transition)

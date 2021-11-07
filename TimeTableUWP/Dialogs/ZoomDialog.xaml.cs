@@ -1,13 +1,12 @@
 ﻿#nullable enable
 
 using System;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
 using GGHS;
 using RollingRess;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace TimeTableUWP
 {
@@ -54,7 +53,7 @@ namespace TimeTableUWP
             if (zoomInfo.ClassRoom is not null)
             {
                 Hyperlink classroom = new();
-                classroom.NavigateUri = new(zoomInfo.ClassRoom ?? "https://classroom.google.com/");
+                classroom.NavigateUri = new(zoomInfo.ClassRoom);
                 classroom.Inlines.Add(new Run() { Text = "Click here to open classroom" });
                 tb.Inlines.Add(classroom);
             }
@@ -71,9 +70,9 @@ namespace TimeTableUWP
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args) 
-            => await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.Link));
+            => await Launcher.LaunchUriAsync(new(zoomInfo.Link));
 
         private async void ContentDialog_SecondaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args) 
-            => await Windows.System.Launcher.LaunchUriAsync(new(zoomInfo.ClassRoom));
+            => await Launcher.LaunchUriAsync(new(zoomInfo.ClassRoom));
     }
 }

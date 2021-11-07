@@ -52,10 +52,10 @@
             <TextBlock Text="Subject" Grid.Column="2" Height="34" Width="76" />
             <ComboBox x:Name="SubjectPicker" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="21" ItemsSource="{x:Bind Subjects}" Height="45"/>
             <TextBlock Text="Title" Grid.Column="4" Height="34" Width="43" />
-            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="23" />
+            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="23" PlaceholderText="수행평가 제목" />
         </Grid>
         <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="66,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="50,235,330,30" AcceptsReturn="True" FontSize="23"/>
+        <TextBox x:Name="BodyTextBox" Margin="50,235,330,30" AcceptsReturn="True" FontSize="23" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
         <Grid Width="315" HorizontalAlignment="Right" Margin="0,40,10,10">
             <Grid.Resources>
                 <Style TargetType="Button">

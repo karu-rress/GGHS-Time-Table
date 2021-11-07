@@ -34,13 +34,13 @@ namespace TimeTableUWP
         public static bool IsActivated { get; set; } = false;
         public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
 
-        public static Color ColorType = Color.FromArgb(0xEE, 0xE3, 0xCA, 0xEB); // pink
+        public static Color ColorType { get; set; } = SettingsPage.DefaultColor;
         public static string? ClassComboBoxText { get; set; }
         public static string? Special1ComboBoxText { get; set; }
         public static string? Special2ComboBoxText { get; set; }
         public static string? LangComboBoxText { get; set; }
         public static string? ScienceComboBoxText { get; set; }
-        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.Insider or ActivateLevel.ShareTech;
+        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.ShareTech or ActivateLevel.Insider;
         public static bool IsNotDeveloperOrInsider => !IsDeveloperOrInsider;
 
         private static IEnumerable<string?> ComboBoxTexts

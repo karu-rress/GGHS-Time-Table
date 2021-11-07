@@ -19,9 +19,6 @@ V4.0
 - 무음 모드 추가 (Build 1752: Preview)
 - 인터넷 연결 없을 시 피드백 전송 차단 (Release Candidate)
 - 에러 처리 개편 (Release Candidate)
-- 설정창 개편 (Release Candidate)
-- Todo 기능 관련 버그 수정 (Release Candidate)
-
 -------------------------------------------
 
 V3.2

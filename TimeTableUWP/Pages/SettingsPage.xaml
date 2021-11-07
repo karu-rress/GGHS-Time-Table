@@ -54,9 +54,9 @@
       IsHexInputVisible="False"
       IsAlphaEnabled="False"
       IsAlphaSliderVisible="False"
-      IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" Width="415" VerticalAlignment="Top" Height="475"/>
+      IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
-                <Button Margin="380,433,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
+                <Button Margin="368,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
                     <TextBlock><Run Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
                 </Button>
             </Grid>

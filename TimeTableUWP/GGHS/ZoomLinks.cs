@@ -103,6 +103,22 @@ public static string HistoryAndCulture => "세계 역사와 문화";
                 public static ZoomInfo Sport5to8 => new("https://zoom.us/j/3225620828?pwd=NHBqdnZrZnZCMTNpRmlCakhVUVJPZz09", "322 562 0828", "1234", null, "윤보경");
             }
 
+            public static class CompareCultures
+            {
+                public static class Hong
+                {
+                    public static string Zoom => Common.CompareCultureA.Link!;
+                    public static string Id => Common.CompareCultureA.Id!;
+                    public static string Password => Common.CompareCultureA.Pw!;
+                }
+                public static class Jung
+                {
+                    public static string Zoom => Common.CompareCultureB.Link!;
+                    public static string Id => Common.CompareCultureB.Id!;
+                    public static string Password => Common.CompareCultureB.Pw!;
+                }
+            }
+
             public ZoomDictionary Class1 => new()
             {
                 [Subjects.CellName.Reading] = Common.Class1to3.Reading,

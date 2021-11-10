@@ -10,14 +10,11 @@ using TimeTableUWP.Todo;
 
 namespace TimeTableUWP.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AddPage : Page
     {
         public static TodoTask? Task { get; set; } = null;
 
-        public List<string> Subjects { get; } = new()
+        public List<string> Subjects { get; } = new() // Don't make this as static
         {
             "독서",
             "수학Ⅱ",
@@ -48,9 +45,10 @@ namespace TimeTableUWP.Pages
 
             DueDatePicker.MinYear = DateTimeOffset.Now;
             DueDatePicker.MaxYear = DateTimeOffset.Now.AddYears(2);
+
             SubjectPicker.ItemsSource = Subjects;
 
-            if (Task is not null) // Clicked a button
+            if (Task is not null) // Not creating, but modifying
             {
                 DeleteButton.Visibility = Visibility.Visible;
                 mainText.Text = "Modify Task";

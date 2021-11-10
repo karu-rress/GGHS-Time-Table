@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTableUWP", "TimeTableUWP\TimeTableUWP.csproj", "{92506C5F-8D99-4AE7-95DA-E1CAAEFAFA19}"
 EndProject
@@ -10,9 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		Changelog.txt = Changelog.txt
-		Datas.txt = Datas.txt
 		Memo.txt = Memo.txt
-		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGHS Time Table Creator", "GGHS Time Table Creator\GGHS Time Table Creator.csproj", "{63A2B8F0-0A18-4858-A09A-A3A810FF3039}"

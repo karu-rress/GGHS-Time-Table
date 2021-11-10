@@ -26,9 +26,10 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>401175FB5F53766D79D3DF87966B2B904E436B7C</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>0AB21A62E9D100434523AB9479B2B64976A71614</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <PackageCertificateKeyFile>TimeTableUWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
     <AppInstallerUri>https://drive.google.com/drive/folders/1awYn3zFfrBMs3hxu3YXscrzvtcilgJ3w%3fusp=sharing</AppInstallerUri>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>

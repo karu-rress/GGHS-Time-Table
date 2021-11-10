@@ -136,7 +136,7 @@ namespace GGHS
                 {
                     public static string GlobalEconomics => CellName.GlobalEconomics;
                     public static string GlobalPolitics => CellName.GlobalPolitics;
-                    public static string CompareCulture => CellName.CompareCulture + "A";
+                    public static string CompareCulture => CellName.CompareCulture;
                     public static string EasternHistory => CellName.EasternHistory;
                     public static string HistoryAndCulture => CellName.HistoryAndCulture;
                     public static string PoliticsPhilosophy => CellName.PoliticsPhilosophy;
@@ -156,7 +156,7 @@ RegionResearch, GISAnalyze);
                 {
                     public static string GlobalEconomics => CellName.GlobalEconomics;
                     public static string GlobalPolitics => CellName.GlobalPolitics;
-                    public static string CompareCulture => CellName.CompareCulture + "B";
+                    public static string CompareCulture => CellName.CompareCulture;
                     public static string EasternHistory => CellName.EasternHistory;
                     public static string HistoryAndCulture => CellName.HistoryAndCulture;
                     public static string PoliticsPhilosophy => CellName.PoliticsPhilosophy;

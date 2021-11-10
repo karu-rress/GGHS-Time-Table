@@ -1,5 +1,7 @@
 ﻿Changes of GGHS Time Table
 
+V4.2
+- 비교문화 줌 표시 방식 변경
 
 V4.1
 - 기본 색상 변경 (#FFD9C0F9)

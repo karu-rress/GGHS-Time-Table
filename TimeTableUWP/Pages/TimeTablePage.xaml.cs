@@ -222,7 +222,7 @@ namespace TimeTableUWP.Pages
             {
                 SubjectsFullNames.GlobalEconomics or
                 SubjectsFullNames.GlobalPolitics or
-                SubjectsFullNames.CompareCulture + "A" or
+                SubjectsFullNames.CompareCulture or
                 SubjectsFullNames.EasternHistory => SaveData.Special1ComboBoxText,
 
                 SubjectsFullNames.HistoryAndCulture => Subjects.Specials1.HistoryAndCulture,
@@ -243,7 +243,7 @@ namespace TimeTableUWP.Pages
             {
                 SubjectsFullNames.GlobalEconomics or
                 SubjectsFullNames.GlobalPolitics or
-                SubjectsFullNames.CompareCulture + "B" or
+                SubjectsFullNames.CompareCulture or
                 SubjectsFullNames.EasternHistory => SaveData.Special2ComboBoxText,
 
                 SubjectsFullNames.HistoryAndCulture => Subjects.Specials2.HistoryAndCulture,
@@ -280,8 +280,17 @@ namespace TimeTableUWP.Pages
                 // 인증을 하지 않았다면 return
                 if (await ActivateAsync() is false)
                     return;
+
+                SetSubText();
             }
-            SetSubText();
+            
+            if (subjectCellName is "비교문화")
+            {
+                CompareCultureDialog dialog = new(@class);
+                await dialog.ShowAsync();
+                return;
+            }
+
             if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
@@ -333,10 +342,10 @@ namespace TimeTableUWP.Pages
                 $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {@class}")
         };
 
-        private void TableButtons_Click(object sender, RoutedEventArgs e)
+        private async void TableButtons_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Content is string cellName)
-                _ = ShowSubjectZoom(cellName);
+                await ShowSubjectZoom(cellName);
         }
 
         private async void SpecialButtons_Click(object sender, RoutedEventArgs _)

@@ -16,7 +16,7 @@ namespace TimeTableUWP.Dialogs
             RequestedTheme = MainPage.Theme;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             if (datePicker.SelectedDate is null)
             {

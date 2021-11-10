@@ -9,7 +9,7 @@ namespace TimeTableUWP.Dialogs
     public sealed partial class SubjectSelectDialog : ContentDialog
     {
         public string? SelectedSubject { get; set; }
-        public List<string> Subject { get; } = new()
+        public static List<string> Subject { get; } = new()
         {
             "독서",
             "수학Ⅱ",
@@ -38,7 +38,7 @@ namespace TimeTableUWP.Dialogs
             SubjectComboBox.ItemsSource = Subject;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             if (SubjectComboBox.SelectedIndex is -1)
             {

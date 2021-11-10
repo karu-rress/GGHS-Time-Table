@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Media;
 
 using TimeTableUWP.Pages;
 using System.Net.NetworkInformation;
-using RollingRess;
+using RollingRess.Net;
 
 namespace TimeTableUWP
 {
@@ -33,7 +33,7 @@ namespace TimeTableUWP
             ErrorMsgText.Foreground = TextColor;
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
         {
             args.Cancel = true;
             ErrorMsgText.Visibility = Visibility.Collapsed;
@@ -45,8 +45,7 @@ namespace TimeTableUWP
                 ErrorMsgText.Visibility = Visibility.Visible;
                 return;
             }
-
-            if (MailSender.IsInternetAvailable is false)
+            if (Connection.IsInternetAvailable is false)
             {
                 ErrorMsgText.Text = "Sorry. Please check your internet connection.";
                 ErrorMsgText.Visibility = Visibility.Visible;
@@ -80,11 +79,7 @@ namespace TimeTableUWP
                 Credentials = new NetworkCredential(send.Address, Sensitive.MailPassword),
                 Timeout = 20_000
             };
-            msg = new(send, to)
-            {
-                Subject = subject,
-                Body = body
-            };
+            msg = new(send, to) { Subject = subject, Body = body };
             return smtp;
         }
     }

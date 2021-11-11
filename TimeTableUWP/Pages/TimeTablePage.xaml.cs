@@ -11,6 +11,7 @@ using GGHS;
 using GGHS.Grade2.Semester2;
 
 using static RollingRess.StaticClass;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeTableUWP.Pages
 {
@@ -269,12 +270,6 @@ namespace TimeTableUWP.Pages
 
         private async Task ShowSubjectZoom(string subjectCellName)
         {
-            if (subjectCellName is null)
-            {
-                await ShowMessageAsync("Please select your class first.", "Error", MainPage.Theme);
-                return;
-            }
-
             if (SaveData.IsActivated is false)
             {
                 // 인증을 하지 않았다면 return
@@ -344,8 +339,14 @@ namespace TimeTableUWP.Pages
 
         private async void TableButtons_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.Content is string cellName)
-                await ShowSubjectZoom(cellName);
+            if (sender is Button btn)
+            {
+                if (btn.Content is string cellName)
+                    await ShowSubjectZoom(cellName);
+                
+                else if (btn.Content is null)
+                    await ShowMessageAsync("Please select your class first.", "Error", MainPage.Theme);
+            }
         }
 
         private async void SpecialButtons_Click(object sender, RoutedEventArgs _)

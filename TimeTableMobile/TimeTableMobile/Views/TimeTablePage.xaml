@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
+             x:Class="TimeTableMobile.Views.TimeTablePage"
+             Title="GGHS Time Table Mobile">
+
+    <StackLayout>
+        <Grid Margin="20,35,20,20" VerticalOptions="CenterAndExpand">
+            <Grid.Resources>
+                <Style TargetType="Frame">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="BackgroundColor" Value="#DBC3F8"/>
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalOptions" Value="Center"/>
+                    <Setter Property="HorizontalOptions" Value="Center"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="BackgroundColor" Value="#EEEEEE"/>
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="40" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="MainLabel" Grid.Row="0" Grid.ColumnSpan="5"/>
+            <Frame Grid.Row="1" Grid.Column="0">
+                <Label Text="Mon" />
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="1">
+                <Label Text="Tue" />
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="2">
+                <Label Text="Wed" />
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="3">
+                <Label Text="Thu" />
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="4">
+                <Label Text="Fri" />
+            </Frame>
+            <Button x:Name="mon1Button" Grid.Row="2" Grid.Column="0" Text="화학Ⅱ" Clicked="TableButtons_Click"  />
+            <Button x:Name="tue1Button" Grid.Row="2" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed1Button"  Grid.Row="2" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu1Button" Grid.Row="2" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri1Button" Grid.Row="2" Grid.Column="4" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="mon2Button" Grid.Row="3" Grid.Column="0" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="tue2Button" Grid.Row="3" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed2Button" Grid.Row="3" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu2Button" Grid.Row="3" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri2Button" Grid.Row="3" Grid.Column="4" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="mon3Button" Grid.Row="4" Grid.Column="0" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="tue3Button" Grid.Row="4" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed3Button" Grid.Row="4" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu3Button" Grid.Row="4" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri3Button" Grid.Row="4" Grid.Column="4" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="mon4Button" Grid.Row="5" Grid.Column="0" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="tue4Button" Grid.Row="5" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed4Button" Grid.Row="5" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu4Button" Grid.Row="5" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri4Button" Grid.Row="5" Grid.Column="4" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="mon5Button" Grid.Row="6" Grid.Column="0" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="tue5Button" Grid.Row="6" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed5Button" Grid.Row="6" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu5Button" Grid.Row="6" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri5Button" Grid.Row="6" Grid.Column="4" Text="화학Ⅱ" Clicked="SpecialButtons_Click" />
+            <Button x:Name="mon6Button" Grid.Row="7" Grid.Column="0" Text="화학Ⅱ" Clicked="SpecialButtons_Click" />
+            <Button x:Name="tue6Button" Grid.Row="7" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed6Button" Grid.Row="7" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu6Button" Grid.Row="7" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri6Button" Grid.Row="7" Grid.Column="4" Text="화학Ⅱ" Clicked="SpecialButtons_Click" />
+            <Button x:Name="mon7Button" Grid.Row="8" Grid.Column="0" Text="화학Ⅱ" Clicked="SpecialButtons_Click" />
+            <Button x:Name="tue7Button" Grid.Row="8" Grid.Column="1" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="wed7Button" Grid.Row="8" Grid.Column="2" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="thu7Button" Grid.Row="8" Grid.Column="3" Text="화학Ⅱ" Clicked="TableButtons_Click" />
+            <Button x:Name="fri7Button" Grid.Row="8" Grid.Column="4" Text="화학Ⅱ" Clicked="SpecialButtons_Click" />
+            <Button x:Name="refreshButton" Grid.Row="9" Grid.ColumnSpan="5" Text="Refresh" Clicked="RefreshButton_Click" />
+            <Label x:Name="ErrorLabel" Grid.Row="10" Grid.ColumnSpan="5" Text="Please select all subjects in Settings tab" TextColor="PaleVioletRed" IsVisible="false" />
+        </Grid>
+    </StackLayout>
+</ContentPage>

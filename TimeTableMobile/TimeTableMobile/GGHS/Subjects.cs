@@ -163,7 +163,7 @@ namespace TimeTableMobile.GGHS
                 {
                     public static string ScienceHistory => CellName.ScienceHistory;
                     public static string LifeAndScience => CellName.LifeAndScience;
-                    public static string None => "과학선택";
+                    public static string None => "과학";
 
                     private static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, ScienceHistory, LifeAndScience); }

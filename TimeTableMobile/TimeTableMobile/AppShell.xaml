@@ -30,7 +30,7 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Time Table" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:TimeTablePage}" />
+        <ShellContent Title="Time Table" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:TimeTablePage}"  />
         <ShellContent Title="Settings" Icon="icon_about.png" ContentTemplate="{DataTemplate local:SelectionPage}" />
         <!--ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" /-->
     </TabBar>

@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using TimeTableMobile.GGHS;
 using TimeTableMobile.GGHS.Grade2.Semester2;
 using System.Collections;
+using System.IO;
 
 namespace TimeTableMobile.Views
 {
@@ -18,6 +19,7 @@ namespace TimeTableMobile.Views
     {
         private string[,]? SubjectTable { get; set; } // string[5, 7]
         private TimeTables TimeTable => new();
+        public static bool HasReadFile { get; set; }
 
         private IEnumerable<Button> Buttons
         {
@@ -68,13 +70,30 @@ namespace TimeTableMobile.Views
         public TimeTablePage()
         {
             InitializeComponent();
+            Appearing += (s, e) => DrawTimeTable();
 
-            DisplayAlert("GTT for Mobile", "동작 방식 차이로 인해 설정값이 시간표에 바로 반영되지 않습니다. " 
-                + "'Settings' 탭에서 선택과목 및 반을 선택한 뒤, 시간표 하단의 'Refresh' 버튼을 눌러주세요.", "OK");
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            if (File.Exists(UserData.FileName))
+            {
+                string read = File.ReadAllText(UserData.FileName);
+                string[] array = read.Split(',');
+
+                UserData.Class = Convert.ToInt32(array[0]);
+                Subjects.Languages.Selected = UserData.Language = array[1];
+                Subjects.Specials1.Selected = UserData.Special1 = array[2];
+                Subjects.Specials2.Selected = UserData.Special2 = array[3];
+                Subjects.Sciences.Selected = UserData.Science = array[4];
+            }
+            
         }
 
         private void DrawTimeTable()
         {
+            ErrorLabel.IsVisible = false;
             try
             {
                 if (UserData.Class is 0)
@@ -146,6 +165,13 @@ namespace TimeTableMobile.Views
             };
 
             string subject = (sender as Button)!.Text;
+            
+            if (subject is "비문")
+            {
+                await ShowCompareCulturePopup();
+                return;
+            }
+
             if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
             {
                 await DisplayAlert("No Data for Zoom Link", $"Zoom Link for {subject} is currently not available.\n"
@@ -182,6 +208,29 @@ namespace TimeTableMobile.Views
                 case "Open ZOOM meetings":
                 case "Open Google classroom":
                 default:
+                    break;
+            }
+        }
+
+        private async Task ShowCompareCulturePopup()
+        {
+            string action = await DisplayActionSheet($"Class {UserData.Class} 비교문화 Links", "Cancel", null, 
+                "Show ZOOM info", "Open ZOOM (홍정민 T)", "Open ZOOM (정혜영 T)", "Open Google classroom");
+
+            switch (action)
+            {
+                case "Show ZOOM info":
+                    await DisplayAlert($"Class {UserData.Class} 비교문화 ZOOM info", 
+                        "홍정민 T\n" +
+                        $"ID: {ZoomLinks.CompareCultures.Hong.Id}\n" +
+                        $"PW: {ZoomLinks.CompareCultures.Hong.Password}\n\n" +
+                        "정혜영 T\n" +
+                        $"ID: {ZoomLinks.CompareCultures.Jung.Id}\n" +
+                        $"PW: {ZoomLinks.CompareCultures.Jung.Password}", "OK");
+                    break;
+                case "Open ZOOM (홍정민 T)":
+                case "Open ZOOM (정혜영 T)":
+                case "Open Google classroom":
                     break;
             }
         }

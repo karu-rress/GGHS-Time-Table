@@ -25,30 +25,6 @@
       "filename": "Icon87.png"
     },
     {
-      "scale": "2x",
-      "size": "40x40",
-      "idiom": "iphone",
-      "filename": "Icon80.png"
-    },
-    {
-      "scale": "3x",
-      "size": "40x40",
-      "idiom": "iphone",
-      "filename": "Icon120.png"
-    },
-    {
-      "scale": "2x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "Icon120.png"
-    },
-    {
-      "scale": "3x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "Icon180.png"
-    },
-    {
       "scale": "1x",
       "size": "20x20",
       "idiom": "ipad",
@@ -97,16 +73,40 @@
       "filename": "Icon152.png"
     },
     {
-      "scale": "2x",
-      "size": "83.5x83.5",
-      "idiom": "ipad",
-      "filename": "Icon167.png"
-    },
-    {
       "scale": "1x",
       "size": "1024x1024",
       "idiom": "ios-marketing",
       "filename": "Icon1024.png"
+    },
+    {
+      "scale": "2x",
+      "size": "40x40",
+      "idiom": "iphone",
+      "filename": "gtt80.png"
+    },
+    {
+      "scale": "3x",
+      "size": "40x40",
+      "idiom": "iphone",
+      "filename": "gtt1201.png"
+    },
+    {
+      "scale": "2x",
+      "size": "60x60",
+      "idiom": "iphone",
+      "filename": "gtt120.png"
+    },
+    {
+      "scale": "3x",
+      "size": "60x60",
+      "idiom": "iphone",
+      "filename": "gtt180.png"
+    },
+    {
+      "scale": "2x",
+      "size": "83.5x83.5",
+      "idiom": "ipad",
+      "filename": "gtt167.png"
     }
   ],
   "properties": {},

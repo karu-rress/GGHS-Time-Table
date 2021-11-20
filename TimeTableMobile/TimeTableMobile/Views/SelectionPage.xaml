@@ -35,36 +35,36 @@
                 <BoxView Margin="10, 0, 10, 0" Color="#CCCCCCCC" HeightRequest="1" />
                 <StackLayout RadioButtonGroup.GroupName="Language"  Margin="20, 5, 20, 5">
                     <Label Text="Select your language" />
-                    <RadioButton Content="스페인어Ⅰ" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="중국어Ⅰ" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="일본어Ⅰ" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioLangSpanish" Content="스페인어Ⅰ" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioLangChinese" Content="중국어Ⅰ" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioLangJapanese" Content="일본어Ⅰ" CheckedChanged="RadioButtonChanged"/>
                 </StackLayout>
                 <BoxView Margin="10, 0, 10, 0" Color="#CCCCCCCC" HeightRequest="1" />
                 <StackLayout RadioButtonGroup.GroupName="SocialA" Margin="20, 5, 20, 5">
                     <Label Text="Select social A" />
-                    <RadioButton Content="국제경제" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="국제정치" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="비교문화" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="세계 역사와 문화" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="현대정치철학의 이해" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="세계 지역 연구" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialAEconomics" Content="국제경제" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialAPolitics" Content="국제정치" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialACulture" Content="비교문화" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialAHistory" Content="세계 역사와 문화" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialAPhilosophy" Content="현대정치철학의 이해" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialARegion" Content="세계 지역 연구" CheckedChanged="RadioButtonChanged"/>
                 </StackLayout>
                 <BoxView Margin="10, 0, 10, 0" Color="#CCCCCCCC" HeightRequest="1" />
                 <StackLayout RadioButtonGroup.GroupName="SocialB" Margin="20, 5, 20, 5">
                     <Label Text="Select social B" />
-                    <RadioButton Content="국제경제" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="국제정치" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="비교문화" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="동양근대사" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="세계 역사와 문화" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="현대정치철학의 이해" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="공간 정보와 공간 분석" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBEconomics" Content="국제경제" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBPolitics" Content="국제정치" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBCulture" Content="비교문화" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBEastern" Content="동양근대사" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBHistory" Content="세계 역사와 문화" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBPhilosophy" Content="현대정치철학의 이해" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioSocialBGIS" Content="공간 정보와 공간 분석" CheckedChanged="RadioButtonChanged"/>
                 </StackLayout>
                 <BoxView Margin="10, 0, 10, 0" Color="#CCCCCCCC" HeightRequest="1" />
                 <StackLayout RadioButtonGroup.GroupName="Science"  Margin="20, 5, 20, 20">
                     <Label Text="Select science" />
-                    <RadioButton Content="과학사" CheckedChanged="RadioButtonChanged"/>
-                    <RadioButton Content="생활과 과학" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioScienceHistory" Content="과학사" CheckedChanged="RadioButtonChanged"/>
+                    <RadioButton x:Name="RadioScienceLife" Content="생활과 과학" CheckedChanged="RadioButtonChanged"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

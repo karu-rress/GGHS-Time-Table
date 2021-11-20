@@ -16,7 +16,45 @@ namespace TimeTableMobile.Views
         public SelectionPage()
         {
             InitializeComponent();
+            ReadFromSettings();
             SetClassModifier();
+        }
+
+        private void ReadFromSettings()
+        {
+            if (UserData.Class is 0)
+                return;
+
+            (UserData.Language switch
+            {
+                "중어Ⅰ" => RadioLangChinese,
+                "스어Ⅰ" => RadioLangSpanish,
+                "일어Ⅰ" => RadioLangJapanese,
+            }).IsChecked = true;
+            (UserData.Special1 switch
+            {
+                "국경" => RadioSocialAEconomics,
+                "국정" => RadioSocialAPolitics,
+                "비문" => RadioSocialACulture,
+                "세역문" => RadioSocialAHistory,
+                "현정철" => RadioSocialAPhilosophy,
+                "세지연" => RadioSocialARegion,
+            }).IsChecked = true;
+            (UserData.Special2 switch
+            {
+                "국경" => RadioSocialBEconomics,
+                "국정" => RadioSocialBPolitics,
+                "비문" => RadioSocialBCulture,
+                "동근사" => RadioSocialBEastern,
+                "세역문" => RadioSocialBHistory,
+                "현정철" => RadioSocialBPhilosophy,
+                "GIS" => RadioSocialBGIS,
+            }).IsChecked = true;
+            (UserData.Science switch
+            {
+                "과학사" => RadioScienceHistory,
+                "생과" => RadioScienceLife
+            }).IsChecked = true;
         }
 
         private void ClassAdjustButtonClicked(object sender, EventArgs e)
@@ -24,13 +62,10 @@ namespace TimeTableMobile.Views
             if (sender is Button btn)
             {
                 if (btn.Text is "<")
-                {
                     UserData.Class--;
-                }
+                
                 else if (btn.Text is ">")
-                {
                     UserData.Class++;
-                }
 
                 SetClassModifier();
             }
@@ -63,21 +98,18 @@ namespace TimeTableMobile.Views
             switch (radio.GroupName)
             {
                 case "Language":
-                    Subjects.Languages.Selected = subject.RawNameToCellName();
+                    Subjects.Languages.Selected = UserData.Language = subject.RawNameToCellName();
                     break;
                 case "SocialA":
-                    Subjects.Specials1.Selected = subject.RawNameToCellName();
+                    Subjects.Specials1.Selected = UserData.Special1 = subject.RawNameToCellName();
                     break;
                 case "SocialB":
-                    Subjects.Specials2.Selected = subject.RawNameToCellName();
+                    Subjects.Specials2.Selected = UserData.Special2 = subject.RawNameToCellName();
                     break;
                 case "Science":
-                    Subjects.Sciences.Selected = subject.RawNameToCellName();
-                    break;
-                default:
+                    Subjects.Sciences.Selected = UserData.Science = subject.RawNameToCellName();
                     break;
             }
-
         }
     }
 }

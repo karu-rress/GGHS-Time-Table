@@ -113,7 +113,6 @@ namespace TimeTableUWP.Pages
             }
         }
 
-
         #endregion
 
         private string[,] SetArrayByClass()
@@ -136,25 +135,8 @@ namespace TimeTableUWP.Pages
             return ret;
         }
 
-        #region ComboBox
         private void EnableAllCombobox()
         => Enable(langComboBox, special1ComboBox, special2ComboBox, scienceComboBox);
-
-        private void classComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (classComboBox.SelectedItem is not string ccb)
-                return;
-
-            EnableAllCombobox();
-            Subjects.Clear();
-
-            // Get & Set Class
-            SaveData.ClassComboBoxText = ccb;
-            @class = SaveData.ClassComboBoxText[6] - '0';
-            TimeTable.ResetByClass(@class);
-            SetComboBoxAsClass();
-            DrawTimeTable();
-        }
 
         // TODO: 이걸 아예 TimeTable.cs 의 ResetByClass() 와 합칠까?
         // 그래서 관할은 그쪽에서 하고, 여기선 tuple 반환값으로 채우기만 하게...
@@ -204,69 +186,41 @@ namespace TimeTableUWP.Pages
             setComboBox[@class - 1]();
         }
 
-        private void langComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
         {
-            if (langComboBox.SelectedItem is string language)
+            if (sender is not ComboBox comboBox || comboBox.SelectedItem is not string selected)
+                return;
+
+            switch (comboBox.Name)
             {
-                SaveData.LangComboBoxText = Subjects.Languages.Selected = language;
-                DrawTimeTable();
+                case "classComboBox":
+                    EnableAllCombobox();
+                    Subjects.Clear();
+
+                    // Get & Set Class
+                    SaveData.ClassComboBoxText = selected;
+                    @class = SaveData.ClassComboBoxText[6] - '0';
+                    TimeTable.ResetByClass(@class);
+                    SetComboBoxAsClass();
+                    break;
+                case "langComboBox":
+                    SaveData.LangComboBoxText = Subjects.Languages.Selected = selected;
+                    break;
+                case "special1ComboBox":
+                    SaveData.Special1ComboBoxText = selected;
+                    Subjects.Specials1.Selected = SaveData.Special1ComboBoxText.RawNameToCellName();
+                    break;
+                case "special2ComboBox":
+                    SaveData.Special2ComboBoxText = selected;
+                    Subjects.Specials2.Selected = SaveData.Special2ComboBoxText.RawNameToCellName();
+                    break;
+                case "scienceComboBox":
+                    SaveData.ScienceComboBoxText = selected;
+                    Subjects.Sciences.Selected = SaveData.ScienceComboBoxText;
+                    break;
             }
-        }
-
-        private void special1ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (special1ComboBox.SelectedItem is not string special1)
-                return;
-
-            SaveData.Special1ComboBoxText = special1;
-            Subjects.Specials1.Selected = SaveData.Special1ComboBoxText switch
-            {
-                SubjectsFullNames.GlobalEconomics or
-                SubjectsFullNames.GlobalPolitics or
-                SubjectsFullNames.CompareCulture or
-                SubjectsFullNames.EasternHistory => SaveData.Special1ComboBoxText,
-
-                SubjectsFullNames.HistoryAndCulture => Subjects.Specials1.HistoryAndCulture,
-                SubjectsFullNames.PoliticsPhilosophy => Subjects.Specials1.PoliticsPhilosophy,
-                SubjectsFullNames.RegionResearch => Subjects.Specials1.RegionResearch,
-                _ => throw new TimeTableException($"special1ComboBox_SelectionChanged: No candidate for {SaveData.Special1ComboBoxText}."),
-            };
             DrawTimeTable();
         }
-
-        private void special2ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (special2ComboBox.SelectedItem is not string special2)
-                return;
-
-            SaveData.Special2ComboBoxText = special2;
-            Subjects.Specials2.Selected = SaveData.Special2ComboBoxText switch
-            {
-                SubjectsFullNames.GlobalEconomics or
-                SubjectsFullNames.GlobalPolitics or
-                SubjectsFullNames.CompareCulture or
-                SubjectsFullNames.EasternHistory => SaveData.Special2ComboBoxText,
-
-                SubjectsFullNames.HistoryAndCulture => Subjects.Specials2.HistoryAndCulture,
-                SubjectsFullNames.PoliticsPhilosophy => Subjects.Specials2.PoliticsPhilosophy,
-                SubjectsFullNames.GISAnalyze => Subjects.Specials2.GISAnalyze,
-                _ => throw new TimeTableException($"special2ComboBox_SelectionChanged: No candidate for {SaveData.Special2ComboBoxText}."),
-            };
-            DrawTimeTable();
-        }
-
-        private void scienceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (scienceComboBox.SelectedItem is not string science)
-                return;
-
-            SaveData.ScienceComboBoxText = science;
-            Subjects.Sciences.Selected = SaveData.ScienceComboBoxText;
-
-            DrawTimeTable();
-        }
-        #endregion
-
 
         private async Task ShowSubjectZoom(string subjectCellName)
         {

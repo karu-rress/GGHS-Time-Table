@@ -189,7 +189,7 @@
                 <x:String>Grade 2</x:String>
             </ComboBox>
             <TextBlock Text="Class" Grid.Row="2"/>
-            <ComboBox x:Name="classComboBox" SelectionChanged="classComboBox_SelectionChanged"  Grid.Row="3">
+            <ComboBox x:Name="classComboBox" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="3">
                 <x:String>Class 1</x:String>
                 <x:String>Class 2</x:String>
                 <x:String>Class 3</x:String>
@@ -201,12 +201,12 @@
             </ComboBox>
 
             <TextBlock Text="Subjects" Grid.Row="4"/>
-            <ComboBox x:Name="langComboBox" SelectionChanged="langComboBox_SelectionChanged" Grid.Row="5">
+            <ComboBox x:Name="langComboBox" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="5">
                 <x:String>스페인어Ⅰ</x:String>
                 <x:String>중국어Ⅰ</x:String>
                 <x:String>일본어Ⅰ</x:String>
             </ComboBox>
-            <ComboBox x:Name="special1ComboBox" SelectionChanged="special1ComboBox_SelectionChanged"  Grid.Row="6">
+            <ComboBox x:Name="special1ComboBox" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="6">
                 <x:String>국제경제</x:String>
                 <x:String>국제정치</x:String>
                 <x:String>비교문화</x:String>
@@ -214,7 +214,7 @@
                 <x:String>현대정치철학의 이해</x:String>
                 <x:String>세계 지역 연구</x:String>
             </ComboBox>
-            <ComboBox x:Name="special2ComboBox" SelectionChanged="special2ComboBox_SelectionChanged"  Grid.Row="7">
+            <ComboBox x:Name="special2ComboBox" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="7">
                 <x:String>국제경제</x:String>
                 <x:String>국제정치</x:String>
                 <x:String>비교문화</x:String>
@@ -223,7 +223,7 @@
                 <x:String>현대정치철학의 이해</x:String>
                 <x:String>공간 정보와 공간 분석</x:String>
             </ComboBox>
-            <ComboBox x:Name="scienceComboBox" SelectionChanged="scienceComboBox_SelectionChanged"  Grid.Row="8">
+            <ComboBox x:Name="scienceComboBox" SelectionChanged="ComboBox_SelectionChanged"  Grid.Row="8">
                 <x:String>과학사</x:String>
                 <x:String>생활과 과학</x:String>
             </ComboBox>

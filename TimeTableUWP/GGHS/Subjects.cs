@@ -1,9 +1,43 @@
 ﻿#nullable enable
 
+using GGHS.Grade2.Semester2;
 using RollingRess;
 
 namespace GGHS
 {
+    static class extension
+    {
+        public static string RawNameToCellName(this string subject)
+        {
+            return subject switch
+            {
+                SubjectsFullNames.Reading => Subjects.CellName.Reading,
+                SubjectsFullNames.Mathematics => Subjects.CellName.Mathematics,
+                SubjectsFullNames.AdvancedEnglish => Subjects.CellName.AdvancedEnglish,
+                SubjectsFullNames.Sport => Subjects.CellName.Sport,
+                SubjectsFullNames.CreativeSolve => Subjects.CellName.CreativeSolve,
+                SubjectsFullNames.MathResearch => Subjects.CellName.MathResearch,
+                SubjectsFullNames.Others => Subjects.CellName.Others,
+                SubjectsFullNames.HomeComing => Subjects.CellName.HomeComing,
+
+                SubjectsFullNames.ScienceHistory => Subjects.CellName.ScienceHistory,
+                SubjectsFullNames.LifeAndScience => Subjects.CellName.LifeAndScience,
+
+                SubjectsFullNames.GlobalEconomics => Subjects.CellName.GlobalEconomics,
+                SubjectsFullNames.GlobalPolitics => Subjects.CellName.GlobalPolitics,
+                SubjectsFullNames.CompareCulture => Subjects.CellName.CompareCulture,
+                SubjectsFullNames.EasternHistory => Subjects.CellName.EasternHistory,
+                SubjectsFullNames.HistoryAndCulture => Subjects.CellName.HistoryAndCulture,
+                SubjectsFullNames.PoliticsPhilosophy => Subjects.CellName.PoliticsPhilosophy,
+                SubjectsFullNames.RegionResearch => Subjects.CellName.RegionResearch,
+                SubjectsFullNames.GISAnalyze => Subjects.CellName.GISAnalyze,
+
+                SubjectsFullNames.Japanese => Subjects.CellName.Japanese,
+                SubjectsFullNames.Spanish => Subjects.CellName.Spanish,
+                SubjectsFullNames.Chinese => Subjects.CellName.Chinese
+            };
+        }
+    }
 
     public interface ISubjects
     {

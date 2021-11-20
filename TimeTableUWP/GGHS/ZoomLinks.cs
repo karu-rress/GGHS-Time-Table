@@ -11,6 +11,8 @@ namespace System.Runtime.CompilerServices
     public class IsExternalInit { }
 }
 
+// 동일한 집합으로 만들어서 UWP, Xamarin 각각 상속...
+
 namespace GGHS
 {
     public record ZoomInfo(string? Link, string? Id, string? Pw, string? ClassRoom, string Teacher);

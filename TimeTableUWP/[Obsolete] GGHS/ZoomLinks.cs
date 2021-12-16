@@ -4,12 +4,7 @@ using System;
 using System.ComponentModel;
 using ZoomDictionary = System.Collections.Generic.Dictionary<string, GGHS.ZoomInfo?>;
 
-// Enables using record types as tuple-like types.
-namespace System.Runtime.CompilerServices
-{
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public class IsExternalInit { }
-}
+
 
 // 동일한 집합으로 만들어서 UWP, Xamarin 각각 상속...
 

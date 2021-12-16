@@ -6,6 +6,7 @@ using static System.DayOfWeek;
 
 namespace TimeTableUWP
 {
+    [Obsolete("=> TimeTableCore.DateType")]
     public enum DateType
     {
         YYYYMMDD,
@@ -13,7 +14,6 @@ namespace TimeTableUWP
         YYYYMMDD2
     }
 }
-
 internal static class StringOfExtension
 {
     public static ref string Of(this string[,] @class, DayOfWeek day, int time) => ref @class[(int)day - 1, time - 1];
@@ -21,7 +21,6 @@ internal static class StringOfExtension
 
 namespace GGHS
 {
-
     public interface ITimeTable
     {
         string[,] Class1 { get; }

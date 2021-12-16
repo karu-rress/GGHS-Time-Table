@@ -58,11 +58,12 @@ namespace TimeTableUWP.Pages
         {
             get
             {
-                yield return classComboBox;
+                yield return korComboBox;
+                yield return mathComboBox;
+                yield return socialComboBox;
                 yield return langComboBox;
-                yield return special1ComboBox;
-                yield return special2ComboBox;
-                yield return scienceComboBox;
+                yield return global1ComboBox;
+                yield return global2ComboBox;
             }
         }
 

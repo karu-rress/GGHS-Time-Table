@@ -38,7 +38,6 @@ namespace GGHS
             };
         }
     }
-
     public interface ISubjects
     {
         int Grade { get; }

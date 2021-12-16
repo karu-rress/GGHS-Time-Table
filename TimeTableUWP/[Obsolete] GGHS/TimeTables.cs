@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using static System.DayOfWeek;
 
-namespace TimeTableMobile.GGHS
+namespace TimeTableUWP
 {
+    [Obsolete("=> TimeTableCore.DateType")]
     public enum DateType
     {
         YYYYMMDD,
@@ -13,15 +14,13 @@ namespace TimeTableMobile.GGHS
         YYYYMMDD2
     }
 }
-
 internal static class StringOfExtension
 {
     public static ref string Of(this string[,] @class, DayOfWeek day, int time) => ref @class[(int)day - 1, time - 1];
 }
 
-namespace TimeTableMobile.GGHS
+namespace GGHS
 {
-
     public interface ITimeTable
     {
         string[,] Class1 { get; }

@@ -35,7 +35,7 @@
                 <Setter Property="FontFamily" Value="Segoe"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="111,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 4 Settings" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="111,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 5 Settings" FontWeight="Bold"/>
 
         <ScrollViewer Margin="45,97,455,53" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid VerticalAlignment="Top">
@@ -47,23 +47,16 @@
                     <x:String>2020-06-03</x:String>
                     <x:String>06/03/2020</x:String>
                 </muxc:RadioButtons>
-                <muxc:ColorPicker x:Name="colorPicker"
-      ColorSpectrumShape="Ring"
-      IsColorSliderVisible="True"
-      IsColorChannelTextInputVisible="False"
-      IsHexInputVisible="False"
-      IsAlphaEnabled="False"
-      IsAlphaSliderVisible="False"
-      IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <muxc:ColorPicker x:Name="colorPicker" ColorSpectrumShape="Ring" IsColorSliderVisible="True" IsColorChannelTextInputVisible="False"
+      IsHexInputVisible="False" IsAlphaEnabled="False" IsAlphaSliderVisible="False" IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
                 <Button Margin="368,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
                     <TextBlock><Run Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
                 </Button>
             </Grid>
         </ScrollViewer>
-
         <Button Margin="0,100,35,0" Click="Button_Click_1">
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" About GGHS Time Table 4" /></TextBlock>
+            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
         </Button>
         <Button Margin="0,200,35,0" Click="Button_Click_2" >
             <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>

@@ -1,15 +1,12 @@
 ﻿#nullable enable
 
-using System;
-using TimeTableMobile.GGHS.Grade2.Semester2;
+using GGHS.Grade2.Semester2;
+using RollingRess;
 
-namespace TimeTableMobile.GGHS
+namespace GGHS
 {
-    internal static class extensions
+    static class extension
     {
-        public static string ReturnIfHasInOrElse(this string var, string @else, params string[] array)
-    => Array.IndexOf(array, var) > -1 ? var : @else;
-
         public static string RawNameToCellName(this string subject)
         {
             return subject switch
@@ -41,7 +38,6 @@ namespace TimeTableMobile.GGHS
             };
         }
     }
-
     public interface ISubjects
     {
         int Grade { get; }
@@ -132,20 +128,20 @@ namespace TimeTableMobile.GGHS
                     // public static string HomeComing => RawName.HomeComing;
 
                     // public static string ScienceHistory => RawName.ScienceHistory;
-                    public static new string LifeAndScience => "생과";
+                    // public static new string LifeAndScience => "생활과학";
 
-                    public static new string GlobalEconomics => "국경";
-                    public static new string GlobalPolitics => "국정";
-                    public static new string CompareCulture => "비문";
-                    public static new string EasternHistory => "동근사";
+                    // public static string GlobalEconomics => RawName.GlobalEconomics;
+                    // public static string GlobalPolitics => RawName.GlobalPolitics;
+                    // public static string CompareCulture => RawName.CompareCulture;
+                    // public static string EasternHistory => RawName.EasternHistory;
                     public static new string HistoryAndCulture => "세역문";
                     public static new string PoliticsPhilosophy => "현정철";
                     public static new string RegionResearch => "세지연";
                     public static new string GISAnalyze => "GIS";
 
-                    public static new string Japanese => "일어Ⅰ";
-                    public static new string Spanish => "스어Ⅰ";
-                    public static new string Chinese => "중어Ⅰ";
+                    // public static string Japanese => RawName.Japanese;
+                    // public static string Spanish => RawName.Spanish;
+                    // public static string Chinese => RawName.Chinese;
                 }
 
                 /// <summary>
@@ -163,7 +159,7 @@ namespace TimeTableMobile.GGHS
                 {
                     public static string ScienceHistory => CellName.ScienceHistory;
                     public static string LifeAndScience => CellName.LifeAndScience;
-                    public static string None => "과학";
+                    public static string None => "과학선택";
 
                     private static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, ScienceHistory, LifeAndScience); }
@@ -215,6 +211,133 @@ RegionResearch, GISAnalyze);
                     public static string Spanish => CellName.Spanish;
                     public static string Chinese => CellName.Chinese;
                     public static string None => "외국어";
+                    static string selected = None;
+                    public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Japanese, Spanish, Chinese); }
+                }
+            }
+        } // Semester 2
+
+        namespace Semester1
+        {
+            public class Subjects : ISubjects
+            {
+                int ISubjects.Grade { get; } = 2;
+                int ISubjects.Semester { get; } = 1;
+
+
+                //using static Subjects.CellName?
+                /// <summary>
+                /// RawName: Used in ComboBox Text
+                /// </summary>
+                public class RawName
+                {
+                    public static string Literature { get; } = "문학";
+                    public static string Mathematics { get; } = "수학Ⅰ";
+                    public static string CriticalEnglish { get; } = "비판적 영어 글쓰기와 말하기";
+                    public static string Sport { get; } = "운동과 건강";
+                    public static string CreativeSolve { get; } = "창의적 문제 해결 기법";
+                    public static string MathResearch { get; } = "수학과제탐구";
+                    public static string Others { get; } = "창의적 체험활동";
+                    public static string HomeComing { get; } = "홈커밍";
+
+                    public static string Physics { get; } = "물리학Ⅰ";
+                    public static string Chemistry { get; } = "화학Ⅰ";
+                    public static string Biology { get; } = "생명과학Ⅰ";
+
+                    public static string Ethics { get; } = "실천 윤리학의 이해";
+                    public static string Environment { get; } = "인간과 환경";
+
+                    public static string History { get; } = "세계사";
+                    public static string Geography { get; } = "세계지리";
+                    public static string Politics { get; } = "정치와 법";
+                    public static string Economy { get; } = "경제";
+
+                    public static string Japanese { get; } = "일본어Ⅰ";
+                    public static string Spanish { get; } = "스페인어Ⅰ";
+                    public static string Chinese { get; } = "중국어Ⅰ";
+                }
+
+                /// <summary>
+                /// CellName: Used in TimeTable Text or Pop-up Dialogs
+                /// </summary>
+                public class CellName : RawName
+                {
+                    // public static string Literature { get; } = RawName.Literature;
+                    // public static string Mathematics { get; } = RawName.Mathematics;
+                    public static new string CriticalEnglish { get; } = "비영";
+                    public static new string Sport { get; } = "운동";
+                    public static new string CreativeSolve { get; } = "창문해";
+                    public static new string MathResearch { get; } = "수과탐";
+                    public static new string Others { get; } = "창체";
+                    // public static string HomeComing { get; } = RawName.HomeComing;
+
+                    // public static string Physics { get; } = RawName.Physics;
+                    // public static string Chemistry { get; } = RawName.Chemistry;
+                    // public static string Biology { get; } = RawName.Biology;
+
+                    public static new string Ethics { get; } = "실윤이";
+                    public static new string Environment { get; } = "인환";
+
+                    // public static string History { get; } = RawName.History;
+                    // public static string Geography { get; } = RawName.Geography;
+                    // public static string Politics { get; } = RawName.Politics;
+                    // public static string Economy { get; } = RawName.Economy;
+
+                    // public static string Japanese { get; } = RawName.Japanese;
+                    // public static string Spanish { get; } = RawName.Spanish;
+                    // public static string Chinese { get; } = RawName.Chinese;
+                }
+
+                /// <summary>
+                /// Reset All the subjects as None
+                /// </summary>
+                public static void Clear()
+                {
+                    Sciences.Selected = Sciences.None;
+                    Specials.Selected = Specials.None;
+                    Socials.Selected = Socials.None;
+                    Languages.Selected = Languages.None;
+                }
+
+                public static class Sciences // sealed
+                {
+                    public static string Physics { get; } = CellName.Physics;
+                    public static string Chemistry { get; } = CellName.Chemistry;
+                    public static string Biology { get; } = CellName.Biology;
+                    public static string None { get; } = "과탐";
+                    static string selected = None;
+                    public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Physics, Chemistry, Biology); }
+                }
+
+
+                public static class Specials
+                {
+                    public static string Ethics { get; } = CellName.Ethics;
+                    public static string Environment { get; } = CellName.Environment;
+                    public static string None { get; } = "전문";
+                    static string selected = None;
+                    public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Ethics, Environment); }
+                }
+
+
+                public static class Socials
+                {
+                    public static string History { get; } = CellName.History;
+                    public static string Geography { get; } = CellName.Geography;
+                    public static string Politics { get; } = CellName.Politics;
+                    public static string Economy { get; } = CellName.Economy;
+                    public static string None { get; } = "사탐";
+                    static string selected = None;
+                    public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, History, Geography, Politics, Economy); }
+                }
+
+
+                public static class Languages
+                {
+                    public static string Japanese { get; } = CellName.Japanese;
+                    public static string Spanish { get; } = CellName.Spanish;
+                    public static string Chinese { get; } = CellName.Chinese;
+                    public static string None { get; } = "외국어";
                     static string selected = None;
                     public static string Selected { get => selected; set => selected = value.ReturnIfHasInOrElse(None, Japanese, Spanish, Chinese); }
                 }

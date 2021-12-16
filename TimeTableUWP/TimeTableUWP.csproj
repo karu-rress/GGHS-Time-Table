@@ -26,10 +26,9 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>0AB21A62E9D100434523AB9479B2B64976A71614</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>9A956C8CA39607BA75C3E1E3A0A03E31B76C2903</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>TimeTableUWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppInstallerUri>https://drive.google.com/drive/folders/1awYn3zFfrBMs3hxu3YXscrzvtcilgJ3w%3fusp=sharing</AppInstallerUri>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
@@ -149,9 +148,9 @@
     <Compile Include="Dialogs\SubjectSelectDialog.xaml.cs">
       <DependentUpon>SubjectSelectDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GGHS\Subjects.cs" />
-    <Compile Include="GGHS\TimeTables.cs" />
-    <Compile Include="GGHS\ZoomLinks.cs" />
+    <Compile Include="[Obsolete] GGHS\Subjects.cs" />
+    <Compile Include="[Obsolete] GGHS\TimeTables.cs" />
+    <Compile Include="[Obsolete] GGHS\ZoomLinks.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -306,9 +305,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\NET\nsun527\RollingNET\RollingNET\RollingNET.csproj">
+      <Project>{0c3bf68b-815d-4a21-958d-4e044175d0c5}</Project>
+      <Name>RollingNET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RollingUWP\RollingUWP\RollingUWP.csproj">
       <Project>{539d1184-789f-4991-b760-8978e95f6052}</Project>
       <Name>RollingUWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeTableCore\TimeTableCore.csproj">
+      <Project>{32f415d5-f495-4832-ba9e-77bd0b01a45c}</Project>
+      <Name>TimeTableCore</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

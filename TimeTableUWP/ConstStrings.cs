@@ -27,15 +27,15 @@ namespace TimeTableUWP
 
     public static class SubTitles
     {
-        public const string Developer = "Welcome to the Ultimate GTT4, Karu";
+        public const string Developer = "Welcome to the Ultimate GTT5, Karu";
         public const string ShareTech = "ShareTech, let's try our hardest";
         public const string Insider = "Insiders, we're the ones who've made it this far";
-        public const string Grade2 = "Back to online, with the task manager";
+        public const string Grade2 = "Now we are the K-高3";
     }
 
     public static class Messages
     {
-        public const string GGHSTimeTableWithVer = "GGHS Time Table 4";
+        public const string GGHSTimeTableWithVer = "GGHS Time Table 5";
 
         public const string Welcome = @"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 

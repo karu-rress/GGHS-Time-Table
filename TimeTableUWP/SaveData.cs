@@ -1,4 +1,5 @@
 ﻿#nullable enable
+#define __TESTING__
 
 using RollingRess.UWP.FileIO;
 using System;
@@ -9,130 +10,99 @@ using TimeTableUWP.Pages;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using TimeTableCore;
+using SubjectTuple = System.ValueTuple<TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?>;
 
 namespace TimeTableUWP
 {
-    public static class SaveData
+    [GTT5]
+    public class DataSaver : BaseSaver
     {
-        public class ComboBoxSave
+        public Settings? Settings { get; set; }
+
+        private string DataFile => SaveFiles.DataFile;
+        private string KeyFile => SaveFiles.KeyFile;
+        private string SettingsFile => SaveFiles.SettingsFile;
+        private string VersionFile => SaveFiles.VersionFile;
+        private string ClassFile => SaveFiles.ClassFile;
+
+        public async Task SaveAsync()
         {
-            public string? Class { get; set; }
-            public string? Lang { get; set; }
-            public string? Special1 { get; set; }
-            public string? Special2 { get; set; }
-            public string? Science { get; set; }
+#if __TESTING__
+            if (UserData is null)
+                throw new NullReferenceException("DataSaver: BaseSaver.UserData is null");
 
-            public (string? @class, string? lang, string? special1, string? special2, string? science) Parse()
-            => (Class, Lang, Special1, Special2, Science);
-        }
-
-        private const string dataFileName = SaveFiles.DataFile;
-        private const string keyFileName = SaveFiles.KeyFile;
-        private const string settingsFileName = SaveFiles.SettingsFile;
-        private const string versionFileName = SaveFiles.VersionFile;
-
-        public static bool IsActivated { get; set; } = false;
-        public static ActivateLevel ActivateStatus { get; set; } = ActivateLevel.None;
-
-        public static Color ColorType { get; set; } = SettingsPage.DefaultColor;
-        public static string? ClassComboBoxText { get; set; }
-        public static string? Special1ComboBoxText { get; set; }
-        public static string? Special2ComboBoxText { get; set; }
-        public static string? LangComboBoxText { get; set; }
-        public static string? ScienceComboBoxText { get; set; }
-        public static bool IsDeveloperOrInsider => ActivateStatus is ActivateLevel.Developer or ActivateLevel.ShareTech or ActivateLevel.Insider;
-        public static bool IsNotDeveloperOrInsider => !IsDeveloperOrInsider;
-
-        private static IEnumerable<string?> ComboBoxTexts
-        {
-            get
+            if (Settings is null)
+                throw new NullReferenceException("DataSaver: Settings is null.");
+#endif
+            Task writeKey = Task.CompletedTask;
+            if (UserData.IsActivated)
             {
-                yield return ClassComboBoxText;
-                yield return LangComboBoxText;
-                yield return Special1ComboBoxText;
-                yield return Special2ComboBoxText;
-                yield return ScienceComboBoxText;
-            }
-        }
-
-        public static async Task SaveDataAsync()
-        {
-            // Save activation status only if the user is activated.
-            if (IsActivated is true)
-            {
-                DataWriter<ActivateLevel> writer = new(keyFileName, ActivateStatus);
-                await writer.WriteAsync();
+                DataWriter<ActivationLevel> writer = new(KeyFile, Info.User.ActivationLevel);
+                writeKey = writer.WriteAsync();
             }
 
-            DataWriter<ComboBoxSave> writeComboBox = new(dataFileName, new()
-            {
-                Class = ClassComboBoxText,
-                Lang = LangComboBoxText,
-                Special1 = Special1ComboBoxText,
-                Special2 = Special2ComboBoxText,
-                Science = ScienceComboBoxText
-            });
-            DataWriter<Color> writeSettings = new(settingsFileName, ColorType);
-            DataWriter<string> writeVersion = new(versionFileName, MainPage.Version);
-            await Task.WhenAll(writeSettings.WriteAsync(), writeVersion.WriteAsync(), writeComboBox.WriteAsync());
+            SubjectTuple tuple = (Korean, Math, Social, Language, Global1, Global2);
+            DataWriter<SubjectTuple> writeSubject = new(DataFile, tuple);
+            DataWriter<Settings> writeSettings = new(SettingsFile, Settings);
+            DataWriter<Version> writeVersion = new(VersionFile, Info.Version);
+            DataWriter<int> writeClass = new(ClassFile, Info.User.Class);
+            await Task.WhenAll(writeKey, writeSubject.WriteAsync(), writeSettings.WriteAsync(), writeVersion.WriteAsync(), writeClass.WriteAsync());
         }
 
-        public static async Task<TimeTablePage.LoadStatus> LoadDataAsync()
+        public async Task LoadAsync()
         {
             var storageFolder = ApplicationData.Current.LocalFolder;
 
             // Check the Version File exists. If not, the user is using version 3 or newly installed.
-            if (await storageFolder.TryGetItemAsync(versionFileName) is not StorageFile)
+            if (await storageFolder.TryGetItemAsync(VersionFile) is not StorageFile)
             {
-                return TimeTablePage.LoadStatus.NewUser;
+                Info.User.Status = LoadStatus.NewlyInstalled;
+                return;
             }
 
-            DataReader<Color> readSettings = new(settingsFileName);
+            DataReader<Settings> readSettings = new(SettingsFile);
             var settings = readSettings.ReadAsync();
 
-            DataReader<ComboBoxSave> readCombo = new(dataFileName);
-            var combo = readCombo.ReadAsync();
+            DataReader<SubjectTuple> readTuple = new(DataFile);
+            var subject = readTuple.ReadAsync();
 
-            DataReader<string> readVersion = new(versionFileName);
+            DataReader<Version> readVersion = new(VersionFile);
             var version = readVersion.ReadAsync();
 
+            DataReader<int> readClass = new(ClassFile);
+            var cls = readClass.ReadAsync();
+
             // Wait all until all files are read
-            await Task.WhenAll(settings, combo, version);
+            await Task.WhenAll(settings, subject, version, cls);
 
-            ColorType = await settings;
-            ComboBoxSave? Combo = await combo;
+            Settings = await settings;
+            Info.Settings = Settings;
+            SubjectTuple subjects = await subject;
+            Info.User.Class = await cls;
 
-            (ClassComboBoxText, LangComboBoxText, Special1ComboBoxText, Special2ComboBoxText, ScienceComboBoxText) = Combo.Parse();
+            (Korean, Math, Social, Language, Global1, Global2) = subjects;
+
+            // TODO:
+            // 이거 이런 식으로 여기서 로드해버릴 수 있음.
+            // 세이브도 바로 되면 그냥 BaseData 자체를 삭제해도 될 수도.
+            // TimeTableCore.Grade3.Semester1.Subjects.Korean.SetAs(Korean);
+
 
             // If activated
-            if (await storageFolder.TryGetItemAsync(keyFileName) is not null)
+            if (await storageFolder.TryGetItemAsync(KeyFile) is not null)
             {
-                DataReader<ActivateLevel> reader = new(keyFileName);
-                ActivateStatus = await reader.ReadAsync();
-                IsActivated = true;
+                DataReader<ActivationLevel> reader = new(KeyFile);
+                Info.User.ActivationLevel = await reader.ReadAsync();
             }
 
             // If updated
-            if (await version != MainPage.Version)
+            if (await version != Version.Value)
             {
-                return TimeTablePage.LoadStatus.Updated;
+                Info.User.Status = LoadStatus.Updated;
+                return;
             }
-            return TimeTablePage.LoadStatus.Default;
-        }
-
-        public static void SetComboBoxes(IEnumerable<ComboBox> comboBoxes)
-        {
-            var tupleList = comboBoxes.Zip(ComboBoxTexts, (comboBox, text) => (comboBox, text));
-            foreach (var (comboBox, text) in tupleList)
-            {
-                comboBox.SelectedItem = string.IsNullOrEmpty(text) ? null : text;
-            }
-        }
-
-        public static void SetClass(ref int @class)
-        {
-            if (!string.IsNullOrEmpty(ClassComboBoxText))
-                @class = ClassComboBoxText![6] - '0';
+            Info.User.Status = LoadStatus.Normal;
         }
     }
 }

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using TimeTableMobile.GGHS;
-using TimeTableMobile.GGHS.Grade2.Semester2;
+using TimeTableCore;
 using System.Collections;
 using System.IO;
 

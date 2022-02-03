@@ -139,15 +139,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DateSelectDialog.xaml.cs">
-      <DependentUpon>DateSelectDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\FeedbackDialog.xaml.cs">
       <DependentUpon>FeedbackDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\SubjectSelectDialog.xaml.cs">
-      <DependentUpon>SubjectSelectDialog.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Info.cs" />
+    <Compile Include="Models\HelperTypes.cs" />
     <Compile Include="[Obsolete] GGHS\Subjects.cs" />
     <Compile Include="[Obsolete] GGHS\TimeTables.cs" />
     <Compile Include="[Obsolete] GGHS\ZoomLinks.cs" />
@@ -256,15 +252,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\DateSelectDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\FeedbackDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\SubjectSelectDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,11 +293,15 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\NET\nsun527\RollingNET\RollingNET\RollingNET.csproj">
-      <Project>{0c3bf68b-815d-4a21-958d-4e044175d0c5}</Project>
+    <ProjectReference Include="..\..\..\..\Library\RollingNet\RollingNet\RollingNET.csproj">
+      <Project>{412ddc72-8581-4085-81d3-27e9184e9104}</Project>
       <Name>RollingNET</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RollingUWP\RollingUWP\RollingUWP.csproj">
+    <ProjectReference Include="..\..\GGHS Todo\GGHS Todo\GGHS Todo.csproj">
+      <Project>{01a5e15f-083c-4601-a7e9-d0c64f08953a}</Project>
+      <Name>GGHS Todo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Library\RollingUWP\RollingUWP\RollingUWP.csproj">
       <Project>{539d1184-789f-4991-b760-8978e95f6052}</Project>
       <Name>RollingUWP</Name>
     </ProjectReference>

@@ -2,9 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TimeTableCore;
 
 namespace TimeTableMobile
 {
+    internal class DataSaver : BaseSaver
+    {
+        public static string FileName
+            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "gttsav.sav")!;
+
+        public bool IsAllFilled
+            => UserData.Class is not 0 &&
+            Korean is not null && Math is not null && Social is not null &&
+            Language is not null && Global1 is not null && Global2 is not null;
+    }
+
+    [Obsolete]
     internal static class UserData
     {
         public static string FileName 

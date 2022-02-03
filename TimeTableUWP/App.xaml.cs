@@ -63,14 +63,12 @@ namespace TimeTableUWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 var taskLoad = SaveTask.Load();
-                var dataLoad = SaveData.LoadDataAsync();
+                //var dataLoad = SaveData.LoadDataAsync();
 
+                DataSaver data = new();
+                var dataLoad = data.LoadAsync();
                 await Task.WhenAll(taskLoad, dataLoad);
-                TimeTablePage.Status = await dataLoad;
 
-
-
-                //await Task.WhenAll(SaveTask.Load(), SaveData.LoadDataAsync());
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

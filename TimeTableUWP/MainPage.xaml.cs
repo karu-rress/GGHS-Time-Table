@@ -14,15 +14,6 @@ namespace TimeTableUWP
 
     public sealed partial class MainPage : Page
     {
-        private static PackageVersion PackageVer { get; } = Package.Current.Id.Version;
-
-        /// <summary>
-        /// GGHS Time Table's version: string value with the format "X.X.X"
-        /// </summary>
-        public static string Version { get; } = PackageVer.ParseString();
-
-        public static ElementTheme Theme => SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
-
         public static bool IsGoingToTodoPage { get; set; } = false;
 
         public MainPage()

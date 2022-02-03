@@ -20,63 +20,54 @@ using Microsoft.Toolkit.Uwp.Notifications;
 
 using static RollingRess.StaticClass;
 using static System.DayOfWeek;
-
+using TimeTableCore;
 
 namespace TimeTableUWP.Pages
 {
     public sealed partial class TimeTablePage : Page
     {
-        private string[,]? SubjectTable { get; set; } // string[5, 7]
+        // private string[,]? SubjectTable { get; set; } // string[5, 7]
 
         void InitializeUI()
         {
             // Set Color
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
-                border.Background = new SolidColorBrush(SaveData.ColorType);
+                border.Background = new SolidColorBrush(Info.Settings.ColorType);
 
             SetSubText();
-
-            if (Status is LoadStatus.NewUser)
+            if (Info.User.Status is LoadStatus.NewlyInstalled)
             {
-                _ = ShowMessageAsync(Messages.Welcome, Messages.GGHSTimeTableWithVer, MainPage.Theme);
+                _ = ShowMessageAsync(Messages.Welcome, Messages.GGHSTimeTableWithVer, Info.Settings.Theme);
             }
-            else if (Status is LoadStatus.Updated)
+            else if (Info.User.Status is LoadStatus.Updated)
             {
                 _ = ShowMessageAsync(Messages.Updated, "New version installed");
             }
-            Status = LoadStatus.Default;
-
-            gradeComboBox.SelectedIndex = 0;
+            Info.User.Status = LoadStatus.Normal;
         }
 
-        private void SetSubText() => mainText2.Text = SaveData.ActivateStatus switch
+        private void SetSubText() => mainText2.Text = Info.User.ActivationLevel switch
         {
-            ActivateLevel.Developer => SubTitles.Developer,
-            ActivateLevel.Insider => SubTitles.Insider,
-            ActivateLevel.Grade2 => SubTitles.Grade2,
-            ActivateLevel.ShareTech => SubTitles.ShareTech,
+            ActivationLevel.Developer => SubTitles.Developer,
+            ActivationLevel.Insider => SubTitles.Insider,
+            ActivationLevel.GGHS10th => SubTitles.GGHS10th,
+            ActivationLevel.ShareTech => SubTitles.ShareTech,
             _ => string.Empty
         };
 
         private void DrawTimeTable()
         {
-            TimeTable.ResetByClass(@class);
-            SubjectTable = SetArrayByClass();
-
-            // 월 6, 7 / 금 5, 6은 어차피 창체, 금 7도 어차피 홈커밍
-            AssignButtonsByTable(SubjectTable);
-
-            mon6Button.Content = mon7Button.Content = fri5Button.Content = fri6Button.Content =
-            SubjectTable[0, 5] = SubjectTable[0, 6] = SubjectTable[4, 4] = SubjectTable[4, 5] = Subjects.CellName.Others;
-            fri7Button.Content = SubjectTable[4, 6] = Subjects.CellName.HomeComing;
+            TimeTable.ResetClass(Info.User.Class);
+            AssignButtonsByTable(TimeTable.Table);
         }
 
-        private void AssignButtonsByTable(string[,] subjectTable)
+        [GTT5]
+        private void AssignButtonsByTable(TimeTable subjectTable)
         {
-            IEnumerable<string>? subjects = ((IEnumerable)subjectTable).Cast<string>();
-            var lists = Buttons.Zip(subjects, (Button btn, string subject) => (btn, subject));
+            var subjects = ((IEnumerable)subjectTable.Data).Cast<Subject>();
+            var lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
             foreach (var (btn, subject) in lists)
-                btn.Content = subject;
+                btn.Content = subject.Name;
         }
 
         private async Task LoopTimeAsync()
@@ -89,21 +80,19 @@ namespace TimeTableUWP.Pages
                 try
                 {
                     await Task.Delay(300); // 300ms 마다 반복하기
-                    Now = DateTime.Now;
-
                     void SetClock()
                     {
-                        clock.Text = Now.ToString(SettingsPage.Use24Hour ? "HH:mm" : "hh:mm");
-                        amorpmBox.Text = SettingsPage.Use24Hour
-                            ? string.Empty : Now.ToString("tt", CultureInfo.InvariantCulture);
-                        dateBlock.Text = Now.ToString(SettingsPage.DateFormat switch
+                        clock.Text = DateTime.Now.ToString(Info.Settings.Use24Hour ? "HH:mm" : "hh:mm");
+                        amorpmBox.Text = Info.Settings.Use24Hour
+                            ? string.Empty : DateTime.Now.ToString("tt", CultureInfo.InvariantCulture);
+                        dateBlock.Text = DateTime.Now.ToString(Info.Settings.DateFormat switch
                         {
                             DateType.MMDDYYYY => "MM/dd/yyyy",
                             DateType.YYYYMMDD => "yyyy/MM/dd",
                             DateType.YYYYMMDD2 => "yyyy-MM-dd",
                             _ => throw new NotImplementedException()
                         });
-                        dayBlock.Text = Now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
+                        dayBlock.Text = DateTime.Now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
                     }
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, SetClock);
 
@@ -111,24 +100,24 @@ namespace TimeTableUWP.Pages
                     {
                         foreach (var item in Buttons)
                         {
-                            item.RequestedTheme = SettingsPage.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
-                            item.Background = new SolidColorBrush(SettingsPage.IsDarkMode
+                            item.RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+                            item.Background = new SolidColorBrush(Info.Settings.IsDarkMode
                                 ? Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
                                 : Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
-                            item.Foreground = new SolidColorBrush(SettingsPage.IsDarkMode ? Colors.White : Colors.Black);
+                            item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
                         }
                     }
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RefreshColor);
 
 
-                    if (Now.DayOfWeek is Sunday or Saturday || Now.Hour is >= 17 or < 9 or 13)
+                    if (DateTime.Now.DayOfWeek is Sunday or Saturday || DateTime.Now.Hour is >= 17 or < 9 or 13)
                         continue;
 
                     pos.day = (int)Now.DayOfWeek;
-                    pos.time = Now.Hour switch
+                    pos.time = DateTime.Now.Hour switch
                     {
-                        9 or 10 or 11 or 12 => Now.Hour - 8,
-                        14 or 15 or 16 => Now.Hour - 9,
+                        9 or 10 or 11 or 12 => DateTime.Now.Hour - 8,
+                        14 or 15 or 16 => DateTime.Now.Hour - 9,
                         _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {Now.Hour}.")
                     };
 
@@ -154,29 +143,29 @@ namespace TimeTableUWP.Pages
                     if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
 
                     // 4시에는 실행하면 안 된다!
-                    if (Now.Hour is 16) continue;
+                    if (DateTime.Now.Hour is 16) continue;
 
-                    Now = DateTime.Now;
-                    if (Now.Minute is 57 && invoke)
+                    DateTime.Now = DateTime.Now;
+                    if (DateTime.Now.Minute is 57 && invoke)
                     {
                         invoke = false;
                         _ = SendToast(); // 여기까진 알고리즘 완벽.
                     }
-                    if (Now.Minute is 58 && invoke is false)
+                    if (DateTime.Now.Minute is 58 && invoke is false)
                     {
                         invoke = true; // 알람 폭탄 방지
                     }
 
                     async Task SendToast()
                     {
-                        int hour = Now.Hour + 1; // 현재의 다음 시간이니까 +1
+                        int hour = DateTime.Now.Hour + 1; // 현재의 다음 시간이니까 +1
 
                         // TODO: 이때는 뭘 하지 버튼 없는 토스트?
                         if (pos is ((int)Monday, 6) or ((int)Monday, 7) or ((int)Friday, 5))
                             return;
 
                         // TimeTable 표에서 현재 날짜와 시간을 통해 과목 꺼내기. time은 하나 +1 시켜야 함.
-                        string? subject = SubjectTable?[pos.day - 1, pos.time];
+                        string? subject = TimeTable.Table?[pos.day - 1, pos.time];
                         if (subject is null)
                             return;
 
@@ -185,7 +174,7 @@ namespace TimeTableUWP.Pages
                             .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
 
                         // 무음모드가 아닐 때만 알람음 설정
-                        toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, SettingsPage.SilentMode);
+                        toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
 
                         if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
                         {

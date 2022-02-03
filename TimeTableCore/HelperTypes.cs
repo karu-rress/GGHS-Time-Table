@@ -1,9 +1,18 @@
 ﻿namespace TimeTableCore
 {
-    public enum DateType
+    public enum LoadStatus
     {
-        YYYYMMDD,
-        MMDDYYYY,
-        YYYYMMDD2
+        NewlyInstalled,
+        Updated,
+        Normal,
+    }
+
+    public enum ActivationLevel
+    {
+        None,
+        GGHS10th,
+        Insider,
+        ShareTech,
+        Developer,
     }
 }

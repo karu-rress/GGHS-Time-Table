@@ -7,8 +7,9 @@ using Windows.ApplicationModel;
 using RollingRess;
 using Windows.UI.Xaml.Media.Animation;
 using TimeTableUWP.Todo;
-using TimeTableUWP.Dialogs;
 using System.Threading.Tasks;
+
+
 
 namespace TimeTableUWP.Pages
 {
@@ -108,7 +109,7 @@ namespace TimeTableUWP.Pages
 
         private async void SelectDate_Click(object _, RoutedEventArgs e)
         {
-            DateSelectDialog dialog = new();
+            GGHS_Todo.DateSelectDialog dialog = new();
             if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
 
@@ -118,7 +119,7 @@ namespace TimeTableUWP.Pages
 
         private async void SelectSubject_Click(object _, RoutedEventArgs e)
         {
-            SubjectSelectDialog dialog = new();
+            GGHS_Todo.SubjectSelectDialog dialog = new();
             if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
 

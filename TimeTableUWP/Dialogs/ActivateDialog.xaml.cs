@@ -7,14 +7,7 @@ using Windows.UI.Xaml.Input;
 
 namespace TimeTableUWP
 {
-    public enum ActivateLevel
-    {
-        Developer = 3,
-        Grade2 = 5,
-        Insider = 7,
-        ShareTech = 8,
-        None = 9
-    }
+
 
     public sealed partial class ActivateDialog : ContentDialog
     {
@@ -45,7 +38,7 @@ namespace TimeTableUWP
                 case ActivateKeys.Developer:
                     SaveData.ActivateStatus = ActivateLevel.Developer;
                     break;
-                case ActivateKeys.Grade2:
+                case ActivateKeys.Grade3:
                     SaveData.ActivateStatus = ActivateLevel.Grade2;
                     break;
                 case ActivateKeys.Insider:

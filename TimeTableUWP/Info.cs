@@ -22,8 +22,16 @@ namespace TimeTableUWP
         /// <summary>
         /// GGHS Time Table's version: string value with the format "X.X.X"
         /// </summary>
-        public static string Value { get; } = PackageVer.ParseString();
-        public static implicit operator string(Version v) => Value;
+        public string Value { get; }
+#if DEBUG
+            = "5.0.alpha-0220";
+#else
+            = PackageVer.ParseString();
+#endif
+        public static implicit operator string(Version v) => v.Value;
+  
+        override public string ToString() => Value;
+        public char GetLastNumber() => Value[Value.Length - 1];
     }
 
     public class Settings

@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Background;
 
-using GGHS.Grade2.Semester2;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 using static RollingRess.StaticClass;
@@ -26,37 +25,43 @@ namespace TimeTableUWP.Pages
 {
     public sealed partial class TimeTablePage : Page
     {
-        // private string[,]? SubjectTable { get; set; } // string[5, 7]
-
-        void InitializeUI()
+        [GTT5]
+        async Task InitializeUIAsync()
         {
             // Set Color
             foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
                 border.Background = new SolidColorBrush(Info.Settings.ColorType);
 
             SetSubText();
+
             if (Info.User.Status is LoadStatus.NewlyInstalled)
             {
-                _ = ShowMessageAsync(Messages.Welcome, Messages.GGHSTimeTableWithVer, Info.Settings.Theme);
+                await ShowMessageAsync(Messages.Welcome, Messages.GGHSTimeTableWithVer, Info.Settings.Theme, XamlRoot);
             }
             else if (Info.User.Status is LoadStatus.Updated)
             {
-                _ = ShowMessageAsync(Messages.Updated, "New version installed");
+                await ShowMessageAsync(Messages.Updated, "New version installed", xamlRoot: XamlRoot);
             }
             Info.User.Status = LoadStatus.Normal;
         }
 
+        /// <summary>
+        /// Sets the subtitle for TimeTablePage
+        /// </summary>
+        [GTT5]
         private void SetSubText() => mainText2.Text = Info.User.ActivationLevel switch
         {
             ActivationLevel.Developer => SubTitles.Developer,
-            ActivationLevel.Insider => SubTitles.Insider,
-            ActivationLevel.GGHS10th => SubTitles.GGHS10th,
-            ActivationLevel.ShareTech => SubTitles.ShareTech,
+            ActivationLevel.Azure => SubTitles.Azure,
+            ActivationLevel.Bisque => SubTitles.Bisque,
+            ActivationLevel.Coral => SubTitles.Coral,
             _ => string.Empty
         };
 
+        [GTT5]
         private void DrawTimeTable()
         {
+
             TimeTable.ResetClass(Info.User.Class);
             AssignButtonsByTable(TimeTable.Table);
         }
@@ -64,7 +69,7 @@ namespace TimeTableUWP.Pages
         [GTT5]
         private void AssignButtonsByTable(TimeTable subjectTable)
         {
-            var subjects = ((IEnumerable)subjectTable.Data).Cast<Subject>();
+            var subjects = subjectTable.Data.Cast<Subject>();
             var lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
             foreach (var (btn, subject) in lists)
                 btn.Content = subject.Name;
@@ -79,7 +84,7 @@ namespace TimeTableUWP.Pages
             {
                 try
                 {
-                    await Task.Delay(300); // 300ms 마다 반복하기
+                    await Task.Delay(100); // 100ms 마다 반복하기
                     void SetClock()
                     {
                         clock.Text = DateTime.Now.ToString(Info.Settings.Use24Hour ? "HH:mm" : "hh:mm");
@@ -113,17 +118,17 @@ namespace TimeTableUWP.Pages
                     if (DateTime.Now.DayOfWeek is Sunday or Saturday || DateTime.Now.Hour is >= 17 or < 9 or 13)
                         continue;
 
-                    pos.day = (int)Now.DayOfWeek;
+                    pos.day = (int)DateTime.Now.DayOfWeek;
                     pos.time = DateTime.Now.Hour switch
                     {
                         9 or 10 or 11 or 12 => DateTime.Now.Hour - 8,
                         14 or 15 or 16 => DateTime.Now.Hour - 9,
-                        _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {Now.Hour}.")
+                        _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {DateTime.Now.Hour}.")
                     };
 
                     void ChangeCellColor()
                     {
-                        var brush = new SolidColorBrush(SaveData.ColorType);
+                        var brush = new SolidColorBrush(Info.Settings.ColorType);
                         Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
                         if (pos.time <= 6)
                             Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
@@ -145,7 +150,7 @@ namespace TimeTableUWP.Pages
                     // 4시에는 실행하면 안 된다!
                     if (DateTime.Now.Hour is 16) continue;
 
-                    DateTime.Now = DateTime.Now;
+
                     if (DateTime.Now.Minute is 57 && invoke)
                     {
                         invoke = false;
@@ -165,7 +170,7 @@ namespace TimeTableUWP.Pages
                             return;
 
                         // TimeTable 표에서 현재 날짜와 시간을 통해 과목 꺼내기. time은 하나 +1 시켜야 함.
-                        string? subject = TimeTable.Table?[pos.day - 1, pos.time];
+                        string? subject = TimeTable.Table.AtPos(pos.day - 1, pos.time);
                         if (subject is null)
                             return;
 
@@ -176,7 +181,7 @@ namespace TimeTableUWP.Pages
                         // 무음모드가 아닐 때만 알람음 설정
                         toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
 
-                        if (GetClassZoomLink().TryGetValue(subject, out var zoomInfo) is false || (zoomInfo is null))
+                        if (GetClassZoomLink().TryGetValue(subject, out var online) is false || (online is null))
                         {
                             toast.AddText($"[{subject}]")
                                  .AddText(hour > 12 ?
@@ -185,23 +190,23 @@ namespace TimeTableUWP.Pages
                             return;
                         }
 
-                        toast.AddText($"[{subject}] - {zoomInfo.Teacher} 선생님") // 과목 및 선생님
+                        toast.AddText($"[{subject}] - {online.Teacher} 선생님") // 과목 및 선생님
                             .AddText(hour > 12 ?
                                 $"{hour - 12}:00 PM - {hour - 12}:50 PM" :
                                 $"{hour}:00 AM - {hour}:50 AM");
 
-                        if (zoomInfo.Link is not null)
+                        if (online.Zoom is not null)
                             toast.AddButton(new ToastButton()
                                 .SetContent("ZOOM 열기")
                                 .AddArgument("action", "zoom")
-                                .AddArgument("zoomUrl", zoomInfo.Link)
+                                .AddArgument("zoomUrl", online.Zoom)
                                 .SetBackgroundActivation());
 
-                        if (zoomInfo.ClassRoom is not null)
+                        if (online.Classroom is not null)
                             toast.AddButton(new ToastButton()
                                 .SetContent("클래스룸 열기")
                                 .AddArgument("action", "classRoom")
-                                .AddArgument("classRoomUrl", zoomInfo.ClassRoom)
+                                .AddArgument("classRoomUrl", online.Classroom)
                                 .SetBackgroundActivation());
 
                         toast.Show();

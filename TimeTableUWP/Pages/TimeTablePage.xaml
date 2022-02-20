@@ -6,7 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded">
 
     <Page.Resources>
         <SolidColorBrush x:Key="txtColor" Color="{ThemeResource SystemBaseHighColor}" />
@@ -30,7 +32,7 @@
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="121,25,0,0" Text="GGHS Time Table 5α" FontSize="55" Height="73" FontWeight="Bold"/>
-        <TextBlock x:Name="mainText2" Margin="125,100,0,0" Text="우리 이제 고3이야 다들 정신차려" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
+        <TextBlock x:Name="mainText2" Margin="125,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
         <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
             <Grid.Resources>

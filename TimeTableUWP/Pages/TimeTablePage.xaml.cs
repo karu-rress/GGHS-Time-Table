@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-using GGHS;
 using TimeTableCore.Grade3.Semester1;
 using TimeTableCore;
-// using GGHS.Grade2.Semester2;
 
 using static RollingRess.StaticClass;
 using System.Diagnostics.CodeAnalysis;
+using GTT = TimeTableCore;
 
 namespace TimeTableUWP.Pages
 {
@@ -25,18 +24,20 @@ namespace TimeTableUWP.Pages
         [GTT5]
         private TimeTables TimeTable { get; } = new();
         public static DataSaver SaveData { get; } = new();
-        // private ZoomLinks ZoomLink => new();
+        private OnlineLinks Online { get; } = new();
 
         public TimeTablePage()
         {
             InitializeComponent();
             RequestedTheme = Info.Settings.Theme;
+        }
 
-            _ = LoopTimeAsync(); // detach.
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _ = LoopTimeAsync().ConfigureAwait(false); // detach.
 
             if (Info.User.Status is not LoadStatus.NewlyInstalled)
             {
-
                 // TODO
                 // 몇 반인지는 이미 Info.User.Class에 Load됨.
 
@@ -51,35 +52,30 @@ namespace TimeTableUWP.Pages
                 // 콤보박스에 이전에 선택한 string 띄우기
                 // classcombobox.selectedindex = info.user.class
                 classComboBox.SelectedIndex = Info.User.Class - 1;
-                if (Subjects.Korean.Selected != Korean.Default)
+                if (Korean.Selected != Korean.Default)
                     korComboBox.SelectedItem = Subjects.Korean.FullName;
 
-                if (Subjects.Math.Selected != TimeTableCore.Math.Default)
+                if (GTT.Math.Selected != TimeTableCore.Math.Default)
                     mathComboBox.SelectedItem = Subjects.Math.FullName;
 
-                if (Subjects.Social.Selected != Social.Default)
+                if (Social.Selected != Social.Default)
                     socialComboBox.SelectedItem = Subjects.Social.FullName;
 
-                if (Subjects.Language.Selected != TimeTableCore.Language.Default)
+                if (GTT.Language.Selected != TimeTableCore.Language.Default)
                     langComboBox.SelectedItem = Subjects.Language.FullName;
 
-                if (Subjects.Global1.Selected != Global1.Default)
+                if (Global1.Selected != Global1.Default)
                     global1ComboBox.SelectedItem = Subjects.Global1.FullName;
 
-                if (Subjects.Global2.Selected != Global2.Default)
+                if (Global2.Selected != Global2.Default)
                     global2ComboBox.SelectedItem = Subjects.Global2.FullName;
                 // 공통 콤보박스 제한
                 DisableComboBoxBySubjects();
             }
-            InitializeUI();
-        }
 
-        ~TimeTablePage()
-        {
-            SaveData.SetSubjects(Subjects.Korean.Selected, Subjects.Math.Selected, Subjects.Social.Selected,
-                Subjects.Language.Selected, Subjects.Global1.Selected, Subjects.Global2.Selected);
-            SaveData.UserData = Info.User;
-
+            await InitializeUIAsync();
+            if (Info.User.Class != 0)
+                DrawTimeTable();
         }
 
         #region ENEMERATORS
@@ -160,31 +156,36 @@ namespace TimeTableUWP.Pages
         }
 
         // 값 넣고 -> Disable(comboBox) -> Empty(comboBox)
-        [GTT5] private void DisableComboBoxBySubjects()
+        [GTT5]
+        private void DisableComboBoxBySubjects()
         {
             if (TimeTable is null)
                 throw new TimeTableException("SetComboBoxAsClass(): TimeTable is null.");
 
+            if (TimeTable.Table is null)
+                return; // Class is not yet selected, or a bug.
+
             EnableAllCombobox();
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Korean))
-                DisableComboBoxByClass(korComboBox, Subjects.Korean.Selected);
+                DisableComboBoxByClass(korComboBox, Korean.Selected);
 
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Math))
-                DisableComboBoxByClass(mathComboBox, Subjects.Math.Selected);
+                DisableComboBoxByClass(mathComboBox, GTT.Math.Selected);
 
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Social))
-                DisableComboBoxByClass(socialComboBox, Subjects.Social.Selected);
+                DisableComboBoxByClass(socialComboBox, Social.Selected);
 
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Language))
-                DisableComboBoxByClass(langComboBox, Subjects.Language.Selected);
+                DisableComboBoxByClass(langComboBox, GTT.Language.Selected);
 
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Global1))
-                DisableComboBoxByClass(global1ComboBox, Subjects.Global1.Selected);
+                DisableComboBoxByClass(global1ComboBox, Global1.Selected);
 
             if (TimeTable.Table.CommonSubject.HasFlag(Common.Global2))
-                DisableComboBoxByClass(global2ComboBox, Subjects.Global2.Selected);
+                DisableComboBoxByClass(global2ComboBox, Global2.Selected);
         }
 
+        [GTT5]
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
         {
             if (sender is not ComboBox comboBox || comboBox.SelectedItem is not string selected)
@@ -198,7 +199,7 @@ namespace TimeTableUWP.Pages
 
                     // SaveData.ClassComboBoxText = selected;
                     Info.User.Class = comboBox.SelectedIndex + 1;
-                    TimeTable?.ResetClass(Info.User.Class);
+                    TimeTable.ResetClass(Info.User.Class);
                     DisableComboBoxBySubjects();
                     break;
 
@@ -240,15 +241,15 @@ namespace TimeTableUWP.Pages
                 SetSubText();
             }
             
-            if (GetClassZoomLink().TryGetValue(subjectCellName, out var zoomInfo) is false || (zoomInfo is null))
+            if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
             {
                 // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
                 await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n"
-                    + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", MainPage.Theme);
+                    + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Info.Settings.Theme);
                 return;
             }
 
-            ZoomDialog contentDialog = new(Info.User.Class, subjectCellName, zoomInfo);
+            ZoomDialog contentDialog = new(Info.User.Class, subjectCellName, online);
             await contentDialog.ShowAsync();
         }
 
@@ -268,25 +269,25 @@ namespace TimeTableUWP.Pages
             string license = Info.User.ActivationLevel switch
             {
                 ActivationLevel.Developer => "developer",
-                ActivationLevel.GGHS10th => "GGHS 10th",
-                ActivationLevel.Insider => "GTT Insider",
-                ActivationLevel.ShareTech => "ShareTech",
-                ActivationLevel.None or _ => throw new DataAccessException("MainPage.Activate(): ActivateLevel value error"),
+                ActivationLevel.Azure => "Azure",
+                ActivationLevel.Bisque => "Bisque",
+                ActivationLevel.Coral => "Coral",
+                ActivationLevel.None or _ => throw new DataAccessException("MainPage.Activate(): ActivationLevel value error"),
             };
-            await ShowMessageAsync($"Activated as {license}.", "Activated successfully", MainPage.Theme);
+            await ShowMessageAsync($"Activated as {license}.", "Activated successfully", Info.Settings.Theme);
             return true;
         }
 
-        private Dictionary<string, ZoomInfo?> GetClassZoomLink() => @class switch
+        private Dictionary<string, OnlineLink?> GetClassZoomLink() => Info.User.Class switch
         {
-            1 => ZoomLink.Class1,
-            2 => ZoomLink.Class2,
-            3 => ZoomLink.Class3,
-            4 => ZoomLink.Class4,
-            5 => ZoomLink.Class5,
-            6 => ZoomLink.Class6,
-            7 => ZoomLink.Class7,
-            8 => ZoomLink.Class8,
+            1 => Online.Class1,
+            2 => Online.Class2,
+            3 => Online.Class3,
+            4 => Online.Class4,
+            5 => Online.Class5,
+            6 => Online.Class6,
+            7 => Online.Class7,
+            8 => Online.Class8,
             _ => throw new DataAccessException(
                 $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {Info.User.Class}")
         };
@@ -300,7 +301,7 @@ namespace TimeTableUWP.Pages
                 await ShowSubjectZoom(cellName);
 
             else if (btn.Content is null)
-                await ShowMessageAsync("Please select your class first.", "Error", MainPage.Theme);
+                await ShowMessageAsync("Please select your class first.", "Error", Info.Settings.Theme);
         }
 
         private async void SpecialButtons_Click(object sender, RoutedEventArgs _)
@@ -315,7 +316,15 @@ namespace TimeTableUWP.Pages
                 "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
                 _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
             };
-            await ShowMessageAsync(msg, txt, MainPage.Theme);
+            await ShowMessageAsync(msg, txt, Info.Settings.Theme);
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {/*
+            SaveData.SetSubjects(Korean.Selected, GTT.Math.Selected, GTT.Social.Selected,
+    GTT.Language.Selected, GTT.Global1.Selected, GTT.Global2.Selected);
+            SaveData.UserData = Info.User;
+            */
         }
     }
 }

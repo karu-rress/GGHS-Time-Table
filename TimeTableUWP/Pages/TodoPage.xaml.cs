@@ -21,16 +21,16 @@ namespace TimeTableUWP.Pages
         None,
     }
 
-    public sealed partial class TodoPage : Page
+    public sealed partial class TodoListPage : Page
     {
         public static TaskList TaskList { get; set; } = new();
 
         public static Grades Grade { get; set; } = Grades.None;
 
-        public TodoPage()
+        public TodoListPage()
         {
             InitializeComponent();
-            RequestedTheme = MainPage.Theme;
+            RequestedTheme = Info.Settings.Theme;
             LoadTasks();
         }
 
@@ -84,7 +84,7 @@ namespace TimeTableUWP.Pages
                 CloseButtonText = "Cancel",
                 PrimaryButtonText = "Yes, delete",
                 DefaultButton = ContentDialogButton.Primary,
-                RequestedTheme = MainPage.Theme,
+                RequestedTheme = Info.Settings.Theme,
             };
             if (await contentDialog.ShowAsync() is ContentDialogResult.None)
                 return;
@@ -140,7 +140,7 @@ namespace TimeTableUWP.Pages
             int result = TaskList.Undo();
             if (result is 0)
             {
-                var message = new ContentMessageDialog("Nothing to restore.", "Undo Delete", theme: MainPage.Theme);
+                var message = new ContentMessageDialog("Nothing to restore.", "Undo Delete", theme: Info.Settings.Theme);
                 await message.ShowAsync();
                 return;
             }

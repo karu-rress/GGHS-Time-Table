@@ -16,7 +16,7 @@ namespace TimeTableUWP.Todo
 
         public static async Task Save()
         {
-            DataWriter<List<TodoTask>> writer = new(FileName, TodoPage.TaskList.List);
+            DataWriter<List<TodoTask>> writer = new(FileName, TodoListPage.TaskList.List);
             await writer.WriteAsync();
         }
 
@@ -26,7 +26,7 @@ namespace TimeTableUWP.Todo
                 return;
 
             DataReader<List<TodoTask>> reader = new(FileName);
-            TodoPage.TaskList.List = await reader.ReadAsync();
+            TodoListPage.TaskList.List = await reader.ReadAsync();
         }
     }
 }

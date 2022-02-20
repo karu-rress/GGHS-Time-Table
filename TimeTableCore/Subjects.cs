@@ -20,9 +20,9 @@ namespace TimeTableCore
         }
 
         public static implicit operator string(Subject subject) => subject.Name;
-        public string FullName { get; } = string.Empty;
-        public string? ShortName { get; } = null;
-        public string Name => ShortName ?? FullName;
+        public virtual string FullName { get; } = string.Empty;
+        public virtual string? ShortName { get; } = null;
+        public virtual string Name => ShortName ?? FullName;
         public bool IsSameWith(string name)
         {
             if (name == ShortName)
@@ -42,7 +42,6 @@ namespace TimeTableCore
 
     public interface ISelectiveSubject
     {
-        Subject Selected { get; set; }
         // Set with given str. If none is matched, ignored.
         void SetAs(string subject);
     }
@@ -52,7 +51,7 @@ namespace TimeTableCore
         public static Subject LangMedia => new("언어와 매체", "언매");
         public static Subject SpeechWriting => new("화법과 작문", "화작");
         public static Subject Default => new("국어");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default; // set 변경
         public Korean() : base(Default) { }
         public Korean(in Subject korean) : base(korean) { }
         public void SetAs(string subject)
@@ -62,14 +61,19 @@ namespace TimeTableCore
             else if (SpeechWriting.IsSameWith(subject))
                 Selected = SpeechWriting;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
+
 
     public class Math : Subject, ISelectiveSubject
     {
         public static Subject Probability => new("확률과 통계", "확통");
         public static Subject Daic => new("미적분");
         public static Subject Default => new("수학");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default;
         public Math() : base(Default) { }
         public Math(in Subject math) : base(math) { }
         public void SetAs(string subject)
@@ -79,6 +83,10 @@ namespace TimeTableCore
             else if (Daic.IsSameWith(subject))
                 Selected = Daic;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
 
     public class Social : Subject, ISelectiveSubject
@@ -87,7 +95,7 @@ namespace TimeTableCore
         public static Subject KoreanGeo => new("한국지리");
         public static Subject Culture => new("사회·문화");
         public static Subject Default => new("사회");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default;
         public Social() : base(Default) { }
         public Social(in Subject social) : base(social) { }
         public void SetAs(string subject)
@@ -99,6 +107,10 @@ namespace TimeTableCore
             else if (Culture.IsSameWith(subject))
                 Selected= Culture;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
 
     public class Language : Subject, ISelectiveSubject
@@ -107,7 +119,7 @@ namespace TimeTableCore
         public static Subject Japanese => new("일본문화");
         public static Subject Chinese => new("중국문화");
         public static Subject Default => new("외국어");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default;
         public Language() : base(Default) { }
         public Language(in Subject language) : base(language) { }
         public void SetAs(string subject)
@@ -119,6 +131,10 @@ namespace TimeTableCore
             else if (Chinese.IsSameWith(subject))
                 Selected = Chinese;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
 
     public class Global1 : Subject, ISelectiveSubject
@@ -126,7 +142,7 @@ namespace TimeTableCore
         public static Subject SocialResearch => new("사회 탐구 방법", "사탐방");
         public static Subject KoreanSociety => new("한국 사회의 이해", "한사이");
         public static Subject Default => new("국제1");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default;
         public Global1() : base(Default) { }
         public Global1(in Subject global1) : base(global1) { }
         public void SetAs(string subject)
@@ -136,6 +152,10 @@ namespace TimeTableCore
             else if (KoreanSociety.IsSameWith(subject))
                 Selected = KoreanSociety;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
 
     public class Global2 : Subject, ISelectiveSubject
@@ -143,7 +163,7 @@ namespace TimeTableCore
         public static Subject FutureSociety => new("세계 문제와 미래 사회", "세문미");
         public static Subject Ethics => new("윤리학 연습", "윤연");
         public static Subject Default => new("국제2");
-        public Subject Selected { get; set; } = Default;
+        public static Subject Selected { get; set; } = Default;
         public Global2() : base(Default) { }
         public Global2(in Subject global2) : base(global2) { }
         public void SetAs(string subject)
@@ -153,6 +173,10 @@ namespace TimeTableCore
             else if (Ethics.IsSameWith(subject))
                 Selected = Ethics;
         }
+
+        public override string FullName => Selected.FullName;
+        public override string? ShortName => Selected.ShortName;
+        public override string Name => this.ShortName ?? this.FullName;
     }
 
     namespace Grade3.Semester1

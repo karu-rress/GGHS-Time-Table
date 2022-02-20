@@ -23,13 +23,13 @@ namespace TimeTableUWP
 
     public sealed partial class FeedbackDialog : ContentDialog
     {
-        private Brush TextColor => new SolidColorBrush(SettingsPage.IsDarkMode
+        private Brush TextColor => new SolidColorBrush(Info.Settings.IsDarkMode
             ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8) : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
 
         public FeedbackDialog()
         {
             InitializeComponent();
-            RequestedTheme = MainPage.Theme;
+            RequestedTheme = Info.Settings.Theme;
             ErrorMsgText.Foreground = TextColor;
         }
 
@@ -54,7 +54,7 @@ namespace TimeTableUWP
 
             var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text)
             ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n") + string.Join("\r\n", text.Split("\r")), // Converts NewLine
-            $"GGHS Time Table Feedback for V{MainPage.Version}", out var msg);
+            $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
 
             sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
             IsPrimaryButtonEnabled = false;

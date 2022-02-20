@@ -4,6 +4,7 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using TimeTableCore;
 
 namespace TimeTableUWP
 {
@@ -14,7 +15,7 @@ namespace TimeTableUWP
         public ActivateDialog()
         {
             InitializeComponent();
-            RequestedTheme = MainPage.Theme;
+            RequestedTheme = Info.Settings.Theme;
         }
 
         public ActivateDialog(string msg) : this()
@@ -36,22 +37,21 @@ namespace TimeTableUWP
             switch ($"{keyBox1.Text}-{keyBox2.Text}".ToUpper())
             {
                 case ActivateKeys.Developer:
-                    SaveData.ActivateStatus = ActivateLevel.Developer;
+                    Info.User.ActivationLevel = ActivationLevel.Developer;
                     break;
-                case ActivateKeys.Grade3:
-                    SaveData.ActivateStatus = ActivateLevel.Grade2;
+                case ActivateKeys.Coral:
+                    Info.User.ActivationLevel = ActivationLevel.Coral;
                     break;
-                case ActivateKeys.Insider:
-                    SaveData.ActivateStatus = ActivateLevel.Insider;
+                case ActivateKeys.Bisque:
+                    Info.User.ActivationLevel = ActivationLevel.Bisque;
                     break;
-                case ActivateKeys.ShareTech:
-                    SaveData.ActivateStatus = ActivateLevel.ShareTech;
+                case ActivateKeys.Azure:
+                    Info.User.ActivationLevel = ActivationLevel.Azure;
                     break;
                 default:
                     ShowErrorMessage("Sorry, please check your activation key.");
                     return;
             }
-            SaveData.IsActivated = true;
 
             void ShowErrorMessage(string msg)
             {

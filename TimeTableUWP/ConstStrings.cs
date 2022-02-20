@@ -13,10 +13,10 @@ namespace TimeTableUWP
 
     public static class ActivateKeys
     {
-        public const string Developer = "RRESS-X93FSBU";
-        public const string Grade3 = "GGGHS-B38XDQP";
-        public const string Insider = "THANK-LX5MBH3";
-        public const string ShareTech = "SHARE-A8VP36N";
+        public const string Developer = "RRESS-KARU527";
+        public const string Coral = "CORAL-3GGHS10";
+        public const string Bisque = "BSQUE-LX5MBH3";
+        public const string Azure = "AZURE-A8VP36N";
     }
 
     public static class SaveFiles
@@ -31,9 +31,9 @@ namespace TimeTableUWP
     public static class SubTitles
     {
         public const string Developer = "Welcome to the Ultimate GTT5, Karu";
-        public const string ShareTech = "ShareTech, let's try our hardest";
-        public const string Insider = "Insiders, we're the ones who've made it this far";
-        public const string GGHS10th = "Now we are the K-高3";
+        public const string Azure = "Let's try our hardest, our last journey.";
+        public const string Bisque = "We're the ones who've made it this far";
+        public const string Coral = "Now we are the K-高3";
     }
 
     public static class Messages
@@ -42,6 +42,9 @@ namespace TimeTableUWP
 
         public const string Welcome = @"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 
+
+*** 임시시간표가 나오지 않아 시간표 기능은 동작하지 않습니다.
+*** GGHS Anonymous (익명챗) 기능을 우선 시험해보세요 :)
 
 자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 
 줌 링크와 클래스룸 링크가 띄워집니다.
@@ -53,7 +56,7 @@ GGHS Time Table을 설치해주셔서 감사합니다.
 줌 링크가 누락된 경우, 설정 메뉴에서 'Feedback'을 통해
 줌 링크/ID/비밀번호를 전달해주시면 바로 추가하겠습니다.";
         public const string WhatsNew = @"- 일본어 ZOOM ID/PW 및 클래스룸 추가";
-        public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version[Info.Version.Length - 1] switch
+        public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
         {
             '0' or '3' or '6' => "으로",
             _ => "로",

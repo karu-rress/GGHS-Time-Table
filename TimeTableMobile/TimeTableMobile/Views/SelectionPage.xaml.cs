@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeTableMobile.GGHS;
-using TimeTableMobile.GGHS.Grade2.Semester2;
+using TimeTableCore;
+using TimeTableCore.Grade3.Semester1;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,16 +22,17 @@ namespace TimeTableMobile.Views
 
         private void ReadFromSettings()
         {
-            if (UserData.Class is 0)
+            if (Info.User.Class is 0)
                 return;
-
-            (UserData.Language switch
+            /*
+            
+            (Info.User.Language switch
             {
                 "중어Ⅰ" => RadioLangChinese,
                 "스어Ⅰ" => RadioLangSpanish,
                 "일어Ⅰ" => RadioLangJapanese,
             }).IsChecked = true;
-            (UserData.Special1 switch
+            (Info.User.Special1 switch
             {
                 "국경" => RadioSocialAEconomics,
                 "국정" => RadioSocialAPolitics,
@@ -40,7 +41,7 @@ namespace TimeTableMobile.Views
                 "현정철" => RadioSocialAPhilosophy,
                 "세지연" => RadioSocialARegion,
             }).IsChecked = true;
-            (UserData.Special2 switch
+            (Info.User.Special2 switch
             {
                 "국경" => RadioSocialBEconomics,
                 "국정" => RadioSocialBPolitics,
@@ -50,11 +51,12 @@ namespace TimeTableMobile.Views
                 "현정철" => RadioSocialBPhilosophy,
                 "GIS" => RadioSocialBGIS,
             }).IsChecked = true;
-            (UserData.Science switch
+            (Info.User.Science switch
             {
                 "과학사" => RadioScienceHistory,
                 "생과" => RadioScienceLife
             }).IsChecked = true;
+            */
         }
 
         private void ClassAdjustButtonClicked(object sender, EventArgs e)
@@ -62,10 +64,10 @@ namespace TimeTableMobile.Views
             if (sender is Button btn)
             {
                 if (btn.Text is "<")
-                    UserData.Class--;
+                    Info.User.Class--;
                 
                 else if (btn.Text is ">")
-                    UserData.Class++;
+                    Info.User.Class++;
 
                 SetClassModifier();
             }
@@ -73,6 +75,7 @@ namespace TimeTableMobile.Views
 
         private void SetClassModifier()
         {
+            /*
             ClassLabel.Text = UserData.Class.ToString();
             switch (ClassLabel.Text)
             {
@@ -87,13 +90,14 @@ namespace TimeTableMobile.Views
                     PlusClassButton.IsVisible = true;
                     break;
             }
+            */
         }
 
         private void RadioButtonChanged(object sender, CheckedChangedEventArgs e)
         {
             if (sender is not RadioButton radio)
                 return;
-
+            /*
             string subject = radio.ContentAsString();
             switch (radio.GroupName)
             {
@@ -110,6 +114,7 @@ namespace TimeTableMobile.Views
                     Subjects.Sciences.Selected = UserData.Science = subject.RawNameToCellName();
                     break;
             }
+            */
         }
     }
 }

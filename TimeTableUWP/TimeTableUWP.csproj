@@ -26,7 +26,7 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>9A956C8CA39607BA75C3E1E3A0A03E31B76C2903</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>CEF20A84FDE991696E6E502BCDA0E128BA49B539</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <PackageCertificateKeyFile>TimeTableUWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppInstallerUri>https://drive.google.com/drive/folders/1awYn3zFfrBMs3hxu3YXscrzvtcilgJ3w%3fusp=sharing</AppInstallerUri>
@@ -113,7 +113,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -144,15 +144,15 @@
     </Compile>
     <Compile Include="Info.cs" />
     <Compile Include="Models\HelperTypes.cs" />
-    <Compile Include="[Obsolete] GGHS\Subjects.cs" />
-    <Compile Include="[Obsolete] GGHS\TimeTables.cs" />
-    <Compile Include="[Obsolete] GGHS\ZoomLinks.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddPage.xaml.cs">
       <DependentUpon>AddPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChattingPage.xaml.cs">
+      <DependentUpon>ChattingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TimeTableUI.cs" />
     <Compile Include="Pages\TimeTablePage.xaml.cs">
@@ -233,6 +233,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <None Include="app.config" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -264,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ChattingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\TimeTablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -286,7 +291,7 @@
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>7.1.1</Version>
+      <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.7.0</Version>
@@ -297,13 +302,13 @@
       <Project>{412ddc72-8581-4085-81d3-27e9184e9104}</Project>
       <Name>RollingNET</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\GGHS Todo\GGHS Todo\GGHS Todo.csproj">
-      <Project>{01a5e15f-083c-4601-a7e9-d0c64f08953a}</Project>
-      <Name>GGHS Todo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Library\RollingUWP\RollingUWP\RollingUWP.csproj">
       <Project>{539d1184-789f-4991-b760-8978e95f6052}</Project>
       <Name>RollingUWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GGHS Todo\TodoPage\TodoPage.csproj">
+      <Project>{247de9a7-0341-4db3-8fff-b9d2a36e84ca}</Project>
+      <Name>TodoPage</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeTableCore\TimeTableCore.csproj">
       <Project>{32f415d5-f495-4832-ba9e-77bd0b01a45c}</Project>

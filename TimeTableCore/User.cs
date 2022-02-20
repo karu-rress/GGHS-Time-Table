@@ -10,7 +10,9 @@ namespace TimeTableCore
         public int Class { get; set; }
         public ActivationLevel ActivationLevel { get; set; } = ActivationLevel.None;
         public bool IsActivated => ActivationLevel != ActivationLevel.None;
-        public bool IsDeveloperOrInsider => ActivationLevel is ActivationLevel.Developer or ActivationLevel.ShareTech or ActivationLevel.Insider;
-        public bool IsNotDeveloperOrInsider => !IsDeveloperOrInsider;
+        public bool IsAuthorized => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
+
+        [Obsolete("Use 'IsAuthorized' instead.")]
+        public bool IsNotDeveloperOrInsider => !IsAuthorized;
     }
 }

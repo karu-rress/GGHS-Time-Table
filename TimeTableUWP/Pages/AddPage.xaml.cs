@@ -41,7 +41,7 @@ namespace TimeTableUWP.Pages
         public AddPage()
         {
             InitializeComponent();
-            RequestedTheme = MainPage.Theme;
+            RequestedTheme = Info.Settings.Theme;
 
             DueDatePicker.MinYear = DateTimeOffset.Now;
             DueDatePicker.MaxYear = DateTimeOffset.Now.AddYears(2);
@@ -77,19 +77,19 @@ namespace TimeTableUWP.Pages
 
             if (Task is not null)
             {
-                TodoPage.TaskList[TodoPage.TaskList.FindIndex(x => x == Task)] = task;
+                TodoListPage.TaskList[TodoListPage.TaskList.FindIndex(x => x == Task)] = task;
             }
             else
             {
-                TodoPage.TaskList.Add(task);
+                TodoListPage.TaskList.Add(task);
             }
-            TodoPage.TaskList.Sort();
+            TodoListPage.TaskList.Sort();
             Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
 
-        private void Close() { Task = null; Frame.Navigate(typeof(TodoPage), null, new DrillInNavigationTransitionInfo()); }
+        private void Close() { Task = null; Frame.Navigate(typeof(TodoListPage), null, new DrillInNavigationTransitionInfo()); }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {

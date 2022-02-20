@@ -15,6 +15,7 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable"/>
                 <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>
+                <muxc:NavigationViewItem Content="GGHS Anonymous" Tag="chat"/>
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />
         </muxc:NavigationView>

@@ -18,7 +18,8 @@ namespace TimeTableUWP
     [GTT5]
     public class DataSaver : BaseSaver
     {
-        public Settings? Settings { get; set; }
+        // 이거 Info.Settings로 대체 가능하지 않음?
+        // public Settings? Settings { get; set; }
 
         private string DataFile => SaveFiles.DataFile;
         private string KeyFile => SaveFiles.KeyFile;
@@ -32,8 +33,8 @@ namespace TimeTableUWP
             if (UserData is null)
                 throw new NullReferenceException("DataSaver: BaseSaver.UserData is null");
 
-            if (Settings is null)
-                throw new NullReferenceException("DataSaver: Settings is null.");
+            //if (Settings is null)
+                //throw new NullReferenceException("DataSaver: Settings is null.");
 #endif
             Task writeKey = Task.CompletedTask;
             if (UserData.IsActivated)
@@ -44,7 +45,7 @@ namespace TimeTableUWP
 
             SubjectTuple tuple = (Korean, Math, Social, Language, Global1, Global2);
             DataWriter<SubjectTuple> writeSubject = new(DataFile, tuple);
-            DataWriter<Settings> writeSettings = new(SettingsFile, Settings);
+            DataWriter<Settings> writeSettings = new(SettingsFile, Info.Settings);
             DataWriter<Version> writeVersion = new(VersionFile, Info.Version);
             DataWriter<int> writeClass = new(ClassFile, Info.User.Class);
             await Task.WhenAll(writeKey, writeSubject.WriteAsync(), writeSettings.WriteAsync(), writeVersion.WriteAsync(), writeClass.WriteAsync());
@@ -76,8 +77,7 @@ namespace TimeTableUWP
             // Wait all until all files are read
             await Task.WhenAll(settings, subject, version, cls);
 
-            Settings = await settings;
-            Info.Settings = Settings;
+            Info.Settings = await settings;
             SubjectTuple subjects = await subject;
             Info.User.Class = await cls;
 
@@ -97,7 +97,7 @@ namespace TimeTableUWP
             }
 
             // If updated
-            if (await version != Version.Value)
+            if (await version != Info.Version.Value)
             {
                 Info.User.Status = LoadStatus.Updated;
                 return;

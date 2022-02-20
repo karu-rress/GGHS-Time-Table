@@ -37,11 +37,6 @@ namespace TimeTableUWP.Pages
             SetDarkToggle(Info.Settings.IsDarkMode);
         }
 
-        ~SettingsPage()
-        {
-            TimeTablePage.SaveData.Settings = Info.Settings;
-        }
-
         private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Info.Settings.Use24Hour = use24Toggle.IsOn;
 
         private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -110,12 +105,13 @@ namespace TimeTableUWP.Pages
                 selfToggled = false;
                 return;
             }
-            if (Info.User.IsNotDeveloperOrInsider)
-                await TimeTablePage.ActivateAsync("Insider 전용 기능을 사용하기 위해선 Insider 인증키를 입력해야 합니다.");
+            bool authorizedSuccessfully = false;
+            if (!Info.User.IsAuthorized)
+                authorizedSuccessfully = await TimeTablePage.ActivateAsync("Azure/Bisque 전용 기능을 사용하기 위해선 해당 인증키를 입력해야 합니다.");
 
-            if (Info.User.IsNotDeveloperOrInsider)
+            if (!authorizedSuccessfully)
             {
-                await ShowMessageAsync("You need to be a GTT Insider to use this feature", "Limited feature", Info.Settings.Theme);
+                await ShowMessageAsync("You need to be Azure/Bisque to use this feature", "Limited feature", Info.Settings.Theme);
                 SetDarkToggle(false);
                 return;
             }

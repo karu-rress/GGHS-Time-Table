@@ -70,7 +70,7 @@ namespace TimeTableUWP.Todo
             if (await contentDialog.ShowAsync() is not ContentDialogResult.Primary)
                 return false;
 
-            TodoPage.TaskList.Remove(task);
+            TodoListPage.TaskList.Remove(task);
             return true;
         }
 

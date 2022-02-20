@@ -114,10 +114,12 @@ namespace TimeTableUWP
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
-            await Task.WhenAll(SaveData.SaveDataAsync(), SaveTask.Save());
+            // await Task.WhenAll(TimeTablePage.SaveData.SaveAsync(), SaveTask.Save());
 
             deferral.Complete();
         }
+        
+
 
         protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {

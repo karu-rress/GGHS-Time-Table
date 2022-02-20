@@ -11,15 +11,16 @@ using TimeTableCore;
 using System.Collections;
 using System.IO;
 
+using TimeTableCore.Grade3.Semester1;
+
 namespace TimeTableMobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimeTablePage : ContentPage
     {
-        private string[,]? SubjectTable { get; set; } // string[5, 7]
         private TimeTables TimeTable => new();
         public static bool HasReadFile { get; set; }
-
+        public static DataSaver SaveData { get; set; } = new();
         private IEnumerable<Button> Buttons
         {
             get
@@ -71,69 +72,52 @@ namespace TimeTableMobile.Views
             InitializeComponent();
             Appearing += (s, e) => DrawTimeTable();
 
+            SaveData.UserData = new();
             LoadSettings();
         }
 
         private void LoadSettings()
         {
-            if (File.Exists(UserData.FileName))
+            if (File.Exists(DataSaver.FileName))
             {
-                string read = File.ReadAllText(UserData.FileName);
+                string read = File.ReadAllText(DataSaver.FileName);
                 string[] array = read.Split(',');
 
-                UserData.Class = Convert.ToInt32(array[0]);
-                Subjects.Languages.Selected = UserData.Language = array[1];
-                Subjects.Specials1.Selected = UserData.Special1 = array[2];
-                Subjects.Specials2.Selected = UserData.Special2 = array[3];
-                Subjects.Sciences.Selected = UserData.Science = array[4];
+                SaveData.UserData!.Class = Convert.ToInt32(array[0]);
+
+                Subjects.Korean.Selected = SaveData.Korean = new(array[1]);
+                Subjects.Math.Selected = SaveData.Math = new(array[2]);
+                Subjects.Social.Selected = SaveData.Social = new(array[3]);
+                Subjects.Language.Selected = SaveData.Language = new(array[4]);
+                Subjects.Global1.Selected = SaveData.Global1 = new(array[5]);
+                Subjects.Global2.Selected = SaveData.Global2 = new(array[6]);
             }
-            
         }
 
         private void DrawTimeTable()
         {
             ErrorLabel.IsVisible = false;
-            try
-            {
-                if (UserData.Class is 0)
+            if (SaveData.UserData is null)
                 throw new Exception();
 
-                MainLabel.Text = $"Class {UserData.Class} Timetable";
+            try
+            {
+                if (SaveData.UserData.Class is 0)
+                throw new Exception();
 
-                string[,] SetArrayByClass()
+                MainLabel.Text = $"Class {SaveData.UserData.Class} Timetable";
+
+
+                TimeTable.ResetClass(SaveData.UserData.Class);
+                AssignButtonsByTable(TimeTable.Table);
+
+                void AssignButtonsByTable(TimeTable subjectTable)
                 {
-                    var ret = UserData.Class switch
-                    {
-                        1 => TimeTable.Class1.Clone() as string[,],
-                        2 => TimeTable.Class2.Clone() as string[,],
-                        3 => TimeTable.Class3.Clone() as string[,],
-                        4 => TimeTable.Class4.Clone() as string[,],
-                        5 => TimeTable.Class5.Clone() as string[,],
-                        6 => TimeTable.Class6.Clone() as string[,],
-                        7 => TimeTable.Class7.Clone() as string[,],
-                        8 => TimeTable.Class8.Clone() as string[,],
-                        _ => throw new Exception($"SetArrayByClass(): @class: 1~8 expected, but given {@class}.")
-                    };
-                    if (ret is null)
-                        throw new NullReferenceException($"SetArrayByClass(): Class{@class}.Clone() got null.");
-
-                    return ret;
-                }
-
-                void AssignButtonsByTable(string[,] subjectTable)
-                {
-                    IEnumerable<string>? subjects = ((IEnumerable)subjectTable).Cast<string>();
-                    var lists = Buttons.Zip(subjects, (Button btn, string subject) => (btn, subject));
+                    var subjects = ((IEnumerable)subjectTable.Data).Cast<Subject>();
+                    var lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
                     foreach (var (btn, subject) in lists)
-                        btn.Text = subject;
+                        btn.Text = subject.Name;
                 }
-
-                SubjectTable = SetArrayByClass();
-                AssignButtonsByTable(SubjectTable);
-
-                mon6Button.Text = mon7Button.Text = fri5Button.Text = fri6Button.Text =
-                SubjectTable[0, 5] = SubjectTable[0, 6] = SubjectTable[4, 4] = SubjectTable[4, 5] = Subjects.CellName.Others;
-                fri7Button.Text = SubjectTable[4, 6] = Subjects.CellName.HomeComing;
             }
             catch
             {
@@ -141,15 +125,15 @@ namespace TimeTableMobile.Views
             }
         }
 
-        private ZoomLinks ZoomLink => new();
-        private async void TableButtons_Click(object sender, EventArgs e)
+        // private ZoomLinks ZoomLink => new();
+        /*private async void TableButtons_Click(object sender, EventArgs e)
         {
-            if (UserData.Class is 0)
+            if (SaveData.UserData.Class is 0)
             {
                 ErrorLabel.IsVisible = true;
                 return;
             }
-            Dictionary<string, ZoomInfo?> GetClassZoomLink() => UserData.Class switch
+            Dictionary<string, ZoomInfo?> GetClassZoomLink() => SaveData.UserData.Class switch
             {
                 1 => ZoomLink.Class1,
                 2 => ZoomLink.Class2,
@@ -191,48 +175,25 @@ namespace TimeTableMobile.Views
             string action;
             if (buttons.Count is 0)
             {
-                await DisplayActionSheet($"Class {UserData.Class} {subject} Links", "Cancel", null);
+                await DisplayActionSheet($"Class {SaveData.UserData.Class} {subject} Links", "Cancel", null);
                 return;
             }
             else 
             {
-                action = await DisplayActionSheet($"Class {UserData.Class} {subject} Links", "Cancel", null, buttons.ToArray());
+                action = await DisplayActionSheet($"Class {SaveData.UserData.Class} {subject} Links", "Cancel", null, buttons.ToArray());
             }
 
             switch (action)
             {
                 case "Show ZOOM info":
-                    await DisplayAlert($"Class {UserData.Class} {subject} ZOOM info", $"ID: {zoomInfo.Id}\n" + $"PW: {zoomInfo.Pw}", "OK");
+                    await DisplayAlert($"Class {SaveData.UserData.Class} {subject} ZOOM info", $"ID: {zoomInfo.Id}\n" + $"PW: {zoomInfo.Pw}", "OK");
                     break;
                 case "Open ZOOM meetings":
                 case "Open Google classroom":
                 default:
                     break;
             }
-        }
-
-        private async Task ShowCompareCulturePopup()
-        {
-            string action = await DisplayActionSheet($"Class {UserData.Class} 비교문화 Links", "Cancel", null, 
-                "Show ZOOM info", "Open ZOOM (홍정민 T)", "Open ZOOM (정혜영 T)", "Open Google classroom");
-
-            switch (action)
-            {
-                case "Show ZOOM info":
-                    await DisplayAlert($"Class {UserData.Class} 비교문화 ZOOM info", 
-                        "홍정민 T\n" +
-                        $"ID: {ZoomLinks.CompareCultures.Hong.Id}\n" +
-                        $"PW: {ZoomLinks.CompareCultures.Hong.Password}\n\n" +
-                        "정혜영 T\n" +
-                        $"ID: {ZoomLinks.CompareCultures.Jung.Id}\n" +
-                        $"PW: {ZoomLinks.CompareCultures.Jung.Password}", "OK");
-                    break;
-                case "Open ZOOM (홍정민 T)":
-                case "Open ZOOM (정혜영 T)":
-                case "Open Google classroom":
-                    break;
-            }
-        }
+        }*/
 
         private async void SpecialButtons_Click(object sender, EventArgs e)
         {
@@ -247,6 +208,11 @@ namespace TimeTableMobile.Views
         {
             ErrorLabel.IsVisible = false;
             DrawTimeTable();
+        }
+
+        private void TableButtons_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

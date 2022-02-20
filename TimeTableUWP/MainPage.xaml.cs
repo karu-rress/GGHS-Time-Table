@@ -25,7 +25,7 @@ namespace TimeTableUWP
             if (IsGoingToTodoPage)
             {
                 IsGoingToTodoPage = false;
-                ContentFrame.Navigate(typeof(TodoPage), null, new DrillInNavigationTransitionInfo());
+                ContentFrame.Navigate(typeof(TodoListPage), null, new DrillInNavigationTransitionInfo());
                 Navigation.SelectedItem = Navigation.MenuItems[1];
             }
             else
@@ -41,7 +41,8 @@ namespace TimeTableUWP
             {
                 "settings" => typeof(SettingsPage),
                 "timetable" => typeof(TimeTablePage),
-                "todo" => typeof(TodoPage),
+                "todo" => typeof(TodoListPage),
+                "chat" => typeof(ChattingPage),
                 _ => throw new ArgumentException($@"MainPage.NavigateTo(): Unknown tag ""{tag}"".")
             };
             ContentFrame.Navigate(page, null, transition);

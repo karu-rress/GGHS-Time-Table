@@ -1,5 +1,17 @@
 ﻿Changes of GGHS Time Table
 
+V5.0
+- 3학년 시간표 지원 (Beta 1)
+- 전체적인 디자인 변경 (Beta 1)
+- 내부 구조 모듈화 (Beta 1)
+- Azure/Bisque/Coral 인증 레벨 개편 (Beta 1)
+
+- GGHS Anonymous 랙 개선 (Beta 2)
+- 메시지 전송 버그 수정 (Beta 2)
+- 채팅 전송 버그 수정 (Beta 2)
+
+---------------------------------------
+
 V4.2
 - 비교문화 줌 표시 방식 변경
 

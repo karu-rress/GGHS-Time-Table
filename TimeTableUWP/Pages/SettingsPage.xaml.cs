@@ -106,7 +106,7 @@ namespace TimeTableUWP.Pages
                 return;
             }
             bool authorizedSuccessfully = false;
-            if (!Info.User.IsAuthorized)
+            if (!Info.User.IsSpecialLevel)
                 authorizedSuccessfully = await TimeTablePage.ActivateAsync("Azure/Bisque 전용 기능을 사용하기 위해선 해당 인증키를 입력해야 합니다.");
 
             if (!authorizedSuccessfully)

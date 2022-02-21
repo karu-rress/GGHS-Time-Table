@@ -1,5 +1,4 @@
 ﻿#nullable enable
-#define __TESTING__
 
 using RollingRess.UWP.FileIO;
 using System;
@@ -16,53 +15,16 @@ using System.Xml.Serialization;
 
 namespace TimeTableUWP
 {
-    [GTT5]
-    public class DataSaver : BaseSaver
+    public class DataSaver
     {
-        // 이거 Info.Settings로 대체 가능하지 않음?
-        // public Settings? Settings { get; set; }
-
         private string DataFile => SaveFiles.DataFile;
         private string KeyFile => SaveFiles.KeyFile;
         private string SettingsFile => SaveFiles.SettingsFile;
         private string VersionFile => SaveFiles.VersionFile;
         private string ClassFile => SaveFiles.ClassFile;
 
-        [XmlType("SubjectList")]
-        [XmlInclude(typeof(Subject))]
-        public class SubjectList
-        {
-            public SubjectList() { }
-            public SubjectList(Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2)
-            {
-                Korean = kor;
-                Math = math;
-                Social = soc;
-                Language = lang;
-                Global1 = glo1; 
-                Global2 = glo2;
-            }
-            public Subject Korean { get; set; }
-            public Subject Math { get; set; }
-            public Subject Social { get; set; }
-            public Subject Language { get; set; }
-            public Subject Global1 { get; set; }
-            public Subject Global2 { get; set; }
-            public (Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2) Parse()
-            {
-                return (Korean, Math, Social, Language, Global1, Global2);
-            }
-        }
-
         public async Task SaveAsync()
         {
-#if __TESTING__
-            if (Info.User is null)
-                throw new NullReferenceException("DataSaver: BaseSaver.UserData is null");
-
-            //if (Settings is null)
-                //throw new NullReferenceException("DataSaver: Settings is null.");
-#endif
             Task writeKey = Task.CompletedTask;
             if (Info.User.IsActivated)
             {
@@ -91,15 +53,13 @@ namespace TimeTableUWP
             }
 
             DataReader<Settings> readSettings = new(SettingsFile);
-            var settings = readSettings.ReadAsync();
-
             DataReader<SubjectList> readTuple = new(DataFile);
-            var subject = readTuple.ReadAsync();
-
             DataReader<Version> readVersion = new(VersionFile);
-            var version = readVersion.ReadAsync();
-
             DataReader<int> readClass = new(ClassFile);
+
+            var settings = readSettings.ReadAsync();
+            var subject = readTuple.ReadAsync();
+            var version = readVersion.ReadAsync();
             var cls = readClass.ReadAsync();
 
             // Wait all until all files are read
@@ -108,15 +68,8 @@ namespace TimeTableUWP
             Info.Settings = await settings;
             SubjectList subjects = await subject;
             Info.User.Class = await cls;
-
             (ttc.Korean.Selected, ttc.Math.Selected, ttc.Social.Selected, ttc.Language.Selected, ttc.Global1.Selected, ttc.Global2.Selected)
                 = subjects.Parse();
-
-            // TODO:
-            // 이거 이런 식으로 여기서 로드해버릴 수 있음.
-            // 세이브도 바로 되면 그냥 BaseData 자체를 삭제해도 될 수도.
-            // TimeTableCore.Grade3.Semester1.Subjects.Korean.SetAs(Korean);
-
 
             // If activated
             if (await storageFolder.TryGetItemAsync(KeyFile) is not null)
@@ -127,11 +80,36 @@ namespace TimeTableUWP
 
             // If updated
             if (await version != Info.Version)
-            {
                 Info.User.Status = LoadStatus.Updated;
-                return;
-            }
-            Info.User.Status = LoadStatus.Normal;
+
+            else
+                Info.User.Status = LoadStatus.Normal;
         }
+    }
+
+
+    [XmlType("SubjectList")]
+    [XmlInclude(typeof(Subject))]
+    // This MUST be public
+    public class SubjectList
+    {
+        public SubjectList() { }
+        public SubjectList(Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2)
+        {
+            Korean = kor;
+            Math = math;
+            Social = soc;
+            Language = lang;
+            Global1 = glo1;
+            Global2 = glo2;
+        }
+        public Subject Korean { get; set; }
+        public Subject Math { get; set; }
+        public Subject Social { get; set; }
+        public Subject Language { get; set; }
+        public Subject Global1 { get; set; }
+        public Subject Global2 { get; set; }
+        public (Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2) Parse()
+            => (Korean, Math, Social, Language, Global1, Global2);
     }
 }

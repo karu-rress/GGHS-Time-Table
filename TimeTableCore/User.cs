@@ -10,6 +10,6 @@ namespace TimeTableCore
         public int Class { get; set; }
         public ActivationLevel ActivationLevel { get; set; } = ActivationLevel.None;
         public bool IsActivated => ActivationLevel != ActivationLevel.None;
-        public bool IsAuthorized => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
+        public bool IsSpecialLevel => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
     }
 }

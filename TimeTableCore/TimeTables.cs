@@ -7,13 +7,13 @@ namespace TimeTableCore
 {
     public class TimeTable
     {
-        private Subject[] _timeTable;
+        private Subject[] data;
         public int Class { get; }
-        public Subject[] Data { get => _timeTable; set => _timeTable = value; }
+        public Subject[] Data { get => data; set => data = value; }
         public Common CommonSubject { get; } = Common.None; // Common.Korean | Common.Math;
         public TimeTable(int @class, Subject[] timeTable)
         {
-            _timeTable = timeTable;
+            data = timeTable;
             Class = @class;
 
             SetByClass(@class);
@@ -21,7 +21,7 @@ namespace TimeTableCore
 
         public TimeTable(int @class, List<Subject> timeTable)
         {
-            _timeTable = timeTable.ToArray();
+            data = timeTable.ToArray();
             Class = @class;
 
             SetByClass(@class);

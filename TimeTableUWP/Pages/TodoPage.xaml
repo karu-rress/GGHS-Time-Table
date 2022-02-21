@@ -17,8 +17,8 @@
                     <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="757"/>
-            <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="544" Foreground="#FF444444" Margin="0,77,0,0"/>
+            <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="757" Margin="-40,0,0,0"/>
+            <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="544" Foreground="#FF444444" Margin="-40,77,0,0"/>
         </Grid>
         <Grid Margin="10,175,0,10" HorizontalAlignment="Left" Width="315">
             <Grid.Resources>

@@ -1,4 +1,6 @@
-﻿using RollingRess;
+﻿#define BETA
+
+using RollingRess;
 using System.Xml.Serialization;
 using TimeTableCore;
 using TimeTableUWP.Pages;
@@ -22,10 +24,9 @@ namespace TimeTableUWP
         /// <summary>
         /// GGHS Time Table's version: string value with the format "X.X.X"
         /// </summary>
-        
         public string Value { get; set; }
-#if DEBUG
-            = "5.0.beta-0222.1";
+#if BETA
+            = "5.0.beta2.1";
 #else
             = PackageVer.ParseString();
 #endif
@@ -41,6 +42,7 @@ namespace TimeTableUWP
             return v1.Value != v2.Value;
         }
         public override bool Equals(object obj) => (obj is Version rhs) && Value == rhs.Value;
+        override public int GetHashCode() => Value.GetHashCode();
         public char GetLastNumber() => Value[Value.Length - 1];
     }
 

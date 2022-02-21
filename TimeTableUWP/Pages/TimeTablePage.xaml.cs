@@ -42,12 +42,12 @@ namespace TimeTableUWP.Pages
                 // 몇 반인지는 이미 Info.User.Class에 Load됨.
 
                 // 선택과목 로드: 이거 아예 LoadAsync()에서 끝낼까봄.
-                Subjects.Korean.SetAs(SaveData.Korean ?? Korean.Default);
-                Subjects.Math.SetAs(SaveData.Math ?? TimeTableCore.Math.Default);
-                Subjects.Social.SetAs(SaveData.Social ?? Social.Default);
-                Subjects.Language.SetAs(SaveData.Language ?? TimeTableCore.Language.Default);
-                Subjects.Global1.SetAs(SaveData.Global1 ?? Global1.Default);
-                Subjects.Global2.SetAs(SaveData.Global2 ?? Global2.Default);
+                Subjects.Korean.SetAs(Korean.Selected);
+                Subjects.Math.SetAs(GTT.Math.Selected);
+                Subjects.Social.SetAs(Social.Selected);
+                Subjects.Language.SetAs(GTT.Language.Selected);
+                Subjects.Global1.SetAs(Global1.Selected);
+                Subjects.Global2.SetAs(Global2.Selected);
 
                 // 콤보박스에 이전에 선택한 string 띄우기
                 // classcombobox.selectedindex = info.user.class

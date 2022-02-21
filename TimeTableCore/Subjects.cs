@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace TimeTableCore
 {
+    [XmlRoot("Subject")]
     public class Subject
     {
+        [Obsolete("Only for XML Serializers")]
+        public Subject() { }
         public Subject(string name) => FullName = name;
         public Subject(string name, string shortName)
         {
@@ -20,8 +25,10 @@ namespace TimeTableCore
         }
 
         public static implicit operator string(Subject subject) => subject.Name;
-        public virtual string FullName { get; } = string.Empty;
-        public virtual string? ShortName { get; } = null;
+
+        public virtual string FullName { get; set; } = string.Empty;
+        public virtual string? ShortName { get; set; } = null;
+        
         public virtual string Name => ShortName ?? FullName;
         public bool IsSameWith(string name)
         {
@@ -46,11 +53,13 @@ namespace TimeTableCore
         void SetAs(string subject);
     }
 
+    [XmlRoot("Korean")]
     public class Korean : Subject, ISelectiveSubject
     {
         public static Subject LangMedia => new("언어와 매체", "언매");
         public static Subject SpeechWriting => new("화법과 작문", "화작");
         public static Subject Default => new("국어");
+        [XmlAttribute]
         public static Subject Selected { get; set; } = Default; // set 변경
         public Korean() : base(Default) { }
         public Korean(in Subject korean) : base(korean) { }
@@ -67,12 +76,13 @@ namespace TimeTableCore
         public override string Name => this.ShortName ?? this.FullName;
     }
 
-
+    [DataContract(Name = "Math")]
     public class Math : Subject, ISelectiveSubject
     {
         public static Subject Probability => new("확률과 통계", "확통");
         public static Subject Daic => new("미적분");
         public static Subject Default => new("수학");
+        [DataMember(Name = "Selected")]
         public static Subject Selected { get; set; } = Default;
         public Math() : base(Default) { }
         public Math(in Subject math) : base(math) { }
@@ -95,6 +105,7 @@ namespace TimeTableCore
         public static Subject KoreanGeo => new("한국지리");
         public static Subject Culture => new("사회·문화");
         public static Subject Default => new("사회");
+        [XmlAttribute]
         public static Subject Selected { get; set; } = Default;
         public Social() : base(Default) { }
         public Social(in Subject social) : base(social) { }
@@ -119,6 +130,7 @@ namespace TimeTableCore
         public static Subject Japanese => new("일본문화");
         public static Subject Chinese => new("중국문화");
         public static Subject Default => new("외국어");
+        [XmlAttribute]
         public static Subject Selected { get; set; } = Default;
         public Language() : base(Default) { }
         public Language(in Subject language) : base(language) { }
@@ -142,6 +154,7 @@ namespace TimeTableCore
         public static Subject SocialResearch => new("사회 탐구 방법", "사탐방");
         public static Subject KoreanSociety => new("한국 사회의 이해", "한사이");
         public static Subject Default => new("국제1");
+        [XmlAttribute]
         public static Subject Selected { get; set; } = Default;
         public Global1() : base(Default) { }
         public Global1(in Subject global1) : base(global1) { }
@@ -163,6 +176,7 @@ namespace TimeTableCore
         public static Subject FutureSociety => new("세계 문제와 미래 사회", "세문미");
         public static Subject Ethics => new("윤리학 연습", "윤연");
         public static Subject Default => new("국제2");
+        [XmlAttribute]
         public static Subject Selected { get; set; } = Default;
         public Global2() : base(Default) { }
         public Global2(in Subject global2) : base(global2) { }

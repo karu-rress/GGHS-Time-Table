@@ -63,14 +63,14 @@ namespace TimeTableCore
 
     public class TimeTables
     {
-        public TimeTable Class1 { get; } = new(1, new Subject[] { Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.AdvancedEnglish.A() });
-        public TimeTable Class2 { get; } = new(2, new Subject[] { });
-        public TimeTable Class3 { get; } = new(3, new Subject[] { });
-        public TimeTable Class4 { get; } = new(4, new Subject[] { });
-        public TimeTable Class5 { get; } = new(5, new Subject[] { });
-        public TimeTable Class6 { get; } = new(6, new Subject[] { });
-        public TimeTable Class7 { get; } = new(7, new Subject[] { });
-        public TimeTable Class8 { get; } = new(8, new Subject[] { });
+        public TimeTable Class1 { get; } = new(1, new Subject[] { Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), });
+        public TimeTable Class2 { get; } = new(2, new Subject[] { Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, });
+        public TimeTable Class3 { get; } = new(3, new Subject[] { Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, });
+        public TimeTable Class4 { get; } = new(4, new Subject[] { Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language,  });
+        public TimeTable Class5 { get; } = new(5, new Subject[] { Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, });
+        public TimeTable Class6 { get; } = new(6, new Subject[] { Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, });
+        public TimeTable Class7 { get; } = new(7, new Subject[] { Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean,  });
+        public TimeTable Class8 { get; } = new(8, new Subject[] { Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, });
 
         private static TimeTable? table = null;
         public TimeTable? Table { get => table; set => table = value; }

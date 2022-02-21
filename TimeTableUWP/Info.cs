@@ -1,5 +1,5 @@
 ﻿using RollingRess;
-
+using System.Xml.Serialization;
 using TimeTableCore;
 using TimeTableUWP.Pages;
 using Windows.ApplicationModel;
@@ -22,20 +22,31 @@ namespace TimeTableUWP
         /// <summary>
         /// GGHS Time Table's version: string value with the format "X.X.X"
         /// </summary>
-        public string Value { get; }
+        
+        public string Value { get; set; }
 #if DEBUG
-            = "5.0.alpha-0220";
+            = "5.0.beta-0222.1";
 #else
             = PackageVer.ParseString();
 #endif
-        public static implicit operator string(Version v) => v.Value;
+        // public static implicit operator string(Version v) => v.Value;
   
         override public string ToString() => Value;
+        public static bool operator==(Version v1, Version v2)
+        {
+            return v1.Value == v2.Value;
+        }
+        public static bool operator!=(Version v1, Version v2)
+        {
+            return v1.Value != v2.Value;
+        }
+        public override bool Equals(object obj) => (obj is Version rhs) && Value == rhs.Value;
         public char GetLastNumber() => Value[Value.Length - 1];
     }
 
     public class Settings
     {
+        // TODO: Color option
         public static Color DefaultColor { get; } = Color.FromArgb(0xEE, 0xD9, 0xC0, 0xF9);
         public Color ColorType { get; set; } = DefaultColor;
 

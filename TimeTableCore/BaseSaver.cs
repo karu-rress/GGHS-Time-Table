@@ -13,6 +13,7 @@ namespace TimeTableCore
         public Subject? Global1 { get; set; }
         public Subject? Global2 { get; set; }
 
+        [Obsolete]
         public User? UserData { get; set; }
         public void SetSubjects(Subject korean, Subject math, Subject social, Subject lang, Subject global1, Subject global2)
         {

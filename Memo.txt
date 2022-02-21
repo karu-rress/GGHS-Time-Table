@@ -2,9 +2,6 @@
 
 // GTT Insiders
 
-Past my lover
---
-
 NOCHES
 박찬호 V
 손동윤 V
@@ -20,3 +17,17 @@ Color Management
 ZOOM Links provider
 김지원 V
 201813@ggg.hs.kr V
+
+=============================
+
+GTT Levels
+
+Developer
+- Karu
+
+Azure
+- NOCHES (박찬호, 손동윤, 심승빈, 염지훈)
+- ShareTech (조수경, 김다연, 정재윤)
+- Color(이하민, 송다예)
+
+Bisque

@@ -62,13 +62,12 @@ namespace TimeTableUWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                // 여기 수정
                 var taskLoad = SaveTask.Load();
-                //var dataLoad = SaveData.LoadDataAsync();
 
                 DataSaver data = new();
                 var dataLoad = data.LoadAsync();
                 await Task.WhenAll(taskLoad, dataLoad);
-
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -114,7 +113,12 @@ namespace TimeTableUWP
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
-            // await Task.WhenAll(TimeTablePage.SaveData.SaveAsync(), SaveTask.Save());
+
+            string v = Info.Version.ToString();
+            //if (v.Contains("alpha") || v.Contains("beta"))
+            //    await TimeTablePage.SaveData.SaveAsync();
+            
+            await Task.WhenAll(TimeTablePage.SaveData.SaveAsync(), SaveTask.Save());
 
             deferral.Complete();
         }

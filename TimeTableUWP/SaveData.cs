@@ -11,7 +11,8 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using TimeTableCore;
-using SubjectTuple = System.ValueTuple<TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?, TimeTableCore.Subject?>;
+using ttc = TimeTableCore;
+using System.Xml.Serialization;
 
 namespace TimeTableUWP
 {
@@ -27,24 +28,51 @@ namespace TimeTableUWP
         private string VersionFile => SaveFiles.VersionFile;
         private string ClassFile => SaveFiles.ClassFile;
 
+        [XmlType("SubjectList")]
+        [XmlInclude(typeof(Subject))]
+        public class SubjectList
+        {
+            public SubjectList() { }
+            public SubjectList(Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2)
+            {
+                Korean = kor;
+                Math = math;
+                Social = soc;
+                Language = lang;
+                Global1 = glo1; 
+                Global2 = glo2;
+            }
+            public Subject Korean { get; set; }
+            public Subject Math { get; set; }
+            public Subject Social { get; set; }
+            public Subject Language { get; set; }
+            public Subject Global1 { get; set; }
+            public Subject Global2 { get; set; }
+            public (Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2) Parse()
+            {
+                return (Korean, Math, Social, Language, Global1, Global2);
+            }
+        }
+
         public async Task SaveAsync()
         {
 #if __TESTING__
-            if (UserData is null)
+            if (Info.User is null)
                 throw new NullReferenceException("DataSaver: BaseSaver.UserData is null");
 
             //if (Settings is null)
                 //throw new NullReferenceException("DataSaver: Settings is null.");
 #endif
             Task writeKey = Task.CompletedTask;
-            if (UserData.IsActivated)
+            if (Info.User.IsActivated)
             {
                 DataWriter<ActivationLevel> writer = new(KeyFile, Info.User.ActivationLevel);
                 writeKey = writer.WriteAsync();
             }
 
-            SubjectTuple tuple = (Korean, Math, Social, Language, Global1, Global2);
-            DataWriter<SubjectTuple> writeSubject = new(DataFile, tuple);
+            // SubjectTuple tuple = (Korean, Math, Social, Language, Global1, Global2);
+            SubjectList list = new(ttc.Korean.Selected, ttc.Math.Selected, ttc.Social.Selected, ttc.Language.Selected, ttc.Global1.Selected, ttc.Global2.Selected);
+            DataWriter<SubjectList> writeSubject = new(DataFile, list);
             DataWriter<Settings> writeSettings = new(SettingsFile, Info.Settings);
             DataWriter<Version> writeVersion = new(VersionFile, Info.Version);
             DataWriter<int> writeClass = new(ClassFile, Info.User.Class);
@@ -65,7 +93,7 @@ namespace TimeTableUWP
             DataReader<Settings> readSettings = new(SettingsFile);
             var settings = readSettings.ReadAsync();
 
-            DataReader<SubjectTuple> readTuple = new(DataFile);
+            DataReader<SubjectList> readTuple = new(DataFile);
             var subject = readTuple.ReadAsync();
 
             DataReader<Version> readVersion = new(VersionFile);
@@ -78,10 +106,11 @@ namespace TimeTableUWP
             await Task.WhenAll(settings, subject, version, cls);
 
             Info.Settings = await settings;
-            SubjectTuple subjects = await subject;
+            SubjectList subjects = await subject;
             Info.User.Class = await cls;
 
-            (Korean, Math, Social, Language, Global1, Global2) = subjects;
+            (ttc.Korean.Selected, ttc.Math.Selected, ttc.Social.Selected, ttc.Language.Selected, ttc.Global1.Selected, ttc.Global2.Selected)
+                = subjects.Parse();
 
             // TODO:
             // 이거 이런 식으로 여기서 로드해버릴 수 있음.
@@ -97,7 +126,7 @@ namespace TimeTableUWP
             }
 
             // If updated
-            if (await version != Info.Version.Value)
+            if (await version != Info.Version)
             {
                 Info.User.Status = LoadStatus.Updated;
                 return;

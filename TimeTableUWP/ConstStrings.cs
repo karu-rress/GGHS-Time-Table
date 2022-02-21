@@ -17,7 +17,7 @@ namespace TimeTableUWP
         public const string Coral = "CORAL-3GGHS10";
         public const string Bisque = "BSQUE-LX5MBH3";
         public const string Azure = "AZURE-A8VP36N";
-    }
+    } 
 
     public static class SaveFiles
     {

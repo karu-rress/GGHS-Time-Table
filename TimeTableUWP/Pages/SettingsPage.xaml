@@ -35,7 +35,7 @@
                 <Setter Property="FontFamily" Value="Segoe"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="111,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 5 Settings" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="80,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 5 Settings" FontWeight="Bold"/>
 
         <ScrollViewer Margin="45,97,455,53" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid VerticalAlignment="Top">

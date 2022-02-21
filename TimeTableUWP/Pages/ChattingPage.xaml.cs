@@ -94,7 +94,7 @@ namespace TimeTableUWP.Pages
             await cmd.ExecuteNonQueryAsync();
 
             isSending = false;
-            textBox.Text = String.Empty;
+            textBox.Text = string.Empty;
             textBox.IsEnabled = true;
         }
 

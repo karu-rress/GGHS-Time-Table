@@ -32,10 +32,9 @@ namespace TimeTableUWP
             public const string Todo = "TodoList";
         }
 
-        public static async Task SaveAsync()
+        public static void SaveAsync()
         {
-            await Task.Run(() =>
-            {
+            
                 // local 대신 Roaming도 가능
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                 localSettings.Values[SettingValues.Version] = Serialize(Info.Version);
@@ -46,32 +45,33 @@ namespace TimeTableUWP
                 localSettings.Values[SettingValues.Level] = Serialize(Info.User.ActivationLevel);
 
                 localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
-            });
+
         }
 
-        public static async Task LoadAsync()
+        public static void LoadAsync()
         {
-            await Task.Run(() =>
+
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            if (Deserialize<Version?>(localSettings.Values[SettingValues.Version]?.ToString()) is Version version)
+                Info.User.Status = version != Info.Version ? LoadStatus.Updated : LoadStatus.Normal;
+            else
             {
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                if (Deserialize<Version?>(localSettings.Values[SettingValues.Version].ToString()) is Version version)
-                    Info.User.Status = version != Info.Version ? LoadStatus.Updated : LoadStatus.Normal;
-                else
-                {
-                    Info.User.Status = LoadStatus.NewlyInstalled;
-                    return;
-                }
+                Info.User.Status = LoadStatus.NewlyInstalled;
+                return;
+            }
 
-                if (Deserialize<SubjectList>(localSettings.Values[SettingValues.Subjects].ToString()) is SubjectList list)
-                    (Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list.Parse();
+            if (Deserialize<SubjectList>(localSettings.Values[SettingValues.Subjects]?.ToString()) is SubjectList list)
+                (Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list.Parse();
 
-                Info.Settings = Deserialize<Settings>(localSettings.Values[SettingValues.Settings].ToString());
-                Info.User.Class = (int)localSettings.Values[SettingValues.Class];
-                if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo].ToString()) is List<Todo.TodoTask> tasklist)
-                    TodoListPage.TaskList.List = tasklist;
+            // null 체크 좀 더 추가 (?.)
+            Info.Settings = Deserialize<Settings>(localSettings.Values[SettingValues.Settings].ToString());
+            Info.User.Class = (int)localSettings.Values[SettingValues.Class];
+            if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo].ToString()) is List<Todo.TodoTask> tasklist)
+                TodoListPage.TaskList.List = tasklist;
 
-                Info.User.ActivationLevel = Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level].ToString());
-            });
+            Info.User.ActivationLevel = Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level].ToString());
+
+
         }
 
         [DataContract(Name = "Subjects")]

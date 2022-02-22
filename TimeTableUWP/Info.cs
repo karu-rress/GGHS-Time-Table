@@ -27,7 +27,7 @@ namespace TimeTableUWP
         [DataMember]
         public string Value { get; set; }
 #if BETA
-            = "5.0.beta3.2";
+            = "5.0.beta4.1";
 #else
             = PackageVer.ParseString();
 #endif

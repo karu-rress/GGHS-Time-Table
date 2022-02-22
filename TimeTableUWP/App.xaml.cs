@@ -62,7 +62,7 @@ namespace TimeTableUWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                await DataSaver.LoadAsync();
+                DataSaver.LoadAsync();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -109,7 +109,7 @@ namespace TimeTableUWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
           
-            await DataSaver.SaveAsync();
+            DataSaver.SaveAsync();
 
             deferral.Complete();
         }

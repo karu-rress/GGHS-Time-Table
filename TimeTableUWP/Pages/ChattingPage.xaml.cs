@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ namespace TimeTableUWP.Pages
         private static bool isFirstLoaded = true;
         private bool isSending = false;
         private bool isCancelRequested = false;
-        private const int chatDelay = 1050;
+        private const int chatDelay = 1100;
         private const string title = "GGHS Anonymous";
         private string connectionString { get; set; } = "";
         private List<string> BadWords { get; set; } = new()
@@ -52,22 +54,21 @@ namespace TimeTableUWP.Pages
             if (connectionString == null)
                 throw new NullReferenceException("ConnectionString is null.");
             this.connectionString = connectionString;
-            _ = ReloadChatsAsync();
-
             if (Info.User.ActivationLevel is ActivationLevel.Developer)
-                camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility 
+            {
+                camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility
                     = delButton.Visibility = infoButton.Visibility = Visibility.Visible;
+                textBox.Margin = new(27, 0, 102, 18);
+            }
 
             if (isFirstLoaded)
             {
-                string txt = textBox.PlaceholderText;
-                textBox.PlaceholderText = "채팅 불러오는 중...";
-                await Task.Delay(1300);
-                textBox.PlaceholderText = txt;
+                await LoadChatsAsync();
             }
 
             textBox.IsEnabled = true;
             isFirstLoaded = false;
+            _ = ReloadChatsAsync();
         }
 
         private async void textBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -194,9 +195,54 @@ namespace TimeTableUWP.Pages
             await RunSQL(@$"DELETE FROM chatmsg WHERE Message=N'{message}'");
         }
 
+        private string StringBuffer { get; set; }
+        private List<string> StringArray { get; set; } = new();
+
+        private DateTime LastSqlTime { get; set; }
+        // 전체 메시지  받아오기
+        private async Task LoadChatsAsync()
+        {
+            string txt = textBox.PlaceholderText;
+            textBox.PlaceholderText = "채팅 불러오는 중...";
+
+            const string query = "SELECT * FROM chatmsg ORDER BY Time";
+
+            DataSet ds = new();
+            using (SqlConnection sql = new(connectionString))
+            {
+                SqlCommand cmd = new(@"select max(Time) from chatmsg", sql);
+                await sql.OpenAsync();
+                LastSqlString = ((DateTime)await cmd.ExecuteScalarAsync()).ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+                SqlDataAdapter sda = new(query, sql);
+                sda.Fill(ds, "chatmsg");
+            }
+
+            DataTable dt = ds.Tables["chatmsg"];
+            StringBuilder sb = new();
+            foreach (DataRow row in dt.Rows)
+            {
+                sb.AppendLine($"({DateTime.Parse(row["Time"].ToString()):MM/dd HH:mm}) {Convert(row["Sender"].ToString())}: {row["Message"]}");
+            }
+
+            viewBox.Text = StringBuffer = sb.ToString();
+            ScrollViewBox();
+            textBox.PlaceholderText = txt;
+        }
+
+
+        private string LastSqlString { get; set; }
         private async Task ReloadChatsAsync()
         {
-            const string query = "SELECT * FROM chatmsg ORDER BY Time";
+            // SQL에서 새 데이터만 받아오기
+            // (마지막 라인과 비교)
+            // 없으면 다시 반복
+            // 읽으면 계속 추가
+
+            string query1 = $"SELECT COUNT(*) FROM chatmsg WHERE Time > '{LastSqlString}'";
+            string query2 = $"SELECT * FROM chatmsg WHERE Time > '{LastSqlString}' ORDER BY Time";
+            string query3 = "select max(Time) from chatmsg";
+
             while (true)
             {
                 while (isSending)
@@ -206,40 +252,43 @@ namespace TimeTableUWP.Pages
                     return;
 
                 SqlConnection sql = new(connectionString);
-                SqlCommand cmd = new(query, sql);
+                SqlCommand cmd = new(query1, sql);
                 await sql.OpenAsync();
 
-                DataTable dataTable = new();
-                using (SqlDataAdapter adapter = new(cmd))
+                if ((int)await cmd.ExecuteScalarAsync() is 0)
                 {
-                    adapter.Fill(dataTable);
                     sql.Close();
+                    await Task.Delay(600);
+                    continue;
                 }
 
+                cmd.CommandText = query2;
+                SqlDataReader reader = cmd.ExecuteReader();
                 StringBuilder sb = new();
-                // TODO: 일부만 빼서 추가하든가..
-                foreach (DataRow row in dataTable.Rows)
+                while (reader.Read())
                 {
-                    DateTime dt = DateTime.Parse(row["Time"].ToString());
-                    string sender = Convert(row["Sender"].ToString());
-                    string msg = row["Message"].ToString();
-                    sb.AppendLine($"({dt:MM/dd HH:mm}) {sender}: {msg}");
+                    sb.AppendLine($"({reader.GetDateTime(1):MM/dd HH:mm}) {Convert(reader.GetByte(0))}: {reader.GetString(2)}");
                 }
-                viewBox.Text = sb.ToString();
 
-                ScrollToBottom(viewBox);
+                // TODO 이 아래에서 오류가 남.
+                cmd.CommandText = query3;
+                LastSqlString = ((DateTime)await cmd.ExecuteScalarAsync()).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                sql.Close();
+
+                StringBuffer += sb.ToString();
+                viewBox.Text = StringBuffer;
                 await Task.Delay(chatDelay);
             }
         }
 
-        private void ScrollToBottom(TextBox textBox)
+        private void ScrollViewBox()
         {
-            var grid = (Grid)VisualTreeHelper.GetChild(textBox, 0);
+            var grid = VisualTreeHelper.GetChild(viewBox, 0) as Grid;
             for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
             {
-                object obj = VisualTreeHelper.GetChild(grid, i);
-                if (!(obj is ScrollViewer)) continue;
-                ((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
+                if (VisualTreeHelper.GetChild(grid, i) is not ScrollViewer sv) 
+                    continue;
+                sv.ChangeView(0.0f, sv.ExtentHeight, 1.0f, true);
                 break;
             }
         }
@@ -262,6 +311,14 @@ namespace TimeTableUWP.Pages
             _ => throw new ArgumentException($"ChattingPage.Convert(string): unknown '{level}'")
         };
 
+        private string Convert(byte level) => level switch
+        {
+            0 => "Karu",
+            1 or 3 => "Azure",
+            2 or 4 => "Bisque",
+            _ => throw new ArgumentException($"ChattingPage.Convert(string): unknown '{level}'")
+        };
+
         private void PrepareSend()
         {
             isSending = true;
@@ -273,6 +330,7 @@ namespace TimeTableUWP.Pages
             isSending = false;
             textBox.IsEnabled = true;
             textBox.Text = string.Empty;
+            ScrollViewBox();
         }
     }
 }

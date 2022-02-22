@@ -12,6 +12,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using static RollingRess.StaticClass;
 
 namespace TimeTableUWP.Pages
@@ -25,7 +26,7 @@ namespace TimeTableUWP.Pages
         private bool isSending = false;
         private bool isCancelRequested = false;
         private const int chatDelay = 1050;
-
+        private const string title = "GGHS Anonymous";
         private string connectionString { get; set; } = "";
         private List<string> BadWords { get; set; } = new()
         {
@@ -33,7 +34,6 @@ namespace TimeTableUWP.Pages
             "좆",
             "개새끼",
             "존나",
-            "씨X",
             "지랄"
         };
 
@@ -55,7 +55,8 @@ namespace TimeTableUWP.Pages
             _ = ReloadChatsAsync();
 
             if (Info.User.ActivationLevel is ActivationLevel.Developer)
-                camoButtonA.Visibility = camoButtonB.Visibility = Visibility.Visible;
+                camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility 
+                    = delButton.Visibility = infoButton.Visibility = Visibility.Visible;
 
             if (isFirstLoaded)
             {
@@ -73,67 +74,129 @@ namespace TimeTableUWP.Pages
         {
             // 엔터 치면 메시지 보내기, 단 메시지 박스가 비어 있으면 안 됨.
             if (e.Key == Windows.System.VirtualKey.Enter)
-            {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    await ShowMessageAsync("보낼 메시지를 입력하세요.");
-                    return;
-                }
                 await SendMessageAsync(Info.User.ActivationLevel);
-            }
+        }
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Button btn)
+                return;
+
+            if (btn.Name is "camoButtonA")
+                await SendMessageAsync(ActivationLevel.Azure);
+            else if (btn.Name is "camoButtonB")
+                await SendMessageAsync(ActivationLevel.Bisque);
+            else if (btn.Name is "sqlButton")
+                await RunSQL(textBox.Text);
+            else if (btn.Name is "delButton")
+                await DeleteMessage(textBox.Text);
+            else if (btn.Name is "infoButton")
+                await ShowMessageAsync("A/B: Azure/Bisque로 메시지 보내기\nSQL: SQL 쿼리 실행\nDEL: 메시지 삭제", title);
         }
 
         private async Task SendMessageAsync(ActivationLevel userLevel)
         {
-            // 욕설 필터링
-            if (BadWords.Any(s => textBox.Text.Contains(s)))
+            try
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    await ShowMessageAsync("보낼 메시지를 입력하세요.", title);
+                    return;
+                }
+                // 욕설 필터링
+                if (BadWords.Any(s => textBox.Text.Contains(s)))
+                {
+                    ContentDialog dialog = new()
+                    {
+                        Content = "부적절한 말들이 포함되어 있습니다. 그래도 보내시겠습니까?",
+                        Title = title,
+                        PrimaryButtonText = "Yes",
+                        CloseButtonText = "No"
+                    };
+                    var response = await dialog.ShowAsync();
+                    if (response is ContentDialogResult.None)
+                        return;
+                }
+
+                PrepareSend();
+                using SqlConnection sql = new() { ConnectionString = connectionString };
+                await sql.OpenAsync();
+
+                SqlCommand cmd = new();
+                cmd.Connection = sql;
+
+                SqlParameter pSender = new("Sender", SqlDbType.TinyInt);
+                SqlParameter pTime = new("Time", SqlDbType.DateTime);
+                SqlParameter pMsg = new("Message", SqlDbType.NVarChar, 80);
+
+                pSender.Value = Convert(userLevel);
+                pTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                pMsg.Value = textBox.Text;
+
+                cmd.Parameters.Add(pSender);
+                cmd.Parameters.Add(pTime);
+                cmd.Parameters.Add(pMsg);
+
+                cmd.CommandText = "INSERT INTO chatmsg(Sender, Time, Message) VALUES(@Sender, @Time, @Message)";
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception ex)
+            {
+                await ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title);
+                throw;
+            }
+            finally
+            {
+                DisposeSend();
+            }
+        }
+
+        private async Task RunSQL(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                await ShowMessageAsync("Enter query.", title);
+                return;
+            }
+            try
+            {
+                PrepareSend();
+                using SqlConnection sc = new(connectionString);
+                using var cmd = sc.CreateCommand();
+                await sc.OpenAsync();
+                cmd.CommandText = query;
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception e)
+            {
+                await ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title);
+            }
+            finally
+            {
+                DisposeSend();
+            }
+        }
+
+        private async Task DeleteMessage(string message)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 ContentDialog dialog = new()
                 {
-                    Content = "부적절한 말들이 포함되어 있습니다. 그래도 보내시겠습니까?",
-                    Title = "GGHS Anonymous",
+                    Content = "Nothing seems to be entered. Do you really want to proceed?",
+                    Title = title,
                     PrimaryButtonText = "Yes",
-                    CloseButtonText = "No"
+                    CloseButtonText = "No",
                 };
-                var response = await dialog.ShowAsync();
-                if (response is ContentDialogResult.None)
+                var result = await dialog.ShowAsync();
+                if (result is ContentDialogResult.None)
                     return;
             }
-
-            // Prepare send message
-            isSending = true;
-            textBox.IsEnabled = false;
-
-            SqlConnection sql = new() { ConnectionString = connectionString };
-            await sql.OpenAsync();
-
-            SqlCommand cmd = new();
-            cmd.Connection = sql;
-
-            SqlParameter pSender = new("Sender", SqlDbType.TinyInt);
-            SqlParameter pTime = new("Time", SqlDbType.DateTime);
-            SqlParameter pMsg = new("Message", SqlDbType.NVarChar, 80);
-
-            pSender.Value = Convert(userLevel);
-            pTime.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            pMsg.Value = textBox.Text;
-
-            cmd.Parameters.Add(pSender);
-            cmd.Parameters.Add(pTime);
-            cmd.Parameters.Add(pMsg);
-
-            cmd.CommandText = "INSERT INTO chatmsg(Sender, Time, Message) VALUES(@Sender, @Time, @Message)";
-            await cmd.ExecuteNonQueryAsync();
-
-            sql.Close();
-            isSending = false;
-            textBox.Text = string.Empty;
-            textBox.IsEnabled = true;
+            await RunSQL(@$"DELETE FROM chatmsg WHERE Message=N'{message}'");
         }
 
         private async Task ReloadChatsAsync()
         {
-            const string query = "SELECT * FROM chatmsg";
+            const string query = "SELECT * FROM chatmsg ORDER BY Time";
             while (true)
             {
                 while (isSending)
@@ -163,19 +226,22 @@ namespace TimeTableUWP.Pages
                     sb.AppendLine($"({dt:MM/dd HH:mm}) {sender}: {msg}");
                 }
                 viewBox.Text = sb.ToString();
+
+                ScrollToBottom(viewBox);
                 await Task.Delay(chatDelay);
             }
         }
 
-        private async void camoButton_Click(object sender, RoutedEventArgs e)
+        private void ScrollToBottom(TextBox textBox)
         {
-            if (sender is not Button btn)
-                return;
-
-            if (btn.Name is "camoButtonA")
-                await SendMessageAsync(ActivationLevel.Azure);
-            else if (btn.Name is "camoButtonB")
-                await SendMessageAsync(ActivationLevel.Bisque);
+            var grid = (Grid)VisualTreeHelper.GetChild(textBox, 0);
+            for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
+            {
+                object obj = VisualTreeHelper.GetChild(grid, i);
+                if (!(obj is ScrollViewer)) continue;
+                ((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
+                break;
+            }
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -195,5 +261,18 @@ namespace TimeTableUWP.Pages
             "2" or "4" => "Bisque",
             _ => throw new ArgumentException($"ChattingPage.Convert(string): unknown '{level}'")
         };
+
+        private void PrepareSend()
+        {
+            isSending = true;
+            textBox.IsEnabled = false;
+        }
+
+        private void DisposeSend()
+        {
+            isSending = false;
+            textBox.IsEnabled = true;
+            textBox.Text = string.Empty;
+        }
     }
 }

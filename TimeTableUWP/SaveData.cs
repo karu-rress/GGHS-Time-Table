@@ -22,37 +22,31 @@ namespace TimeTableUWP
 {
     public class DataSaver
     {
+        private static ApplicationDataContainer localSettings => ApplicationData.Current.LocalSettings;
+
         internal static class SettingValues
         {
-            public const string Class = "Class";
             public const string Version = "Version";
-            public const string Settings = "Settings";
-            public const string Level = "ActivationLevel";
+            public const string Class = "Class"; 
             public const string Subjects = "Subjects";
+            public const string Level = "ActivationLevel";
+            public const string Settings = "Settings";
             public const string Todo = "TodoList";
         }
 
         public static void SaveAsync()
         {
-            
-                // local 대신 Roaming도 가능
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                localSettings.Values[SettingValues.Version] = Serialize(Info.Version);
-                localSettings.Values[SettingValues.Subjects] = Serialize(new SubjectList(Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected));
-                localSettings.Values[SettingValues.Settings] = Serialize(Info.Settings);
-
-                localSettings.Values[SettingValues.Class] = Info.User.Class;
-                localSettings.Values[SettingValues.Level] = Serialize(Info.User.ActivationLevel);
-
-                localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
-
+            localSettings.Values[SettingValues.Version] = Serialize(Info.Version);
+            localSettings.Values[SettingValues.Class] = Info.User.Class;
+            localSettings.Values[SettingValues.Subjects] = Serialize(new SubjectList(Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected));
+            localSettings.Values[SettingValues.Level] = Serialize(Info.User.ActivationLevel);
+            localSettings.Values[SettingValues.Settings] = Serialize(Info.Settings);
+            localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
         }
 
         public static void LoadAsync()
         {
-
-            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-            if (Deserialize<Version?>(localSettings.Values[SettingValues.Version]?.ToString()) is Version version)
+            if (Deserialize<Version?>(localSettings.Values[SettingValues.Version]) is Version version)
                 Info.User.Status = version != Info.Version ? LoadStatus.Updated : LoadStatus.Normal;
             else
             {
@@ -60,18 +54,20 @@ namespace TimeTableUWP
                 return;
             }
 
-            if (Deserialize<SubjectList>(localSettings.Values[SettingValues.Subjects]?.ToString()) is SubjectList list)
+            if (Deserialize<SubjectList>(localSettings.Values[SettingValues.Subjects]) is SubjectList list)
                 (Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list.Parse();
 
-            // null 체크 좀 더 추가 (?.)
-            Info.Settings = Deserialize<Settings>(localSettings.Values[SettingValues.Settings].ToString());
-            Info.User.Class = (int)localSettings.Values[SettingValues.Class];
-            if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo].ToString()) is List<Todo.TodoTask> tasklist)
+            if (Deserialize<Settings>(localSettings.Values[SettingValues.Settings]) is Settings setting)
+                Info.Settings = setting;
+
+            if (localSettings.Values[SettingValues.Class] is int cls)
+                Info.User.Class = cls;
+
+            if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo]) is List<Todo.TodoTask> tasklist)
                 TodoListPage.TaskList.List = tasklist;
 
-            Info.User.ActivationLevel = Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level].ToString());
-
-
+            if (Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level]) is ActivationLevel level)
+                Info.User.ActivationLevel = level;
         }
 
         [DataContract(Name = "Subjects")]

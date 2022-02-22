@@ -27,6 +27,11 @@ namespace TimeTableUWP
         public const string Coral = "Now we are the K-高3";
     }
 
+    public static class Datas
+    {
+        public const string Version = "5.0.beta5.1";
+    }
+
     public static class Messages
     {
         public const string GGHSTimeTableWithVer = "GGHS Time Table 5";

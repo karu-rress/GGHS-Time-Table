@@ -27,9 +27,23 @@
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Anonymous" FontSize="55" FontWeight="Bold" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" HorizontalAlignment="Left" Width="460" Height="73" VerticalAlignment="Top" />
-        <TextBox x:Name="viewBox" Margin="27,125,30,65" IsReadOnly="True" />
-        <TextBox x:Name="textBox" Margin="27,0,120,18" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False" Height="37" VerticalAlignment="Bottom" />
-        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,65,16" Click="camoButton_Click" />
-        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,15,16" Click="camoButton_Click" />
+        <TextBox x:Name="viewBox" Margin="27,125,30,65" IsReadOnly="True" CanDrag="False"/>
+        <TextBox x:Name="textBox" Margin="27,0,102,18" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다."  MaxLength="80" IsEnabled="False" Height="37" VerticalAlignment="Bottom" />
+        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,64,17" Click="Button_Click" Width="36" />
+        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,29,17" Click="Button_Click" Width="35" />
+        <Grid Margin="0,50,40,0" HorizontalAlignment="Right" Width="265" Height="49" VerticalAlignment="Top">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="87"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Visibility" Value="Visible"/>
+                </Style>
+            </Grid.Resources>
+            <Button x:Name="sqlButton" Content="SQL" HorizontalAlignment="Left" CornerRadius="10, 0, 0, 10" Click="Button_Click"/>
+            <Button x:Name="delButton" Content="DEL" HorizontalAlignment="Center" Click="Button_Click"/>
+            <Button x:Name="infoButton" Content="INFO" HorizontalAlignment="Right" CornerRadius="0, 10, 10, 0"  Click="Button_Click"/>
+        </Grid>
     </Grid>
 </Page>

@@ -1,8 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +14,6 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Background;
 
 using Microsoft.Toolkit.Uwp.Notifications;
-
 using static RollingRess.StaticClass;
 using static System.DayOfWeek;
 using TimeTableCore;
@@ -25,30 +22,26 @@ namespace TimeTableUWP.Pages
 {
     public sealed partial class TimeTablePage : Page
     {
-        [GTT5]
         async Task InitializeUIAsync()
         {
             // Set Color
-            foreach (var border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
+            foreach (Border border in new[] { monBorder, tueBorder, wedBorder, thuBorder, friBorder })
                 border.Background = new SolidColorBrush(Info.Settings.ColorType);
 
             SetSubText();
 
             if (Info.User.Status is LoadStatus.NewlyInstalled)
-            {
                 await ShowMessageAsync(Messages.Welcome, Messages.GGHSTimeTableWithVer, Info.Settings.Theme, XamlRoot);
-            }
+            
             else if (Info.User.Status is LoadStatus.Updated)
-            {
                 await ShowMessageAsync(Messages.Updated, "New version installed", xamlRoot: XamlRoot);
-            }
+            
             Info.User.Status = LoadStatus.Normal;
         }
 
         /// <summary>
         /// Sets the subtitle for TimeTablePage
         /// </summary>
-        [GTT5]
         private void SetSubText() => mainText2.Text = Info.User.ActivationLevel switch
         {
             ActivationLevel.Developer => SubTitles.Developer,
@@ -58,15 +51,12 @@ namespace TimeTableUWP.Pages
             _ => string.Empty
         };
 
-        [GTT5]
         private void DrawTimeTable()
         {
-
             TimeTable.ResetClass(Info.User.Class);
-            AssignButtonsByTable(TimeTable.Table);
+            AssignButtonsByTable(TimeTable.Table!);
         }
 
-        [GTT5]
         private void AssignButtonsByTable(TimeTable subjectTable)
         {
             var subjects = subjectTable.Data.Cast<Subject>();
@@ -84,7 +74,7 @@ namespace TimeTableUWP.Pages
             {
                 try
                 {
-                    await Task.Delay(100); // 100ms 마다 반복하기
+                    await Task.Delay(250); // 250ms 마다 반복하기
                     void SetClock()
                     {
                         clock.Text = DateTime.Now.ToString(Info.Settings.Use24Hour ? "HH:mm" : "hh:mm");
@@ -113,7 +103,6 @@ namespace TimeTableUWP.Pages
                         }
                     }
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RefreshColor);
-
 
                     if (DateTime.Now.DayOfWeek is Sunday or Saturday || DateTime.Now.Hour is >= 17 or < 9 or 13)
                         continue;
@@ -150,7 +139,6 @@ namespace TimeTableUWP.Pages
                     // 4시에는 실행하면 안 된다!
                     if (DateTime.Now.Hour is 16) continue;
 
-
                     if (DateTime.Now.Minute is 57 && invoke)
                     {
                         invoke = false;
@@ -170,7 +158,7 @@ namespace TimeTableUWP.Pages
                             return;
 
                         // TimeTable 표에서 현재 날짜와 시간을 통해 과목 꺼내기. time은 하나 +1 시켜야 함.
-                        string? subject = TimeTable.Table.AtPos(pos.day - 1, pos.time);
+                        string? subject = TimeTable.Table?.AtPos(pos.day - 1, pos.time).ToString();
                         if (subject is null)
                             return;
 

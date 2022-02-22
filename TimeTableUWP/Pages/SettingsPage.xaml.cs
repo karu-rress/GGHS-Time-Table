@@ -2,17 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.System;
-
 using muxc = Microsoft.UI.Xaml.Controls;
 using static RollingRess.StaticClass;
 using RollingRess;
-using Windows.Storage;
-using Windows.UI;
 
 namespace TimeTableUWP.Pages
 {
@@ -105,13 +101,9 @@ namespace TimeTableUWP.Pages
                 selfToggled = false;
                 return;
             }
-            bool authorizedSuccessfully = false;
-            if (!Info.User.IsSpecialLevel)
-                authorizedSuccessfully = await TimeTablePage.ActivateAsync("Azure/Bisque 전용 기능을 사용하기 위해선 해당 인증키를 입력해야 합니다.");
 
-            if (!authorizedSuccessfully)
+            if (await TimeTablePage.AuthorAsync() is false)
             {
-                await ShowMessageAsync("You need to be Azure/Bisque to use this feature", "Limited feature", Info.Settings.Theme);
                 SetDarkToggle(false);
                 return;
             }
@@ -129,14 +121,10 @@ namespace TimeTableUWP.Pages
         }
 
         private async void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            await TimeTablePage.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
-        }
+        => await TimeTablePage.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
 
         private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
-        {
-            Info.Settings.SilentMode = SilentToggle.IsOn;
-        }
+        => Info.Settings.SilentMode = SilentToggle.IsOn;
 
         private async void Button_Click_5(object sender, RoutedEventArgs e)
         {
@@ -145,8 +133,6 @@ namespace TimeTableUWP.Pages
         }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
-        }
+        => colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
     }
 }

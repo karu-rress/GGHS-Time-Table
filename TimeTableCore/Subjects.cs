@@ -1,46 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace TimeTableCore
 {
-    [XmlRoot("Subject")]
+    [DataContract(Name = "Subject")]
     public class Subject
     {
-        [Obsolete("Only for XML Serializers")]
-        public Subject() { }
         public Subject(string name) => FullName = name;
-        public Subject(string name, string shortName)
+        public Subject(in Subject subject) : this(subject.FullName, subject.ShortName) { }
+        public Subject(string name, string? shortName)
         {
             FullName = name;
             ShortName = shortName;
         }
-        public Subject(in Subject subject)
-        {
-            FullName = subject.FullName;
-            ShortName = subject.ShortName;
-        }
-
-        public static implicit operator string(Subject subject) => subject.Name;
-
-        public virtual string FullName { get; set; } = string.Empty;
-        public virtual string? ShortName { get; set; } = null;
         
+        [DataMember] public virtual string FullName { get; set; } = string.Empty;
+        [DataMember] public virtual string? ShortName { get; set; } = null;
         public virtual string Name => ShortName ?? FullName;
-        public bool IsSameWith(string name)
-        {
-            if (name == ShortName)
-                return true;
-            if (name == FullName)
-                return true;
-            return false;
-        }
 
-        private Subject AddPostFix(char ch) 
-            => ShortName is null ? new(FullName + ch) : new(FullName + ch, ShortName + ch);
+        public override string ToString() => Name;
+        public bool IsSameWith(string name) => name == ShortName || name == FullName;
+
+        private Subject AddPostFix(char ch) => ShortName is null 
+            ? new(FullName + ch) : new(FullName + ch, ShortName + ch);
         public Subject A() => AddPostFix('A');
         public Subject B() => AddPostFix('B');
         public Subject C() => AddPostFix('C');
@@ -49,18 +30,16 @@ namespace TimeTableCore
 
     public interface ISelectiveSubject
     {
-        // Set with given str. If none is matched, ignored.
         void SetAs(string subject);
     }
 
-    [XmlRoot("Korean")]
+    [DataContract(Name = "Korean")]
     public class Korean : Subject, ISelectiveSubject
     {
         public static Subject LangMedia => new("언어와 매체", "언매");
         public static Subject SpeechWriting => new("화법과 작문", "화작");
         public static Subject Default => new("국어");
-        [XmlAttribute]
-        public static Subject Selected { get; set; } = Default; // set 변경
+        [DataMember] public static Subject Selected { get; set; } = Default; // set 변경
         public Korean() : base(Default) { }
         public Korean(in Subject korean) : base(korean) { }
         public void SetAs(string subject)
@@ -70,10 +49,9 @@ namespace TimeTableCore
             else if (SpeechWriting.IsSameWith(subject))
                 Selected = SpeechWriting;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
     [DataContract(Name = "Math")]
@@ -82,8 +60,7 @@ namespace TimeTableCore
         public static Subject Probability => new("확률과 통계", "확통");
         public static Subject Daic => new("미적분");
         public static Subject Default => new("수학");
-        [DataMember(Name = "Selected")]
-        public static Subject Selected { get; set; } = Default;
+        [DataMember] public static Subject Selected { get; set; } = Default;
         public Math() : base(Default) { }
         public Math(in Subject math) : base(math) { }
         public void SetAs(string subject)
@@ -93,20 +70,19 @@ namespace TimeTableCore
             else if (Daic.IsSameWith(subject))
                 Selected = Daic;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
+    [DataContract(Name = "Social")]
     public class Social : Subject, ISelectiveSubject
     {
         public static Subject Eastern => new("동아시아사", "동사");
         public static Subject KoreanGeo => new("한국지리");
         public static Subject Culture => new("사회·문화");
         public static Subject Default => new("사회");
-        [XmlAttribute]
-        public static Subject Selected { get; set; } = Default;
+        [DataMember] public static Subject Selected { get; set; } = Default;
         public Social() : base(Default) { }
         public Social(in Subject social) : base(social) { }
         public void SetAs(string subject)
@@ -118,20 +94,19 @@ namespace TimeTableCore
             else if (Culture.IsSameWith(subject))
                 Selected= Culture;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
+    [DataContract(Name = "Language")]
     public class Language : Subject, ISelectiveSubject
     {
         public static Subject Spanish => new("스페인어권 문화", "스문");
         public static Subject Japanese => new("일본문화");
         public static Subject Chinese => new("중국문화");
         public static Subject Default => new("외국어");
-        [XmlAttribute]
-        public static Subject Selected { get; set; } = Default;
+        [DataMember] public static Subject Selected { get; set; } = Default;
         public Language() : base(Default) { }
         public Language(in Subject language) : base(language) { }
         public void SetAs(string subject)
@@ -143,19 +118,18 @@ namespace TimeTableCore
             else if (Chinese.IsSameWith(subject))
                 Selected = Chinese;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
+    [DataContract(Name = "Global1")]
     public class Global1 : Subject, ISelectiveSubject
     {
         public static Subject SocialResearch => new("사회 탐구 방법", "사탐방");
         public static Subject KoreanSociety => new("한국 사회의 이해", "한사이");
         public static Subject Default => new("국제1");
-        [XmlAttribute]
-        public static Subject Selected { get; set; } = Default;
+        [DataMember] public static Subject Selected { get; set; } = Default;
         public Global1() : base(Default) { }
         public Global1(in Subject global1) : base(global1) { }
         public void SetAs(string subject)
@@ -165,32 +139,30 @@ namespace TimeTableCore
             else if (KoreanSociety.IsSameWith(subject))
                 Selected = KoreanSociety;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
+    [DataContract(Name = "Global2")]
     public class Global2 : Subject, ISelectiveSubject
     {
         public static Subject FutureSociety => new("세계 문제와 미래 사회", "세문미");
         public static Subject Ethics => new("윤리학 연습", "윤연");
         public static Subject Default => new("국제2");
-        [XmlAttribute]
-        public static Subject Selected { get; set; } = Default;
+        [DataMember] public static Subject Selected { get; set; } = Default;
         public Global2() : base(Default) { }
         public Global2(in Subject global2) : base(global2) { }
         public void SetAs(string subject)
         {
-            if (FutureSociety.IsSameWith(Selected))
+            if (FutureSociety.IsSameWith(subject))
                 Selected = FutureSociety;
             else if (Ethics.IsSameWith(subject))
                 Selected = Ethics;
         }
-
-        public override string FullName => Selected.FullName;
-        public override string? ShortName => Selected.ShortName;
-        public override string Name => this.ShortName ?? this.FullName;
+        [DataMember] public override string FullName => Selected.FullName;
+        [DataMember] public override string? ShortName => Selected.ShortName;
+        public override string Name => ShortName ?? FullName;
     }
 
     namespace Grade3.Semester1

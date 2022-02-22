@@ -28,8 +28,7 @@
 	  <Type Name="System.Configuration.AppSettingsSection" Dynamic="Required All"/-->
 
 	  <!-- Add your application specific runtime directives here. -->
-	  <Type Name="System.Configuration.ClientConfigurationHost" Dynamic="Required All"/>
-	  <Type Name="System.Configuration.AppSettingsSection" Dynamic="Required All"/>
+
 
   </Application>
 </Directives>

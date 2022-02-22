@@ -8,8 +8,7 @@ using RollingRess;
 using Windows.UI.Xaml.Media.Animation;
 using TimeTableUWP.Todo;
 using System.Threading.Tasks;
-
-
+using static RollingRess.StaticClass;
 
 namespace TimeTableUWP.Pages
 {
@@ -25,12 +24,14 @@ namespace TimeTableUWP.Pages
     {
         public static TaskList TaskList { get; set; } = new();
 
-        public static Grades Grade { get; set; } = Grades.None;
-
         public TodoListPage()
         {
             InitializeComponent();
             RequestedTheme = Info.Settings.Theme;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             LoadTasks();
         }
 
@@ -44,9 +45,7 @@ namespace TimeTableUWP.Pages
 
             int buttons = 0;
             foreach (var task in TaskList)
-            {
                 TaskGrid.Children.Add(new TaskButton(task, TaskButton_Click, buttons++));
-            }
         }
 
         /// <summary>
@@ -65,14 +64,14 @@ namespace TimeTableUWP.Pages
         {
             if (TaskList.IsNullOrEmpty)
             {
-                await NothingToDelete();
+                await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
                 return;
             }
 
             int cnt = TaskList.CountAll(match);
             if (cnt is 0)
             {
-                await NothingToDelete();
+                await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
                 return;
             }
 
@@ -94,22 +93,17 @@ namespace TimeTableUWP.Pages
             ReloadTasks();
             contentDialog = new ContentMessageDialog($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title, "Close");
             await contentDialog.ShowAsync();
-
-            static async Task NothingToDelete()
-            {
-                ContentMessageDialog message = new("Nothing to delete.", "Delete");
-                await message.ShowAsync();
-            }
         }
 
         private async void DeletePastButton_Click(object _, RoutedEventArgs e)
             => await DeleteTasks(x => x.DueDate.Date < DateTime.Now.Date);
 
-        private async void DeleteAllButton_Click(object _, RoutedEventArgs e) => await DeleteTasks(null);
+        private async void DeleteAllButton_Click(object _, RoutedEventArgs e) 
+            => await DeleteTasks(null);
 
         private async void SelectDate_Click(object _, RoutedEventArgs e)
         {
-            GGHS_Todo.DateSelectDialog dialog = new();
+            DateSelectDialog dialog = new();
             if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
 
@@ -119,7 +113,7 @@ namespace TimeTableUWP.Pages
 
         private async void SelectSubject_Click(object _, RoutedEventArgs e)
         {
-            GGHS_Todo.SubjectSelectDialog dialog = new();
+            SubjectSelectDialog dialog = new();
             if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
 
@@ -140,8 +134,7 @@ namespace TimeTableUWP.Pages
             int result = TaskList.Undo();
             if (result is 0)
             {
-                var message = new ContentMessageDialog("Nothing to restore.", "Undo Delete", theme: Info.Settings.Theme);
-                await message.ShowAsync();
+                await ShowMessageAsync("Nothing to restore.", "Undo Delete", theme: Info.Settings.Theme);
                 return;
             }
             ReloadTasks();

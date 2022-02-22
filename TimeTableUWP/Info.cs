@@ -1,6 +1,5 @@
-﻿#define BETA
-
-using RollingRess;
+﻿using RollingRess;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using TimeTableCore;
 using TimeTableUWP.Pages;
@@ -18,15 +17,17 @@ namespace TimeTableUWP
         public static Version Version { get; } = new();
     }
 
+    [DataContract(Name = "Version")]
     public class Version
     {
         private static PackageVersion PackageVer { get; } = Package.Current.Id.Version;
         /// <summary>
         /// GGHS Time Table's version: string value with the format "X.X.X"
         /// </summary>
+        [DataMember]
         public string Value { get; set; }
 #if BETA
-            = "5.0.beta2.1";
+            = "5.0.beta3.2";
 #else
             = PackageVer.ParseString();
 #endif
@@ -46,18 +47,21 @@ namespace TimeTableUWP
         public char GetLastNumber() => Value[Value.Length - 1];
     }
 
+    [DataContract(Name = "Settings")]
     public class Settings
     {
-        // TODO: Color option
-        public static Color DefaultColor { get; } = Color.FromArgb(0xEE, 0xD9, 0xC0, 0xF9);
+        public static Color DefaultColor { get; } = Color.FromArgb(160, 251, 193, 212);
+        [DataMember]
         public Color ColorType { get; set; } = DefaultColor;
 
-
+        [DataMember]
         public bool Use24Hour { get; set; } = false;
+        [DataMember]
         public bool IsDarkMode { get; set; } = false;
         public ElementTheme Theme => IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+        [DataMember]
         public DateType DateFormat { get; set; } = DateType.YYYYMMDD;
-
+        [DataMember]
         public bool SilentMode { get; set; } = false;
     }
 }

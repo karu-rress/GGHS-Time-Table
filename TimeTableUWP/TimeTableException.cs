@@ -17,17 +17,15 @@ namespace TimeTableUWP
         // See the attribute guidelines at 
         //  http://go.microsoft.com/fwlink/?LinkId=85236
         readonly string positionalString;
+        public string PositionalString
+        {
+            get { return positionalString; }
+        }
 
         // This is a positional argument
         public ErrorCodeAttribute(string positionalString)
         {
             this.positionalString = positionalString;
-
-        }
-
-        public string PositionalString
-        {
-            get { return positionalString; }
         }
     }
 

@@ -19,15 +19,6 @@ namespace TimeTableUWP
         public const string Azure = "AZURE-A8VP36N";
     } 
 
-    public static class SaveFiles
-    {
-        public const string DataFile = "gtt5datxml.sav";
-        public const string KeyFile = "gtt5actxml.key";
-        public const string SettingsFile = "gtt5setxml.sav";
-        public const string VersionFile = "gtt5verxml.sav";
-        public const string ClassFile = "gtt5clsxml.sav";
-    }
-
     public static class SubTitles
     {
         public const string Developer = "Welcome to the Ultimate GTT5, Karu";

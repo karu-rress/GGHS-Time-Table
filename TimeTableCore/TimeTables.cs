@@ -7,10 +7,11 @@ namespace TimeTableCore
 {
     public class TimeTable
     {
-        private Subject[] data;
-        public int Class { get; }
+        private Subject[] data; 
         public Subject[] Data { get => data; set => data = value; }
-        public Common CommonSubject { get; } = Common.None; // Common.Korean | Common.Math;
+        public int Class { get; }
+        // Usage: = Common.Korean | Common.Math;
+        public Common CommonSubject { get; } = Common.None; 
         public TimeTable(int @class, Subject[] timeTable)
         {
             data = timeTable;
@@ -27,10 +28,7 @@ namespace TimeTableCore
             SetByClass(@class);
         }
 
-        public ref readonly Subject AtPos(int day, int time)
-        {
-            return ref Data[day * 7 + time];
-        }
+        public ref readonly Subject AtPos(int day, int time) => ref Data[day * 7 + time];
 
         private void SetByClass(int @class)
         {
@@ -63,6 +61,7 @@ namespace TimeTableCore
 
     public class TimeTables
     {
+        // TODO: 실제 시간표 대입
         public TimeTable Class1 { get; } = new(1, new Subject[] { Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.AdvancedEnglish.B(), });
         public TimeTable Class2 { get; } = new(2, new Subject[] { Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, Subjects.Global2, });
         public TimeTable Class3 { get; } = new(3, new Subject[] { Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Math, Subjects.Social, Subjects.Language, Subjects.Global1, });
@@ -96,7 +95,9 @@ namespace TimeTableCore
                  _ => throw new ArgumentException("@class is not in 1-8.")
             };
 
-            // 그리고 여기 선택과목 바꿔치기하는 코드
+            // TODO: 그리고 여기 선택과목 바꿔치기하는 코드
+            // ForEach (국어 => 언매) 이런식
+            // + Flag도 세워야 함. 이건 생성자에서 하든, 초기화단에서 하든...
         }
     }
 }

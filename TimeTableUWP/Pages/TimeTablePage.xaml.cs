@@ -11,19 +11,13 @@ using TimeTableCore.Grade3.Semester1;
 using TimeTableCore;
 
 using static RollingRess.StaticClass;
-using System.Diagnostics.CodeAnalysis;
 using GTT = TimeTableCore;
 
 namespace TimeTableUWP.Pages
 {
-
-
-    public sealed class GTT5Attribute : Attribute { }
     public sealed partial class TimeTablePage : Page
     {
-        [GTT5]
         private TimeTables TimeTable { get; } = new();
-        public static DataSaver SaveData { get; } = new();
         private OnlineLinks Online { get; } = new();
 
         public TimeTablePage()
@@ -40,28 +34,18 @@ namespace TimeTableUWP.Pages
             {
                 // TODO
                 // 몇 반인지는 이미 Info.User.Class에 Load됨.
-
-                // 선택과목 로드: 이거 아예 LoadAsync()에서 끝낼까봄.
-                Subjects.Korean.SetAs(Korean.Selected);
-                Subjects.Math.SetAs(GTT.Math.Selected);
-                Subjects.Social.SetAs(Social.Selected);
-                Subjects.Language.SetAs(GTT.Language.Selected);
-                Subjects.Global1.SetAs(Global1.Selected);
-                Subjects.Global2.SetAs(Global2.Selected);
-
                 // 콤보박스에 이전에 선택한 string 띄우기
-                // classcombobox.selectedindex = info.user.class
                 classComboBox.SelectedIndex = Info.User.Class - 1;
                 if (Korean.Selected != Korean.Default)
                     korComboBox.SelectedItem = Subjects.Korean.FullName;
 
-                if (GTT.Math.Selected != TimeTableCore.Math.Default)
+                if (GTT.Math.Selected != GTT.Math.Default)
                     mathComboBox.SelectedItem = Subjects.Math.FullName;
 
                 if (Social.Selected != Social.Default)
                     socialComboBox.SelectedItem = Subjects.Social.FullName;
 
-                if (GTT.Language.Selected != TimeTableCore.Language.Default)
+                if (GTT.Language.Selected != GTT.Language.Default)
                     langComboBox.SelectedItem = Subjects.Language.FullName;
 
                 if (Global1.Selected != Global1.Default)
@@ -142,11 +126,8 @@ namespace TimeTableUWP.Pages
 
         #endregion
 
-        [GTT5]
-        // Withtout class combobox
         private void EnableAllCombobox()
-        => Enable(korComboBox, mathComboBox, socialComboBox, 
-            langComboBox, global1ComboBox, global2ComboBox);
+        => Enable(korComboBox, mathComboBox, socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
 
         // TODO: need ref?
         private void DisableComboBoxByClass(ComboBox cb, Subject subject)
@@ -156,7 +137,6 @@ namespace TimeTableUWP.Pages
         }
 
         // 값 넣고 -> Disable(comboBox) -> Empty(comboBox)
-        [GTT5]
         private void DisableComboBoxBySubjects()
         {
             if (TimeTable is null)
@@ -185,7 +165,6 @@ namespace TimeTableUWP.Pages
                 DisableComboBoxByClass(global2ComboBox, Global2.Selected);
         }
 
-        [GTT5]
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs _)
         {
             if (sender is not ComboBox comboBox || comboBox.SelectedItem is not string selected)
@@ -197,7 +176,6 @@ namespace TimeTableUWP.Pages
                     EnableAllCombobox();
                     Subjects.ResetSelectiveSubjects();
 
-                    // SaveData.ClassComboBoxText = selected;
                     Info.User.Class = comboBox.SelectedIndex + 1;
                     TimeTable.ResetClass(Info.User.Class);
                     DisableComboBoxBySubjects();
@@ -278,6 +256,23 @@ namespace TimeTableUWP.Pages
             return true;
         }
 
+        /// <summary>
+        /// Shows activation dialog and activate as Azure/Bisque.
+        /// </summary>
+        /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
+        /// <returns>true if activated as Azure/Bisque. Otherwise, false</returns>
+        public static async Task<bool> AuthorAsync(string? msg = null)
+        {
+            if (!Info.User.IsSpecialLevel)
+                _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
+            if (!Info.User.IsSpecialLevel)
+            {
+                await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);
+                return false;
+            }
+            return true;
+        }
+
         private Dictionary<string, OnlineLink?> GetClassZoomLink() => Info.User.Class switch
         {
             1 => Online.Class1,
@@ -317,14 +312,6 @@ namespace TimeTableUWP.Pages
                 _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
             };
             await ShowMessageAsync(msg, txt, Info.Settings.Theme);
-        }
-
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {/*
-            SaveData.SetSubjects(Korean.Selected, GTT.Math.Selected, GTT.Social.Selected,
-    GTT.Language.Selected, GTT.Global1.Selected, GTT.Global2.Selected);
-            SaveData.UserData = Info.User;
-            */
         }
     }
 }

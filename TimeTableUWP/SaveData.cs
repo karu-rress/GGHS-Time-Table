@@ -12,104 +12,94 @@ using Windows.UI.Xaml.Controls;
 using TimeTableCore;
 using ttc = TimeTableCore;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.IO;
+using System.Xml;
+using System.Text;
+using static RollingNET.Serializer;
 
 namespace TimeTableUWP
 {
     public class DataSaver
     {
-        private string DataFile => SaveFiles.DataFile;
-        private string KeyFile => SaveFiles.KeyFile;
-        private string SettingsFile => SaveFiles.SettingsFile;
-        private string VersionFile => SaveFiles.VersionFile;
-        private string ClassFile => SaveFiles.ClassFile;
-
-        public async Task SaveAsync()
+        internal static class SettingValues
         {
-            Task writeKey = Task.CompletedTask;
-            if (Info.User.IsActivated)
-            {
-                DataWriter<ActivationLevel> writer = new(KeyFile, Info.User.ActivationLevel);
-                writeKey = writer.WriteAsync();
-            }
-
-            // SubjectTuple tuple = (Korean, Math, Social, Language, Global1, Global2);
-            SubjectList list = new(ttc.Korean.Selected, ttc.Math.Selected, ttc.Social.Selected, ttc.Language.Selected, ttc.Global1.Selected, ttc.Global2.Selected);
-            DataWriter<SubjectList> writeSubject = new(DataFile, list);
-            DataWriter<Settings> writeSettings = new(SettingsFile, Info.Settings);
-            DataWriter<Version> writeVersion = new(VersionFile, Info.Version);
-            DataWriter<int> writeClass = new(ClassFile, Info.User.Class);
-            await Task.WhenAll(writeKey, writeSubject.WriteAsync(), writeSettings.WriteAsync(), writeVersion.WriteAsync(), writeClass.WriteAsync());
+            public const string Class = "Class";
+            public const string Version = "Version";
+            public const string Settings = "Settings";
+            public const string Level = "ActivationLevel";
+            public const string Subjects = "Subjects";
+            public const string Todo = "TodoList";
         }
 
-        public async Task LoadAsync()
+        public static async Task SaveAsync()
         {
-            var storageFolder = ApplicationData.Current.LocalFolder;
-
-            // Check the Version File exists. If not, the user is using version 3 or newly installed.
-            if (await storageFolder.TryGetItemAsync(VersionFile) is not StorageFile)
+            await Task.Run(() =>
             {
-                Info.User.Status = LoadStatus.NewlyInstalled;
-                return;
-            }
+                // local 대신 Roaming도 가능
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                localSettings.Values[SettingValues.Version] = Serialize(Info.Version);
+                localSettings.Values[SettingValues.Subjects] = Serialize(new SubjectList(Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected));
+                localSettings.Values[SettingValues.Settings] = Serialize(Info.Settings);
 
-            DataReader<Settings> readSettings = new(SettingsFile);
-            DataReader<SubjectList> readTuple = new(DataFile);
-            DataReader<Version> readVersion = new(VersionFile);
-            DataReader<int> readClass = new(ClassFile);
+                localSettings.Values[SettingValues.Class] = Info.User.Class;
+                localSettings.Values[SettingValues.Level] = Serialize(Info.User.ActivationLevel);
 
-            var settings = readSettings.ReadAsync();
-            var subject = readTuple.ReadAsync();
-            var version = readVersion.ReadAsync();
-            var cls = readClass.ReadAsync();
-
-            // Wait all until all files are read
-            await Task.WhenAll(settings, subject, version, cls);
-
-            Info.Settings = await settings;
-            SubjectList subjects = await subject;
-            Info.User.Class = await cls;
-            (ttc.Korean.Selected, ttc.Math.Selected, ttc.Social.Selected, ttc.Language.Selected, ttc.Global1.Selected, ttc.Global2.Selected)
-                = subjects.Parse();
-
-            // If activated
-            if (await storageFolder.TryGetItemAsync(KeyFile) is not null)
-            {
-                DataReader<ActivationLevel> reader = new(KeyFile);
-                Info.User.ActivationLevel = await reader.ReadAsync();
-            }
-
-            // If updated
-            if (await version != Info.Version)
-                Info.User.Status = LoadStatus.Updated;
-
-            else
-                Info.User.Status = LoadStatus.Normal;
+                localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
+            });
         }
-    }
 
-
-    [XmlType("SubjectList")]
-    [XmlInclude(typeof(Subject))]
-    // This MUST be public
-    public class SubjectList
-    {
-        public SubjectList() { }
-        public SubjectList(Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2)
+        public static async Task LoadAsync()
         {
-            Korean = kor;
-            Math = math;
-            Social = soc;
-            Language = lang;
-            Global1 = glo1;
-            Global2 = glo2;
+            await Task.Run(() =>
+            {
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                if (Deserialize<Version?>(localSettings.Values[SettingValues.Version].ToString()) is Version version)
+                    Info.User.Status = version != Info.Version ? LoadStatus.Updated : LoadStatus.Normal;
+                else
+                {
+                    Info.User.Status = LoadStatus.NewlyInstalled;
+                    return;
+                }
+
+                if (Deserialize<SubjectList>(localSettings.Values[SettingValues.Subjects].ToString()) is SubjectList list)
+                    (Korean.Selected, ttc.Math.Selected, Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list.Parse();
+
+                Info.Settings = Deserialize<Settings>(localSettings.Values[SettingValues.Settings].ToString());
+                Info.User.Class = (int)localSettings.Values[SettingValues.Class];
+                if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo].ToString()) is List<Todo.TodoTask> tasklist)
+                    TodoListPage.TaskList.List = tasklist;
+
+                Info.User.ActivationLevel = Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level].ToString());
+            });
         }
-        public Subject Korean { get; set; }
-        public Subject Math { get; set; }
-        public Subject Social { get; set; }
-        public Subject Language { get; set; }
-        public Subject Global1 { get; set; }
-        public Subject Global2 { get; set; }
-        public (Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2) Parse()
-            => (Korean, Math, Social, Language, Global1, Global2);
+
+        [DataContract(Name = "Subjects")]
+        public class SubjectList
+        {
+            public SubjectList(Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2)
+            {
+                Korean = kor;
+                Math = math;
+                Social = soc;
+                Language = lang;
+                Global1 = glo1;
+                Global2 = glo2;
+            }
+            [DataMember]
+            public Subject Korean { get; set; }
+            [DataMember]
+            public Subject Math { get; set; }
+            [DataMember]
+            public Subject Social { get; set; }
+            [DataMember]
+            public Subject Language { get; set; }
+            [DataMember]
+            public Subject Global1 { get; set; }
+            [DataMember]
+            public Subject Global2 { get; set; }
+            public (Subject kor, Subject math, Subject soc, Subject lang, Subject glo1, Subject glo2) Parse()
+                => (Korean, Math, Social, Language, Global1, Global2);
+        }
     }
 }

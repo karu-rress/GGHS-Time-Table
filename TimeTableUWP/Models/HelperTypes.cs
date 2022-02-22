@@ -12,7 +12,4 @@ namespace TimeTableUWP
         MMDDYYYY,
         YYYYMMDD2
     }
-
-
-
 }

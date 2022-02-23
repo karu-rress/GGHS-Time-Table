@@ -11,7 +11,7 @@ using static System.DayOfWeek;
 namespace TimeTableUWP.Pages;
 public sealed partial class TimeTablePage : Page
 {
-    async Task InitializeUIAsync()
+    private async Task InitializeUIAsync()
     {
         // Set Color
         foreach (Border border in DayBorders)
@@ -49,9 +49,9 @@ public sealed partial class TimeTablePage : Page
 
     private void AssignButtonsByTable(TimeTable subjectTable)
     {
-        var subjects = subjectTable.Data.Cast<Subject>();
-        var lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
-        foreach (var (btn, subject) in lists)
+        IEnumerable<Subject>? subjects = subjectTable.Data.Cast<Subject>();
+        IEnumerable<(Button btn, Subject subject)>? lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
+        foreach ((Button btn, Subject subject) in lists)
             btn.Content = subject.Name;
     }
 
@@ -83,7 +83,7 @@ public sealed partial class TimeTablePage : Page
 
                 void RefreshColor()
                 {
-                    foreach (var item in Buttons)
+                    foreach (Button? item in Buttons)
                     {
                         item.RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
                         item.Background = new SolidColorBrush(Info.Settings.IsDarkMode
@@ -107,7 +107,7 @@ public sealed partial class TimeTablePage : Page
 
                 void ChangeCellColor()
                 {
-                    var brush = new SolidColorBrush(Info.Settings.ColorType);
+                    SolidColorBrush? brush = new(Info.Settings.ColorType);
                     Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
                     if (pos.time <= 6)
                         Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
@@ -159,7 +159,7 @@ public sealed partial class TimeTablePage : Page
                     // 무음모드가 아닐 때만 알람음 설정
                     toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
 
-                    if (GetClassZoomLink().TryGetValue(subject, out var online) is false || (online is null))
+                    if (GetClassZoomLink().TryGetValue(subject, out OnlineLink? online) is false || (online is null))
                     {
                         toast.AddText($"[{subject}]")
                              .AddText(hour > 12 ?

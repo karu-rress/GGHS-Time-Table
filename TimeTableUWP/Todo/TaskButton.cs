@@ -124,7 +124,7 @@ public class TaskButton : Button
             FontWeight = FontWeights.Bold
         };
 
-        var now = DateTime.Now;
+        DateTime now = DateTime.Now;
         int days = (new DateTime(now.Year, now.Month, now.Day) - Task.DueDate).Days;
         string text = "D" + days switch
         {

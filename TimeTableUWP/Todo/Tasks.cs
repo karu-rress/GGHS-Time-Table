@@ -45,12 +45,12 @@ public class TaskList : IEnumerable<TodoTask>
             return;
         }
 
-        var list = FindAll(match);
+        List<TodoTask>? list = FindAll(match);
         TaskStack.Push(list);
         List = List.Except(list).ToList();
     }
 
-    public static async Task<bool> DeleteTask(string taskName, TodoTask task)
+    public static async ValueTask<bool> DeleteTask(string taskName, TodoTask task)
     {
         const string title = "Delete";
         ContentDialog contentDialog = new()
@@ -79,7 +79,7 @@ public class TaskList : IEnumerable<TodoTask>
         if (TaskStack.Count is 0)
             return 0;
 
-        var list = TaskStack.Pop();
+        List<TodoTask>? list = TaskStack.Pop();
         if (list.Count is 0)
             return 0;
 

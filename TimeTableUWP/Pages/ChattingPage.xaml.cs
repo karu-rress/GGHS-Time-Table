@@ -38,7 +38,7 @@ public sealed partial class ChattingPage : Page
     }
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        var getString = FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")));
+        Windows.Foundation.IAsyncOperation<string>? getString = FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")));
         if (await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.") is false)
             return;
 
@@ -153,7 +153,7 @@ public sealed partial class ChattingPage : Page
         {
             PrepareSend();
             using SqlConnection sc = new(ConnectionString);
-            using var cmd = sc.CreateCommand();
+            using SqlCommand? cmd = sc.CreateCommand();
             await sc.OpenAsync();
             cmd.CommandText = query;
             await cmd.ExecuteNonQueryAsync();
@@ -179,8 +179,7 @@ public sealed partial class ChattingPage : Page
                 PrimaryButtonText = "Yes",
                 CloseButtonText = "No",
             };
-            var result = await dialog.ShowAsync();
-            if (result is ContentDialogResult.None)
+            if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
         }
         await RunSQL(@$"DELETE FROM chatmsg WHERE Message=N'{message}'");
@@ -281,8 +280,8 @@ public sealed partial class ChattingPage : Page
 
     private void ScrollViewBox()
     {
-        var grid = VisualTreeHelper.GetChild(viewBox, 0) as Grid;
-        for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
+        Grid? grid = VisualTreeHelper.GetChild(viewBox, 0) as Grid;
+        for (int i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
         {
             if (VisualTreeHelper.GetChild(grid, i) is not ScrollViewer sv) 
                 continue;

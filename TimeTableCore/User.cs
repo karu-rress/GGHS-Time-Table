@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TimeTableCore;
+﻿namespace TimeTableCore;
 
 public class User
 {

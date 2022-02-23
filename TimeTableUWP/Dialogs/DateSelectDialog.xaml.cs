@@ -18,7 +18,7 @@ public sealed partial class DateSelectDialog : ContentDialog
         }
         else
         {
-            var date = datePicker.SelectedDate.Value.DateTime;
+            DateTime date = datePicker.SelectedDate.Value.DateTime;
             SelectedDate = new(date.Year, date.Month, date.Day);
         }
     }

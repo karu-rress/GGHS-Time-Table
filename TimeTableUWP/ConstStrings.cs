@@ -29,7 +29,7 @@ public static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-beta6.4";
+    public const string Version = "5.0-beta7.0";
     public const string GTTWithVer = "GGHS Time Table 5";
 }
 

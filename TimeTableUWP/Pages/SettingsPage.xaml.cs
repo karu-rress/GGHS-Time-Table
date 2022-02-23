@@ -15,7 +15,7 @@ public sealed partial class SettingsPage : Page
     };
     private bool selfToggled = false;
 
-    IEnumerable<Button> buttons
+    private IEnumerable<Button> buttons
     {
         get
         {
@@ -127,7 +127,7 @@ public sealed partial class SettingsPage : Page
         RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
     }
 
-    void SetDarkToggle(bool value)
+    private void SetDarkToggle(bool value)
     {
         if (darkToggle.IsOn == value)
             return;

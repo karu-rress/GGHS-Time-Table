@@ -9,11 +9,11 @@ using Windows.UI.Popups;
 using wux = Windows.UI.Xaml;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-sealed class ErrorCodeAttribute : Attribute
+internal sealed class ErrorCodeAttribute : Attribute
 {
     // See the attribute guidelines at 
     //  http://go.microsoft.com/fwlink/?LinkId=85236
-    readonly string positionalString;
+    private readonly string positionalString;
     public string PositionalString
     {
         get { return positionalString; }
@@ -63,8 +63,8 @@ public class TimeTableException : Exception
         }
         errorMsg += $"\n{exception}";
 
-        var smtp = FeedbackDialog.PrepareSendMail(errorMsg,
-            $"GGHS Time Table EXCEPTION OCCURED in V{Info.Version}", out var msg);
+        System.Net.Mail.SmtpClient? smtp = FeedbackDialog.PrepareSendMail(errorMsg,
+            $"GGHS Time Table EXCEPTION OCCURED in V{Info.Version}", out System.Net.Mail.MailMessage? msg);
 
         if (online)
         {

@@ -30,7 +30,7 @@ public sealed partial class TodoListPage : Page
 
         TaskList.Sort();
         int buttons = 0;
-        foreach (var task in TaskList)
+        foreach (TodoTask? task in TaskList)
             TaskGrid.Children.Add(new TaskButton(task, TaskButton_Click, buttons++));
     }
 
@@ -93,7 +93,7 @@ public sealed partial class TodoListPage : Page
         if (await dialog.ShowAsync() is ContentDialogResult.None)
             return;
 
-        var date = dialog.SelectedDate;
+        DateTime date = dialog.SelectedDate;
         await DeleteTasks(x => x.DueDate == date);
     }
 

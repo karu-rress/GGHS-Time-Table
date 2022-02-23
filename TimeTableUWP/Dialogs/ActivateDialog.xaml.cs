@@ -68,7 +68,7 @@ public sealed partial class ActivateDialog : ContentDialog
     {
         if (textBox is TextBox sender)
         {
-            var selectionStart = sender.SelectionStart;
+            int selectionStart = sender.SelectionStart;
             sender.Text = sender.Text.ToUpper();
             sender.SelectionStart = selectionStart;
             sender.SelectionLength = 0;

@@ -217,7 +217,7 @@ public sealed partial class TimeTablePage : Page
             SetSubText();
         }
         
-        if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
+        if (GetClassZoomLink().TryGetValue(subjectCellName, out OnlineLink? online) is false || (online is null))
         {
             // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
             await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n"
@@ -237,7 +237,7 @@ public sealed partial class TimeTablePage : Page
     public static async Task<bool> ActivateAsync(string? msg = null)
     {
         ActivateDialog activateDialog = msg is null ? new() : new(msg);
-        var activeSelection = await activateDialog.ShowAsync();
+        ContentDialogResult activeSelection = await activateDialog.ShowAsync();
 
         if (activeSelection is not ContentDialogResult.Primary || Info.User.ActivationLevel is ActivationLevel.None)
             return false;
@@ -302,7 +302,7 @@ public sealed partial class TimeTablePage : Page
         if (sender is not Button btn)
             return;
         
-        var (msg, txt) = btn.Name switch
+        (string msg, string txt) = btn.Name switch
         {
             "fri5Button" or "fri6Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
             "mon6Button" or "mon7Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),

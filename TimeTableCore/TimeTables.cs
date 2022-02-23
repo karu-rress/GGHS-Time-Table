@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using TimeTableCore.Grade3.Semester1;
-using static System.DayOfWeek;
 
 namespace TimeTableCore;
 public class TimeTable
 {
-    private Subject[] data; 
-    public Subject[] Data { get => data; set => data = value; }
+    public Subject[] Data { get; set; }
     public int Class { get; }
     // Usage: = Common.Korean | Common.Math;
     public Common CommonSubject { get; } = Common.None; 
     public TimeTable(int @class, Subject[] timeTable)
     {
-        data = timeTable;
+        Data = timeTable;
         Class = @class;
 
         SetByClass(@class);
@@ -21,7 +19,7 @@ public class TimeTable
 
     public TimeTable(int @class, List<Subject> timeTable)
     {
-        data = timeTable.ToArray();
+        Data = timeTable.ToArray();
         Class = @class;
 
         SetByClass(@class);

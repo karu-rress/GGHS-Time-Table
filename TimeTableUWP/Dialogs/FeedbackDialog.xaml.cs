@@ -24,7 +24,7 @@ public sealed partial class FeedbackDialog : ContentDialog
     {
         args.Cancel = true;
         ErrorMsgText.Visibility = Visibility.Collapsed;
-        var text = textBox.Text;
+        string? text = textBox.Text;
 
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -39,9 +39,9 @@ public sealed partial class FeedbackDialog : ContentDialog
             return;
         }
 
-        var smtp = PrepareSendMail((senderBox.IsNullOrEmpty() ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n")
+        SmtpClient? smtp = PrepareSendMail((senderBox.IsNullOrEmpty() ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n")
         + string.Join("\r\n", text.Split("\r")), // Converts NewLine
-        $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
+        $"GGHS Time Table Feedback for V{Info.Version}", out MailMessage? msg);
 
         sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
         IsPrimaryButtonEnabled = false;

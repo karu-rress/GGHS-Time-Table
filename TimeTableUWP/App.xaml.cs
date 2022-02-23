@@ -12,7 +12,7 @@ namespace TimeTableUWP;
 /// <summary>
 /// Provides application-specific behavior to supplement the default Application class.
 /// </summary>
-sealed partial class App : Application
+public sealed partial class App : Application
 {
     /// <summary>
     /// Initializes the singleton application object.  This is the first line of authored code
@@ -75,7 +75,7 @@ sealed partial class App : Application
     /// </summary>
     /// <param name="sender">The Frame which failed navigation</param>
     /// <param name="e">Details about the navigation failure</param>
-    void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+    private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
     {
         throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
     }
@@ -89,7 +89,7 @@ sealed partial class App : Application
     /// <param name="e">Details about the suspend request.</param>
     private void OnSuspending(object sender, SuspendingEventArgs e)
     {
-        var deferral = e.SuspendingOperation.GetDeferral();
+        SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
         //TODO: Save application state and stop any background activity
       
         DataSaver.Save();
@@ -99,7 +99,7 @@ sealed partial class App : Application
     
     protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
     {
-        var deferral = args.TaskInstance.GetDeferral();
+        Windows.ApplicationModel.Background.BackgroundTaskDeferral deferral = args.TaskInstance.GetDeferral();
 
         if (args.TaskInstance.Task.Name.Contains("ToastZoomOpen"))
         {
@@ -109,7 +109,7 @@ sealed partial class App : Application
                 // var userInput = details.UserInput;
 
                 // Perform tasks
-                var task = arguments.Get("action");
+                string task = arguments.Get("action");
                 string link;
 
                 if (task is "zoom")

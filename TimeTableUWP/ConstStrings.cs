@@ -29,7 +29,7 @@ namespace TimeTableUWP
 
     public static class Datas
     {
-        public const string Version = "5.0.beta5.1";
+        public const string Version = "5.0.beta5.5";
     }
 
     public static class Messages

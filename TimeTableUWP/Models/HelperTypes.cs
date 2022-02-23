@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Mail;
 
-namespace TimeTableUWP
+namespace TimeTableUWP;
+
+public enum DateType
 {
-    public enum DateType
-    {
-        YYYYMMDD,
-        MMDDYYYY,
-        YYYYMMDD2
-    }
+    YYYYMMDD,
+    MMDDYYYY,
+    YYYYMMDD2
+}
+
+public static class SmtpExtension
+{
+    public static Task SendAsync(this SmtpClient smtp, MailMessage msg) => Task.Run(() => smtp.Send(msg));
 }

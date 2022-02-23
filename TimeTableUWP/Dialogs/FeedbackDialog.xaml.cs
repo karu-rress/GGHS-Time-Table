@@ -1,86 +1,72 @@
 ﻿#nullable enable
 
-using System.Configuration;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-
-using TimeTableUWP.Pages;
-using System.Net.NetworkInformation;
 using RollingRess.Net;
 
-namespace TimeTableUWP
+namespace TimeTableUWP;
+
+public sealed partial class FeedbackDialog : ContentDialog
 {
-    public static class SmtpExtension
+    private Brush TextColor => new SolidColorBrush(Info.Settings.IsDarkMode
+        ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8) : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
+
+    public FeedbackDialog()
     {
-        public static Task SendAsync(this SmtpClient smtp, MailMessage msg) => Task.Run(() => smtp.Send(msg));
+        InitializeComponent();
+        RequestedTheme = Info.Settings.Theme;
+        ErrorMsgText.Foreground = TextColor;
     }
 
-    public sealed partial class FeedbackDialog : ContentDialog
+    private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
     {
-        private Brush TextColor => new SolidColorBrush(Info.Settings.IsDarkMode
-            ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8) : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
+        args.Cancel = true;
+        ErrorMsgText.Visibility = Visibility.Collapsed;
+        var text = textBox.Text;
 
-        public FeedbackDialog()
+        if (string.IsNullOrWhiteSpace(text))
         {
-            InitializeComponent();
-            RequestedTheme = Info.Settings.Theme;
-            ErrorMsgText.Foreground = TextColor;
+            ErrorMsgText.Text = "Please enter text.";
+            ErrorMsgText.Visibility = Visibility.Visible;
+            return;
+        }
+        if (Connection.IsInternetAvailable is false)
+        {
+            ErrorMsgText.Text = "Sorry. Please check your internet connection.";
+            ErrorMsgText.Visibility = Visibility.Visible;
+            return;
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
+        var smtp = PrepareSendMail((senderBox.IsNullOrEmpty() ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n")
+        + string.Join("\r\n", text.Split("\r")), // Converts NewLine
+        $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
+
+        sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
+        IsPrimaryButtonEnabled = false;
+        await smtp.SendAsync(msg);
+
+        progressRing.Value = 100;
+        sendingMsgText.Text = "Successfully sent!";
+        await Task.Delay(700);
+
+        Hide();
+    }
+
+    public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
+    {
+        MailAddress send = new(Sensitive.GTTMail);
+        MailAddress to = new(Sensitive.KaruMail);
+        SmtpClient smtp = new()
         {
-            args.Cancel = true;
-            ErrorMsgText.Visibility = Visibility.Collapsed;
-            var text = textBox.Text;
-
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                ErrorMsgText.Text = "Please enter text.";
-                ErrorMsgText.Visibility = Visibility.Visible;
-                return;
-            }
-            if (Connection.IsInternetAvailable is false)
-            {
-                ErrorMsgText.Text = "Sorry. Please check your internet connection.";
-                ErrorMsgText.Visibility = Visibility.Visible;
-                return;
-            }
-
-            var smtp = PrepareSendMail((string.IsNullOrEmpty(senderBox.Text)
-            ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n") + string.Join("\r\n", text.Split("\r")), // Converts NewLine
-            $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
-
-            sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
-            IsPrimaryButtonEnabled = false;
-            await smtp.SendAsync(msg);
-
-            progressRing.Value = 100;
-            sendingMsgText.Text = "Successfully sent!";
-            await Task.Delay(700);
-
-            Hide();
-        }
-
-        public static SmtpClient PrepareSendMail(string body, string subject, out MailMessage msg)
-        {
-            MailAddress send = new(Sensitive.GTTMail);
-            MailAddress to = new(Sensitive.KaruMail);
-            SmtpClient smtp = new()
-            {
-                Host = "smtp.gmail.com",
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(send.Address, Sensitive.MailPassword),
-                Timeout = 20_000
-            };
-            msg = new(send, to) { Subject = subject, Body = body };
-            return smtp;
-        }
+            Host = "smtp.gmail.com",
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            Credentials = new NetworkCredential(send.Address, Sensitive.MailPassword),
+            Timeout = 20_000
+        };
+        msg = new(send, to) { Subject = subject, Body = body };
+        return smtp;
     }
 }

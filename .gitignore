@@ -5,6 +5,7 @@
 
 # Connection String
 connection.txt
+mailpassword.txt
 
 # User-specific files
 *.rsuser

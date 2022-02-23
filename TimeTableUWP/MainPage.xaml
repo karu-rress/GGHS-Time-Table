@@ -10,10 +10,13 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
     
     <Grid>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" x:Name="NavigationColor"/>
+        </Grid.Resources>
         <muxc:NavigationView x:Name="Navigation" AlwaysShowHeader="False" PaneDisplayMode="Top"
             ItemInvoked="Navigation_ItemInvoked" IsBackButtonVisible="Collapsed">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable"/>
+                <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable" IsSelected="True" />
                 <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>
                 <muxc:NavigationViewItem Content="Anonymous" Tag="chat"/>
             </muxc:NavigationView.MenuItems>

@@ -31,6 +31,7 @@
                     <Setter Property="FontSize" Value="20"/>
                     <Setter Property="CornerRadius" Value="10"/>
                     <Setter Property="VerticalAlignment" Value="Top"/>
+                    <Setter Property="BorderThickness" Value="2" />
                 </Style>
             </Grid.Resources>
             <TextBox x:Name="keyBox1" Grid.Column="0" TextChanged="keyBox1_TextChanged" Width="85" MaxLength="5" />

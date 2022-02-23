@@ -71,7 +71,7 @@
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                 </Style>
             </Grid.Resources>
-            <Button x:Name="SaveButton" Margin="0,115,0,0" Click="SaveButton_Click">
+            <Button x:Name="SaveButton" Margin="0,115,0,0" Click="SaveButton_Click" BorderThickness="2.4" >
                 <TextBlock><Run Text="&#xE74E;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Save"/></TextBlock>
             </Button>
             <Button x:Name="CancelButton" Margin="0,280,0,0" Click="CancelButton_Click">

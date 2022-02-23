@@ -1,32 +1,25 @@
-﻿using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿namespace TimeTableUWP;
 
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace TimeTableUWP
+public sealed partial class DateSelectDialog : ContentDialog
 {
-    public sealed partial class DateSelectDialog : ContentDialog
+    public DateTime SelectedDate { get; set; }
+
+    public DateSelectDialog()
     {
-        public DateTime SelectedDate { get; set; }
+        InitializeComponent();
+    }
 
-        public DateSelectDialog()
+    private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+    {
+        if (datePicker.SelectedDate is null)
         {
-            InitializeComponent();
+            args.Cancel = true;
+            textBlock.Visibility = Visibility.Visible;
         }
-
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        else
         {
-            if (datePicker.SelectedDate is null)
-            {
-                args.Cancel = true;
-                textBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                var date = datePicker.SelectedDate.Value.DateTime;
-                SelectedDate = new(date.Year, date.Month, date.Day);
-            }
+            var date = datePicker.SelectedDate.Value.DateTime;
+            SelectedDate = new(date.Year, date.Month, date.Day);
         }
     }
 }

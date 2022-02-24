@@ -3,9 +3,6 @@
 using System.Net;
 using System.Net.Mail;
 
-using Windows.UI;
-using RollingRess.Net;
-
 namespace TimeTableUWP;
 
 public sealed partial class FeedbackDialog : ContentDialog

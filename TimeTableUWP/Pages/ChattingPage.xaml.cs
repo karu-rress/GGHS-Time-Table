@@ -1,24 +1,17 @@
 ﻿#nullable enable
 
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
 using Windows.Storage;
-using Windows.UI.Xaml.Input;
 
 namespace TimeTableUWP.Pages;
 public sealed partial class ChattingPage : Page
 {
     private static bool isFirstLoaded = true;
-    private bool isReloadPaused = false;
+    private static bool isReloadPaused = false;
     private bool isCancelRequested = false;
     private const int chatDelay = 500;
     private const string title = "GGHS Anonymous";
-    private const string chatFormat = "[{0:MM/dd HH:mm}]  {1}:\t{2}\n";
 
-    private string ConnectionString { get; set; } = "";
-    private string StringBuffer { get; set; } = "";
-    private string LastSqlString { get; set; } = "";
+    private static string ConnectionString { get; set; } = "";
 
     private List<string> BadWords { get; set; } = new()
     {
@@ -32,39 +25,43 @@ public sealed partial class ChattingPage : Page
     public ChattingPage()
     {
         InitializeComponent();
-        viewBox.SelectionHighlightColor.Color = Info.Settings.ColorType;
+        
         viewBox.SelectionHighlightColor.Opacity = 0.35;
-        TextBoxLineColor.Color = Info.Settings.ColorType;
+        viewBox.SelectionHighlightColor.Color = Info.Settings.ColorType;
+
+        TextBoxLineColor.Color = Info.Settings.ColorType; 
+        textBox.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
     }
+
+
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        Windows.Foundation.IAsyncOperation<string>? getString = FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")));
-        if (await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.") is false)
-            return;
-
-        if (await getString is not string str)
-            throw new NullReferenceException("ConnectionString is null.");
-        ConnectionString = str;
-
-        if (Info.User.ActivationLevel is ActivationLevel.Developer)
-        {
-            camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility
-                = delButton.Visibility = infoButton.Visibility = Visibility.Visible;
-            textBox.Margin = new(27, 0, 102, 18);
-        }
-
         if (!RollingRess.Net.Connection.IsInternetAvailable)
         {
             await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error");
             return;
         }
 
-        if (isFirstLoaded)
-            await LoadChatsAsync();
+        if (await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.") is false)
+            return;
 
+        if (Info.User.ActivationLevel is ActivationLevel.Developer)
+        {
+            camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility
+                = delButton.Visibility = notiButton.Visibility = Visibility.Visible;
+            textBox.Margin = new(27, 0, 102, 18);
+        }
+
+        if (isFirstLoaded)
+        {
+            isFirstLoaded = false;
+            ConnectionString = await FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")));
+        }
+
+        // 아예 이걸 firstloaded로 넣어버리고
+        // date 기본값을 아주 먼 옛날로 해버리는 방법도 있음.
+        await LoadChatsAsync();
         textBox.IsEnabled = true;
-        textBox.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
-        isFirstLoaded = false;
         _ = ReloadChatsAsync().ConfigureAwait(false);
     }
 
@@ -87,9 +84,70 @@ public sealed partial class ChattingPage : Page
             await RunSQL(textBox.Text);
         else if (btn.Name is "delButton")
             await DeleteMessage(textBox.Text);
-        else if (btn.Name is "infoButton")
-            await ShowMessageAsync("A/B: Azure/Bisque로 메시지 보내기\nSQL: SQL 쿼리 실행\nDEL: 메시지 삭제", title);
+        else if (btn.Name is "notiButton")
+            await SendNotificationAsync();
     }
+
+    private async Task LoadChatsAsync()
+    {
+        string txt = textBox.PlaceholderText;
+        textBox.PlaceholderText = "채팅 불러오는 중...";
+
+        DataTable dt = new();
+        using (SqlConnection sql = new(ConnectionString))
+        {
+            ChatMessageDac chat = new(sql);
+
+            await sql.OpenAsync();
+            await chat.SelectAll(dt);
+        }
+
+        StringBuilder sb = new();
+        foreach (DataRow row in dt.Rows)
+        {
+            sb.AppendFormat(Datas.ChatFormat, DateTime.Parse(row["Time"].ToString()),
+                Convert((byte)row["Sender"]), row["Message"]);
+        }
+
+        viewBox.Text = sb.ToString();
+        ScrollViewBox();
+        textBox.PlaceholderText = txt;
+    }
+
+    private async Task ReloadChatsAsync()
+    {
+        while (true)
+        {
+            while (isReloadPaused)
+                await Task.Delay(400);
+
+            while (!RollingRess.Net.Connection.IsInternetAvailable)
+            {
+                await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error");
+                await Task.Delay(2000);
+            }
+
+            if (isCancelRequested)
+                return;
+
+            SqlConnection sql = new(ConnectionString);
+            ChatMessageDac chat = new(sql);
+
+            await sql.OpenAsync();
+            if (await chat.GetNewMessagesCountAsync() is 0)
+            {
+                sql.Close();
+                await Task.Delay(chatDelay);
+                continue;
+            }
+
+            viewBox.Text += await chat.GetNewMessagesAsync();
+
+            sql.Close();
+            ScrollViewBox();
+        }
+    }
+
 
     private async Task SendMessageAsync(ActivationLevel userLevel)
     {
@@ -114,31 +172,38 @@ public sealed partial class ChattingPage : Page
                     return;
             }
 
-            PrepareSend();
             using SqlConnection sql = new() { ConnectionString = ConnectionString };
+            using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
-
-            SqlCommand cmd = new() { Connection = sql };
-
-            SqlParameter pSender = new("Sender", SqlDbType.TinyInt) { Value = Convert(userLevel) };
-            SqlParameter pTime = new("Time", SqlDbType.DateTime) { Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") };
-            SqlParameter pMsg = new("Message", SqlDbType.NVarChar, 80) { Value = textBox.Text };
-
-            cmd.Parameters.Add(pSender);
-            cmd.Parameters.Add(pTime);
-            cmd.Parameters.Add(pMsg);
-
-            cmd.CommandText = "INSERT INTO chatmsg(Sender, Time, Message) VALUES(@Sender, @Time, @Message)";
-            await cmd.ExecuteNonQueryAsync();
+            await chatmessage.InsertAsync(Convert(userLevel), textBox.Text);
         }
         catch (Exception ex)
         {
             await ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title);
             throw;
         }
-        finally
+    }
+
+    private async Task SendNotificationAsync()
+    {
+        try
         {
-            DisposeSend();
+            if (textBox.IsNullOrWhiteSpace())
+            {
+                await ShowMessageAsync("보낼 공지를 입력하세요.", title);
+                return;
+            }
+            // 욕설 필터링
+
+            using SqlConnection sql = new() { ConnectionString = ConnectionString };
+            using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
+            await sql.OpenAsync();
+            await chatmessage.InsertAsync(8, "【공지】 " + textBox.Text);
+        }
+        catch (Exception ex)
+        {
+            await ShowMessageAsync("공지 등록에 실패했습니다.\n" + ex.ToString(), title);
+            throw;
         }
     }
 
@@ -151,20 +216,14 @@ public sealed partial class ChattingPage : Page
         }
         try
         {
-            PrepareSend();
-            using SqlConnection sc = new(ConnectionString);
-            using SqlCommand? cmd = sc.CreateCommand();
-            await sc.OpenAsync();
-            cmd.CommandText = query;
-            await cmd.ExecuteNonQueryAsync();
+            using SqlConnection sql = new(ConnectionString);
+            using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
+            await sql.OpenAsync();
+            await chat.RunSqlCommand(query);
         }
         catch (Exception e)
         {
             await ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title);
-        }
-        finally
-        {
-            DisposeSend();
         }
     }
 
@@ -182,100 +241,11 @@ public sealed partial class ChattingPage : Page
             if (await dialog.ShowAsync() is ContentDialogResult.None)
                 return;
         }
-        await RunSQL(@$"DELETE FROM chatmsg WHERE Message=N'{message}'");
-    }
 
-
-    // 전체 메시지  받아오기
-    private async Task LoadChatsAsync()
-    {
-        string txt = textBox.PlaceholderText;
-        textBox.PlaceholderText = "채팅 불러오는 중...";
-
-        DataSet ds = new();
-        object result = new();
-        using (SqlConnection sql = new(ConnectionString))
-        {
-            using SqlCommand cmd = new(@"select max(Time) from chatmsg", sql);
-            SqlDataAdapter sda = new("SELECT * FROM chatmsg ORDER BY Time", sql);
-
-            // Start SQL
-            await sql.OpenAsync();
-            result = await cmd.ExecuteScalarAsync();
-            sda.Fill(ds, "chatmsg");
-        } // End SQL
-
-        DataTable dt = ds.Tables["chatmsg"];
-        StringBuilder sb = new();
-
-        foreach (DataRow row in dt.Rows)
-        {
-            // sb.AppendLine($"({DateTime.Parse(row["Time"].ToString()):MM/dd HH:mm}) {Convert(row["Sender"].ToString())}: {row["Message"]}");
-            sb.AppendFormat(chatFormat, DateTime.Parse(row["Time"].ToString()), Convert((byte)row["Sender"]), row["Message"]);
-        }
-
-        LastSqlString = ((DateTime)result).ToString("yyyy-MM-dd HH:mm:ss.fff");
-        viewBox.Text = StringBuffer = sb.ToString();
-        ScrollViewBox();
-        textBox.PlaceholderText = txt;
-    }
-
-
-    private async Task ReloadChatsAsync()
-    {
-        while (true)
-        {
-            try
-            {
-                string query1 = $"SELECT COUNT(*) FROM chatmsg WHERE Time > '{LastSqlString}'";
-                string query2 = $"SELECT * FROM chatmsg WHERE Time > '{LastSqlString}' ORDER BY Time";
-
-                while (isReloadPaused)
-                    await Task.Delay(400);
-
-                while (!RollingRess.Net.Connection.IsInternetAvailable)
-                {
-                    await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error");
-                    await Task.Delay(1000);
-                }
-
-                if (isCancelRequested)
-                    return;
-
-                SqlConnection sql = new(ConnectionString);
-                using SqlCommand cmd = new(query1, sql);
-                await sql.OpenAsync();
-
-                if (await cmd.ExecuteScalarAsync() is 0)
-                {
-                    sql.Close();
-                    await Task.Delay(chatDelay);
-                    continue;
-                }
-
-                cmd.CommandText = query2;
-                StringBuilder sb = new();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                        sb.AppendFormat(chatFormat, reader.GetDateTime(1), Convert(reader.GetByte(0)), reader.GetString(2));
-                }
-                    
-                cmd.CommandText = "select max(Time) from chatmsg";
-                object result = await cmd.ExecuteScalarAsync();
-                sql.Close();
-
-                LastSqlString = ((DateTime)result).ToString("yyyy-MM-dd HH:mm:ss.fff");
-                StringBuffer += sb.ToString();
-                viewBox.Text = StringBuffer;
-                ScrollViewBox();
-            }
-            catch (Exception ex)
-            {
-                await ShowMessageAsync(ex.ToString(), "오류가 발생했습니다.");
-                throw;
-            }
-        }
+        using SqlConnection sql = new(ConnectionString);
+        using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
+        await sql.OpenAsync();
+        await chat.DeleteAsync(message);
     }
 
     private void ScrollViewBox()
@@ -293,7 +263,7 @@ public sealed partial class ChattingPage : Page
     private void Page_Unloaded(object sender, RoutedEventArgs e)
     => isCancelRequested = true;
 
-    private int Convert(ActivationLevel level) => level switch
+    private byte Convert(ActivationLevel level) => level switch
     {
         ActivationLevel.Developer => 0,
         ActivationLevel.Azure => 1,
@@ -301,20 +271,24 @@ public sealed partial class ChattingPage : Page
         _ => throw new ArgumentException($"ChattingPage.Convert(ActivationLevel): unknown '{level}'.")
     };
 
-    private string Convert(byte level) => level switch
+    public static string Convert(byte level) => level switch
     {
         0 => "Karu",
         1 or 3 => "Azure",
         2 or 4 => "Bisque",
-        _ => throw new ArgumentException($"ChattingPage.Convert(string): unknown '{level}'")
+        8 => "Karu✅",
+        9 => "GTTℹ️",
+        _ => level.ToString(),
     };
 
+    // Callback
     private void PrepareSend()
     {
         isReloadPaused = true;
         textBox.IsEnabled = false;
     }
 
+    // Callback
     private void DisposeSend()
     {
         isReloadPaused = false;

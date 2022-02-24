@@ -47,7 +47,7 @@
             </Grid.Resources>
             <Button x:Name="sqlButton" Content="SQL" HorizontalAlignment="Left" CornerRadius="10, 0, 0, 10" Click="Button_Click"/>
             <Button x:Name="delButton" Content="DEL" HorizontalAlignment="Center" Click="Button_Click"/>
-            <Button x:Name="infoButton" Content="INFO" HorizontalAlignment="Right" CornerRadius="0, 10, 10, 0"  Click="Button_Click"/>
+            <Button x:Name="notiButton" Content="NOTI" HorizontalAlignment="Right" CornerRadius="0, 10, 10, 0"  Click="Button_Click"/>
         </Grid>
     </Grid>
 </Page>

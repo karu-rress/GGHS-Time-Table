@@ -2,6 +2,7 @@
 
 using Windows.UI.Xaml.Documents;
 using Windows.System;
+using Windows.Storage;
 
 namespace TimeTableUWP.Pages;
 
@@ -76,7 +77,7 @@ public sealed partial class SettingsPage : Page
         hyperlink2.Inlines.Add(new Run() { Text = "개발자 블로그 2 (티스토리: Rolling Ress)" });
 
         TextBlock tb = new();
-        tb.Inlines.Add(new Run() { Text = Messages.About });
+        tb.Inlines.Add(new Run() { Text = string.Format(Messages.About, Info.Version) });
         tb.Inlines.Add(hyperlink);
         tb.Inlines.Add(new Run() { Text = "\n" });
         tb.Inlines.Add(hyperlink2);
@@ -143,8 +144,8 @@ public sealed partial class SettingsPage : Page
 
     private async void Button_Click_5(object sender, RoutedEventArgs e)
     {
-        ContentMessageDialog dialog = new(Messages.Troubleshoot, "Troubleshoot");
-        await dialog.ShowAsync();
+        await ShowMessageAsync(string.Format(Messages.Troubleshoot, ApplicationData.Current.LocalFolder.Path)
+            , "Troubleshoot");
     }
 
     private void Button_Click_6(object sender, RoutedEventArgs e)

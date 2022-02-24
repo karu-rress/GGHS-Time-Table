@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using TimeTableCore.Grade3.Semester1;
-using ttc = TimeTableCore;
 
 namespace TimeTableUWP.Pages;
 public sealed partial class TimeTablePage : Page
@@ -261,8 +260,10 @@ public sealed partial class TimeTablePage : Page
     /// <returns>true if activated as Azure/Bisque. Otherwise, false</returns>
     public static async Task<bool> AuthorAsync(string? msg = null)
     {
-        if (!Info.User.IsSpecialLevel)
-            _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
+        if (Info.User.IsSpecialLevel)
+            return true;
+
+        _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
         if (!Info.User.IsSpecialLevel)
         {
             await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);

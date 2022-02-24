@@ -22,7 +22,7 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>False</GenerateTestArtifacts>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -134,7 +134,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConstStrings.cs" />
+    <Compile Include="Helpers\ChatMessageDac.cs" />
+    <Compile Include="Models\ConstStrings.cs" />
     <Compile Include="Dialogs\ActivateDialog.xaml.cs">
       <DependentUpon>ActivateDialog.xaml</DependentUpon>
     </Compile>
@@ -145,7 +146,7 @@
       <DependentUpon>FeedbackDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsing.cs" />
-    <Compile Include="Info.cs" />
+    <Compile Include="Models\Info.cs" />
     <Compile Include="Models\HelperTypes.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -171,11 +172,11 @@
       <DependentUpon>TodoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveData.cs" />
+    <Compile Include="Helpers\SaveData.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimeTableException.cs" />
+    <Compile Include="Helpers\TimeTableException.cs" />
     <Compile Include="Dialogs\ZoomDialog.xaml.cs">
       <DependentUpon>ZoomDialog.xaml</DependentUpon>
     </Compile>

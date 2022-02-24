@@ -27,6 +27,9 @@ public sealed partial class TimeTablePage : Page
 
         else if (Info.User.Status is LoadStatus.Updated)
             await ShowMessageAsync(Messages.Updated, "New version installed", xamlRoot: XamlRoot);
+
+        // TimeTablePage를 다시 띄웠을 때 똑같은 메시지가 뜨지 않게
+        Info.User.Status = LoadStatus.Normal;
     }
 
     /// <summary>

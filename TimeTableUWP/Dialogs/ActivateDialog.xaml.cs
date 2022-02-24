@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using Windows.System;
-using Windows.UI.Xaml.Input;
 
 namespace TimeTableUWP;
 public sealed partial class ActivateDialog : ContentDialog

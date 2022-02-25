@@ -50,7 +50,7 @@ public class TaskList : IEnumerable<TodoTask>
         List = List.Except(list).ToList();
     }
 
-    public static async ValueTask<bool> DeleteTask(string taskName, TodoTask task)
+    public static async Task<bool> DeleteTask(string taskName, TodoTask task)
     {
         const string title = "Delete";
         ContentDialog contentDialog = new()

@@ -29,9 +29,8 @@ public sealed partial class TodoListPage : Page
             return;
 
         TaskList.Sort();
-        int buttons = 0;
         foreach (TodoTask? task in TaskList)
-            TaskGrid.Children.Add(new TaskButton(task, TaskButton_Click, buttons++));
+            TaskGrid.Children.Add(new TaskButton(task, TaskButton_Click));
     }
 
     /// <summary>
@@ -77,8 +76,7 @@ public sealed partial class TodoListPage : Page
         TaskList.RemoveAll(match);
 
         ReloadTasks();
-        contentDialog = new ContentMessageDialog($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title, "Close");
-        await contentDialog.ShowAsync();
+        await ShowMessageAsync($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title);
     }
 
     private async void DeletePastButton_Click(object _, RoutedEventArgs e)
@@ -110,7 +108,7 @@ public sealed partial class TodoListPage : Page
     {
         if (sender is TaskButton tb)
         {
-            AddPage.Task = tb.Task;
+            AddPage.Task = tb.TodoTask;
             Frame.Navigate(typeof(AddPage));
         }
     }
@@ -124,7 +122,6 @@ public sealed partial class TodoListPage : Page
             return;
         }
         ReloadTasks();
-        ContentMessageDialog msg = new($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete");
-        await msg.ShowAsync();
+        await ShowMessageAsync($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete");
     }
 }

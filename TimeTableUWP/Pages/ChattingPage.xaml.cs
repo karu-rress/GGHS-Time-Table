@@ -36,7 +36,7 @@ public sealed partial class ChattingPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        if (!RollingRess.Net.Connection.IsInternetAvailable)
+        if (!Connection.IsInternetAvailable)
         {
             await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error");
             return;
@@ -121,7 +121,7 @@ public sealed partial class ChattingPage : Page
             while (isReloadPaused)
                 await Task.Delay(400);
 
-            while (!RollingRess.Net.Connection.IsInternetAvailable)
+            while (!Connection.IsInternetAvailable)
             {
                 await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error");
                 await Task.Delay(2000);

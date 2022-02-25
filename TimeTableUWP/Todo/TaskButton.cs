@@ -12,15 +12,15 @@ public class TaskButton : Button
     private int ButtonWidth => 2560;
     private int ButtonHeight => 93;
 
-    public TodoTask Task { get; private set; }
+    public TodoTask TodoTask { get; private set; }
 
-    public TaskButton(in TodoTask task, RoutedEventHandler TaskButton_Click, int buttons)
+    public TaskButton(in TodoTask task, RoutedEventHandler TaskButton_Click)
     {
-        Task = task;
+        TodoTask = task;
         Click += TaskButton_Click;
         RightTapped += TaskButton_RightTapped;
         Height = ButtonHeight;
-        Margin = new(0, 98 * buttons, 0, 0);
+        Margin = new(0, 0, 0, 5);
         CornerRadius = new(10);
         VerticalAlignment = VerticalAlignment.Top;
 
@@ -38,12 +38,11 @@ public class TaskButton : Button
         outter.Children.Add(inner);
         outter.Children.Add(arrow);
 
-        if (Task.DueDate.Date == DateTime.Now.Date)
+        if (TodoTask.DueDate.Date == DateTime.Now.Date)
         {
             BorderThickness = new(2.6);
             BorderBrush = new SolidColorBrush(Info.Settings.ColorType with { A = 200 });
         }
-
         Content = outter;
     }
 
@@ -56,14 +55,15 @@ public class TaskButton : Button
             MenuFlyoutItem delete = new() { Text = "Delete", Icon = new SymbolIcon(Symbol.Delete) };
 
             edit.Click += (_, e) => {
-                AddPage.Task = Task;
+                AddPage.Task = TodoTask;
                 if (Window.Current.Content is Frame rootFrame)
                     rootFrame.Navigate(typeof(AddPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
             };
             delete.Click += async (_, e) =>
             {
-                await TaskList.DeleteTask(Task.Title, Task);
-                await System.Threading.Tasks.Task.Delay(100);
+                if (await TaskList.DeleteTask(TodoTask.Title, TodoTask) is false)
+                    return;
+                await Task.Delay(100);
                 if (Window.Current.Content is Frame rootFrame)
                 {
                     // TODO: 이걸 그냥 MainPage의 Reload Task..?
@@ -117,7 +117,7 @@ public class TaskButton : Button
         tb1 = new()
         {
             FontSize = 19,
-            Text = Task.DueDate.ToString("MM/dd"),
+            Text = TodoTask.DueDate.ToString("MM/dd"),
             Margin = new(0, 10, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("Segoe"),
@@ -125,7 +125,7 @@ public class TaskButton : Button
         };
 
         DateTime now = DateTime.Now;
-        int days = (new DateTime(now.Year, now.Month, now.Day) - Task.DueDate).Days;
+        int days = (new DateTime(now.Year, now.Month, now.Day) - TodoTask.DueDate).Days;
         string text = "D" + days switch
         {
             0 => "-Day",
@@ -148,14 +148,14 @@ public class TaskButton : Button
         tb3 = new()
         {
             FontSize = 17,
-            Text = Task.Subject,
+            Text = TodoTask.Subject,
             Margin = new(80, 12, 0, 44),
             Width = ButtonWidth
         };
         tb4 = new()
         {
             FontSize = 15,
-            Text = Task.Title,
+            Text = TodoTask.Title,
             Margin = new(80, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,

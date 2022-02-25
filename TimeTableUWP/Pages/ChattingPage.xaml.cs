@@ -8,7 +8,7 @@ public sealed partial class ChattingPage : Page
     private static bool isFirstLoaded = true;
     private static bool isReloadPaused = false;
     private bool isCancelRequested = false;
-    private const int chatDelay = 500;
+    private const int chatDelay = 600;
     private const string title = "GGHS Anonymous";
 
     private static string ConnectionString { get; set; } = "";

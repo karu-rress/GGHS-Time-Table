@@ -14,9 +14,9 @@ public static class Sensitive
 public static class ActivateKeys
 {
     public const string Developer = "RRESS-KARU527";
-    public const string Coral = "CORAL-3GGHS10";
-    public const string Bisque = "BSQUE-LX5MBH3";
     public const string Azure = "AZURE-A8VP36N";
+    public const string Bisque = "BSQUE-LX5MBH3";
+    public const string Coral = "CORAL-3GGHS10";
 } 
 
 public static class SubTitles
@@ -29,14 +29,16 @@ public static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-beta7.0";
+    public const string Version = "5.0-beta7.1";
     public const string GTTWithVer = "GGHS Time Table 5";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }
 
 public static class Messages
 {
-    public const string ErrorChat = "⛔ERROR⛔ 카루님, GTT 에러 발생. 메일 확인 요망 ({0})";
+    // 이거 아예 Full Message로 쓰고, 읽는 쪽에서 Sender가 9면 이 멘트를 대입하는 걸로.
+    // SQL에서는 Type 전체 쓰기만 하고.
+    public const string ErrorChat = "⛔ERROR⛔ 카루님, GTT 에러 발생. 메일 확인 요망. ({0})";
 
     public const string Welcome = 
         @"환영합니다, Rolling Ress의 카루입니다.

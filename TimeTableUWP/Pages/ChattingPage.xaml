@@ -18,7 +18,7 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="HorizontalAlignment" Value="Right" />
                 <Setter Property="Width" Value="50" />
-                <Setter Property="Height" Value="37" />
+                <Setter Property="Height" Value="39" />
                 <Setter Property="Visibility" Value="Collapsed" />
             </Style>
             <Style TargetType="TextBox">
@@ -31,10 +31,10 @@
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Anonymous" FontSize="55" FontWeight="Bold" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" HorizontalAlignment="Left" Width="460" Height="73" VerticalAlignment="Top" />
         <TextBox x:Name="viewBox" Margin="27,125,27,65" IsReadOnly="True" CanDrag="False" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
-        <TextBox x:Name="textBox" Margin="27,0,27,18" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
-                 KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False" Height="37" VerticalAlignment="Bottom" BorderThickness="1.8"/>
-        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,64,17" Click="Button_Click" Width="36" />
-        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,29,17" Click="Button_Click" Width="35" />
+        <TextBox x:Name="textBox" Margin="27, 0, 27, 18" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
+                 KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False"  VerticalAlignment="Bottom" BorderThickness="1.8"/>
+        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,63,18" Click="Button_Click" Width="35" />
+        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,28,18" Click="Button_Click" Width="35" />
         <Grid Margin="0,50,40,0" HorizontalAlignment="Right" Width="265" Height="49" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="Button">

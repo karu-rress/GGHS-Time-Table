@@ -3,6 +3,7 @@
 using Windows.UI.Xaml.Documents;
 using Windows.System;
 using Windows.Storage;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Pages;
 
@@ -90,7 +91,8 @@ public sealed partial class SettingsPage : Page
             SecondaryButtonText = "Open Tistory",
             CloseButtonText = "Close",
             DefaultButton = ContentDialogButton.Primary,
-            RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light
+            RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light,
+            
         };
 
         switch (await contentDialog.ShowAsync())

@@ -13,6 +13,9 @@
     DefaultButton="Primary"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     CornerRadius="10">
+    <ContentDialog.Resources>
+        <Style TargetType="local:FeedbackDialog" BasedOn="{StaticResource DefaultContentDialogStyle}"/>
+    </ContentDialog.Resources>
     <Grid>
         <Grid.Resources>
             <Style TargetType="TextBox">

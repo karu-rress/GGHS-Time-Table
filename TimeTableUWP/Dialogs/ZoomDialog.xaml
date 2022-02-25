@@ -5,6 +5,7 @@
     xmlns:local="using:TimeTableUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Title="TITLE"
     PrimaryButtonText="Open ZOOM"
@@ -14,5 +15,8 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     CornerRadius="10">
+    <ContentDialog.Resources>
+        <Style TargetType="local:ZoomDialog" BasedOn="{StaticResource DefaultContentDialogStyle}"/>
+    </ContentDialog.Resources>
     <Grid HorizontalAlignment="Center" Width="500" />
 </ContentDialog>

@@ -36,17 +36,25 @@ public sealed partial class FeedbackDialog : ContentDialog
             return;
         }
 
-        SmtpClient? smtp = PrepareSendMail((senderBox.IsNullOrEmpty() ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n")
+        SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        ChatMessageDac chat = new(sql);
+        await sql.OpenAsync();
+
+        var smtp = PrepareSendMail((senderBox.IsNullOrEmpty() ? "" : $"This feedback is from \"{senderBox.Text}\".\n\n")
         + string.Join("\r\n", text.Split("\r")), // Converts NewLine
-        $"GGHS Time Table Feedback for V{Info.Version}", out MailMessage? msg);
+        $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
 
         sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
         IsPrimaryButtonEnabled = false;
-        await smtp.SendAsync(msg);
+        var mailTask = smtp.SendAsync(msg);
+        
+        await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.FeedbackChat, Info.Version));
 
+        sql.Close();
+        await mailTask;
         progressRing.Value = 100;
         sendingMsgText.Text = "Successfully sent!";
-        await Task.Delay(700);
+        await Task.Delay(600);
 
         Hide();
     }

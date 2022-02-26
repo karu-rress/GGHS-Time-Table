@@ -259,7 +259,7 @@ public sealed partial class TimeTablePage : Page
     /// </summary>
     /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
     /// <returns>true if activated as Azure/Bisque. Otherwise, false</returns>
-    public static async Task<bool> AuthorAsync(string? msg = null)
+    public static async Task<bool> AuthorAsync(string? msg = null, bool showMessage = true)
     {
         if (Info.User.IsSpecialLevel)
             return true;
@@ -267,7 +267,8 @@ public sealed partial class TimeTablePage : Page
         _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
         if (!Info.User.IsSpecialLevel)
         {
-            await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);
+            if (showMessage)
+                await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);
             return false;
         }
         return true;

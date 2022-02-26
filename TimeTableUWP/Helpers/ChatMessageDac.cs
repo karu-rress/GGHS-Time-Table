@@ -2,6 +2,7 @@
 
 using System.Text;
 using TimeTableUWP.Pages;
+using Windows.Storage;
 
 namespace TimeTableUWP;
 
@@ -15,12 +16,30 @@ public class ChatMessageDac : IDisposable
     public Action? Finally { get; set; }
 
     private static DateTime LastSqlTime;
+    private const string NotiSender = "8";
+
+    public static string ConnectionString { get; set; }
+
+    public enum Sender : byte
+    {
+        Notification = 8,
+        GttBot = 9,   
+    }
+
+    static ChatMessageDac()
+    {
+        var getFile = StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")).AsTask();
+        getFile.Wait();
+        Task<string> read = FileIO.ReadTextAsync(getFile.Result).AsTask();
+        read.Wait();
+        ConnectionString = read.Result;
+    }
 
     public ChatMessageDac(SqlConnection sql, Action? prepare = null, Action? dispose = null)
     {
         prepare?.Invoke();
         Sql = sql;
-        Finally = dispose;
+        Finally = dispose;        
     }
 
     public void Dispose()
@@ -69,7 +88,6 @@ public class ChatMessageDac : IDisposable
     }
 
 
-
     private async Task GetMaxTimeAsync()
     {
         const string query = "select max(Time) from chatmsg";
@@ -81,6 +99,15 @@ public class ChatMessageDac : IDisposable
     public async Task SelectAll(DataTable table)
     {
         const string query = "SELECT * FROM chatmsg ORDER BY Time";
+
+        SqlDataAdapter sda = new(query, Sql);
+        sda.Fill(table);
+        await GetMaxTimeAsync();
+    }
+
+    public async Task SelectAllNotifications(DataTable table)
+    {
+        const string query = $"SELECT * FROM chatmsg WHERE Sender >= {NotiSender} ORDER BY Time";
 
         SqlDataAdapter sda = new(query, Sql);
         sda.Fill(table);
@@ -119,7 +146,7 @@ public class ChatMessageDac : IDisposable
 
     public Task<object> GetNewNotificationsCountAsync()
     {
-        const string query = $"SELECT COUNT(*) FROM chatmsg WHERE Time > @Time AND Sender = 9";
+        const string query = $"SELECT COUNT(*) FROM chatmsg WHERE Time > @Time AND Sender >= {NotiSender}";
 
         SqlCommand cmd = new(query, Sql);
         SqlParameter pTime = new("Time", SqlDbType.DateTime) { Value = LastSqlTime };
@@ -130,7 +157,7 @@ public class ChatMessageDac : IDisposable
 
     public async Task<string> GetNewNotificationsAsync()
     {
-        const string query = $"SELECT * FROM chatmsg WHERE Time > @Time AND Sender = 9 ORDER BY Time";
+        const string query = $"SELECT * FROM chatmsg WHERE Time > @Time AND Sender >= {NotiSender} ORDER BY Time";
 
         SqlCommand cmd = new(query, Sql);
         SqlParameter pTime = new("Time", SqlDbType.DateTime) { Value = LastSqlTime };

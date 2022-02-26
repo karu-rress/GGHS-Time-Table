@@ -11,8 +11,6 @@ public sealed partial class ChattingPage : Page
     private bool isCancelRequested = false;
     private const int chatDelay = 600;
     private const string title = "GGHS Anonymous";
-    private static bool authored = false;
-    private static string ConnectionString { get; set; } = "";
 
     private List<string> BadWords { get; set; } = new()
     {
@@ -44,16 +42,15 @@ public sealed partial class ChattingPage : Page
         }
 
         if (isFirstLoaded)
-            authored = await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.");
+            await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.", false);
 
-        if (!authored)
+        if (!Info.User.IsSpecialLevel)
         {
             await ShowMessageAsync(@"현재 레벨에서는 GGHS Anonymous를 이용하실 수 없습니다.
 공지 읽기 전용 모드로 동작합니다.
 의견이 있으신 경우 설정창의 'Send Feedback' 기능을 이용하실 수 있으며,
 다른 인증키를 받으신 경우 설정창에서 인증 레벨을 변경할 수 있습니다.", "GGHS Anonymous");
         }
-            // 인증이 안 된 상황    
 
         if (Info.User.ActivationLevel is ActivationLevel.Developer)
         {
@@ -65,13 +62,13 @@ public sealed partial class ChattingPage : Page
         if (isFirstLoaded)
         {
             isFirstLoaded = false;
-            ConnectionString = await FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")));
         }
 
         // 아예 이걸 firstloaded로 넣어버리고
         // date 기본값을 아주 먼 옛날로 해버리는 방법도 있음.
+        
         await LoadChatsAsync();
-        if (authored)
+        if (Info.User.IsSpecialLevel)
             textBox.IsEnabled = true;
         _ = ReloadChatsAsync().ConfigureAwait(false);
     }
@@ -105,12 +102,12 @@ public sealed partial class ChattingPage : Page
         textBox.PlaceholderText = "채팅 불러오는 중...";
 
         DataTable dt = new();
-        using (SqlConnection sql = new(ConnectionString))
+        using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
         {
             ChatMessageDac chat = new(sql);
 
             await sql.OpenAsync();
-            await chat.SelectAll(dt);
+            await (Info.User.IsSpecialLevel ? chat.SelectAll(dt) : chat.SelectAllNotifications(dt));
         }
 
         StringBuilder sb = new();
@@ -141,9 +138,7 @@ public sealed partial class ChattingPage : Page
             if (isCancelRequested)
                 return;
 
-            Stopwatch sw = Stopwatch.StartNew();
-
-            SqlConnection sql = new(ConnectionString);
+            SqlConnection sql = new(ChatMessageDac.ConnectionString);
             ChatMessageDac chat = new(sql);
 
             await sql.OpenAsync();
@@ -163,9 +158,6 @@ public sealed partial class ChattingPage : Page
 
             sql.Close();
             ScrollViewBox();
-
-            sw.Stop();
-            await ShowMessageAsync($"{sw.ElapsedMilliseconds} ms", "GTT");
         }
     }
 
@@ -193,7 +185,7 @@ public sealed partial class ChattingPage : Page
                     return;
             }
 
-            using SqlConnection sql = new() { ConnectionString = ConnectionString };
+            using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
             using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
             await chatmessage.InsertAsync(Convert(userLevel), textBox.Text);
@@ -216,10 +208,10 @@ public sealed partial class ChattingPage : Page
             }
             // 욕설 필터링
 
-            using SqlConnection sql = new() { ConnectionString = ConnectionString };
+            using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
             using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
-            await chatmessage.InsertAsync(8, "【공지】 " + textBox.Text);
+            await chatmessage.InsertAsync((byte)ChatMessageDac.Sender.Notification, "【공지】 " + textBox.Text);
         }
         catch (Exception ex)
         {
@@ -237,7 +229,7 @@ public sealed partial class ChattingPage : Page
         }
         try
         {
-            using SqlConnection sql = new(ConnectionString);
+            using SqlConnection sql = new(ChatMessageDac.ConnectionString);
             using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
             await chat.RunSqlCommand(query);
@@ -263,7 +255,7 @@ public sealed partial class ChattingPage : Page
                 return;
         }
 
-        using SqlConnection sql = new(ConnectionString);
+        using SqlConnection sql = new(ChatMessageDac.ConnectionString);
         using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
         await sql.OpenAsync();
         await chat.DeleteAsync(message);

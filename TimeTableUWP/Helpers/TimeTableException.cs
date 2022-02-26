@@ -68,10 +68,10 @@ public class TimeTableException : Exception
         {
             Task mail = smtp.SendAsync(msg);
 
-            SqlConnection sql = new(await FileIO.ReadTextAsync(await StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt"))));
+            SqlConnection sql = new(ChatMessageDac.ConnectionString);
             ChatMessageDac chat = new(sql);
             await sql.OpenAsync();
-            await chat.InsertAsync(9, string.Format(Messages.ErrorChat, exception.GetType().Name));
+            await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.ErrorChat, exception.GetType().Name));
             sql.Close();
             await mail;
         }

@@ -1,4 +1,5 @@
 ﻿#nullable enable
+#define RC
 
 using Windows.Storage;
 
@@ -10,7 +11,7 @@ public sealed partial class ChattingPage : Page
     private bool isCancelRequested = false;
     private const int chatDelay = 600;
     private const string title = "GGHS Anonymous";
-
+    private static bool authored = false;
     private static string ConnectionString { get; set; } = "";
 
     private List<string> BadWords { get; set; } = new()
@@ -42,8 +43,17 @@ public sealed partial class ChattingPage : Page
             return;
         }
 
-        if (await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.") is false)
-            return;
+        if (isFirstLoaded)
+            authored = await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.");
+
+        if (!authored)
+        {
+            await ShowMessageAsync(@"현재 레벨에서는 GGHS Anonymous를 이용하실 수 없습니다.
+공지 읽기 전용 모드로 동작합니다.
+의견이 있으신 경우 설정창의 'Send Feedback' 기능을 이용하실 수 있으며,
+다른 인증키를 받으신 경우 설정창에서 인증 레벨을 변경할 수 있습니다.", "GGHS Anonymous");
+        }
+            // 인증이 안 된 상황    
 
         if (Info.User.ActivationLevel is ActivationLevel.Developer)
         {
@@ -61,7 +71,8 @@ public sealed partial class ChattingPage : Page
         // 아예 이걸 firstloaded로 넣어버리고
         // date 기본값을 아주 먼 옛날로 해버리는 방법도 있음.
         await LoadChatsAsync();
-        textBox.IsEnabled = true;
+        if (authored)
+            textBox.IsEnabled = true;
         _ = ReloadChatsAsync().ConfigureAwait(false);
     }
 
@@ -124,27 +135,37 @@ public sealed partial class ChattingPage : Page
             while (!Connection.IsInternetAvailable)
             {
                 await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error");
-                await Task.Delay(2000);
+                await Task.Delay(1900);
             }
 
             if (isCancelRequested)
                 return;
 
+            Stopwatch sw = Stopwatch.StartNew();
+
             SqlConnection sql = new(ConnectionString);
             ChatMessageDac chat = new(sql);
 
             await sql.OpenAsync();
-            if (await chat.GetNewMessagesCountAsync() is 0)
+
+            if (await (Info.User.IsSpecialLevel
+                ? chat.GetNewMessagesCountAsync()
+                : chat.GetNewNotificationsCountAsync()) is 0)
             {
                 sql.Close();
                 await Task.Delay(chatDelay);
                 continue;
             }
 
-            viewBox.Text += await chat.GetNewMessagesAsync();
+            viewBox.Text += await (Info.User.IsSpecialLevel
+                ? chat.GetNewMessagesAsync()
+                : chat.GetNewNotificationsAsync());
 
             sql.Close();
             ScrollViewBox();
+
+            sw.Stop();
+            await ShowMessageAsync($"{sw.ElapsedMilliseconds} ms", "GTT");
         }
     }
 

@@ -116,4 +116,34 @@ public class ChatMessageDac : IDisposable
         await GetMaxTimeAsync();
         return sb.ToString();
     }
+
+    public Task<object> GetNewNotificationsCountAsync()
+    {
+        const string query = $"SELECT COUNT(*) FROM chatmsg WHERE Time > @Time AND Sender = 9";
+
+        SqlCommand cmd = new(query, Sql);
+        SqlParameter pTime = new("Time", SqlDbType.DateTime) { Value = LastSqlTime };
+        cmd.Parameters.Add(pTime);
+
+        return cmd.ExecuteScalarAsync();
+    }
+
+    public async Task<string> GetNewNotificationsAsync()
+    {
+        const string query = $"SELECT * FROM chatmsg WHERE Time > @Time AND Sender = 9 ORDER BY Time";
+
+        SqlCommand cmd = new(query, Sql);
+        SqlParameter pTime = new("Time", SqlDbType.DateTime) { Value = LastSqlTime };
+        cmd.Parameters.Add(pTime);
+
+        StringBuilder sb = new();
+        using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+        {
+            while (reader.Read())
+                sb.AppendFormat(Datas.ChatFormat, reader.GetDateTime(1), ChattingPage.Convert(reader.GetByte(0)), reader.GetString(2));
+        }
+
+        await GetMaxTimeAsync();
+        return sb.ToString();
+    }
 }

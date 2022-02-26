@@ -171,6 +171,7 @@ public sealed partial class TimeTablePage : Page
         {
             case "classComboBox":
                 EnableAllCombobox();
+                // TODO: 여기서 초기화하면 시작시에도 날아간다...? 해결좀.
                 Subjects.ResetSelectiveSubjects();
 
                 Info.User.Class = comboBox.SelectedIndex + 1;

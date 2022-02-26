@@ -94,6 +94,5 @@ public class TimeTables
 
         // TODO: 그리고 여기 선택과목 바꿔치기하는 코드
         // ForEach (국어 => 언매) 이런식
-        // + Flag도 세워야 함. 이건 생성자에서 하든, 초기화단에서 하든...
     }
 }

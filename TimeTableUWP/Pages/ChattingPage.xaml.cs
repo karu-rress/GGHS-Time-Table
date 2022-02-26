@@ -1,7 +1,4 @@
 ﻿#nullable enable
-#define RC
-
-using Windows.Storage;
 
 namespace TimeTableUWP.Pages;
 public sealed partial class ChattingPage : Page
@@ -42,15 +39,14 @@ public sealed partial class ChattingPage : Page
         }
 
         if (isFirstLoaded)
+        {
             await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.", false);
+            isFirstLoaded = false;
+        }
 
         if (!Info.User.IsSpecialLevel)
-        {
-            await ShowMessageAsync(@"현재 레벨에서는 GGHS Anonymous를 이용하실 수 없습니다.
-공지 읽기 전용 모드로 동작합니다.
-의견이 있으신 경우 설정창의 'Send Feedback' 기능을 이용하실 수 있으며,
-다른 인증키를 받으신 경우 설정창에서 인증 레벨을 변경할 수 있습니다.", "GGHS Anonymous");
-        }
+            await ShowMessageAsync(Messages.NotAuthored, title);
+
 
         if (Info.User.ActivationLevel is ActivationLevel.Developer)
         {
@@ -59,14 +55,10 @@ public sealed partial class ChattingPage : Page
             textBox.Margin = new(27, 0, 102, 18);
         }
 
-        if (isFirstLoaded)
-        {
-            isFirstLoaded = false;
-        }
 
         // 아예 이걸 firstloaded로 넣어버리고
         // date 기본값을 아주 먼 옛날로 해버리는 방법도 있음.
-        
+
         await LoadChatsAsync();
         if (Info.User.IsSpecialLevel)
             textBox.IsEnabled = true;
@@ -75,7 +67,7 @@ public sealed partial class ChattingPage : Page
 
     private async void textBox_KeyDown(object sender, KeyRoutedEventArgs e)
     {
-        if (e.Key == Windows.System.VirtualKey.Enter)
+        if (e.Key is Windows.System.VirtualKey.Enter)
             await SendMessageAsync(Info.User.ActivationLevel);
     }
 
@@ -84,22 +76,30 @@ public sealed partial class ChattingPage : Page
         if (sender is not Button btn)
             return;
 
-        if (btn.Name is "camoButtonA")
-            await SendMessageAsync(ActivationLevel.Azure);
-        else if (btn.Name is "camoButtonB")
-            await SendMessageAsync(ActivationLevel.Bisque);
-        else if (btn.Name is "sqlButton")
-            await RunSQL(textBox.Text);
-        else if (btn.Name is "delButton")
-            await DeleteMessage(textBox.Text);
-        else if (btn.Name is "notiButton")
-            await SendNotificationAsync();
+        switch (btn.Name)
+        {
+            case "camoButtonA":
+                await SendMessageAsync(ActivationLevel.Azure);
+                break;
+            case "camoButtonB":
+                await SendMessageAsync(ActivationLevel.Bisque);
+                break;
+            case "sqlButton":
+                await RunSQL(textBox.Text);
+                break;
+            case "delButton":
+                await DeleteMessage(textBox.Text);
+                break;
+            case "notiButton":
+                await SendNotificationAsync();
+                break;
+        }
     }
 
     private async Task LoadChatsAsync()
     {
         string txt = textBox.PlaceholderText;
-        textBox.PlaceholderText = "채팅 불러오는 중...";
+        textBox.PlaceholderText = "Loading, please wait...";
 
         DataTable dt = new();
         using (SqlConnection sql = new(ChatMessageDac.ConnectionString))

@@ -2,6 +2,7 @@
 
 using System.Net;
 using System.Net.Mail;
+using Windows.Storage;
 
 namespace TimeTableUWP;
 
@@ -9,6 +10,17 @@ public sealed partial class FeedbackDialog : ContentDialog
 {
     private Brush TextColor => new SolidColorBrush(Info.Settings.IsDarkMode
         ? Color.FromArgb(0xFF, 0x25, 0xD1, 0xE8) : Color.FromArgb(0xFF, 0x22, 0x22, 0x88));
+
+    private static string MailPassword { get; }
+
+    static FeedbackDialog()
+    {
+        var getFile = StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///mailpassword.txt")).AsTask();
+        getFile.Wait();
+        Task<string> read = FileIO.ReadTextAsync(getFile.Result).AsTask();
+        read.Wait();
+        MailPassword = read.Result;
+    }
 
     public FeedbackDialog()
     {
@@ -21,7 +33,7 @@ public sealed partial class FeedbackDialog : ContentDialog
     {
         args.Cancel = true;
         ErrorMsgText.Visibility = Visibility.Collapsed;
-        string? text = textBox.Text;
+        string text = textBox.Text;
 
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -35,6 +47,9 @@ public sealed partial class FeedbackDialog : ContentDialog
             ErrorMsgText.Visibility = Visibility.Visible;
             return;
         }
+        sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
+        IsPrimaryButtonEnabled = false;
+
 
         SqlConnection sql = new(ChatMessageDac.ConnectionString);
         ChatMessageDac chat = new(sql);
@@ -44,14 +59,12 @@ public sealed partial class FeedbackDialog : ContentDialog
         + string.Join("\r\n", text.Split("\r")), // Converts NewLine
         $"GGHS Time Table Feedback for V{Info.Version}", out var msg);
 
-        sendingMsgText.Visibility = progressRing.Visibility = Visibility.Visible;
-        IsPrimaryButtonEnabled = false;
         var mailTask = smtp.SendAsync(msg);
-        
         await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.FeedbackChat, Info.Version));
 
         sql.Close();
         await mailTask;
+        progressRing.IsActive = false;
         progressRing.Value = 100;
         sendingMsgText.Text = "Successfully sent!";
         await Task.Delay(600);
@@ -68,7 +81,7 @@ public sealed partial class FeedbackDialog : ContentDialog
             Host = "smtp.gmail.com",
             EnableSsl = true,
             DeliveryMethod = SmtpDeliveryMethod.Network,
-            Credentials = new NetworkCredential(send.Address, Sensitive.MailPassword),
+            Credentials = new NetworkCredential(send.Address, MailPassword),
             Timeout = 20_000
         };
         msg = new(send, to) { Subject = subject, Body = body };

@@ -220,8 +220,8 @@ public sealed partial class TimeTablePage : Page
         if (GetClassZoomLink().TryGetValue(subjectCellName, out OnlineLink? online) is false || (online is null))
         {
             // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-            await ShowMessageAsync($"Zoom Link for {subjectCellName} is currently not available.\n"
-                + "카루에게 줌 링크 추가를 요청해보세요.", "No Data for Zoom Link", Info.Settings.Theme);
+            await ShowMessageAsync($"Links for {subjectCellName} is currently not available.\n"
+                + "카루에게 줌 링크 추가를 요청해보세요.", "No data", Info.Settings.Theme);
             return;
         }
 

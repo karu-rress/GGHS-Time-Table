@@ -6,25 +6,18 @@ using RollingRess.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.UI.Popups;
 using wux = Windows.UI.Xaml;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 internal sealed class ErrorCodeAttribute : Attribute
 {
-    // See the attribute guidelines at 
-    //  http://go.microsoft.com/fwlink/?LinkId=85236
-    private readonly string positionalString;
-    public string PositionalString
-    {
-        get { return positionalString; }
-    }
+    public string PositionalString { get; }
 
     // This is a positional argument
     public ErrorCodeAttribute(string positionalString)
     {
-        this.positionalString = positionalString;
+        PositionalString = positionalString;
     }
 }
 
@@ -67,7 +60,6 @@ public class TimeTableException : Exception
         if (Connection.IsInternetAvailable)
         {
             Task mail = smtp.SendAsync(msg);
-
             SqlConnection sql = new(ChatMessageDac.ConnectionString);
             ChatMessageDac chat = new(sql);
             await sql.OpenAsync();

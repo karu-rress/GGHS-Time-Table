@@ -9,8 +9,8 @@ using TimeTableUWP.Pages;
 namespace TimeTableUWP.Todo;
 public class TaskButton : Button
 {
-    private int ButtonWidth => 2560;
-    private int ButtonHeight => 93;
+    private const int ButtonWidth = 2560;
+    private const int ButtonHeight = 93;
 
     public TodoTask TodoTask { get; private set; }
 

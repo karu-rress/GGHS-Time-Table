@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System.Globalization;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Background;

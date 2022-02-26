@@ -11,14 +11,14 @@ namespace TimeTableUWP;
 
 public class ChatMessageDac : IDisposable
 {
+    public static string ConnectionString { get; }
+
     private SqlConnection Sql { get; set; }
     public Action? Prepare { get; set; }
     public Action? Finally { get; set; }
 
     private static DateTime LastSqlTime;
     private const string NotiSender = "8";
-
-    public static string ConnectionString { get; set; }
 
     public enum Sender : byte
     {

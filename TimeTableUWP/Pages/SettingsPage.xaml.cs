@@ -2,8 +2,6 @@
 
 using Windows.UI.Xaml.Documents;
 using Windows.System;
-using Windows.Storage;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Pages;
 
@@ -145,10 +143,8 @@ public sealed partial class SettingsPage : Page
     => Info.Settings.SilentMode = SilentToggle.IsOn;
 
     private async void Button_Click_5(object sender, RoutedEventArgs e)
-    {
-        await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot");
-    }
-
+    => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot");
+ 
     private void Button_Click_6(object sender, RoutedEventArgs e)
     => colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
 }

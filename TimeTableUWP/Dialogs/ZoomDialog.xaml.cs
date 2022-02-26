@@ -57,7 +57,7 @@ public partial class ZoomDialog : ContentDialog
             IsSecondaryButtonEnabled = false;
         }
         TextBlock.AddTextLine($"\nTeacher: {online.Teacher} 선생님\n");
-        TextBlock.AddText(@"Click the buttons below or the links above to navigate.");
+        TextBlock.AddText("Click the buttons below or the links above to navigate.");
 
         Content = TextBlock;
     }

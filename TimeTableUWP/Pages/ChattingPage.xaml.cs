@@ -29,7 +29,6 @@ public sealed partial class ChattingPage : Page
         textBox.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
     }
 
-
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         if (!Connection.IsInternetAvailable)
@@ -192,8 +191,8 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception ex)
         {
-            await ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title);
-            throw;
+            await Task.WhenAll(ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title),
+                TimeTableException.HandleException(ex));
         }
     }
 
@@ -215,8 +214,8 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception ex)
         {
-            await ShowMessageAsync("공지 등록에 실패했습니다.\n" + ex.ToString(), title);
-            throw;
+            await Task.WhenAll(ShowMessageAsync("공지 등록에 실패했습니다.\n" + ex.ToString(), title),
+                TimeTableException.HandleException(ex));
         }
     }
 
@@ -236,7 +235,8 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception e)
         {
-            await ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title);
+            await Task.WhenAll(ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title),
+                TimeTableException.HandleException(e));
         }
     }
 

@@ -25,7 +25,7 @@ public static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-beta8.2";
+    public const string Version = "5.0-rc1.0";
     public const string GTTWithVer = "GGHS Time Table 5";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }

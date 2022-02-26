@@ -41,7 +41,7 @@
             <Grid VerticalAlignment="Top">
                 <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="50,61,0,0" OffContent="Use 12 hour format" OnContent="Use 24 hour format" Toggled="ToggleSwitch_Toggled" />
                 <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="50,182,0,0" OffContent="Light theme" OnContent="Dark theme" Toggled="DarkToggleSwitch_Toggled" />
-                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" />
+                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" IsOn="True" IsEnabled="False"/>
                 <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="50,420,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
                     <x:String>2020/06/03</x:String>
                     <x:String>2020-06-03</x:String>

@@ -23,7 +23,7 @@
             <TextBlock Text="2023 대학수학능력시험" Margin="0,62,0,0" FontSize="19"/>
         </Grid>
 
-        <Grid Margin="139,23,0,0" HorizontalAlignment="Left" Width="381" Height="118" VerticalAlignment="Top">
+        <Grid Margin="121,23,0,0" HorizontalAlignment="Left" Width="405" Height="118" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>
@@ -32,8 +32,8 @@
                     <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="757" Margin="-40,0,0,0"/>
-            <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="544" Foreground="#FF444444" Margin="-40,77,0,0"/>
+            <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="294" Margin="-40,0,0,0"/>
+            <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="382" Foreground="#FF444444" Margin="-40,77,0,0"/>
         </Grid>
         <Grid Margin="10,175,0,10" HorizontalAlignment="Left" Width="315">
             <Grid.Resources>

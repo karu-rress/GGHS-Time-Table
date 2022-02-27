@@ -7,15 +7,15 @@ public static class Sensitive
     public const string KaruMail = "nsun527@naver.com";
 }
 
-public static class ActivateKeys
+internal static class ActivateKeys
 {
     public const string Developer = "RRESS-KARU527";
     public const string Azure = "AZURE-A8VP36N";
     public const string Bisque = "BSQUE-LX5MBH3";
     public const string Coral = "CORAL-3GGHS10";
-} 
+}
 
-public static class SubTitles
+internal static class SubTitles
 {
     public const string Developer = "Welcome to the Ultimate GTT5, Karu";
     public const string Azure = "Let's try our hardest, our last journey.";
@@ -25,12 +25,12 @@ public static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-rc1.0";
+    public const string Version = "5.0-RC1.5";
     public const string GTTWithVer = "GGHS Time Table 5";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }
 
-public static class Messages
+internal static class Messages
 {
     public const string ErrorChat = "⛔ERROR⛔ 카루님, GTT 에러 발생. 메일 확인 요망. ({0})";
     public const string FeedbackChat = "📧Feedback📧 카루님, GTT 피드백이 도착했습니다. (V{0})";
@@ -39,25 +39,20 @@ public static class Messages
     {
         public const string Activate = "{0}\n카루에게 제공받은 인증키를 입력하세요.\n인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다."
             +"\n인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
-
-
     }
 
     public const string WhatsNew =
-        @"- 3학년 시간표 지원 (Beta 1)
-- 익명 채팅방 GGHS Anonymous 추가 (Beta 1)
-- Azure/Bisque/Coral 인증 레벨 개편 (Beta 1)
-- 상단바, Todo 목록 등에 사용자 지정 색상 적용 (Beta 6)
-- Anonymous 공지 / GTT 봇 추가 (Beta 7)
-- Coral 레벨 공지 읽기 가능하도록 변경 (Beta 8)
-- 피드백 전송시 Anonymous에서 알림 (Beta 8)";
+@"- 알람 기능 삭제
+- (GTD) 수능 디데이 카운터 추가
+- 3-1 사탐방 클래스룸 추가
+- GGHS Todo / GGHS Anonymous UI 조정";
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {
         '0' or '3' or '6' => "으로",
         _ => "로",
     }} 업데이트 되었습니다.
 
-V{Info.Version}부터 추가된 기능
+V{Info.Version}에서 변경된 기능
 {WhatsNew}
 
 GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 선택하면 

@@ -97,14 +97,12 @@ public sealed partial class ChattingPage : Page
 
     private async Task LoadChatsAsync()
     {
-        string txt = textBox.PlaceholderText;
-        textBox.PlaceholderText = "Loading, please wait...";
+        progressGrid.Visibility = Visibility.Visible;
 
         DataTable dt = new();
         using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
         {
             ChatMessageDac chat = new(sql);
-
             await sql.OpenAsync();
             await (Info.User.IsSpecialLevel ? chat.SelectAll(dt) : chat.SelectAllNotifications(dt));
         }
@@ -117,8 +115,8 @@ public sealed partial class ChattingPage : Page
         }
 
         viewBox.Text = sb.ToString();
+        progressGrid.Visibility = Visibility.Collapsed;
         ScrollViewBox();
-        textBox.PlaceholderText = txt;
     }
 
     private async Task ReloadChatsAsync()

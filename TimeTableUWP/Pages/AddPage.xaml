@@ -30,7 +30,7 @@
             <TextBlock x:Name="mainText" Text="Add New Task" FontSize="55" Height="73" />
         </Grid>
 
-        <Grid Margin="50,100,330,0" Height="80" VerticalAlignment="Top">
+        <Grid Margin="55,100,307,0" Height="80" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -58,16 +58,16 @@
             <TextBlock Text="Title" Grid.Column="4" Height="34" Width="43" />
             <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="21" PlaceholderText="수행평가 제목" />
         </Grid>
-        <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="54,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="50,235,330,30" AcceptsReturn="True" FontSize="19" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
-        <Grid Width="315" HorizontalAlignment="Right" Margin="0,40,10,10">
+        <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="59,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
+        <TextBox x:Name="BodyTextBox" Margin="55,235,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
+        <Grid Width="215" HorizontalAlignment="Right" Margin="0,40,55,10">
             <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="CornerRadius" Value="10" />
                     <Setter Property="Height" Value="60"/>
                     <Setter Property="HorizontalAlignment" Value="Center" />
                     <Setter Property="VerticalAlignment" Value="Top" />
-                    <Setter Property="Width" Value="220"/>
+                    <Setter Property="Width" Value="215"/>
                 </Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="25"/>

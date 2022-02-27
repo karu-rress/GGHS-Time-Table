@@ -30,7 +30,7 @@
                 <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 5 RC1" FontSize="55" Height="73" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 5" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="80,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
         <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
@@ -48,7 +48,7 @@
             <TextBlock x:Name="amorpmBox" Margin="250,75,120,24"/>
         </Grid>
 
-        <Grid Name="timeTableGrid" Margin="61,180,329,37">
+        <Grid Name="timeTableGrid" Margin="55,180,300,35">
             <Grid.Resources>
                 <Style TargetType="Border">
                     <!-- 요일 칸 배경 -->
@@ -154,7 +154,7 @@
             <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" />
         </Grid>
 
-        <Grid Name="comboBoxGrid" Margin="0,181,60,0" HorizontalAlignment="Right" Width="250">
+        <Grid Name="comboBoxGrid" Margin="0,181,55,0" HorizontalAlignment="Right" Width="215">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -174,7 +174,7 @@
                     <Setter Property="TextWrapping" Value="Wrap" />
                 </Style>
                 <Style TargetType="ComboBox">
-                    <Setter Property="Width" Value="250"/>
+                    <Setter Property="Width" Value="215"/>
                     <Setter Property="Height" Value="45"/>
                     <Setter Property="VerticalAlignment" Value="Top"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>

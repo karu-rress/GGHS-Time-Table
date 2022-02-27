@@ -9,7 +9,7 @@
     Loaded="Page_Loaded">
 
     <Grid>
-        <Grid Name="ddayGrid" Margin="0,28,100,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Grid Name="ddayGrid" Margin="0,32,96,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>
@@ -19,8 +19,8 @@
                 </Style>
             </Grid.Resources>
             <TextBlock x:Name="dDayText" FontSize="72" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" VerticalAlignment="Center" HorizontalAlignment="Right" Text="D-263" />
-            <TextBlock Text="너의 꿈을 응원해" Margin="0,23,0,0" FontSize="26" />
-            <TextBlock Text="2023 대학수학능력시험" Margin="0,62,0,0" FontSize="19"/>
+            <TextBlock Text="너의 꿈을 응원해" Margin="0,24,0,0" FontSize="26" />
+            <TextBlock Text="2023 대학수학능력시험" Margin="0,65,0,0" FontSize="19"/>
         </Grid>
 
         <Grid Margin="121,23,0,0" HorizontalAlignment="Left" Width="405" Height="118" VerticalAlignment="Top">
@@ -35,13 +35,13 @@
             <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="294" Margin="-40,0,0,0"/>
             <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="382" Foreground="#FF444444" Margin="-40,77,0,0"/>
         </Grid>
-        <Grid Margin="10,175,0,10" HorizontalAlignment="Left" Width="315">
+        <Grid Margin="10,175,55,10" HorizontalAlignment="Right" Width="215">
             <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="CornerRadius" Value="10" />
                     <Setter Property="HorizontalAlignment" Value="Center" />
                     <Setter Property="Height" Value="60"/>
-                    <Setter Property="Width" Value="220"/>
+                    <Setter Property="Width" Value="215"/>
                     <Setter Property="VerticalAlignment" Value="Top" />
                 </Style>
                 <Style TargetType="TextBlock">
@@ -50,10 +50,10 @@
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                 </Style>
             </Grid.Resources>
-            <Button x:Name="AddButton" Margin="0,71,0,0" Click="AddButton_Click">
+            <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
                 <TextBlock><Run Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Add New"/></TextBlock>
             </Button>
-            <Button x:Name="RemoveButton" Margin="0,236,0,0" CornerRadius="10,10,0,0" Height="50">
+            <Button x:Name="RemoveButton" Margin="0,186,0,0" CornerRadius="10,10,0,0" Height="50">
                 <TextBlock><Run Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Delete..."/></TextBlock>
                 <Button.Flyout>
                     <MenuFlyout>
@@ -67,11 +67,11 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="UndoButton" Margin="0,286,0,0" Click="UndoButton_Click" CornerRadius="0,0,10,10" Height="50">
+            <Button x:Name="UndoButton" Margin="0,236,0,0" Click="UndoButton_Click" CornerRadius="0,0,10,10" Height="50">
                 <TextBlock><Run Text="&#xE7A7;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Undo Delete"/></TextBlock>
             </Button>
         </Grid>
-        <ScrollViewer Margin="325,175,45,10">
+        <ScrollViewer Margin="55,175,307,35">
             <StackPanel x:Name="TaskGrid"/>
         </ScrollViewer>
     </Grid>

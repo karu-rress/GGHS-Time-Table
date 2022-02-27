@@ -18,8 +18,11 @@ V5.0
 - 알람 기능 삭제 (Release Candidate)
 - (GTD) 수능 디데이 카운터 추가 (Release Candidate)
 - 3-1 사탐방 클래스룸 추가 (Release Candidate)
-- 전반적인 UI 변경 (Release Candidate)
-- [예정] 10기 시간표 정식 지원 (Release Candidate)
+- 전반적인 디자인 통일 및 UI 변경 (RC 2)
+- 사용설명서 추가 (RC 2)
+
+
+- [예정] 10기 시간표 정식 지원 (RC 2)
 	:: 업데이트 순서 ::
 	1반 (Dev, Azure 3)
 	4반 (Azure 1)

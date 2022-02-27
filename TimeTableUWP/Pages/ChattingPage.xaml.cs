@@ -51,7 +51,7 @@ public sealed partial class ChattingPage : Page
         {
             camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility
                 = delButton.Visibility = notiButton.Visibility = Visibility.Visible;
-            textBox.Margin = new(27, 0, 102, 18);
+            textBox.Margin = new(55, 0, 131, 35);
         }
 
 

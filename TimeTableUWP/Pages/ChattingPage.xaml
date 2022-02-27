@@ -35,11 +35,11 @@
             <TextBlock Text="Loading chats..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" />
         </Grid>
         <TextBlock x:Name="mainText" Margin="72,25,0,0" Text="GGHS Anonymous" FontSize="55" FontWeight="Bold" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" HorizontalAlignment="Left" Width="460" Height="73" VerticalAlignment="Top" />
-        <TextBox x:Name="viewBox" Margin="27,125,27,65" IsReadOnly="True" CanDrag="False" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
-        <TextBox x:Name="textBox" Margin="27, 0, 27, 18" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
+        <TextBox x:Name="viewBox" Margin="55,115,55,82" IsReadOnly="True" CanDrag="False" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
+        <TextBox x:Name="textBox" Margin="55, 0, 55, 35" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
                  KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False"  VerticalAlignment="Bottom" BorderThickness="1.8"/>
-        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,63,18" Click="Button_Click" Width="35" />
-        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,28,18" Click="Button_Click" Width="35" />
+        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,91,35" Click="Button_Click" Width="35" />
+        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,55,35" Click="Button_Click" Width="35" />
         <Grid Margin="0,50,40,0" HorizontalAlignment="Right" Width="265" Height="49" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="Button">

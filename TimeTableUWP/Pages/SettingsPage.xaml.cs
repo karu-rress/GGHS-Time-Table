@@ -23,6 +23,7 @@ public sealed partial class SettingsPage : Page
             yield return feedbackButton;
             yield return activateButton;
             yield return troubleButton;
+            yield return howtoButton;
         }
     }
 
@@ -70,16 +71,16 @@ public sealed partial class SettingsPage : Page
     private async void Button_Click_1(object sender, RoutedEventArgs e)
     {
         Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527") };
-        hyperlink.Inlines.Add(new Run() { Text = "개발자 블로그 1 (네이버: 카루)" });
+        hyperlink.AddText("개발자 블로그 1 (네이버: 카루)");
 
         Hyperlink hyperlink2 = new() { NavigateUri = new("https://rress.tistory.com") };
-        hyperlink2.Inlines.Add(new Run() { Text = "개발자 블로그 2 (티스토리: Rolling Ress)" });
+        hyperlink2.AddText("개발자 블로그 2 (티스토리: Rolling Ress)");
 
         TextBlock tb = new();
-        tb.Inlines.Add(new Run() { Text = Messages.About });
-        tb.Inlines.Add(hyperlink);
-        tb.Inlines.Add(new Run() { Text = "\n" });
-        tb.Inlines.Add(hyperlink2);
+        tb.AddText(Messages.About);
+        tb.AddHyperlink(hyperlink);
+        tb.AddTextLine();
+        tb.AddHyperlink(hyperlink2);
 
         ContentDialog contentDialog = new()
         {
@@ -90,7 +91,7 @@ public sealed partial class SettingsPage : Page
             CloseButtonText = "Close",
             DefaultButton = ContentDialogButton.Primary,
             RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light,
-            
+
         };
 
         switch (await contentDialog.ShowAsync())
@@ -123,7 +124,7 @@ public sealed partial class SettingsPage : Page
             SetDarkToggle(false);
             return;
         }
-        
+
         Info.Settings.IsDarkMode = darkToggle.IsOn;
         RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
     }
@@ -144,7 +145,43 @@ public sealed partial class SettingsPage : Page
 
     private async void Button_Click_5(object sender, RoutedEventArgs e)
     => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot");
- 
+
     private void Button_Click_6(object sender, RoutedEventArgs e)
     => colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
+
+    private async void Button_Click_7(object sender, RoutedEventArgs e)
+    {
+
+        Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527/222659315481") };
+        hyperlink.AddText($"{Datas.GTTWithVer}의 자세한 사용법을 보려면 여기를 클릭하세요.");
+
+        TextBlock tb = new();
+        tb.AddHyperlink(hyperlink);
+        tb.AddTextLine("\n\n- GGHS Time Table");
+        tb.AddTextLine("자신의 반과 선택과목을 선택한 뒤, 시간표의 칸을 누르면");
+        tb.AddTextLine("클래스룸 링크와 ZOOM 링크를 띄워줍니다. (ZOOM 링크 계획 미정)\n");
+
+        tb.AddTextLine("- GGHS Todo");
+        tb.AddTextLine("수행평가 일정 및 To do 리스트를 등록할 수 있습니다.");
+        tb.AddTextLine("다양한 삭제 옵션을 사용할 수 있으며, 메인화면에서 각 항목을 클릭하거나");
+        tb.AddTextLine("마우스 오른쪽을 클릭하면 수정 및 삭제를 할 수 있습니다.\n");
+
+        tb.AddTextLine("- GGHS Anonymous");
+        tb.AddTextLine("10기 전용 익명 채팅방입니다. Azure / Bisque의 경우 채팅이 가능하며,");
+        tb.AddTextLine("Coral 레벨은 현재 공지 읽기만 가능합니다.");
+
+        ContentDialog contentDialog = new()
+        {
+            Title = "How To Use",
+            Content = tb,
+            PrimaryButtonText = "자세한 사용법 보기",
+            CloseButtonText = "닫기",
+            DefaultButton = ContentDialogButton.Primary,
+            RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light,
+
+        };
+
+        if (await contentDialog.ShowAsync() is ContentDialogResult.Primary)
+            await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527/222659315481"));
+    }
 }

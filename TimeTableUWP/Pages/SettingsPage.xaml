@@ -26,7 +26,7 @@
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="Height" Value="70"/>
-                <Setter Property="Width" Value="385"/>
+                <Setter Property="Width" Value="370"/>
                 <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe"/>
             </Style>
             <Style TargetType="ToggleSwitch">
@@ -55,17 +55,20 @@
                 </Button>
             </Grid>
         </ScrollViewer>
-        <Button x:Name="aboutButton" Margin="0,100,35,0" Click="Button_Click_1" BorderThickness="1.8">
+        <Button x:Name="aboutButton" Margin="0,100,55,0" Click="Button_Click_1" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
         </Button>
-        <Button x:Name="feedbackButton" Margin="0,200,35,0" Click="Button_Click_2" BorderThickness="1.8">
+        <Button x:Name="feedbackButton" Margin="0,200,55,0" Click="Button_Click_2" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
         </Button>
-        <Button x:Name="activateButton" Margin="0,300,35,0" Click="Button_Click_4" BorderThickness="1.8">
+        <Button x:Name="activateButton" Margin="0,300,55,0" Click="Button_Click_4" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Change Activation Key" /></TextBlock>
         </Button>
-        <Button x:Name="troubleButton" Margin="0,400,35,0" Click="Button_Click_5" BorderThickness="1.8">
+        <Button x:Name="troubleButton" Margin="0,400,55,0" Click="Button_Click_5" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
+        </Button>
+        <Button x:Name="howtoButton" Margin="0,500,55,0" Click="Button_Click_7" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE897;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" How To Use GTT" /></TextBlock>
         </Button>
     </Grid>
 </Page>

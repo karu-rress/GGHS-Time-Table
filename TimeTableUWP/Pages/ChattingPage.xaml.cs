@@ -39,7 +39,7 @@ public sealed partial class ChattingPage : Page
 
         if (isFirstLoaded)
         {
-            await TimeTablePage.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.", false);
+            await User.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.", false);
             isFirstLoaded = false;
         }
 

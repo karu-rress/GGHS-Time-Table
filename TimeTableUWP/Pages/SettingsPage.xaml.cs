@@ -118,7 +118,7 @@ public sealed partial class SettingsPage : Page
             return;
         }
 
-        if (await TimeTablePage.AuthorAsync() is false)
+        if (await User.AuthorAsync() is false)
         {
             SetDarkToggle(false);
             return;
@@ -137,7 +137,7 @@ public sealed partial class SettingsPage : Page
     }
 
     private async void Button_Click_4(object sender, RoutedEventArgs e)
-    => await TimeTablePage.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
+    => await User.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
 
     private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
     => Info.Settings.SilentMode = SilentToggle.IsOn;

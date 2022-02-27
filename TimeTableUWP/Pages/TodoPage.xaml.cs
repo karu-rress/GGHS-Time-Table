@@ -8,6 +8,7 @@ namespace TimeTableUWP.Pages;
 public sealed partial class TodoListPage : Page
 {
     public static TaskList TaskList { get; set; } = new();
+    private readonly DateTime sat = new(2022, 11, 17);
 
     public TodoListPage()
     {
@@ -18,6 +19,14 @@ public sealed partial class TodoListPage : Page
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         LoadTasks();
+        var now = DateTime.Now;
+        int days = (new DateTime(now.Year, now.Month, now.Day) - sat).Days;
+        dDayText.Text = days switch
+        {
+            < 0 => $"D{days}",
+            0 => "D-Day",
+            > 0 => $"🎓🎉"
+        };
     }
 
     /// <summary>
@@ -118,7 +127,7 @@ public sealed partial class TodoListPage : Page
         int result = TaskList.Undo();
         if (result is 0)
         {
-            await ShowMessageAsync("Nothing to restore.", "Undo Delete", theme: Info.Settings.Theme);
+            await ShowMessageAsync("Nothing to restore.", "Undo Delete", Info.Settings.Theme);
             return;
         }
         ReloadTasks();

@@ -15,7 +15,8 @@ V5.0
 - Anonymous 공지 및 오류 보고 봇 추가 (Beta 7)
 - Coral 레벨 공지 읽기 가능하도록 변경 (Beta 8)
 - 피드백 전송시 Anonymous에서 알림 (Beta 8)
-- [예정] 알람 기능 삭제 (Release Candidate)
+- 알람 기능 삭제 (Release Candidate)
+- (GTD) 수능 디데이 카운터 추가 (Release Candidate)
 - [예정] 3-1 사탐방 클래스룸 추가 (Release Candidate)
 - [예정] 10기 시간표 정식 지원 (Release Candidate)
 	:: 업데이트 순서 ::

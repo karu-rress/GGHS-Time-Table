@@ -36,7 +36,8 @@ public class TimeTable
         // 반별 공통과목 제한
         // 예를 들어, 1반이 모두 언매, 확통이라면
         // CommonSubject = Common.Korean | Common.Math
-        // Subjects.Korean = Korean.언매
+
+        // Subjects.Korean = Korean.언매 <- 근데 이건 애초에 TimeTable을 저렇게 대입하면 필요 없음.
         // Subjects.Math = Math.Probabiility..
 
         // TODO 1: 반별 공통과목 제한하기

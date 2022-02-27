@@ -1,10 +1,7 @@
 ﻿#nullable enable
 
 using Windows.UI.Text;
-using Windows.UI.Xaml.Input;
-using Windows.UI;
 using Windows.UI.Xaml.Controls.Primitives;
-using TimeTableUWP.Pages;
 
 namespace TimeTableUWP.Todo;
 public class TaskButton : Button

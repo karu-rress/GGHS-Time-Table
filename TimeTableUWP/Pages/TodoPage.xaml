@@ -9,6 +9,20 @@
     Loaded="Page_Loaded">
 
     <Grid>
+        <Grid Name="ddayGrid" Margin="0,28,100,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="FontSize" Value="30" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </Grid.Resources>
+            <TextBlock x:Name="dDayText" FontSize="72" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" VerticalAlignment="Center" HorizontalAlignment="Right" Text="D-263" />
+            <TextBlock Text="너의 꿈을 응원해" Margin="0,23,0,0" FontSize="26" />
+            <TextBlock Text="2023 대학수학능력시험" Margin="0,62,0,0" FontSize="19"/>
+        </Grid>
+
         <Grid Margin="139,23,0,0" HorizontalAlignment="Left" Width="381" Height="118" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">

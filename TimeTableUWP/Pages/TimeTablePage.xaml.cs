@@ -20,9 +20,6 @@ public sealed partial class TimeTablePage : Page
 
         if (Info.User.Status is not LoadStatus.NewlyInstalled)
         {
-            // TODO
-            // 몇 반인지는 이미 Info.User.Class에 Load됨.
-            // 콤보박스에 이전에 선택한 string 띄우기
             classComboBox.SelectedIndex = Info.User.Class - 1;
             if (Korean.Selected != Korean.Default)
                 korComboBox.SelectedItem = Subjects.Korean.FullName;
@@ -211,13 +208,13 @@ public sealed partial class TimeTablePage : Page
         if (Info.User.ActivationLevel is ActivationLevel.None)
         {
             // 인증을 하지 않았다면 return
-            if (await ActivateAsync() is false)
+            if (await User.ActivateAsync() is false)
                 return;
 
             SetSubText();
         }
         
-        if (GetClassZoomLink().TryGetValue(subjectCellName, out OnlineLink? online) is false || (online is null))
+        if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
         {
             // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
             await ShowMessageAsync($"Links for {subjectCellName} is currently not available.\n"
@@ -227,51 +224,6 @@ public sealed partial class TimeTablePage : Page
 
         ZoomDialog contentDialog = new(Info.User.Class, subjectCellName, online);
         await contentDialog.ShowAsync();
-    }
-
-    /// <summary>
-    /// Shows activation dialog and activate.
-    /// </summary>
-    /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
-    /// <returns>true if activated. Otherwise, false</returns>
-    public static async Task<bool> ActivateAsync(string? msg = null)
-    {
-        ActivateDialog activateDialog = msg is null ? new() : new(msg);
-        ContentDialogResult activeSelection = await activateDialog.ShowAsync();
-
-        if (activeSelection is not ContentDialogResult.Primary || Info.User.ActivationLevel is ActivationLevel.None)
-            return false;
-
-        string license = Info.User.ActivationLevel switch
-        {
-            ActivationLevel.Developer => "developer",
-            ActivationLevel.Azure => "Azure",
-            ActivationLevel.Bisque => "Bisque",
-            ActivationLevel.Coral => "Coral",
-            ActivationLevel.None or _ => throw new DataAccessException("MainPage.Activate(): ActivationLevel value error"),
-        };
-        await ShowMessageAsync($"Activated as {license}.", "Activated successfully", Info.Settings.Theme);
-        return true;
-    }
-
-    /// <summary>
-    /// Shows activation dialog and activate as Azure/Bisque.
-    /// </summary>
-    /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
-    /// <returns>true if activated as Azure/Bisque. Otherwise, false</returns>
-    public static async Task<bool> AuthorAsync(string? msg = null, bool showMessage = true)
-    {
-        if (Info.User.IsSpecialLevel)
-            return true;
-
-        _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
-        if (!Info.User.IsSpecialLevel)
-        {
-            if (showMessage)
-                await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);
-            return false;
-        }
-        return true;
     }
 
     private Dictionary<string, OnlineLink?> GetClassZoomLink() => Info.User.Class switch

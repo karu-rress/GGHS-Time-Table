@@ -31,7 +31,7 @@ public class Version
     public static bool operator !=(Version v1, Version v2) => v1.Value != v2.Value;
     public override bool Equals(object obj) => (obj is Version rhs) && Value == rhs.Value;
     public override int GetHashCode() => Value.GetHashCode();
-    public char GetLastNumber() => Value[Value.Length - 1];
+    public char GetLastNumber() => Value[^1];
 }
 
 [DataContract(Name = "Settings")]

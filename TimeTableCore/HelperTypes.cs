@@ -26,6 +26,11 @@
         Coral,
         None,
     }
+
+    public class BaseUser
+    {
+        public int Class { get; set; }
+    }
 }
 
 namespace System.Runtime.CompilerServices

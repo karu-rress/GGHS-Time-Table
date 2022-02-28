@@ -2,6 +2,7 @@
 
 using Windows.UI.Xaml.Documents;
 using Windows.System;
+using RollingRess.UWP.UI;
 
 namespace TimeTableUWP.Pages;
 
@@ -119,10 +120,7 @@ public sealed partial class SettingsPage : Page
         }
 
         Info.Settings.IsDarkMode = darkToggle.IsOn;
-        if (Window.Current.Content is FrameworkElement frameworkElement)
-        {
-            frameworkElement.RequestedTheme = Info.Settings.Theme;
-        }
+        AppStyle.SetTheme(Info.Settings.Theme);
     }
 
     private void SetDarkToggle(bool value)

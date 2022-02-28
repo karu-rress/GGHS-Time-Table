@@ -13,15 +13,14 @@ public sealed partial class MainPage : Page
     public MainPage()
     {
         InitializeComponent();
-        Navigation.RequestedTheme = Info.Settings.Theme;
+        // Navigation.RequestedTheme = Info.Settings.Theme;
 
-        /*
+        
         CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
         ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
         titleBar.ButtonBackgroundColor = Colors.Transparent;
         titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        Window.Current.SetTitleBar(new TextBlock { Text = "GGHS Time Tale", HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top });
-        */
+        
 
         // NavigationFrame = Frame;
         if (IsGoingToTodoPage)

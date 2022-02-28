@@ -6,10 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Pages.SettingsPage"
-    mc:Ignorable="d"
-    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+    mc:Ignorable="d">
     <Page.Resources>
         <CornerRadius x:Key="corner">10</CornerRadius>
+        <FontFamily x:Key="iconFont">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
     <Grid x:Name="mainGrid">
         <Grid.Resources>
@@ -51,24 +51,24 @@
       IsHexInputVisible="False" IsAlphaEnabled="False" IsAlphaSliderVisible="False" IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
                 <Button Margin="368,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
-                    <TextBlock><Run Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
+                    <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
                 </Button>
             </Grid>
         </ScrollViewer>
         <Button x:Name="aboutButton" Margin="0,100,55,0" Click="Button_Click_1" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
+            <TextBlock><Run Text="&#xE946;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
         </Button>
         <Button x:Name="feedbackButton" Margin="0,200,55,0" Click="Button_Click_2" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
+            <TextBlock><Run Text="&#xE724;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
         </Button>
         <Button x:Name="activateButton" Margin="0,300,55,0" Click="Button_Click_4" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Change Activation Key" /></TextBlock>
+            <TextBlock><Run Text="&#xE8D7;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Change Activation Key" /></TextBlock>
         </Button>
         <Button x:Name="troubleButton" Margin="0,400,55,0" Click="Button_Click_5" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
+            <TextBlock><Run Text="&#xE7BA;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
         </Button>
         <Button x:Name="howtoButton" Margin="0,500,55,0" Click="Button_Click_7" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE897;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" How To Use GTT" /></TextBlock>
+            <TextBlock><Run Text="&#xE897;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" How To Use GTT" /></TextBlock>
         </Button>
     </Grid>
 </Page>

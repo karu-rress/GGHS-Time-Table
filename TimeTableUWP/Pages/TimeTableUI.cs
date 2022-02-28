@@ -26,7 +26,7 @@ public sealed partial class TimeTablePage : Page
             await ShowMessageAsync(Messages.Welcome, Datas.GTTWithVer, Info.Settings.Theme, XamlRoot);
 
         else if (Info.User.Status is LoadStatus.Updated)
-            await ShowMessageAsync(Messages.Updated, "New version installed", xamlRoot: XamlRoot);
+            await ShowMessageAsync(Messages.Updated, "New version installed", Info.Settings.Theme, XamlRoot);
 
         // TimeTablePage를 다시 띄웠을 때 똑같은 메시지가 뜨지 않게
         Info.User.Status = LoadStatus.Normal;
@@ -189,11 +189,11 @@ public sealed partial class TimeTablePage : Page
     {
         foreach (var item in Buttons)
         {
-            item.RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+            item.RequestedTheme = Info.Settings.Theme;
             item.Background = new SolidColorBrush(Info.Settings.IsDarkMode
                 ? Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
-                : Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
-            item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
+                : Colors.White); //Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
+             item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
         }
     }
 

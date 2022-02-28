@@ -221,8 +221,8 @@ public sealed partial class TimeTablePage : Page
         
         if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
         {
-            await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName),
-                "No data", Info.Settings.Theme);
+            await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName, Info.Settings.Theme),
+            "No data", Info.Settings.Theme);
             return;
         }
 

@@ -85,7 +85,7 @@ public sealed partial class TodoListPage : Page
         TaskList.RemoveAll(match);
 
         ReloadTasks();
-        await ShowMessageAsync($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title);
+        await ShowMessageAsync($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title, Info.Settings.Theme);
     }
 
     private async void DeletePastButton_Click(object _, RoutedEventArgs e)
@@ -131,6 +131,6 @@ public sealed partial class TodoListPage : Page
             return;
         }
         ReloadTasks();
-        await ShowMessageAsync($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete");
+        await ShowMessageAsync($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete", Info.Settings.Theme);
     }
 }

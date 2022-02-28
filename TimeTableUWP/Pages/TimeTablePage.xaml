@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
     Loaded="Page_Loaded">
 
     <Page.Resources>
@@ -14,10 +13,12 @@
         <SolidColorBrush x:Key="dayColor" Color="#EEE3CAEB" />
         <CornerRadius x:Key="corner">10</CornerRadius>
         <!-- Red, LightGreen, LightSteelBlue, HotPink 등등 -->
-        <SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" />
+        <!--SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" /-->
+        <SolidColorBrush x:Key="cellColor" Color="White" />
         <x:String x:Key="gridThick">5</x:String>
         <x:Int32 x:Key="cellFontSize">25</x:Int32>
         <x:Int32 x:Key="comboFontSize">22</x:Int32>
+        <FontFamily x:Key="font">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
 
     <Grid Name="mainGrid" Margin="0,0,0,0" >
@@ -152,7 +153,7 @@
             <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="SpecialButtons_Click" />
             <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
             <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" >
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" FontSize="28"/>
+                <FontIcon FontFamily="{StaticResource font}" Glyph="&#xE80F;" FontSize="28"/>
             </Button>
         </Grid>
 

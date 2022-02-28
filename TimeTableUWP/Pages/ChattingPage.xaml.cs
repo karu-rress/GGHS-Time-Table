@@ -35,7 +35,7 @@ public sealed partial class ChattingPage : Page
     {
         if (!Connection.IsInternetAvailable)
         {
-            await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error");
+            await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error", Info.Settings.Theme);
             return;
         }
 
@@ -46,7 +46,7 @@ public sealed partial class ChattingPage : Page
         }
 
         if (!Info.User.IsSpecialLevel)
-            await ShowMessageAsync(Messages.NotAuthored, title);
+            await ShowMessageAsync(Messages.NotAuthored, title, Info.Settings.Theme);
 
 
         if (Info.User.ActivationLevel is ActivationLevel.Developer)
@@ -136,7 +136,7 @@ public sealed partial class ChattingPage : Page
 
             while (!Connection.IsInternetAvailable)
             {
-                await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error");
+                await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error", Info.Settings.Theme);
                 await Task.Delay(1900);
             }
 
@@ -173,7 +173,7 @@ public sealed partial class ChattingPage : Page
         {
             if (textBox.IsNullOrWhiteSpace())
             {
-                await ShowMessageAsync("보낼 메시지를 입력하세요.", title);
+                await ShowMessageAsync("보낼 메시지를 입력하세요.", title, Info.Settings.Theme);
                 return;
             }
             // 욕설 필터링
@@ -197,7 +197,7 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception ex)
         {
-            await Task.WhenAll(ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title),
+            await Task.WhenAll(ShowMessageAsync("채팅 전송에 실패했습니다.\n" + ex.ToString(), title, Info.Settings.Theme),
                 TimeTableException.HandleException(ex));
         }
     }
@@ -208,7 +208,7 @@ public sealed partial class ChattingPage : Page
         {
             if (textBox.IsNullOrWhiteSpace())
             {
-                await ShowMessageAsync("보낼 공지를 입력하세요.", title);
+                await ShowMessageAsync("보낼 공지를 입력하세요.", title, Info.Settings.Theme);
                 return;
             }
             // 욕설 필터링
@@ -223,7 +223,7 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception ex)
         {
-            await Task.WhenAll(ShowMessageAsync("공지 등록 또는 봇 전송에 실패했습니다.\n" + ex.ToString(), title),
+            await Task.WhenAll(ShowMessageAsync("공지 등록 또는 봇 전송에 실패했습니다.\n" + ex.ToString(), title, Info.Settings.Theme),
                 TimeTableException.HandleException(ex));
         }
     }
@@ -232,7 +232,7 @@ public sealed partial class ChattingPage : Page
     {
         if (string.IsNullOrWhiteSpace(query))
         {
-            await ShowMessageAsync("Enter query.", title);
+            await ShowMessageAsync("Enter query.", title, Info.Settings.Theme);
             return;
         }
         try
@@ -244,8 +244,8 @@ public sealed partial class ChattingPage : Page
         }
         catch (Exception e)
         {
-            await Task.WhenAll(ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title),
-                TimeTableException.HandleException(e));
+            await Task.WhenAll(ShowMessageAsync("Failed to run the SQL query. \n" + e.ToString(), title, Info.Settings.Theme),
+            TimeTableException.HandleException(e));
         }
     }
 

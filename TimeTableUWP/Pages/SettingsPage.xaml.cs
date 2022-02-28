@@ -30,7 +30,7 @@ public sealed partial class SettingsPage : Page
     {
         InitializeComponent();
         use24Toggle.IsOn = Info.Settings.Use24Hour;
-        RequestedTheme = Info.Settings.Theme;
+        // RequestedTheme = Info.Settings.Theme;
         dateFormatRadio.SelectedIndex = DateFormatDict[Info.Settings.DateFormat];
         colorPicker.Color = Info.Settings.ColorType;
         SilentToggle.IsOn = Info.Settings.SilentMode;
@@ -89,7 +89,7 @@ public sealed partial class SettingsPage : Page
             SecondaryButtonText = "Open Tistory",
             CloseButtonText = "Close",
             DefaultButton = ContentDialogButton.Primary,
-            RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light,
+            RequestedTheme = Info.Settings.Theme,
 
         };
 
@@ -119,11 +119,9 @@ public sealed partial class SettingsPage : Page
         }
 
         Info.Settings.IsDarkMode = darkToggle.IsOn;
-        RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
-
         if (Window.Current.Content is FrameworkElement frameworkElement)
         {
-            frameworkElement.RequestedTheme = RequestedTheme;
+            frameworkElement.RequestedTheme = Info.Settings.Theme;
         }
     }
 
@@ -145,7 +143,7 @@ public sealed partial class SettingsPage : Page
     => Info.Settings.SilentMode = SilentToggle.IsOn;
 
     private async void Button_Click_5(object sender, RoutedEventArgs e)
-    => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot");
+    => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot", Info.Settings.Theme);
 
     private void Button_Click_6(object sender, RoutedEventArgs e)
     => colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
@@ -178,8 +176,7 @@ public sealed partial class SettingsPage : Page
             PrimaryButtonText = "자세한 사용법 보기",
             CloseButtonText = "닫기",
             DefaultButton = ContentDialogButton.Primary,
-            RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light,
-
+            RequestedTheme = Info.Settings.Theme
         };
 
         if (await contentDialog.ShowAsync() is ContentDialogResult.Primary)

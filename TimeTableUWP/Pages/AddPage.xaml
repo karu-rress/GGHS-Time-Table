@@ -6,9 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Pages.AddPage"
-    mc:Ignorable="d"
-    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+    mc:Ignorable="d">
 
+    <Page.Resources>
+        <FontFamily x:Key="iconFont">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
+    </Page.Resources>
     <Grid>
         <Grid.Resources>
             <Style TargetType="TextBox">
@@ -76,13 +78,13 @@
                 </Style>
             </Grid.Resources>
             <Button x:Name="SaveButton" Margin="0,115,0,0" Click="SaveButton_Click" BorderThickness="2.4" >
-                <TextBlock><Run Text="&#xE74E;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Save"/></TextBlock>
+                <TextBlock><Run Text="&#xE74E;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Save"/></TextBlock>
             </Button>
             <Button x:Name="CancelButton" Margin="0,280,0,0" Click="CancelButton_Click">
-                <TextBlock><Run Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Cancel"/></TextBlock>
+                <TextBlock><Run Text="&#xE711;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Cancel"/></TextBlock>
             </Button>
             <Button x:Name="DeleteButton" Margin="0,445,0,0" Click="DeleteButton_Click" Visibility="Collapsed">
-                <TextBlock><Run Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Delete"/></TextBlock>
+                <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete"/></TextBlock>
             </Button>
         </Grid>
     </Grid>

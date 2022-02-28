@@ -82,7 +82,7 @@ public class TaskButton : Button
         arrow = new()
         {
             Text = "\xE971", // E9B9 
-            FontFamily = new("Segoe MDL2 Assets"),
+            FontFamily = new("../Assets/Segoe#Segoe Fluent Icons"),
             FontSize = 17,
             Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
             VerticalAlignment = VerticalAlignment.Center,

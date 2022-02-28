@@ -85,7 +85,7 @@ public class TimeTables
         Subjects.EnglishLiterature, Subjects.Korean, Subjects.Reading, Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A(), Subjects.Global1,
         Subjects.Sports, Subjects.Language, Subjects.Math, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.A(), Subjects.Empty,
         Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.B(), Subjects.Math, Subjects.Reading, Subjects.Global2, Subjects.Global1,
-        Subjects.EnglishLiterature, Subjects.Global1, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.EnglishLiterature, Subjects.Global1, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class2 { get; } = new(2, new Subject[]
     {
@@ -93,7 +93,7 @@ public class TimeTables
         Subjects.Sports, Subjects.Korean, Subjects.Global1, Subjects.Global2, Subjects.Language, Subjects.Reading, Subjects.Global1,
         Subjects.AdvancedEnglish.A(), Subjects.Language, Subjects.Math, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.B(), Subjects.Empty,
         Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.A(), Subjects.Math, Subjects.Global1, Subjects.Global2, Subjects.Sports,
-        Subjects.AdvancedEnglish.A(), Subjects.EnglishLiterature, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.AdvancedEnglish.A(), Subjects.EnglishLiterature, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class3 { get; } = new(3, new Subject[]
     {
@@ -101,7 +101,7 @@ public class TimeTables
         Subjects.Global2, Subjects.Korean, Subjects.Math, Subjects.EnglishLiterature, Subjects.Language, Subjects.Math, Subjects.AdvancedEnglish.A(),
         Subjects.Math, Subjects.Language, Subjects.Global2, Subjects.Social, Subjects.Reading, Subjects.Global1, Subjects.Empty,
         Subjects.Social, Subjects.Language, Subjects.Reading, Subjects.EnglishLiterature, Subjects.AdvancedEnglish.A(), Subjects.Global1, Subjects.AdvancedEnglish.B(),
-        Subjects.Global1, Subjects.AdvancedEnglish.A(), Subjects.Sports, Subjects.Korean, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.Global1, Subjects.AdvancedEnglish.A(), Subjects.Sports, Subjects.Korean, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class4 { get; } = new(4, new Subject[]
     {
@@ -109,7 +109,7 @@ public class TimeTables
         Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A(), Subjects.Math, Subjects.Social, Subjects.AdvancedEnglish.B(), Subjects.Sports,
         Subjects.Korean, Subjects.Sports, Subjects.Global2, Subjects.AdvancedEnglish.A(), Subjects.Social, Subjects.Global1, Subjects.Empty,
         Subjects.Math, Subjects.EnglishLiterature, Subjects.Korean, Subjects.Math, Subjects.AdvancedEnglish.B(), Subjects.Global1, Subjects.AdvancedEnglish.A(),
-        Subjects.Global1, Subjects.Math, Subjects.Language, Subjects.Reading, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.Global1, Subjects.Math, Subjects.Language, Subjects.Reading, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class5 { get; } = new(5, new Subject[]
     {
@@ -117,7 +117,7 @@ public class TimeTables
         Subjects.AdvancedEnglish.A(), Subjects.Language, Subjects.Math, Subjects.AdvancedEnglish.B(), Subjects.Korean, Subjects.Global1, Subjects.Global2,
         Subjects.Sports, Subjects.Korean, Subjects.Global1, Subjects.AdvancedEnglish.B(), Subjects.Math, Subjects.Reading, Subjects.Empty,
         Subjects.Math, Subjects.Social, Subjects.AdvancedEnglish.A(), Subjects.Global2, Subjects.Korean, Subjects.Reading, Subjects.EnglishLiterature,
-        Subjects.Social, Subjects.AdvancedEnglish.A(), Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.Social, Subjects.AdvancedEnglish.A(), Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class6 { get; } = new(6, new Subject[]
     {
@@ -125,7 +125,7 @@ public class TimeTables
         Subjects.Sports, Subjects.Math, Subjects.Korean, Subjects.EnglishLiterature, Subjects.Reading, Subjects.Global1, Subjects.Global2,
         Subjects.Reading, Subjects.AdvancedEnglish.B(), Subjects.Global1, Subjects.Korean, Subjects.AdvancedEnglish.A(), Subjects.Language, Subjects.Empty,
         Subjects.Math, Subjects.AdvancedEnglish.B(), Subjects.Math, Subjects.Global2, Subjects.AdvancedEnglish.A(), Subjects.Social, Subjects.Sports,
-        Subjects.EnglishLiterature, Subjects.Math, Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.EnglishLiterature, Subjects.Math, Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others, 
     });
     public TimeTable Class7 { get; } = new(7, new Subject[]
     {
@@ -133,7 +133,7 @@ public class TimeTables
         Subjects.Math, Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.A(), Subjects.Korean, Subjects.Global1, Subjects.EnglishLiterature,
         Subjects.Language, Subjects.Global2, Subjects.AdvancedEnglish.A(), Subjects.Math, Subjects.Reading, Subjects.AdvancedEnglish.B(), Subjects.Empty,
         Subjects.Global2, Subjects.Korean, Subjects.EnglishLiterature, Subjects.Math, Subjects.Language, Subjects.Global1, Subjects.AdvancedEnglish.A(),
-        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.AdvancedEnglish.B(), Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.AdvancedEnglish.B(), Subjects.Others, Subjects.Others, 
     });
     public TimeTable Class8 { get; } = new(8, new Subject[]
     {
@@ -141,7 +141,7 @@ public class TimeTables
         Subjects.Language, Subjects.EnglishLiterature, Subjects.Korean, Subjects.Math, Subjects.Global1, Subjects.Social, Subjects.Sports,
         Subjects.Reading, Subjects.Sports, Subjects.AdvancedEnglish.B(), Subjects.Language, Subjects.Global1, Subjects.Global2, Subjects.Empty,
         Subjects.Math, Subjects.AdvancedEnglish.A(), Subjects.Global2, Subjects.Global1, Subjects.EnglishLiterature, Subjects.Korean, Subjects.Math,
-        Subjects.Language, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.A(), Subjects.Others, Subjects.Others, Subjects.HomeComing,
+        Subjects.Language, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.A(), Subjects.Others, Subjects.Others, 
     });
 
     private static TimeTable? table = null;

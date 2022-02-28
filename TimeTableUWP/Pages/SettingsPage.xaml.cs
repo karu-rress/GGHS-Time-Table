@@ -13,7 +13,6 @@ public sealed partial class SettingsPage : Page
         [DateType.YYYYMMDD2] = 1,
         [DateType.MMDDYYYY] = 2,
     };
-    private bool selfToggled = false;
 
     private IEnumerable<Button> buttons
     {
@@ -43,7 +42,7 @@ public sealed partial class SettingsPage : Page
     private void SetButtonColor()
     {
         foreach (Button button in buttons)
-            button.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
+            button.BorderBrush = Info.Settings.Brush;
     }
 
     private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Info.Settings.Use24Hour = use24Toggle.IsOn;
@@ -113,12 +112,6 @@ public sealed partial class SettingsPage : Page
 
     private async void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __)
     {
-        if (selfToggled)
-        {
-            selfToggled = false;
-            return;
-        }
-
         if (await User.AuthorAsync() is false)
         {
             SetDarkToggle(false);
@@ -127,14 +120,22 @@ public sealed partial class SettingsPage : Page
 
         Info.Settings.IsDarkMode = darkToggle.IsOn;
         RequestedTheme = Info.Settings.IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+
+        if (Window.Current.Content is FrameworkElement frameworkElement)
+        {
+            frameworkElement.RequestedTheme = RequestedTheme;
+        }
     }
 
     private void SetDarkToggle(bool value)
     {
         if (darkToggle.IsOn == value)
             return;
-        selfToggled = true;
+
+        RoutedEventHandler handler = new(DarkToggleSwitch_Toggled);
+        darkToggle.Toggled -= handler;
         darkToggle.IsOn = value;
+        darkToggle.Toggled += handler;
     }
 
     private async void Button_Click_4(object sender, RoutedEventArgs e)

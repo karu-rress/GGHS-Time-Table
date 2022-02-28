@@ -22,12 +22,13 @@ public sealed partial class ChattingPage : Page
     public ChattingPage()
     {
         InitializeComponent();
-        
+        RequestedTheme = Info.Settings.Theme;
+
         viewBox.SelectionHighlightColor.Opacity = 0.35;
         viewBox.SelectionHighlightColor.Color = Info.Settings.ColorType;
 
-        TextBoxLineColor.Color = Info.Settings.ColorType; 
-        textBox.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
+        TextBoxLineColor.Color = Info.Settings.ColorType;
+        textBox.BorderBrush = Info.Settings.Brush;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)

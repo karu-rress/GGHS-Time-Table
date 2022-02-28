@@ -41,7 +41,7 @@ public sealed partial class AddPage : Page
         DueDatePicker.MaxYear = DateTimeOffset.Now.AddYears(2);
 
         SubjectPicker.ItemsSource = Subjects;
-        SaveButton.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
+        SaveButton.BorderBrush = Info.Settings.Brush;
 
         if (Task is not null) // Not creating, but modifying
         {

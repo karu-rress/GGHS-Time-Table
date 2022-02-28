@@ -2,6 +2,8 @@
 
 using Windows.UI.Xaml.Media.Animation;
 using TimeTableUWP.Pages;
+using Windows.UI.ViewManagement;
+using Windows.ApplicationModel.Core;
 
 namespace TimeTableUWP;
 public sealed partial class MainPage : Page
@@ -11,6 +13,15 @@ public sealed partial class MainPage : Page
     public MainPage()
     {
         InitializeComponent();
+        Navigation.RequestedTheme = Info.Settings.Theme;
+
+        /*
+        CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+        ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+        titleBar.ButtonBackgroundColor = Colors.Transparent;
+        titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        Window.Current.SetTitleBar(new TextBlock { Text = "GGHS Time Tale", HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top });
+        */
 
         // NavigationFrame = Frame;
         if (IsGoingToTodoPage)

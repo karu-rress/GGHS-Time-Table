@@ -30,8 +30,9 @@ public class Version
 [DataContract(Name = "Settings")]
 public class Settings
 {
-    public static Color DefaultColor { get; } = Color.FromArgb(160, 251, 193, 212);
+    public static Color DefaultColor { get; } = Color.FromArgb(160, 244, 141, 199);
     public ElementTheme Theme => IsDarkMode ? ElementTheme.Dark : ElementTheme.Light;
+    public SolidColorBrush Brush => new(ColorType);
 
     [DataMember] public Color ColorType { get; set; } = DefaultColor;
     [DataMember] public bool Use24Hour { get; set; } = false;

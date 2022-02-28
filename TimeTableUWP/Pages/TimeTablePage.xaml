@@ -151,7 +151,9 @@
             <Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" Click="TableButtons_Click" />
             <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="SpecialButtons_Click" />
             <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" />
+            <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" >
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" FontSize="28"/>
+            </Button>
         </Grid>
 
         <Grid Name="comboBoxGrid" Margin="0,183,55,0" HorizontalAlignment="Right" Width="215">

@@ -15,10 +15,10 @@ public sealed partial class TimeTablePage : Page
     {
         // Set Color
         foreach (Border border in DayBorders)
-            border.Background = new SolidColorBrush(Info.Settings.ColorType);
+            border.Background = Info.Settings.Brush;
 
         foreach (ComboBox combo in ComboBoxes)
-            combo.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
+            combo.BorderBrush = Info.Settings.Brush;
 
         SetSubText();
 
@@ -44,6 +44,7 @@ public sealed partial class TimeTablePage : Page
         _ => string.Empty
     };
 
+
     private void DrawTimeTable()
     {
         TimeTable.ResetClass(Info.User.Class);
@@ -52,16 +53,16 @@ public sealed partial class TimeTablePage : Page
 
     private void AssignButtonsByTable(TimeTable subjectTable)
     {
-        IEnumerable<Subject>? subjects = subjectTable.Data.Cast<Subject>();
-        IEnumerable<(Button btn, Subject subject)>? lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
-        foreach ((Button btn, Subject subject) in lists)
+        var subjects = subjectTable.Data.Cast<Subject>();
+        var lists = Buttons.Zip(subjects, (Button btn, Subject subject) => (btn, subject));
+        foreach (var (btn, subject) in lists)
             btn.Content = subject.Name;
     }
 
     private async Task LoopTimeAsync()
     {
         (int day, int time) pos;
-        // bool invoke = true;
+
         while (true)
         {
             try
@@ -75,11 +76,12 @@ public sealed partial class TimeTablePage : Page
                     continue;
                 }
 
-                pos.day = (int)DateTime.Now.DayOfWeek;
-                pos.time = DateTime.Now.Hour switch
+                DateTime now = DateTime.Now;
+                pos.day = (int)now.DayOfWeek;
+                pos.time = now.Hour switch
                 {
-                    9 or 10 or 11 or 12 => DateTime.Now.Hour - 8,
-                    14 or 15 or 16 => DateTime.Now.Hour - 9,
+                    9 or 10 or 11 or 12 => now.Hour - 8,
+                    14 or 15 or 16 => now.Hour - 9,
                     _ => throw new DataAccessException($"Hour is not in 9, 10, 11, 12, 14, 15, 16. given {DateTime.Now.Hour}.")
                 };
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => ChangeCellColor(pos));
@@ -178,10 +180,9 @@ public sealed partial class TimeTablePage : Page
 #endif
     private void ChangeCellColor((int day, int time) pos)
     {
-        SolidColorBrush brush = new(Info.Settings.ColorType);
-        Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = brush;
+        Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = Info.Settings.Brush;
         if (pos.time <= 6)
-            Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = brush;
+            Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = Info.Settings.Brush;
     }
 
     private void RefreshColor()

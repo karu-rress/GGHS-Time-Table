@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
     Loaded="Page_Loaded">
 
     <Page.Resources>
@@ -33,7 +33,7 @@
         <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 5" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="80,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
-        <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="Transparent">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>

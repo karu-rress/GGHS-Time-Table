@@ -7,7 +7,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Pages.SettingsPage"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
     <Page.Resources>
         <CornerRadius x:Key="corner">10</CornerRadius>
     </Page.Resources>

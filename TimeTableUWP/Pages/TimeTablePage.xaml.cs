@@ -3,6 +3,7 @@
 using TimeTableCore.Grade3.Semester1;
 
 namespace TimeTableUWP.Pages;
+
 public sealed partial class TimeTablePage : Page
 {
     private TimeTables TimeTable { get; } = new();
@@ -20,24 +21,28 @@ public sealed partial class TimeTablePage : Page
 
         if (Info.User.Status is not LoadStatus.NewlyInstalled)
         {
+            SelectionChangedEventHandler handler = new(ComboBox_SelectionChanged);
+            classComboBox.SelectionChanged -= handler;
             classComboBox.SelectedIndex = Info.User.Class - 1;
+            classComboBox.SelectionChanged += handler;
+
             if (Korean.Selected != Korean.Default)
-                korComboBox.SelectedItem = Subjects.Korean.FullName;
+                korComboBox.Select(Subjects.Korean);
 
             if (ttc::Math.Selected != ttc::Math.Default)
-                mathComboBox.SelectedItem = Subjects.Math.FullName;
+                mathComboBox.Select(Subjects.Math);
 
             if (Social.Selected != Social.Default)
-                socialComboBox.SelectedItem = Subjects.Social.FullName;
+                socialComboBox.Select(Subjects.Social);
 
             if (ttc::Language.Selected != ttc::Language.Default)
-                langComboBox.SelectedItem = Subjects.Language.FullName;
+                langComboBox.Select(Subjects.Language);
 
             if (Global1.Selected != Global1.Default)
-                global1ComboBox.SelectedItem = Subjects.Global1.FullName;
+                global1ComboBox.Select(Subjects.Global1);
 
             if (Global2.Selected != Global2.Default)
-                global2ComboBox.SelectedItem = Subjects.Global2.FullName;
+                global2ComboBox.Select(Subjects.Global2);
             // 공통 콤보박스 제한
             DisableComboBoxBySubjects();
         }
@@ -129,7 +134,7 @@ public sealed partial class TimeTablePage : Page
     // TODO: need ref?
     private void DisableComboBoxByClass(ComboBox cb, Subject subject)
     {
-        cb.Text = subject.FullName;
+        cb.Select(subject);
         Disable(cb);
     }
 
@@ -168,8 +173,8 @@ public sealed partial class TimeTablePage : Page
         {
             case "classComboBox":
                 EnableAllCombobox();
-                // TODO: 여기서 초기화하면 시작시에도 날아간다...? 해결좀.
                 Subjects.ResetSelectiveSubjects();
+                Empty(korComboBox, mathComboBox, socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
 
                 Info.User.Class = comboBox.SelectedIndex + 1;
                 TimeTable.ResetClass(Info.User.Class);
@@ -216,9 +221,8 @@ public sealed partial class TimeTablePage : Page
         
         if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
         {
-            // TODO: 선택과목 클릭했을 때는 알림을 조금 다르게...
-            await ShowMessageAsync($"Links for {subjectCellName} is currently not available.\n"
-                + "카루에게 줌 링크 추가를 요청해보세요.", "No data", Info.Settings.Theme);
+            await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName),
+                "No data", Info.Settings.Theme);
             return;
         }
 
@@ -261,9 +265,18 @@ public sealed partial class TimeTablePage : Page
         {
             "fri5Button" or "fri6Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
             "mon6Button" or "mon7Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
+            "wed7Button" => ("자기주도학습 시간입니다.", "수업 없음"),
             "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
             _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
         };
         await ShowMessageAsync(msg, txt, Info.Settings.Theme);
+    }
+}
+
+internal static class Extension
+{
+    public static void Select(this ComboBox cb, Subject subject)
+    {
+        cb.SelectedItem = subject.FullName;
     }
 }

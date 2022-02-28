@@ -17,7 +17,7 @@
         <SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" />
         <x:String x:Key="gridThick">5</x:String>
         <x:Int32 x:Key="cellFontSize">25</x:Int32>
-        <x:Int32 x:Key="comboFontSize">23</x:Int32>
+        <x:Int32 x:Key="comboFontSize">22</x:Int32>
     </Page.Resources>
 
     <Grid Name="mainGrid" Margin="0,0,0,0" >
@@ -48,7 +48,7 @@
             <TextBlock x:Name="amorpmBox" Margin="250,75,120,24"/>
         </Grid>
 
-        <Grid Name="timeTableGrid" Margin="55,180,300,35">
+        <Grid Name="timeTableGrid" Margin="55,180,290,35">
             <Grid.Resources>
                 <Style TargetType="Border">
                     <!-- 요일 칸 배경 -->
@@ -149,12 +149,12 @@
             <Button x:Name="fri6Button" Grid.Row="6" Grid.Column="4" Click="SpecialButtons_Click" />
             <Button x:Name="mon7Button" Grid.Row="7" Grid.Column="0" Click="SpecialButtons_Click" />
             <Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="TableButtons_Click" />
+            <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="SpecialButtons_Click" />
             <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
             <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" />
         </Grid>
 
-        <Grid Name="comboBoxGrid" Margin="0,181,55,0" HorizontalAlignment="Right" Width="215">
+        <Grid Name="comboBoxGrid" Margin="0,183,55,0" HorizontalAlignment="Right" Width="215">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

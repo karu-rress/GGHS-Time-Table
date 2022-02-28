@@ -17,7 +17,7 @@ public partial class SelectionPage : ContentPage
     public SelectionPage()
     {
         InitializeComponent();
-        //    ReadFromSettings();
+        ReadFromSettings();
         SetClassModifier();
     }
 
@@ -91,13 +91,14 @@ public partial class SelectionPage : ContentPage
         if (User.Class is 0)
             return;
 
+#pragma warning disable CS8509
         (Subjects.Korean.FullName switch
         {
             "언어와 매체" => RadioKorLang,
             "화법과 작문" => RadioKorSpeech,
         }).IsChecked = true;
         (Subjects.Math.FullName switch
-        {
+        { 
             "확률과 통계" => RadioMathProbaility,
             "미적분" => RadioMathDaic,
         }).IsChecked = true;
@@ -107,6 +108,22 @@ public partial class SelectionPage : ContentPage
             "한국지리" => RadioSocialGeo,
             "사회·문화" => RadioSocialCulture,
         }).IsChecked = true;
-        // TODO: 계속하기
+        (Subjects.Language.FullName switch
+        {
+            "스페인어권 문화" => RadioLangSpanish,
+            "일본문화" => RadioLangJapanese,
+            "중국문화" => RadioLangChinese,
+        }).IsChecked= true;
+        (Subjects.Global1.FullName switch
+        {
+            "사회 탐구 방법" => RadioGlobalSocial,
+            "한국 사회의 이해" => RadioGlobalKorean,
+        }).IsChecked = true;
+        (Subjects.Global2.FullName switch
+        {
+            "세계 문제와 미래 사회" => RadioGlobalFuture,
+            "윤리학 연습" => RadioGlobalEthics,
+        }).IsChecked = true;
+#pragma warning restore
     }
 }

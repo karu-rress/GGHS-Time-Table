@@ -81,13 +81,13 @@ public class TaskButton : Button
     {
         arrow = new()
         {
-            Text = "\xE76C",
+            Text = "\xE971", // E9B9 
             FontFamily = new("Segoe MDL2 Assets"),
             FontSize = 17,
             Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new(0, 0, 10, 0)
+            Margin = new(0, 0, 15, 0)
         };
     }
 

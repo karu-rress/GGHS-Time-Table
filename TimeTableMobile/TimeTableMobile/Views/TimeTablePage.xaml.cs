@@ -114,7 +114,10 @@ public partial class TimeTablePage : ContentPage
         try
         {
             if (SelectionPage.User.Class is 0)
-                throw new Exception();
+            {
+                ErrorLabel.IsVisible=true;
+                return;
+            }
 
             MainLabel.Text = $"Class {SelectionPage.User.Class} Timetable";
 

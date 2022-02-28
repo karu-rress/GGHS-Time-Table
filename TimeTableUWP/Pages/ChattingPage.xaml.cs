@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+
 namespace TimeTableUWP.Pages;
 public sealed partial class ChattingPage : Page
 {
@@ -49,9 +50,9 @@ public sealed partial class ChattingPage : Page
 
         if (Info.User.ActivationLevel is ActivationLevel.Developer)
         {
-            camoButtonA.Visibility = camoButtonB.Visibility = sqlButton.Visibility
-                = delButton.Visibility = notiButton.Visibility = Visibility.Visible;
-            textBox.Margin = new(55, 0, 131, 35);
+            Visible(camoButtonA, camoButtonB, camoButtonC,
+                sqlButton, delButton, notiButton, botButton);
+            textBox.Margin = new(55, 0, 167, 35);
         }
 
 
@@ -83,6 +84,9 @@ public sealed partial class ChattingPage : Page
             case "camoButtonB":
                 await SendMessageAsync(ActivationLevel.Bisque);
                 break;
+            case "camoButtonC":
+                await SendMessageAsync(ActivationLevel.Coral);
+                break;
             case "sqlButton":
                 await RunSQL(textBox.Text);
                 break;
@@ -92,12 +96,15 @@ public sealed partial class ChattingPage : Page
             case "notiButton":
                 await SendNotificationAsync();
                 break;
+            case "botButton":
+                await SendNotificationAsync(true);
+                break;
         }
     }
 
     private async Task LoadChatsAsync()
     {
-        progressGrid.Visibility = Visibility.Visible;
+        Visible(progressGrid);
 
         DataTable dt = new();
         using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
@@ -115,7 +122,7 @@ public sealed partial class ChattingPage : Page
         }
 
         viewBox.Text = sb.ToString();
-        progressGrid.Visibility = Visibility.Collapsed;
+        Invisible(progressGrid);
         ScrollViewBox();
     }
 
@@ -194,7 +201,7 @@ public sealed partial class ChattingPage : Page
         }
     }
 
-    private async Task SendNotificationAsync()
+    private async Task SendNotificationAsync(bool isBot = false)
     {
         try
         {
@@ -208,11 +215,14 @@ public sealed partial class ChattingPage : Page
             using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
             using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
-            await chatmessage.InsertAsync((byte)ChatMessageDac.Sender.Notification, "【공지】 " + textBox.Text);
+            if (isBot)
+                await chatmessage.InsertAsync((byte)ChatMessageDac.Sender.GttBot, textBox.Text);
+            else
+                await chatmessage.InsertAsync((byte)ChatMessageDac.Sender.Notification, "【공지】 " + textBox.Text);
         }
         catch (Exception ex)
         {
-            await Task.WhenAll(ShowMessageAsync("공지 등록에 실패했습니다.\n" + ex.ToString(), title),
+            await Task.WhenAll(ShowMessageAsync("공지 등록 또는 봇 전송에 실패했습니다.\n" + ex.ToString(), title),
                 TimeTableException.HandleException(ex));
         }
     }
@@ -279,6 +289,7 @@ public sealed partial class ChattingPage : Page
         ActivationLevel.Developer => 0,
         ActivationLevel.Azure => 1,
         ActivationLevel.Bisque => 2,
+        ActivationLevel.Coral => 5,
         _ => throw new ArgumentException($"ChattingPage.Convert(ActivationLevel): unknown '{level}'.")
     };
 
@@ -287,6 +298,7 @@ public sealed partial class ChattingPage : Page
         0 => "Karu",
         1 or 3 => "Azure",
         2 or 4 => "Bisque",
+        5 => "Coral",
         8 => "Karu✅",
         9 => "GTTℹ️",
         _ => level.ToString(),

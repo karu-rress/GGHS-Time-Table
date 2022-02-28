@@ -25,7 +25,6 @@ internal static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-RC1.5";
     public const string GTTWithVer = "GGHS Time Table 5";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }
@@ -39,13 +38,18 @@ internal static class Messages
     {
         public const string Activate = "{0}\n카루에게 제공받은 인증키를 입력하세요.\n인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다."
             +"\n인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
+        public const string NotAvailable = "Links for {0} is currently not available.\n"
+                + "카루에게 링크 추가를 요청해보세요.";
     }
 
     public const string WhatsNew =
-@"- 알람 기능 삭제
+@"- 3학년 시간표 정식 지원
 - (GTD) 수능 디데이 카운터 추가
-- 3-1 사탐방 클래스룸 추가
-- GGHS Todo / GGHS Anonymous UI 조정";
+- 익명 채팅방 GGHS Anonymous 추가
+- 전체적인 UI 조정 및 색상 적용 확대
+- 사용설명서 메뉴 추가";
+
+
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {
         '0' or '3' or '6' => "으로",

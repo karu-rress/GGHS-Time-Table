@@ -38,21 +38,24 @@
         <TextBox x:Name="viewBox" Margin="55,115,55,82" IsReadOnly="True" CanDrag="False" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
         <TextBox x:Name="textBox" Margin="55, 0, 55, 35" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
                  KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False"  VerticalAlignment="Bottom" BorderThickness="1.8"/>
-        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,91,35" Click="Button_Click" Width="35" />
-        <Button x:Name="camoButtonB" Content="B" CornerRadius="0, 5, 5, 0" Margin="0,0,55,35" Click="Button_Click" Width="35" />
-        <Grid Margin="0,50,40,0" HorizontalAlignment="Right" Width="265" Height="49" VerticalAlignment="Top">
+        <Grid Margin="0,50,55,0" HorizontalAlignment="Right" Width="405" Height="50" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="Button">
-                    <Setter Property="Width" Value="87"/>
+                    <Setter Property="Width" Value="97"/>
                     <Setter Property="Height" Value="50"/>
                     <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
             </Grid.Resources>
-            <Button x:Name="sqlButton" Content="SQL" HorizontalAlignment="Left" CornerRadius="10, 0, 0, 10" Click="Button_Click"/>
-            <Button x:Name="delButton" Content="DEL" HorizontalAlignment="Center" Click="Button_Click"/>
-            <Button x:Name="notiButton" Content="NOTI" HorizontalAlignment="Right" CornerRadius="0, 10, 10, 0"  Click="Button_Click"/>
+            <Button x:Name="sqlButton" Content="SQL🖥" CornerRadius="10, 0, 0, 10" Click="Button_Click" Margin="0, 0, 297, 0"/>
+            <Button x:Name="delButton" Content="DEL❌" Click="Button_Click" Margin="0, 0, 198, 0" />
+            <Button x:Name="botButton" Content="BOTℹ️"  Click="Button_Click" Margin="0, 0, 99, 0"/>
+            <Button x:Name="notiButton" Content="NOTI✅" CornerRadius="0, 10, 10, 0"  Click="Button_Click" />
         </Grid>
+        <Button x:Name="camoButtonA" Content="A" CornerRadius="5, 0, 0, 5" Margin="0,0,127,35" Click="Button_Click" Width="35" />
+        <Button x:Name="camoButtonB" Content="B" CornerRadius="0" Margin="0,0,91,35" Click="Button_Click" Width="35" />
+        <Button x:Name="camoButtonC" Content="C" CornerRadius="0, 5, 5, 0" Margin="0,0,55,35" Click="Button_Click" Width="35" />
     </Grid>
 </Page>

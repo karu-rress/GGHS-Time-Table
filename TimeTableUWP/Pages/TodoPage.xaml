@@ -71,7 +71,7 @@
                 <TextBlock><Run Text="&#xE7A7;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Undo Delete"/></TextBlock>
             </Button>
         </Grid>
-        <ScrollViewer Margin="55,175,307,35">
+        <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="TaskGrid"/>
         </ScrollViewer>
     </Grid>

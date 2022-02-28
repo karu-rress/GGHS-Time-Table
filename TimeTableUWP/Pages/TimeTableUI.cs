@@ -114,6 +114,7 @@ public sealed partial class TimeTablePage : Page
         }
     }
 
+#if TOAST_ENABLED
     private async Task SendToast((int day, int time) pos)
     {
         int hour = DateTime.Now.Hour + 1; // 현재의 다음 시간이니까 +1
@@ -174,7 +175,7 @@ public sealed partial class TimeTablePage : Page
         builder.SetTrigger(new ToastNotificationActionTrigger());
         BackgroundTaskRegistration registration = builder.Register();
     }
-
+#endif
     private void ChangeCellColor((int day, int time) pos)
     {
         SolidColorBrush brush = new(Info.Settings.ColorType);

@@ -17,14 +17,7 @@ public class Version
     /// <summary>
     /// GGHS Time Table's version: string value with the format "X.X.X"
     /// </summary>
-    [DataMember]
-    public string Value { get; set; }
-#if BETA
-        = Datas.Version;
-#else
-        = PackageVer.ParseString();
-#endif
-    // public static implicit operator string(Version v) => v.Value;
+    [DataMember] public string Value { get; set; } = PackageVer.ParseString();
 
     public override string ToString() => Value;
     public static bool operator ==(Version v1, Version v2) => v1.Value == v2.Value;

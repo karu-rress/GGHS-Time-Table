@@ -189,11 +189,12 @@ public sealed partial class TimeTablePage : Page
     {
         foreach (var item in Buttons)
         {
+            // 색상 뭘로 할지.
             item.RequestedTheme = Info.Settings.Theme;
             item.Background = new SolidColorBrush(Info.Settings.IsDarkMode
-                ? Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
-                : Colors.White); //Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
-             item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
+                ? Color.FromArgb(0xee, 57, 57, 57) // Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
+                : Colors.White); // Color.FromArgb(0xee, 249, 249, 249)); 
+            item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
         }
     }
 

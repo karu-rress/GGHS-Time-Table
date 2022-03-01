@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Page.Resources>
-        <FontFamily x:Key="iconFont">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
     <Grid>
         <Grid Name="ddayGrid" Margin="0,32,96,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="Transparent">
@@ -36,7 +36,7 @@
             <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="294" Margin="-40,0,0,0"/>
             <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="382" Margin="-40,77,0,0"/>
         </Grid>
-        <Grid Margin="10,175,55,10" HorizontalAlignment="Right" Width="215">
+        <Grid Margin="10,175,55,35" HorizontalAlignment="Right" Width="215">
             <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="CornerRadius" Value="10" />

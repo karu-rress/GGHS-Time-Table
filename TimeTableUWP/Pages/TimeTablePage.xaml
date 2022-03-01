@@ -18,7 +18,7 @@
         <x:String x:Key="gridThick">5</x:String>
         <x:Int32 x:Key="cellFontSize">25</x:Int32>
         <x:Int32 x:Key="comboFontSize">22</x:Int32>
-        <FontFamily x:Key="font">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
 
     <Grid Name="mainGrid" Margin="0,0,0,0" >
@@ -153,7 +153,8 @@
             <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="SpecialButtons_Click" />
             <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
             <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" >
-                <FontIcon FontFamily="{StaticResource font}" Glyph="&#xE80F;" FontSize="28"/>
+                
+                <FontIcon FontFamily="{StaticResource iconFont}" Glyph="&#xE80F;" FontSize="28"/>
             </Button>
         </Grid>
 

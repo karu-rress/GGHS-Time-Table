@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <FontFamily x:Key="iconFont">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
     <Grid>
         <Grid.Resources>

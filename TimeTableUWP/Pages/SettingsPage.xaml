@@ -9,8 +9,9 @@
     mc:Ignorable="d">
     <Page.Resources>
         <CornerRadius x:Key="corner">10</CornerRadius>
-        <FontFamily x:Key="iconFont">../Assets/Segoe#Segoe Fluent Icons</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
+
     <Grid x:Name="mainGrid">
         <Grid.Resources>
             <Style TargetType="TextBlock">

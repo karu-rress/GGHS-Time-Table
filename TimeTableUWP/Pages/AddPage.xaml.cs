@@ -41,7 +41,7 @@ public sealed partial class AddPage : Page
         DueDatePicker.MaxYear = DateTimeOffset.Now.AddYears(2);
 
         SubjectPicker.ItemsSource = Subjects;
-        SaveButton.BorderBrush = new SolidColorBrush(Info.Settings.ColorType);
+        SaveButton.BorderBrush = Info.Settings.Brush;
 
         if (Task is not null) // Not creating, but modifying
         {
@@ -58,7 +58,7 @@ public sealed partial class AddPage : Page
     {
         if (DueDatePicker.SelectedDate is null || SubjectPicker.SelectedIndex is -1 || TitleTextBox.IsNullOrWhiteSpace())
         {
-            await ShowMessageAsync("Date, subject and title are required.", "Error");
+            await ShowMessageAsync("Date, subject and title are required.", "Error", Info.Settings.Theme);
             return;
         }
 
@@ -83,7 +83,7 @@ public sealed partial class AddPage : Page
     {
         if (Modified)
         {
-            await ShowMessageAsync("This task has been modified. Save or discard changes and try again.", "Couldn't delete");
+            await ShowMessageAsync("This task has been modified. Save or discard changes and try again.", "Couldn't delete", Info.Settings.Theme);
             return;
         }
 

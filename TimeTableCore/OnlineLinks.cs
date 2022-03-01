@@ -31,13 +31,13 @@ namespace TimeTableCore
         {
             private record Common
             {
-                public static OnlineLink 언어와매체 { get; set; } = new();
+                // public static OnlineLink 언어와매체 { get; set; } = new();
                 // TODO
             }
 
             public OnlineDictionary Class1 { get; } = new()
             {
-
+                [Global1.SocialResearch.Name] = new() { Classroom = "https://classroom.google.com/c/NDc0ODM1NDQ3MDk0", Teacher = "김용지" }
             };
 
             public OnlineDictionary Class2 { get; } = new()

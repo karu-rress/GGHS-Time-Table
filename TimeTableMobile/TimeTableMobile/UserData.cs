@@ -4,45 +4,46 @@ using System.IO;
 using System.Text;
 using TimeTableCore;
 
-namespace TimeTableMobile
+namespace TimeTableMobile;
+
+
+internal class User : BaseUser
 {
-    public class DataSaver : BaseSaver
-    {
-        public static string FileName
-            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "gttsav.sav")!;
+    public static string FileName
+    => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "gtt5sav.sav")!;
 
-        public bool IsAllFilled
-            => Info.User.Class is not 0 &&
-            Korean is not null && Math is not null && Social is not null &&
-            Language is not null && Global1 is not null && Global2 is not null;
-    }
+    public string? Korean { get; set; }
+    public string? Math { get; set; }
+    public string? Social { get; set; }
+    public string? Language { get; set; }
+    public string? Global1 { get; set; }
+    public string? Global2 { get; set; }
 
-    internal class User
-    {
-        public int Class { get; set; } = 0;
-    }
-
-
-    internal static class Info
-    {
-        public static User User { get; } = new();
-    }
-
-    [Obsolete]
-    internal static class UserData
-    {
-        public static string FileName 
-            => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "gttsav.sav")!;
-
-        public static int Class { get; set; } = 0;
-
-        public static string? Language { get; set; }
-        public static string? Special1 { get; set; }
-        public static string? Special2 { get; set; }
-        public static string? Science { get; set; }
-
-        public static bool IsAllFilled 
-            => Class is not 0 && Language is not null && Special1 is not null && Special2 is not null && Science is not null;
-    }
+    public bool IsAllFilled
+    => Class is not 0 &&
+    Korean is not null && Math is not null && Social is not null &&
+    Language is not null && Global1 is not null && Global2 is not null;
 }
 
+/*
+
+
+internal static class Info
+{
+    public static User User { get; } = new();
+}
+
+[Obsolete]
+internal static class UserData
+{
+    public static string FileName 
+        => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "gtt5sav.sav")!;
+
+    public static int Class { get; set; } = 0;
+
+
+    public static bool IsAllFilled 
+        => Class is not 0 && Language is not null && Special1 is not null && Special2 is not null && Science is not null;
+}
+
+*/

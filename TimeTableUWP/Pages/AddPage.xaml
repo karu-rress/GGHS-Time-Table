@@ -6,9 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Pages.AddPage"
-    mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    mc:Ignorable="d">
 
+    <Page.Resources>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
+    </Page.Resources>
     <Grid>
         <Grid.Resources>
             <Style TargetType="TextBox">
@@ -30,7 +32,7 @@
             <TextBlock x:Name="mainText" Text="Add New Task" FontSize="55" Height="73" />
         </Grid>
 
-        <Grid Margin="50,100,330,0" Height="80" VerticalAlignment="Top">
+        <Grid Margin="55,100,307,0" Height="80" VerticalAlignment="Top">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -40,30 +42,34 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="310" />
-                <ColumnDefinition Width="95" />
-                <ColumnDefinition Width="85*" />
-                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="53" />
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="74*" />
+                <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="114*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Due" Height="34" Width="46" />
-            <DatePicker x:Name="DueDatePicker" Grid.Column="1" HorizontalAlignment="Center" FontSize="25" Width="300" Height="45" />
+
+            <!--DatePicker x:Name="DueDatePicker" Grid.Column="1" HorizontalAlignment="Center" FontSize="21" Width="290" Height="45" Margin="0,20,0,0" VerticalAlignment="Top" /-->
+            <Viewbox MaxHeight="47" MaxWidth="300"  Stretch="Fill" Grid.Column="1" HorizontalAlignment="Center" Width="250" Height="43" VerticalAlignment="Center" >
+                <DatePicker x:Name="DueDatePicker" FontSize="23" />
+            </Viewbox>
             <TextBlock Text="Subject" Grid.Column="2" Height="34" Width="76" />
             <ComboBox x:Name="SubjectPicker" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="21" ItemsSource="{x:Bind Subjects}" Height="45"/>
             <TextBlock Text="Title" Grid.Column="4" Height="34" Width="43" />
-            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="23" PlaceholderText="수행평가 제목" />
+            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="21" PlaceholderText="수행평가 제목" />
         </Grid>
-        <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="66,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="50,235,330,30" AcceptsReturn="True" FontSize="23" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
-        <Grid Width="315" HorizontalAlignment="Right" Margin="0,40,10,10">
+        <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="59,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
+        <TextBox x:Name="BodyTextBox" Margin="55,235,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
+        <Grid Width="215" HorizontalAlignment="Right" Margin="0,40,55,10">
             <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="CornerRadius" Value="10" />
                     <Setter Property="Height" Value="60"/>
                     <Setter Property="HorizontalAlignment" Value="Center" />
                     <Setter Property="VerticalAlignment" Value="Top" />
-                    <Setter Property="Width" Value="220"/>
+                    <Setter Property="Width" Value="215"/>
                 </Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontSize" Value="25"/>
@@ -72,13 +78,13 @@
                 </Style>
             </Grid.Resources>
             <Button x:Name="SaveButton" Margin="0,115,0,0" Click="SaveButton_Click" BorderThickness="2.4" >
-                <TextBlock><Run Text="&#xE74E;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Save"/></TextBlock>
+                <TextBlock><Run Text="&#xE74E;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Save"/></TextBlock>
             </Button>
             <Button x:Name="CancelButton" Margin="0,280,0,0" Click="CancelButton_Click">
-                <TextBlock><Run Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Cancel"/></TextBlock>
+                <TextBlock><Run Text="&#xE711;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Cancel"/></TextBlock>
             </Button>
             <Button x:Name="DeleteButton" Margin="0,445,0,0" Click="DeleteButton_Click" Visibility="Collapsed">
-                <TextBlock><Run Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="21"/><Run Text=" Delete"/></TextBlock>
+                <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete"/></TextBlock>
             </Button>
         </Grid>
     </Grid>

@@ -46,6 +46,7 @@ public sealed partial class App : Application
             rootFrame.NavigationFailed += OnNavigationFailed;
 
             DataSaver.Load();
+            rootFrame.RequestedTheme = Info.Settings.Theme;
 
             if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
             {
@@ -54,6 +55,7 @@ public sealed partial class App : Application
 
             // Place the frame in the current Window
             Window.Current.Content = rootFrame;
+
         }
 
         if (e.PrelaunchActivated == false)

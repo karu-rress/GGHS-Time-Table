@@ -1,10 +1,7 @@
 ﻿#nullable enable
 
 using Windows.UI.Text;
-using Windows.UI.Xaml.Input;
-using Windows.UI;
 using Windows.UI.Xaml.Controls.Primitives;
-using TimeTableUWP.Pages;
 
 namespace TimeTableUWP.Todo;
 public class TaskButton : Button
@@ -84,13 +81,13 @@ public class TaskButton : Button
     {
         arrow = new()
         {
-            Text = "\xE76C",
-            FontFamily = new("Segoe MDL2 Assets"),
+            Text = "\xE971", // E9B9 
+            FontFamily = new("../Assets/segoefluent.ttf#Segoe Fluent Icons"),
             FontSize = 17,
             Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new(0, 0, 10, 0)
+            Margin = new(0, 0, 15, 0)
         };
     }
 

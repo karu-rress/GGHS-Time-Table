@@ -26,9 +26,14 @@
         Coral,
         None,
     }
+
+    public class BaseUser
+    {
+        public int Class { get; set; }
+    }
 }
 
 namespace System.Runtime.CompilerServices
 {
-    internal static class IsExternalInit { }
+    public static class IsExternalInit { }
 }

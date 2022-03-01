@@ -4,7 +4,6 @@ namespace TimeTableUWP;
 
 using RollingRess.Net;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using wux = Windows.UI.Xaml;
@@ -31,7 +30,7 @@ public class TimeTableException : Exception
     public TimeTableException(string message, Exception inner) : base(message, inner) { }
     protected TimeTableException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-    public static async void HandleException(object _, wux.UnhandledExceptionEventArgs e)
+    public static async void HandleException(object _, wux::UnhandledExceptionEventArgs e)
     {
         // 여기에 try~catch 걸까
         e.Handled = true;
@@ -42,19 +41,18 @@ public class TimeTableException : Exception
     {
         int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
 
-        StringBuilder sb = new();
-        sb.AppendLine("에러가 발생했습니다.");
-        sb.AppendLine(Info.User.ActivationLevel is not ActivationLevel.Developer
-            ? "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다."
-            : "디버그 중 발생한 오류입니다.");
+        string result = "에러가 발생했습니다.";
+        result += Info.User.ActivationLevel is not ActivationLevel.Developer
+            ? "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다.\n"
+            : "디버그 중 발생한 오류입니다.\n";
 
         if (code is not null)
         {
-            sb.AppendFormat("\nError code: {0}", code);
+            result += $"\nError code: {code}";
         }
-        sb.AppendFormat("\n{0}", exception);
+        result += $"\n{exception}";
 
-        var smtp = FeedbackDialog.PrepareSendMail(sb.ToString(),
+        var smtp = FeedbackDialog.PrepareSendMail(result,
             $"GGHS Time Table EXCEPTION OCCURED in V{Info.Version}", out var msg);
 
         if (Connection.IsInternetAvailable)
@@ -69,7 +67,7 @@ public class TimeTableException : Exception
         }
         else
         {
-            MessageDialog messageDialog = new("카루에게 아래 정보를 제공해주세요.\n" + sb.ToString(), "에러가 발생했습니다.");
+            MessageDialog messageDialog = new("카루에게 아래 정보를 제공해주세요.\n" + result, "에러가 발생했습니다.");
             await messageDialog.ShowAsync();
         }
     }

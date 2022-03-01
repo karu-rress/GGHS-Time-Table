@@ -6,11 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Pages.SettingsPage"
-    mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    mc:Ignorable="d">
     <Page.Resources>
         <CornerRadius x:Key="corner">10</CornerRadius>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
+
     <Grid x:Name="mainGrid">
         <Grid.Resources>
             <Style TargetType="TextBlock">
@@ -26,7 +27,7 @@
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="Height" Value="70"/>
-                <Setter Property="Width" Value="385"/>
+                <Setter Property="Width" Value="370"/>
                 <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe"/>
             </Style>
             <Style TargetType="ToggleSwitch">
@@ -41,8 +42,8 @@
             <Grid VerticalAlignment="Top">
                 <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="50,61,0,0" OffContent="Use 12 hour format" OnContent="Use 24 hour format" Toggled="ToggleSwitch_Toggled" />
                 <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="50,182,0,0" OffContent="Light theme" OnContent="Dark theme" Toggled="DarkToggleSwitch_Toggled" />
-                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" />
-                <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="50,420,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
+                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" IsOn="True" Visibility="Collapsed"/>
+                <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="50,310,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
                     <x:String>2020/06/03</x:String>
                     <x:String>2020-06-03</x:String>
                     <x:String>06/03/2020</x:String>
@@ -51,21 +52,24 @@
       IsHexInputVisible="False" IsAlphaEnabled="False" IsAlphaSliderVisible="False" IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
                 <Button Margin="368,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
-                    <TextBlock><Run Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
+                    <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
                 </Button>
             </Grid>
         </ScrollViewer>
-        <Button x:Name="aboutButton" Margin="0,100,35,0" Click="Button_Click_1" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
+        <Button x:Name="aboutButton" Margin="0,100,55,0" Click="Button_Click_1" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE946;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" About GGHS Time Table 5" /></TextBlock>
         </Button>
-        <Button x:Name="feedbackButton" Margin="0,200,35,0" Click="Button_Click_2" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE724;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
+        <Button x:Name="feedbackButton" Margin="0,200,55,0" Click="Button_Click_2" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE724;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
         </Button>
-        <Button x:Name="activateButton" Margin="0,300,35,0" Click="Button_Click_4" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Change Activation Key" /></TextBlock>
+        <Button x:Name="activateButton" Margin="0,300,55,0" Click="Button_Click_4" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE8D7;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Change Activation Key" /></TextBlock>
         </Button>
-        <Button x:Name="troubleButton" Margin="0,400,35,0" Click="Button_Click_5" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
+        <Button x:Name="troubleButton" Margin="0,400,55,0" Click="Button_Click_5" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE7BA;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
+        </Button>
+        <Button x:Name="howtoButton" Margin="0,500,55,0" Click="Button_Click_7" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xE897;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" How To Use GTT" /></TextBlock>
         </Button>
     </Grid>
 </Page>

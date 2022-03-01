@@ -7,15 +7,15 @@ public static class Sensitive
     public const string KaruMail = "nsun527@naver.com";
 }
 
-public static class ActivateKeys
+internal static class ActivateKeys
 {
     public const string Developer = "RRESS-KARU527";
     public const string Azure = "AZURE-A8VP36N";
     public const string Bisque = "BSQUE-LX5MBH3";
     public const string Coral = "CORAL-3GGHS10";
-} 
+}
 
-public static class SubTitles
+internal static class SubTitles
 {
     public const string Developer = "Welcome to the Ultimate GTT5, Karu";
     public const string Azure = "Let's try our hardest, our last journey.";
@@ -25,12 +25,11 @@ public static class SubTitles
 
 public static class Datas
 {
-    public const string Version = "5.0-beta8.2";
     public const string GTTWithVer = "GGHS Time Table 5";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }
 
-public static class Messages
+internal static class Messages
 {
     public const string ErrorChat = "⛔ERROR⛔ 카루님, GTT 에러 발생. 메일 확인 요망. ({0})";
     public const string FeedbackChat = "📧Feedback📧 카루님, GTT 피드백이 도착했습니다. (V{0})";
@@ -39,39 +38,33 @@ public static class Messages
     {
         public const string Activate = "{0}\n카루에게 제공받은 인증키를 입력하세요.\n인증키는 5자리의 영문+7자리의 숫자/영문 조합으로 구성되어 있습니다."
             +"\n인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
-
-
+        public const string NotAvailable = "Links for {0} is currently not available.\n"
+                + "카루에게 링크 추가를 요청해보세요.";
     }
 
-    public const string WhatsNew = 
-        @"- 인터넷 연결 없을시 채팅창 로드 안 함 (Beta 6)
-- 채팅창 스크롤바 추가 (Beta 6)
-- 채팅창 및 상단바에 사용자 지정 색상 적용 (Beta 6)
-- 채팅창 버그 수정 (Beta 6)
-- 시작시 발생하는 오류 수정 (Beta 6.7)
-- 자잘한 버그 수정 (Beta 6.7)";
+    public const string WhatsNew =
+@"- 3학년 시간표 정식 지원
+- (GTD) 수능 디데이 카운터 추가
+- 익명 채팅방 GGHS Anonymous 추가
+- 전체적인 UI 조정 및 색상 적용 확대
+- 사용설명서 메뉴 추가";
+
+
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {
         '0' or '3' or '6' => "으로",
         _ => "로",
     }} 업데이트 되었습니다.
 
-V{Info.Version}부터 추가된 기능
-{WhatsNew}
-
-GTT4 부터 To-do 기능이 추가되었습니다. 상단바에서 'To do'를 선택하면 
-수행평가 일정 목록을 관리할 수 있습니다. GTT5에서는 Anonymous 채팅
-을 통해 익명톡에서 자유롭게 대화가 가능합니다.";
+V{Info.Version}에서 변경된 기능
+{WhatsNew}";
 
     public const string Welcome =
     @"환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다. 
 
-*** 임시시간표가 나오지 않아 시간표 기능은 동작하지 않습니다.
-*** GGHS Anonymous (익명챗) 기능을 우선 시험해보세요 :)
-
-자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의 
-줌 링크와 클래스룸 링크가 띄워집니다.
+자신의 학급과 선택과목을 선택하고, 시간표를 누르면
+해당 시간의 클래스룸 링크가 띄워집니다. (일부)
 상단바에서 To do (GTD)를 선택할 경우 
 각종 수행평가를 기록하고, 관리할 수 있습니다.
 Anonymous 메뉴에선 GGHS 10기 학생들이 자유롭게
@@ -79,16 +72,18 @@ Anonymous 메뉴에선 GGHS 10기 학생들이 자유롭게
 상단바 오른쪽 끝 톱니바퀴 모양을 통해 
 설정 메뉴에 들어가실 수 있습니다.
 
-줌 링크가 누락된 경우, 설정 메뉴에서 'Feedback'을 통해
-줌 링크/ID/비밀번호를 전달해주시면 바로 추가하겠습니다.";
+** 자세한 사용법은 설정 메뉴에서 확인하실 수 있습니다.
 
-    public const string About = $@"GGHS Time Table V{Datas.GTTWithVer}
+기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
+설정 창의 'Send Feedback' 버튼을 통해 제보해주시면 감사하겠습니다.";
+
+    public static string About => $@"GGHS Time Table V{Info.Version}
 
 환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다.
 
 자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의
-줌 링크와 클래스룸 링크가 띄워집니다.
+클래스룸 링크가 띄워집니다.
 왼쪽 위 메뉴에서 'To do'를 선택하면 수행평가 일정 관리를,
 'Anonymous'를 선택하면 10기용 익명 채팅을 할 수 있습니다.
 

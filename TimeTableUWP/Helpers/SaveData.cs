@@ -2,7 +2,7 @@
 
 using Windows.Storage;
 using System.Runtime.Serialization;
-using static RollingNET.Serializer;
+using static RollingRess.Serializer;
 
 namespace TimeTableUWP;
 public class DataSaver

@@ -1,28 +1,27 @@
 ﻿Changes of GGHS Time Table
 
 V5.0
-- 3학년 시간표 지원 (Beta 1)
 - 전체적인 디자인 변경 (Beta 1)
 - 내부 구조 모듈화 (Beta 1)
 - 익명 채팅방 GGHS Anonymous 추가 (Beta 1)
 - Azure/Bisque/Coral 인증 레벨 개편 (Beta 1)
 - Anonymous 사용성 개선 (Beta 2)
 - 저장 방식 개편 (Beta 3)
-- 색상 옵션 변경 (Beta 3)
 - 채팅창 순서가 바뀌는 문제 수정 (Beta 4)
-- 채팅창 디자인 수정 (Beta 5)
 - 채팅창 랙 및 입력 지연 개선 (Beta 5)
-- 인터넷 연결 없을시 채팅창 로드 안 함 (Beta 6)
 - GGHS Todo 디데이 목록에 사용자 지정 색상 적용 (Beta 6)
 - 메인화면에서 튕기는 버그 수정 (Beta 7)
-- Anonymous 공지 기능 추가 (Beta 7)
-- Anonymous: 오류 보고 봇 추가 (Beta 7)
-- 프로그램 디자인 변경 (Beta 7)
-
+- Anonymous 공지 및 오류 보고 봇 추가 (Beta 7)
 - Coral 레벨 공지 읽기 가능하도록 변경 (Beta 8)
 - 피드백 전송시 Anonymous에서 알림 (Beta 8)
-- 동작 방식 변경 및 프로그램 최적화 (Beta 8)
-
+- 알람 기능 삭제 (Release Candidate)
+- (GTD) 수능 디데이 카운터 추가 (Release Candidate)
+- 3-1 사탐방 클래스룸 추가 (Release Candidate)
+- 전반적인 디자인 통일 및 UI 변경 (RC 2)
+- 사용설명서 추가 (RC 2)
+- 10기 시간표 정식 지원 (RC 2)
+- Mica 테마 적용 및 상단바 변경 (RC 3)
+- 다크 테마 사용성 개선 (RC 3)
 
 ---------------------------------------
 

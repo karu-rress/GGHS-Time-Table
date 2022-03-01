@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
+// TODO 이거 Grade 3 S 1 아님?
 namespace TimeTableCore
 {
     [DataContract(Name = "Subject")]
@@ -181,17 +182,17 @@ namespace TimeTableCore
             public static Subject Reading => new("독서와 의사소통", "독의");
             public static Subject AdvancedEnglish => new("심화영어Ⅱ", "심영Ⅱ");
 
-            public static Subject HomeComing => new("홈커밍");
+            public static Subject HomeComing => new("🏠");
             public static Subject Others => new("창의적 체험활동", "창체");
-
+            public static Subject Empty => new("");
             public static void ResetSelectiveSubjects()
             {
-                Korean = new(Korean.Default);
-                Math = new(Math.Default);
-                Social = new(Social.Default);
-                Language = new(Language.Default);
-                Global1 = new(Global1.Default);
-                Global2 = new(Global2.Default);
+                Korean.Selected = Korean.Default;
+                Math.Selected = Math.Default;
+                Social.Selected = Social.Default;
+                Language.Selected = Language.Default;
+                Global1.Selected = Global1.Default;
+                Global2.Selected = Global2.Default;
             }
         }
     }

@@ -79,7 +79,7 @@ public class TaskList : IEnumerable<TodoTask>
         if (TaskStack.Count is 0)
             return 0;
 
-        List<TodoTask>? list = TaskStack.Pop();
+        List<TodoTask> list = TaskStack.Pop();
         if (list.Count is 0)
             return 0;
 

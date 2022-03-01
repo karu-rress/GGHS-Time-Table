@@ -7,14 +7,39 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-    
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True" >
+
     <Grid>
         <Grid.Resources>
             <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" x:Name="NavigationColor"/>
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="101*"/>
+            <RowDefinition Height="115*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="32"
+                Margin="18,4,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="AppFontIcon"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    Source="Assets/Square44x44Logo.png" 
+                    Width="26" 
+                    Height="26"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="GGHS Time Table"
+                    VerticalAlignment="Center"
+                    Margin="12,0,0,0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+
         <muxc:NavigationView x:Name="Navigation" AlwaysShowHeader="False" PaneDisplayMode="Top"
-            ItemInvoked="Navigation_ItemInvoked" IsBackButtonVisible="Collapsed">
+            ItemInvoked="Navigation_ItemInvoked" IsBackButtonVisible="Collapsed" Grid.RowSpan="2">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable" IsSelected="True" />
                 <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>

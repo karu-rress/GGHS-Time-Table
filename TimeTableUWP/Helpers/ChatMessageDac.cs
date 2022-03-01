@@ -1,14 +1,8 @@
 ﻿#nullable enable
 
-using System.Text;
-using TimeTableUWP.Pages;
 using Windows.Storage;
 
 namespace TimeTableUWP;
-
-// sql dac 만들고
-// timetableexception 그거처리할 수 ㅣㅇㅆ도록- 
-
 public class ChatMessageDac : IDisposable
 {
     public static string ConnectionString { get; }

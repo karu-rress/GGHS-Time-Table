@@ -9,7 +9,7 @@
   <Identity
     Name="43869RollingRess.GGHSTimeTable"
     Publisher="CN=A20999E7-9369-49AA-B89C-1CC2A7AAB5EA"
-    Version="4.8100.0.0" />
+    Version="5.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="5a8cbcc1-cabe-449b-a1a5-08909bc42f5c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -35,7 +35,7 @@
         DisplayName="GGHS Time Table"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="TimeTableUWP"
+        Description="A timetable app for GGHS 10th students"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="TimeTable" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
         </uap:DefaultTile >

@@ -1,5 +1,10 @@
 ﻿Changes of GGHS Time Table
 
+ V Future
+ - 1~4반 심화영어IIA 추가
+ - 독서와 의사소통 클룸 추가
+ - 영미 문학 읽기 링크 추가
+
 V5.0
 - 전체적인 디자인 변경 (Beta 1)
 - 내부 구조 모듈화 (Beta 1)

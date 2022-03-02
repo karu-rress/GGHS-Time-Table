@@ -25,8 +25,6 @@ namespace TimeTableCore
             ? new(FullName + ch) : new(FullName + ch, ShortName + ch);
         public Subject A() => AddPostFix('A');
         public Subject B() => AddPostFix('B');
-        public Subject C() => AddPostFix('C');
-        public Subject D() => AddPostFix('D');
     }
 
     public interface ISelectiveSubject

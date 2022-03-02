@@ -35,7 +35,7 @@ public sealed partial class ChattingPage : Page
     {
         if (!Connection.IsInternetAvailable)
         {
-            await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.", "Connection Error", Info.Settings.Theme);
+            await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.\n이 메뉴로 다시 돌아오면 재접속을 시도합니다.", "Connection Error", Info.Settings.Theme);
             return;
         }
 
@@ -107,41 +107,58 @@ public sealed partial class ChattingPage : Page
     {
         Visible(progressGrid);
 
-        DataTable dt = new();
-        using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
+        try
         {
-            ChatMessageDac chat = new(sql);
-            await sql.OpenAsync();
-            await (Info.User.IsSpecialLevel ? chat.SelectAll(dt) : chat.SelectAllNotifications(dt));
-        }
+            DataTable dt = new();
+            using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
+            {
+                ChatMessageDac chat = new(sql);
+                await sql.OpenAsync();
+                await (Info.User.IsSpecialLevel ? chat.SelectAll(dt) : chat.SelectAllNotifications(dt));
+            }
 
-        StringBuilder sb = new();
-        foreach (DataRow row in dt.Rows)
+            StringBuilder sb = new();
+            foreach (DataRow row in dt.Rows)
+            {
+                sb.AppendFormat(Datas.ChatFormat, DateTime.Parse(row["Time"].ToString()),
+                    Convert((byte)row["Sender"]), row["Message"]);
+            }
+
+            viewBox.Text = sb.ToString();
+            ScrollViewBox();
+        }
+        catch (SqlException) // 이건 내가 대응할 수가 없음. 그냥 Swallow.
         {
-            sb.AppendFormat(Datas.ChatFormat, DateTime.Parse(row["Time"].ToString()),
-                Convert((byte)row["Sender"]), row["Message"]);
+            await ShowMessageAsync("메시지를 불러오는 데 실패했습니다.\n다른 탭으로 나간 뒤, 다시 GGHS Anonymous로 들어오면\n재접속을 시도합니다.", title, Info.Settings.Theme);
+            return;
         }
-
-        viewBox.Text = sb.ToString();
-        Invisible(progressGrid);
-        ScrollViewBox();
+        finally
+        {
+            Invisible(progressGrid);
+        }
     }
 
     private async Task ReloadChatsAsync()
     {
         while (true)
         {
-            while (isReloadPaused)
-                await Task.Delay(400);
+            if (isCancelRequested)
+                return;
 
-            while (!Connection.IsInternetAvailable)
+            if (isReloadPaused)
+            {
+                await Task.Delay(400);
+                continue;
+            }
+
+            if (!Connection.IsInternetAvailable)
             {
                 await ShowMessageAsync("네트워크 연결을 확인하세요.", "Connection Error", Info.Settings.Theme);
                 await Task.Delay(1900);
+                continue;
             }
 
-            if (isCancelRequested)
-                return;
+
 
             SqlConnection sql = new(ChatMessageDac.ConnectionString);
             ChatMessageDac chat = new(sql);
@@ -169,29 +186,29 @@ public sealed partial class ChattingPage : Page
 
     private async Task SendMessageAsync(ActivationLevel userLevel)
     {
+        if (textBox.IsNullOrWhiteSpace())
+        {
+            await ShowMessageAsync("보낼 메시지를 입력하세요.", title, Info.Settings.Theme);
+            return;
+        }
+        // 욕설 필터링
+        if (BadWords.Any(s => textBox.Text.Contains(s)))
+        {
+            ContentDialog dialog = new()
+            {
+                Content = "부적절한 말들이 포함되어 있습니다. 그래도 보내시겠습니까?",
+                Title = title,
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No"
+            };
+            if (await dialog.ShowAsync() is ContentDialogResult.None)
+                return;
+        }
+
+        using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
+        using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
         try
         {
-            if (textBox.IsNullOrWhiteSpace())
-            {
-                await ShowMessageAsync("보낼 메시지를 입력하세요.", title, Info.Settings.Theme);
-                return;
-            }
-            // 욕설 필터링
-            if (BadWords.Any(s => textBox.Text.Contains(s)))
-            {
-                ContentDialog dialog = new()
-                {
-                    Content = "부적절한 말들이 포함되어 있습니다. 그래도 보내시겠습니까?",
-                    Title = title,
-                    PrimaryButtonText = "Yes",
-                    CloseButtonText = "No"
-                };
-                if (await dialog.ShowAsync() is ContentDialogResult.None)
-                    return;
-            }
-
-            using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
-            using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
             await chatmessage.InsertAsync(Convert(userLevel), textBox.Text);
         }
@@ -204,17 +221,17 @@ public sealed partial class ChattingPage : Page
 
     private async Task SendNotificationAsync(bool isBot = false)
     {
+        if (textBox.IsNullOrWhiteSpace())
+        {
+            await ShowMessageAsync("보낼 공지를 입력하세요.", title, Info.Settings.Theme);
+            return;
+        }
+        // 욕설 필터링
+
+        using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
+        using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
         try
         {
-            if (textBox.IsNullOrWhiteSpace())
-            {
-                await ShowMessageAsync("보낼 공지를 입력하세요.", title, Info.Settings.Theme);
-                return;
-            }
-            // 욕설 필터링
-
-            using SqlConnection sql = new() { ConnectionString = ChatMessageDac.ConnectionString };
-            using ChatMessageDac chatmessage = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
             if (isBot)
                 await chatmessage.InsertAsync((byte)ChatMessageDac.Sender.GttBot, textBox.Text);
@@ -235,10 +252,10 @@ public sealed partial class ChattingPage : Page
             await ShowMessageAsync("Enter query.", title, Info.Settings.Theme);
             return;
         }
+        using SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
         try
         {
-            using SqlConnection sql = new(ChatMessageDac.ConnectionString);
-            using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
             await sql.OpenAsync();
             await chat.RunSqlCommand(query);
         }
@@ -266,8 +283,15 @@ public sealed partial class ChattingPage : Page
 
         using SqlConnection sql = new(ChatMessageDac.ConnectionString);
         using ChatMessageDac chat = new(sql, PrepareSend, DisposeSend);
-        await sql.OpenAsync();
-        await chat.DeleteAsync(message);
+        try
+        {
+            await sql.OpenAsync();
+            await chat.DeleteAsync(message);
+        }
+        catch (SqlException e)
+        {
+            await ShowMessageAsync("Error:" + e.ToString(), "Unable to delete message");
+        }
     }
 
     private void ScrollViewBox()

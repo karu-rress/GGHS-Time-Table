@@ -7,6 +7,7 @@ namespace TimeTableUWP;
 public partial class ZoomDialog : ContentDialog
 {
     private const string None = "(None)";
+    private const string NotAvailable = "[Not Available]";
     protected readonly OnlineLink online;
     protected TextBlock TextBlock;
     public ZoomDialog(int @class, string subject, OnlineLink zoomInfo)
@@ -36,7 +37,7 @@ public partial class ZoomDialog : ContentDialog
         }
         else
         {
-            TextBlock.AddTextLine("Not available");
+            TextBlock.AddTextLine(NotAvailable);
             TextBlock.AddTextLine("카루에게 줌 링크 추가를 요청해보세요.");
             IsPrimaryButtonEnabled = false;
             DefaultButton = ContentDialogButton.Secondary;
@@ -52,7 +53,7 @@ public partial class ZoomDialog : ContentDialog
         }
         else
         {
-            TextBlock.AddTextLine("Not available");
+            TextBlock.AddTextLine(NotAvailable);
             TextBlock.AddTextLine("카루에게 클래스룸 링크 추가를 요청해보세요.");
             IsSecondaryButtonEnabled = false;
         }

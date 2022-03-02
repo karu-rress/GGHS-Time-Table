@@ -47,7 +47,10 @@ internal static class Messages
 - (GTD) 수능 디데이 카운터 추가
 - 익명 채팅방 GGHS Anonymous 추가
 - 전체적인 UI 조정 및 색상 적용 확대
-- 사용설명서 메뉴 추가";
+- 사용설명서 메뉴 추가
+- 1~4반 심화영어IIA 추가
+ - 독서와 의사소통, 영미 문학 읽기 링크 추가
+- GGHS Anonymous 버그 수정";
 
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch

@@ -65,7 +65,9 @@ namespace TimeTableCore
                     Classroom = "https://classroom.google.com/c/NDY4NjkyMjU3MDkx",
                     Teacher = "윤채영",
                 };
-
+                public static OnlineLink ProbabilityA { get; } = new() { Teacher = "백승범" };
+                public static OnlineLink ProbabilityB { get; } = new() { Teacher = "김수진" };
+                public static OnlineLink Daic { get; } = new() { Teacher = "백승범" };
                 public static OnlineLink Ethics { get; } = new()
                 {
                     Classroom = "https://classroom.google.com/c/NDc1MzA4NDU5NzYw",
@@ -90,6 +92,10 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+                [Math.Daic.Name] = Common.Daic,
             };
 
             public OnlineDictionary Class2 { get; } = new()
@@ -101,6 +107,11 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+                [Math.Daic.Name] = Common.Daic,
+
             };
 
             public OnlineDictionary Class3 { get; } = new()
@@ -112,6 +123,9 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
             };
 
             public OnlineDictionary Class4 { get; } = new()
@@ -123,6 +137,10 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+
             };
 
             public OnlineDictionary Class5 { get; } = new()
@@ -132,6 +150,10 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+
             };
 
             public OnlineDictionary Class6 { get; } = new()
@@ -141,6 +163,10 @@ namespace TimeTableCore
 
                 [Social.Culture.Name] = Common.Social,
                 [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+
             };
 
             public OnlineDictionary Class7 { get; } = new()
@@ -150,6 +176,10 @@ namespace TimeTableCore
 
                 /* Common */ [Social.Culture.Name] = Common.Social,
                 // [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+
             };
 
             public OnlineDictionary Class8 { get; } = new()
@@ -159,6 +189,10 @@ namespace TimeTableCore
 
                 /* Common */ [Social.Culture.Name] = Common.Social,
                 /* Common */ [Global2.Ethics.Name] = Common.Ethics,
+
+                [Math.Probability.A.Name] = Common.ProbabilityA,
+                [Math.Probability.B.Name] = Common.ProbabilityB,
+
             };
         }
     }

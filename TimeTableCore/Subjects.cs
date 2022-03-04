@@ -23,8 +23,8 @@ namespace TimeTableCore
 
         private Subject AddPostFix(char ch) => ShortName is null 
             ? new(FullName + ch) : new(FullName + ch, ShortName + ch);
-        public Subject A() => AddPostFix('A');
-        public Subject B() => AddPostFix('B');
+        public Subject A => AddPostFix('A');
+        public Subject B => AddPostFix('B');
     }
 
     public interface ISelectiveSubject

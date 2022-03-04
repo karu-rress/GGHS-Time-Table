@@ -246,9 +246,9 @@ public sealed partial class TimeTablePage : Page
 
     private async void TableButtons_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn)           
+        if (sender is not Button btn || btn.Content is "" or null)   
             return;
-        
+
         if (btn.Content is string cellName)
             await ShowSubjectZoom(cellName);
 

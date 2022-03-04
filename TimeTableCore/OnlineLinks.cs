@@ -1,7 +1,10 @@
 ﻿using OnlineDictionary = System.Collections.Generic.Dictionary<string, TimeTableCore.OnlineLink?>;
+using System;
 
 namespace TimeTableCore
 {
+    [AttributeUsage(AttributeTargets.All)]
+    public class CommonSubjectAttribute : Attribute {  }
     public record OnlineLink
     {
         public string? Zoom { get; init; } = null;
@@ -57,23 +60,36 @@ namespace TimeTableCore
                     Teacher = "김한나  "
                 };
 
-                public static OnlineLink Reading { get; set; } = new()
+                public static OnlineLink Reading { get; } = new()
                 {
                     Classroom = "https://classroom.google.com/c/NDY4NjkyMjU3MDkx",
                     Teacher = "윤채영",
                 };
-                // public static OnlineLink 언어와매체 { get; set; } = new();
-                // TODO
+
+                public static OnlineLink Ethics { get; } = new()
+                {
+                    Classroom = "https://classroom.google.com/c/NDc1MzA4NDU5NzYw",
+                    Teacher = "이수빈"
+                };
+
+                public static OnlineLink Social { get; } = new()
+                {
+                    Classroom = "https://classroom.google.com/c/NDc3Nzc0NjIzMTc3",
+                    Teacher = "권영재",
+                };
             }
 
             public OnlineDictionary Class1 { get; } = new()
             {
-                [Global1.SocialResearch.Name] = new() { Classroom = "https://classroom.google.com/c/NDc0ODM1NDQ3MDk0", Teacher = "김용지" },
+                /* Common */ [Global1.SocialResearch.Name] = new() { Classroom = "https://classroom.google.com/c/NDc0ODM1NDQ3MDk0", Teacher = "김용지" },
 
                 [Subjects.AdvancedEnglish.Name + 'A'] = Common.EnglishA1to4,
 
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature1to3,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class2 { get; } = new()
@@ -82,6 +98,9 @@ namespace TimeTableCore
 
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature1to3,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class3 { get; } = new()
@@ -90,6 +109,9 @@ namespace TimeTableCore
 
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature1to3,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class4 { get; } = new()
@@ -98,30 +120,45 @@ namespace TimeTableCore
 
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature4to8,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class5 { get; } = new()
             {
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature4to8,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class6 { get; } = new()
             {
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature4to8,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                [Social.Culture.Name] = Common.Social,
+                [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class7 { get; } = new()
             {
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature4to8,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                /* Common */ [Social.Culture.Name] = Common.Social,
+                // [Global2.Ethics.Name] = Common.Ethics,
             };
 
             public OnlineDictionary Class8 { get; } = new()
             {
                 [Subjects.EnglishLiterature.Name] = Common.EngLiterature4to8,
                 [Subjects.Reading.Name] = Common.Reading,
+
+                /* Common */ [Social.Culture.Name] = Common.Social,
+                /* Common */ [Global2.Ethics.Name] = Common.Ethics,
             };
         }
     }

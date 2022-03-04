@@ -182,7 +182,11 @@ public sealed partial class TimeTablePage : Page
     {
         Buttons.ElementAt((7 * (pos.day - 1)) + (pos.time - 1)).Background = Info.Settings.Brush;
         if (pos.time <= 6)
-            Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = Info.Settings.Brush;
+        {
+            // Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).Foreground = Info.Settings.Brush;
+            Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).BorderBrush = Info.Settings.Brush;
+            Buttons.ElementAt((7 * (pos.day - 1)) + pos.time).BorderThickness = new(2.25);
+        }
     }
 
     private void RefreshColor()
@@ -193,7 +197,9 @@ public sealed partial class TimeTablePage : Page
             item.Background = new SolidColorBrush(Info.Settings.IsDarkMode
                 ? Color.FromArgb(0xEE, 0x34, 0x34, 0x34)
                 : Colors.White); //Color.FromArgb(0xEE, 0xF4, 0xF4, 0xF4));
-             item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
+            // item.Foreground = new SolidColorBrush(Info.Settings.IsDarkMode ? Colors.White : Colors.Black);
+            item.BorderBrush = null;
+            item.BorderThickness = new();
         }
     }
 

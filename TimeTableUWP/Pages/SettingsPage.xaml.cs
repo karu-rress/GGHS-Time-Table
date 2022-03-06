@@ -35,6 +35,7 @@ public sealed partial class SettingsPage : Page
         dateFormatRadio.SelectedIndex = DateFormatDict[Info.Settings.DateFormat];
         colorPicker.Color = Info.Settings.ColorType;
         SilentToggle.IsOn = Info.Settings.SilentMode;
+        ReloadToggle.IsOn = Info.Settings.HotReload;
         SetDarkToggle(Info.Settings.IsDarkMode);
 
         SetButtonColor();
@@ -139,6 +140,9 @@ public sealed partial class SettingsPage : Page
 
     private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
     => Info.Settings.SilentMode = SilentToggle.IsOn;
+
+    private void ReloadToggle_Toggled(object sender, RoutedEventArgs e)
+    => Info.Settings.HotReload = ReloadToggle.IsOn;
 
     private async void Button_Click_5(object sender, RoutedEventArgs e)
     => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot", Info.Settings.Theme);

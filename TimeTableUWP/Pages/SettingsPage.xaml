@@ -38,20 +38,21 @@
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="80,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 5 Settings" FontWeight="Bold"/>
 
-        <ScrollViewer Margin="45,97,455,53" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Margin="43,97,457,53" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid VerticalAlignment="Top">
                 <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="50,61,0,0" OffContent="Use 12 hour format" OnContent="Use 24 hour format" Toggled="ToggleSwitch_Toggled" />
                 <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="50,182,0,0" OffContent="Light theme" OnContent="Dark theme" Toggled="DarkToggleSwitch_Toggled" />
-                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" IsOn="True" Visibility="Collapsed"/>
-                <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="50,310,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
+                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" />
+                <ToggleSwitch x:Name="ReloadToggle" Header="(Beta) Enable hot reload" Margin="50,404,0,0" OffContent="Use default links" OnContent="Get links from server" Toggled="ReloadToggle_Toggled" />
+                <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="353,58,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
                     <x:String>2020/06/03</x:String>
                     <x:String>2020-06-03</x:String>
                     <x:String>06/03/2020</x:String>
                 </muxc:RadioButtons>
                 <muxc:ColorPicker x:Name="colorPicker" ColorSpectrumShape="Ring" IsColorSliderVisible="True" IsColorChannelTextInputVisible="False"
-      IsHexInputVisible="False" IsAlphaEnabled="False" IsAlphaSliderVisible="False" IsAlphaTextInputVisible="False" Margin="375,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <TextBlock Margin="380,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
-                <Button Margin="368,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
+      IsHexInputVisible="False" IsAlphaEnabled="False" IsAlphaSliderVisible="False" IsAlphaTextInputVisible="False" Margin="538,117,0,0" ColorChanged="ColorPicker_ColorChanged" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <TextBlock Margin="542,61,0,0" Text="Select color" TextWrapping="Wrap" FontSize="25"/>
+                <Button Margin="530,437,0,0" Click="Button_Click_6" Width="320" HorizontalAlignment="Left" Height="46" >
                     <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="17"/><Run Text=" Reset color to default" FontSize="21"/></TextBlock>
                 </Button>
             </Grid>

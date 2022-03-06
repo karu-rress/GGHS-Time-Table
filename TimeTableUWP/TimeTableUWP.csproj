@@ -135,6 +135,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\ChatMessageDac.cs" />
+    <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
     <Compile Include="Models\ConstStrings.cs" />
     <Compile Include="Dialogs\ActivateDialog.xaml.cs">

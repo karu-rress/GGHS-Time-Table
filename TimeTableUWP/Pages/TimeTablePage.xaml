@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    Loaded="Page_Loaded"
+    >
 
     <Page.Resources>
         <SolidColorBrush x:Key="txtColor" Color="{ThemeResource SystemBaseHighColor}" />
@@ -16,12 +17,12 @@
         <!--SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" /-->
         <SolidColorBrush x:Key="cellColor" Color="White" />
         <x:String x:Key="gridThick">5</x:String>
-        <x:Int32 x:Key="cellFontSize">25</x:Int32>
+        <x:Int32 x:Key="cellFontSize">24</x:Int32>
         <x:Int32 x:Key="comboFontSize">22</x:Int32>
         <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
 
-    <Grid Name="mainGrid" Margin="0,0,0,0" >
+    <Grid Name="mainGrid" Margin="0,0,0,0" SizeChanged="mainGrid_SizeChanged">
         <Grid.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -34,7 +35,7 @@
         <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 5" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="80,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
-        <Grid Name="clockGrid" Margin="0,11,0,0" HorizontalAlignment="Right" Width="500" Height="165" VerticalAlignment="Top" Background="Transparent">
+        <Grid Name="clockGrid" Margin="0,25,19,0" HorizontalAlignment="Right" Width="445" Height="135" VerticalAlignment="Top" >
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>
@@ -43,10 +44,10 @@
                     <Setter Property="FontSize" Value="30" />
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="clock" FontSize="90" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" Margin="10,13,201,19" />
-            <TextBlock x:Name="dateBlock" Margin="250,36,0,63"/>
-            <TextBlock x:Name="dayBlock" Margin="335,74,14,29"/>
-            <TextBlock x:Name="amorpmBox" Margin="250,75,120,24"/>
+            <TextBlock x:Name="clock" FontSize="90" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" Margin="10,0,201,3" Height="133" VerticalAlignment="Bottom" />
+            <TextBlock x:Name="dateBlock" Margin="250,0,0,47" Height="66" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="dayBlock" Margin="335,0,14,13" Height="62" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="amorpmBox" Margin="250,0,120,8" Height="66" VerticalAlignment="Bottom"/>
         </Grid>
 
         <Grid Name="timeTableGrid" Margin="55,180,290,35">
@@ -153,7 +154,7 @@
             <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="TableButtons_Click" />
             <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
             <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" >
-                
+
                 <FontIcon FontFamily="{StaticResource iconFont}" Glyph="&#xE80F;" FontSize="28"/>
             </Button>
         </Grid>

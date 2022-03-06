@@ -39,4 +39,5 @@ public class Settings
     [DataMember] public bool IsDarkMode { get; set; } = false;
     [DataMember] public DateType DateFormat { get; set; } = DateType.YYYYMMDD;
     [DataMember] public bool SilentMode { get; set; } = false;
+    [DataMember] public bool HotReload { get; set; } = true;
 }

@@ -3,6 +3,8 @@
 using Windows.Storage;
 
 namespace TimeTableUWP;
+
+
 public class ChatMessageDac : IDisposable
 {
     public static string ConnectionString { get; }

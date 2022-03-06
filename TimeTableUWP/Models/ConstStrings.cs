@@ -44,13 +44,8 @@ internal static class Messages
 
     public const string WhatsNew =
 @"- 3학년 시간표 정식 지원
-- (GTD) 수능 디데이 카운터 추가
-- 익명 채팅방 GGHS Anonymous 추가
-- 전체적인 UI 조정 및 색상 적용 확대
-- 사용설명서 메뉴 추가
-- 1~4반 심화영어IIA 추가
- - 독서와 의사소통, 영미 문학 읽기 링크 추가
-- GGHS Anonymous 버그 수정";
+- ZOOM 및 클래스룸 링크 실시간 반영
+- 3분 전 알람 기능 재도입 (음소거 가능)";
 
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
@@ -67,7 +62,7 @@ V{Info.Version}에서 변경된 기능
 GGHS Time Table을 설치해주셔서 감사합니다. 
 
 자신의 학급과 선택과목을 선택하고, 시간표를 누르면
-해당 시간의 클래스룸 링크가 띄워집니다. (일부)
+해당 시간의 ZOOM 및 클래스룸 링크가 띄워집니다.
 상단바에서 To do (GTD)를 선택할 경우 
 각종 수행평가를 기록하고, 관리할 수 있습니다.
 Anonymous 메뉴에선 GGHS 10기 학생들이 자유롭게
@@ -86,7 +81,7 @@ Anonymous 메뉴에선 GGHS 10기 학생들이 자유롭게
 GGHS Time Table을 설치해주셔서 감사합니다.
 
 자신의 선택과목을 선택하고, 시간표를 누르면 해당 시간의
-클래스룸 링크가 띄워집니다.
+ZOOM 및 클래스룸 링크가 띄워집니다.
 왼쪽 위 메뉴에서 'To do'를 선택하면 수행평가 일정 관리를,
 'Anonymous'를 선택하면 10기용 익명 채팅을 할 수 있습니다.
 

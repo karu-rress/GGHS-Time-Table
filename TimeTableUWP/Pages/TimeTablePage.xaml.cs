@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using TimeTableCore.Grade3.Semester1;
+using TimeTableUWP.Helpers;
 
 namespace TimeTableUWP.Pages;
 
@@ -8,17 +9,22 @@ public sealed partial class TimeTablePage : Page
 {
     private TimeTables TimeTable { get; } = new();
     private OnlineLinks Online { get; } = new();
-
+    private OnlineLinksDac Links { get; } = new();
     public TimeTablePage()
     {
         InitializeComponent();
-        RequestedTheme = Info.Settings.Theme;
+        // RequestedTheme = Info.Settings.Theme;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         _ = LoopTimeAsync().ConfigureAwait(false); // detach.
 
+        Task getLinks = Task.CompletedTask;
+        if (Info.Settings.HotReload)
+        {
+            getLinks = Links.LoadLinksAsync();
+        }
         if (Info.User.Status is not LoadStatus.NewlyInstalled)
         {
             SelectionChangedEventHandler handler = new(ComboBox_SelectionChanged);
@@ -50,6 +56,8 @@ public sealed partial class TimeTablePage : Page
         await InitializeUIAsync();
         if (Info.User.Class != 0)
             DrawTimeTable();
+
+        await getLinks;
     }
 
     #region ENEMERATORS
@@ -208,6 +216,7 @@ public sealed partial class TimeTablePage : Page
         DrawTimeTable();
     }
 
+    bool notInvoked = true;
     private async Task ShowSubjectZoom(string subjectCellName)
     {
         if (Info.User.ActivationLevel is ActivationLevel.None)
@@ -218,16 +227,31 @@ public sealed partial class TimeTablePage : Page
 
             SetSubText();
         }
-        
-        if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) is false || (online is null))
+
+        if (notInvoked && Info.Settings.HotReload && Links.Dictionary.Count is 0)
+        {
+            notInvoked = false;
+            return;
+        }
+
+        ZoomDialog? contentDialog;
+        if (Info.Settings.HotReload && Links.GetLinks(Info.User.Class).TryGetValue(subjectCellName, out var link)
+            && link is not null)
+        {
+            contentDialog = new(Info.User.Class, subjectCellName, link);
+        }
+        else if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) && online is not null)
+        {
+            contentDialog = new(Info.User.Class, subjectCellName, online);
+        }
+        else
         {
             await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName, Info.Settings.Theme),
             "No data", Info.Settings.Theme);
             return;
         }
 
-        ZoomDialog contentDialog = new(Info.User.Class, subjectCellName, online);
-        await contentDialog.ShowAsync();
+        await contentDialog?.ShowAsync();
     }
 
     private Dictionary<string, OnlineLink?> GetClassZoomLink() => Info.User.Class switch
@@ -243,6 +267,8 @@ public sealed partial class TimeTablePage : Page
         _ => throw new DataAccessException(
             $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {Info.User.Class}")
     };
+
+
 
     private async void TableButtons_Click(object sender, RoutedEventArgs e)
     {
@@ -270,6 +296,28 @@ public sealed partial class TimeTablePage : Page
             _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
         };
         await ShowMessageAsync(msg, txt, Info.Settings.Theme);
+    }
+
+    private void mainGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (mainGrid.ActualWidth < 1030)
+        {
+            foreach (var button in Buttons)
+            {
+                button.FontSize = 19;
+            }
+            clockGrid.Background = new SolidColorBrush(Colors.White);
+        }
+        else
+        {
+            foreach (var button in Buttons)
+            {
+                button.FontSize = 24;
+            }
+            clockGrid.Background = null;
+        }
+//         await ShowMessageAsync(mainGrid.ActualWidth.ToString());
+        //if (mainGrid.Width)
     }
 }
 

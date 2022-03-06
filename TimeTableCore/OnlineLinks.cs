@@ -3,8 +3,6 @@ using System;
 
 namespace TimeTableCore
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public class CommonSubjectAttribute : Attribute {  }
     public record OnlineLink
     {
         public string? Zoom { get; init; } = null;
@@ -12,8 +10,6 @@ namespace TimeTableCore
         public string? Password { get; init; } = null;
         public string? Classroom { get; init; } = null;
         public string Teacher { get; init; } = string.Empty;
-
-        public bool IsZoomAvailable => Id != null && Password != null;
     }
 
     public interface IOnlineLinks
@@ -57,7 +53,7 @@ namespace TimeTableCore
                     Zoom = "https://zoom.us/j/5031101343?pwd=QXZMWUVoZEkzVnUyY0poanAyclBHdz09",
                     Id = "503 110 1343",
                     Password = "1111",
-                    Teacher = "김한나  "
+                    Teacher = "김한나"
                 };
 
                 public static OnlineLink Reading { get; } = new()
@@ -83,7 +79,14 @@ namespace TimeTableCore
 
             public OnlineDictionary Class1 { get; } = new()
             {
-                /* Common */ [Global1.SocialResearch.Name] = new() { Classroom = "https://classroom.google.com/c/NDc0ODM1NDQ3MDk0", Teacher = "김용지" },
+                /* Common */ [Global1.SocialResearch.Name] = new()
+                {
+                    Zoom = "https://zoom.us/j/2521095403?pwd=N0NVbE1POWMzWUxKS3VRZCtDd1Q4dz09",
+                    Id = "252 109 5403",
+                    Password = "2022",
+                    Classroom = "https://classroom.google.com/c/NDc0ODM1NDQ3MDk0",
+                    Teacher = "김용지"
+                },
 
                 [Subjects.AdvancedEnglish.Name + 'A'] = Common.EnglishA1to4,
 

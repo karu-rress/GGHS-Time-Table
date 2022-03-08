@@ -99,10 +99,11 @@ public sealed partial class TimeTablePage : Page
                 // 4시에는 실행하면 안 된다!
                 if (DateTime.Now.Hour is 16) continue;
 
-                if (DateTime.Now.Minute is 57 && invoke)
+                if (DateTime.Now.Minute is 57 && DateTime.Now.Second < 10 && invoke)
                 {
                     invoke = false;
-                    _ = SendToast(pos); // 여기까진 알고리즘 완벽.
+                    _ = SendToast(pos).ConfigureAwait(false); // 여기까진 알고리즘 완벽.
+                    await Task.Delay(TimeSpan.FromSeconds(10));
                 }
                 if (DateTime.Now.Minute is 58 && invoke is false)
                 {
@@ -132,11 +133,11 @@ public sealed partial class TimeTablePage : Page
             return;
 
         ToastContentBuilder toast = new ToastContentBuilder()
-            .AddAppLogoOverride(new Uri("ms-appx:///Assets/SecurityAndMaintenance.png")) // 동그라미 i 표시
+            .AddAppLogoOverride(new("ms-appx:///Assets/SecurityAndMaintenance.png")) // 동그라미 i 표시
             .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
 
         // 무음모드가 아닐 때만 알람음 설정
-        toast.AddAudio(new Uri("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
+        toast.AddAudio(new("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
 
         if (GetClassZoomLink().TryGetValue(subject, out OnlineLink? online) is false || (online is null))
         {

@@ -45,7 +45,8 @@ internal static class Messages
     public const string WhatsNew =
 @"- 3학년 시간표 정식 지원
 - ZOOM 및 클래스룸 링크 실시간 반영
-- 3분 전 알람 기능 재도입 (음소거 가능)";
+- 3분 전 알람 기능 재도입 (음소거 가능)
+- 버그 수정 및 안정성 개선";
 
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch

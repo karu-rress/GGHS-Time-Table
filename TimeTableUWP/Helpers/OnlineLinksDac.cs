@@ -19,7 +19,6 @@ internal enum Classes : byte
 
 internal class OnlineLinksDac
 {
-    const string NotAvailable = "Not Available";
     public OnlineDacDict Dictionary { get; set; } = new();
     public async Task LoadLinksAsync()
     {
@@ -30,18 +29,17 @@ internal class OnlineLinksDac
             const string query = "SELECT * FROM online";
 
             SqlDataAdapter sda = new(query, sql);
-            await Task.Run(() => sda.Fill(dt));
-//             sda.Fill(dt);
+            sda.Fill(dt);
         }
 
         foreach (DataRow row in dt.Rows)
         {
             Dictionary.Add(((byte)row["Class"], row["Subject"].ToString()), new()
             {
-                Zoom = row["Zoom"] as string ?? NotAvailable,
-                Id = row["Id"] as string ?? NotAvailable,
-                Password = row["Password"] as string ?? NotAvailable,
-                Classroom = row["Classroom"] as string ?? NotAvailable,
+                Zoom = row["Zoom"] as string,
+                Id = row["Id"] as string,
+                Password = row["Password"] as string,
+                Classroom = row["Classroom"] as string,
                 Teacher = row["Teacher"].ToString(),
             });
         }

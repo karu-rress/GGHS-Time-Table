@@ -303,17 +303,22 @@ public sealed partial class TimeTablePage : Page
         if (mainGrid.ActualWidth < 1030)
         {
             foreach (var button in Buttons)
-            {
                 button.FontSize = 19;
-            }
+            
             clockGrid.Background = new SolidColorBrush(Colors.White);
+        }
+        else if (mainGrid.ActualWidth > 1920)
+        {
+            foreach (var button in Buttons)
+                button.FontSize = 35;
+            
+            clockGrid.Background = null;
         }
         else
         {
             foreach (var button in Buttons)
-            {
                 button.FontSize = 24;
-            }
+            
             clockGrid.Background = null;
         }
 //         await ShowMessageAsync(mainGrid.ActualWidth.ToString());

@@ -22,7 +22,7 @@ public partial class ZoomDialog : ContentDialog
         SetContent();
     }
 
-    protected virtual void SetContent()
+    protected virtual async void SetContent()
     {
         TextBlock.AddText("Zoom: ");
         if (online.Zoom is not null)
@@ -39,6 +39,11 @@ public partial class ZoomDialog : ContentDialog
         {
             TextBlock.AddTextLine(NotAvailable);
             TextBlock.AddTextLine("카루에게 줌 링크 추가를 요청해보세요.");
+            if (online.Id is not null && online.Password is not null)
+            {
+                TextBlock.AddTextLine($"ID: {online.Id}");
+                TextBlock.AddTextLine($"PW: {online.Password}");
+            }
             IsPrimaryButtonEnabled = false;
             DefaultButton = ContentDialogButton.Secondary;
         }

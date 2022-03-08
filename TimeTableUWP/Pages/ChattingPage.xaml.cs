@@ -1,13 +1,16 @@
 ﻿#nullable enable
 
 
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+
 namespace TimeTableUWP.Pages;
 public sealed partial class ChattingPage : Page
 {
     private static bool isFirstLoaded = true;
     private static bool isReloadPaused = false;
     private bool isCancelRequested = false;
-    private const int chatDelay = 700;
+    private const int chatDelay = 900;
     private const string title = "GGHS Anonymous";
 
     private List<string> BadWords { get; set; } = new()
@@ -126,6 +129,7 @@ public sealed partial class ChattingPage : Page
 
             viewBox.Text = sb.ToString();
             ScrollViewBox();
+
         }
         catch (SqlException) // 이건 내가 대응할 수가 없음. 그냥 Swallow.
         {
@@ -157,7 +161,6 @@ public sealed partial class ChattingPage : Page
                 await Task.Delay(1900);
                 continue;
             }
-
 
 
             SqlConnection sql = new(ChatMessageDac.ConnectionString);
@@ -299,7 +302,7 @@ public sealed partial class ChattingPage : Page
         Grid? grid = VisualTreeHelper.GetChild(viewBox, 0) as Grid;
         for (int i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
         {
-            if (VisualTreeHelper.GetChild(grid, i) is not ScrollViewer sv) 
+            if (VisualTreeHelper.GetChild(grid, i) is not ScrollViewer sv)
                 continue;
             sv.ChangeView(0.0f, sv.ExtentHeight, 1.0f, true);
             break;

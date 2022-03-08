@@ -7,6 +7,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Background;
 using Microsoft.Toolkit.Uwp.Notifications;
 using static System.DayOfWeek;
+using System.Threading;
 
 namespace TimeTableUWP.Pages;
 public sealed partial class TimeTablePage : Page
@@ -99,11 +100,11 @@ public sealed partial class TimeTablePage : Page
                 // 4시에는 실행하면 안 된다!
                 if (DateTime.Now.Hour is 16) continue;
 
-                if (DateTime.Now.Minute is 57 && DateTime.Now.Second < 10 && invoke)
+                if (DateTime.Now.Minute is 57 && DateTime.Now.Second < 3 && invoke)
                 {
                     invoke = false;
                     _ = SendToast(pos).ConfigureAwait(false); // 여기까진 알고리즘 완벽.
-                    await Task.Delay(TimeSpan.FromSeconds(10));
+                    await Task.Delay(3000);
                 }
                 if (DateTime.Now.Minute is 58 && invoke is false)
                 {
@@ -130,6 +131,11 @@ public sealed partial class TimeTablePage : Page
         // TimeTable 표에서 현재 날짜와 시간을 통해 과목 꺼내기. time은 하나 +1 시켜야 함.
         string? subject = TimeTable.Table?.AtPos(pos.day - 1, pos.time).ToString();
         if (subject is null)
+            return;
+
+        string taskName = $"ToastZoomOpen-{pos.day}{pos.time}";
+
+        if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
             return;
 
         ToastContentBuilder toast = new ToastContentBuilder()
@@ -167,12 +173,7 @@ public sealed partial class TimeTablePage : Page
                 .AddArgument("classRoomUrl", online.Classroom)
                 .SetBackgroundActivation());
 
-        toast.Show();
-
-        string taskName = $"ToastZoomOpen-{pos.day}{pos.time}";
-
-        if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
-            return;
+        toast.Show(toast => toast.ExpirationTime = DateTime.Now.AddMinutes(3));
 
         BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
         BackgroundTaskBuilder builder = new() { Name = taskName };

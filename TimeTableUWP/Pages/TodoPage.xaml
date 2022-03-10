@@ -54,7 +54,7 @@
             <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
                 <TextBlock><Run Text="&#xE710;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Add New"/></TextBlock>
             </Button>
-            <Button x:Name="RemoveButton" Margin="0,186,0,0" CornerRadius="10,10,0,0" Height="50">
+            <Button x:Name="RemoveButton" Margin="0,155,0,0" CornerRadius="10,10,0,0" Height="50">
                 <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete..."/></TextBlock>
                 <Button.Flyout>
                     <MenuFlyout>
@@ -68,8 +68,14 @@
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
-            <Button x:Name="UndoButton" Margin="0,236,0,0" Click="UndoButton_Click" CornerRadius="0,0,10,10" Height="50">
+            <Button x:Name="UndoButton" Margin="0,205,0,0" Click="UndoButton_Click" CornerRadius="0,0,10,10" Height="50">
                 <TextBlock><Run Text="&#xE7A7;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Undo Delete"/></TextBlock>
+            </Button>
+            <Button x:Name="BackupButton" Margin="0,345,0,0" CornerRadius="10,10,0,0" Height="50" Click="BackupButton_Click">
+                <TextBlock><Run Text="&#xE898;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Backup"/></TextBlock>
+            </Button>
+            <Button x:Name="RestoreButton" Margin="0,395,0,0" Click="RestoreButton_Click" CornerRadius="0,0,10,10" Height="50" >
+                <TextBlock><Run Text="&#xE896;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Restore"/></TextBlock>
             </Button>
         </Grid>
         <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">

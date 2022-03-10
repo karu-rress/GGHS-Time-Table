@@ -2,6 +2,8 @@
 
 using Windows.UI.Xaml.Media.Animation;
 using TimeTableUWP.Todo;
+using Windows.Storage;
+using static RollingRess.Serializer;
 
 namespace TimeTableUWP.Pages;
 
@@ -132,5 +134,39 @@ public sealed partial class TodoListPage : Page
         }
         ReloadTasks();
         await ShowMessageAsync($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete", Info.Settings.Theme);
+    }
+
+    const string todo = "TodoList";
+    private async void BackupButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!Connection.IsInternetAvailable)
+        {
+            await ShowMessageAsync("Internet connection needed.", "Backup Error", Info.Settings.Theme);
+            return;
+        }
+        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+        roamingSettings.Values[todo] = Serialize(TaskList.List);
+
+        await ShowMessageAsync("Successfully backed up your list.", "GGHS Todo", Info.Settings.Theme);
+    }
+
+    private async void RestoreButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!Connection.IsInternetAvailable)
+        {
+            await ShowMessageAsync("Internet connection needed.", "Restore Error", Info.Settings.Theme);
+            return;
+        }
+        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+        if (Deserialize<List<TodoTask>>(roamingSettings.Values[todo]) is not List<TodoTask> tasklist)
+        {
+            await ShowMessageAsync("Nothing to restore", "GGHS Todo", Info.Settings.Theme);
+            return;
+        }
+        else
+            TaskList.List = tasklist;
+
+        ReloadTasks();
+        await ShowMessageAsync("Successfully backed up your list.", "GGHS Todo", Info.Settings.Theme);
     }
 }

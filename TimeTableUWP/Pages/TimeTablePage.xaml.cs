@@ -235,6 +235,8 @@ public sealed partial class TimeTablePage : Page
         }
 
         ZoomDialog? contentDialog;
+
+        /*
         if (Info.Settings.HotReload && Links.GetLinks(Info.User.Class).TryGetValue(subjectCellName, out var link)
             && link is not null)
         {
@@ -244,6 +246,12 @@ public sealed partial class TimeTablePage : Page
         {
             contentDialog = new(Info.User.Class, subjectCellName, online);
         }
+        */
+
+        if (GetOnlineLink(subjectCellName, out var online))
+        {
+            contentDialog = new(Info.User.Class, subjectCellName, online!);
+        }
         else
         {
             await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName, Info.Settings.Theme),
@@ -252,6 +260,21 @@ public sealed partial class TimeTablePage : Page
         }
 
         await contentDialog?.ShowAsync();
+    }
+
+    private bool GetOnlineLink(string cell, out OnlineLink? online)
+    {
+        if (Info.Settings.HotReload 
+            && Links.GetLinks(Info.User.Class).TryGetValue(cell, out online)
+            && online is not null)
+        {
+            return true;
+        }
+        else if (GetClassZoomLink().TryGetValue(cell, out online) && online is not null)
+        {
+            return true;
+        }
+        return false;
     }
 
     private Dictionary<string, OnlineLink?> GetClassZoomLink() => Info.User.Class switch
@@ -268,11 +291,9 @@ public sealed partial class TimeTablePage : Page
             $"GetClassZoomLink(): Class out of range: 1 to 8 expected, but given {Info.User.Class}")
     };
 
-
-
     private async void TableButtons_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn || btn.Content is "" or null)   
+        if (sender is not Button btn || btn.Content is null)   
             return;
 
         if (btn.Content is string cellName)
@@ -321,8 +342,6 @@ public sealed partial class TimeTablePage : Page
             
             clockGrid.Background = null;
         }
-//         await ShowMessageAsync(mainGrid.ActualWidth.ToString());
-        //if (mainGrid.Width)
     }
 }
 

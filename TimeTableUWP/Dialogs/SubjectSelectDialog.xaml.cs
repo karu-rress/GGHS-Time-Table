@@ -7,25 +7,17 @@ public sealed partial class SubjectSelectDialog : ContentDialog
     {
         InitializeComponent();
         SubjectComboBox.ItemsSource = new List<string>()
-        {             
-            "언어와 매체",
-            "화법과 작문",
-            "확률과 통계",
-            "미적분",
+        {
+            Korean.Selected.FullName,
+            ttc::Math.Selected.FullName,
+            Social.Selected.FullName,
+            ttc::Language.Selected.FullName,
+            Global1.Selected.FullName,
+            Global2.Selected.FullName,
             "영미 문학 읽기",
-            "동아시아사",
-            "한국지리",
-            "사회/문화",
-            "체육",
-            "스페인어권 문화",
-            "일본문화",
-            "중국문화",
             "심화영어Ⅱ",
             "독서와 의사소통",
-            "사회 탐구 방법",
-            "한국 사회의 이해",
-            "세계 문제와 미래사회",
-            "윤리학 연습",
+            "체육",
             "기타"
         };
     }

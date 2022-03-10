@@ -22,7 +22,7 @@ public partial class ZoomDialog : ContentDialog
         SetContent();
     }
 
-    protected virtual async void SetContent()
+    protected void SetContent()
     {
         TextBlock.AddText("Zoom: ");
         if (online.Zoom is not null)

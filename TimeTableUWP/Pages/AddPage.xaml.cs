@@ -40,7 +40,20 @@ public sealed partial class AddPage : Page
         DueDatePicker.MinYear = DateTimeOffset.Now;
         DueDatePicker.MaxYear = DateTimeOffset.Now.AddYears(2);
 
-        SubjectPicker.ItemsSource = Subjects;
+        SubjectPicker.ItemsSource = new List<string>()
+        {
+            Korean.Selected.FullName,
+            ttc::Math.Selected.FullName,
+            Social.Selected.FullName,
+            ttc::Language.Selected.FullName,
+            Global1.Selected.FullName,
+            Global2.Selected.FullName,
+            "영미 문학 읽기",
+            "심화영어Ⅱ",
+            "독서와 의사소통",
+            "체육",
+            "기타"
+        };
         SaveButton.BorderBrush = Info.Settings.Brush;
 
         if (Task is not null) // Not creating, but modifying

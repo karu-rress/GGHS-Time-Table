@@ -10,7 +10,7 @@
         <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
     <Grid>
-        <Grid Name="ddayGrid" Margin="0,32,96,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="Transparent">
+        <Grid Name="ddayGrid" Margin="0,32,55,0" HorizontalAlignment="Right" Width="415" Height="101" VerticalAlignment="Top" Background="Transparent">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="TextWrapping" Value="Wrap"/>

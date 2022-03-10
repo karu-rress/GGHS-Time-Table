@@ -7,7 +7,6 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Background;
 using Microsoft.Toolkit.Uwp.Notifications;
 using static System.DayOfWeek;
-using System.Threading;
 
 namespace TimeTableUWP.Pages;
 public sealed partial class TimeTablePage : Page
@@ -92,7 +91,6 @@ public sealed partial class TimeTablePage : Page
 #if TOAST_ENABLED
 
                 // GTT 4부터 모든 사용자에게 3분전 알림 개방
-                // if (SaveData.IsNotDeveloperOrInsider) continue;
 
                 // 동아리(2)나 홈커밍일 때는 토스트 알림 없음.
                 if (pos is ((int)Friday, 7) or ((int)Friday, 6)) continue;
@@ -100,15 +98,10 @@ public sealed partial class TimeTablePage : Page
                 // 4시에는 실행하면 안 된다!
                 if (DateTime.Now.Hour is 16) continue;
 
-                if (DateTime.Now.Minute is 57 && DateTime.Now.Second < 3 && invoke)
+                if (DateTime.Now.Minute is 57 && DateTime.Now.Second < 3)
                 {
-                    invoke = false;
                     _ = SendToast(pos).ConfigureAwait(false); // 여기까진 알고리즘 완벽.
                     await Task.Delay(3000);
-                }
-                if (DateTime.Now.Minute is 58 && invoke is false)
-                {
-                    invoke = true; // 알람 폭탄 방지
                 }
 #endif
             }
@@ -133,11 +126,6 @@ public sealed partial class TimeTablePage : Page
         if (subject is null)
             return;
 
-        string taskName = $"ToastZoomOpen-{pos.day}{pos.time}";
-
-        if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
-            return;
-
         ToastContentBuilder toast = new ToastContentBuilder()
             .AddAppLogoOverride(new("ms-appx:///Assets/SecurityAndMaintenance.png")) // 동그라미 i 표시
             .AddText("다음 수업이 3분 이내에 시작됩니다.", hintMaxLines: 1); // 안내문
@@ -145,7 +133,7 @@ public sealed partial class TimeTablePage : Page
         // 무음모드가 아닐 때만 알람음 설정
         toast.AddAudio(new("ms-appx:///Assets/Alarm01.wav"), false, Info.Settings.SilentMode);
 
-        if (GetClassZoomLink().TryGetValue(subject, out OnlineLink? online) is false || (online is null))
+        if (GetOnlineLink(subject, out OnlineLink? online) is false || (online is null))
         {
             toast.AddText($"[{subject}]")
                  .AddText(hour > 12 ?
@@ -175,6 +163,10 @@ public sealed partial class TimeTablePage : Page
 
         toast.Show(toast => toast.ExpirationTime = DateTime.Now.AddMinutes(3));
 
+        string taskName = $"ToastZoomOpen-{pos.day}{pos.time}";
+
+        if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name == taskName))
+            return;
         BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
         BackgroundTaskBuilder builder = new() { Name = taskName };
         builder.SetTrigger(new ToastNotificationActionTrigger());

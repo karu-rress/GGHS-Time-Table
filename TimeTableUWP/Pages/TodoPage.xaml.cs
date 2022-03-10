@@ -158,7 +158,12 @@ public sealed partial class TodoListPage : Page
             return;
         }
         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-        if (Deserialize<List<TodoTask>>(roamingSettings.Values[todo]) is List<TodoTask> tasklist)
+        if (!(Deserialize<List<TodoTask>>(roamingSettings.Values[todo]) is List<TodoTask> tasklist))
+        {
+            await ShowMessageAsync("Nothing to restore", "GGHS Todo", Info.Settings.Theme);
+            return;
+        }
+        else
             TaskList.List = tasklist;
 
         ReloadTasks();

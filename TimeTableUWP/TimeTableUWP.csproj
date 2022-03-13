@@ -134,6 +134,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Conet\ConetHelp.cs" />
+    <Compile Include="Conet\Egg.cs" />
     <Compile Include="Helpers\ChatMessageDac.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Pages\Comp3Page.xaml.cs">
       <DependentUpon>Comp3Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Conet\ConetButton.cs" />
     <Compile Include="Pages\TimeTableUI.cs" />
     <Compile Include="Pages\TimeTablePage.xaml.cs">
       <DependentUpon>TimeTablePage.xaml</DependentUpon>

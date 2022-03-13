@@ -167,6 +167,6 @@ public sealed partial class TodoListPage : Page
             TaskList.List = tasklist;
 
         ReloadTasks();
-        await ShowMessageAsync("Successfully backed up your list.", "GGHS Todo", Info.Settings.Theme);
+        await ShowMessageAsync("Successfully restored your list.", "GGHS Todo", Info.Settings.Theme);
     }
 }

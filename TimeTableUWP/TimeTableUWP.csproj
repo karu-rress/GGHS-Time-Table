@@ -166,6 +166,15 @@
     <Compile Include="Dialogs\SubjectSelectDialog.xaml.cs">
       <DependentUpon>SubjectSelectDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ConetPage.xaml.cs">
+      <DependentUpon>ConetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comp2Page.xaml.cs">
+      <DependentUpon>Comp2Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comp3Page.xaml.cs">
+      <DependentUpon>Comp3Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TimeTableUI.cs" />
     <Compile Include="Pages\TimeTablePage.xaml.cs">
       <DependentUpon>TimeTablePage.xaml</DependentUpon>
@@ -197,6 +206,12 @@
     </None>
     <Content Include="Assets\Alarm01.wav" />
     <Content Include="Assets\Cloud_Play.png" />
+    <Content Include="Assets\Conet\conet_dark.png" />
+    <Content Include="Assets\Conet\conet_light.png" />
+    <Content Include="Assets\Conet\메인_글 작성.png" />
+    <Content Include="Assets\Conet\메인_마이페이지.png" />
+    <Content Include="Assets\Conet\메인_지도.png" />
+    <Content Include="Assets\Conet\메인_홈.png" />
     <Content Include="Assets\SecurityAndMaintenance.png" />
     <Content Include="Assets\ZegoeLight-U.ttf" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -289,6 +304,18 @@
     <Page Include="Dialogs\SubjectSelectDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ConetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Comp2Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Comp3Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TimeTablePage.xaml">
       <SubType>Designer</SubType>

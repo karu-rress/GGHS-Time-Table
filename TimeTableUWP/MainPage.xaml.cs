@@ -54,6 +54,7 @@ public sealed partial class MainPage : Page
             "timetable" => typeof(TimeTablePage),
             "todo" => typeof(TodoListPage),
             "chat" => typeof(ChattingPage),
+            "conet" => typeof(ConetPage),
             _ => throw new ArgumentException($@"MainPage.NavigateTo(): Unknown tag ""{tag}"".")
         };
         ContentFrame.Navigate(page, null, transition);

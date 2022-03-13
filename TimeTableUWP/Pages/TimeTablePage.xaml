@@ -29,7 +29,7 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="Foreground" Value="{StaticResource txtColor}"/>
-                <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
+                <Setter Property="FontFamily" Value="ms-appx:///Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
         <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 5" FontSize="55" Height="73" FontWeight="Bold"/>

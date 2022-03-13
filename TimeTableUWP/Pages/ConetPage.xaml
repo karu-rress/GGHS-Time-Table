@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="TimeTableUWP.Pages.ConetPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TimeTableUWP.Pages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <FontFamily x:Key="segoeFont">ms-appx://Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
+    </Page.Resources>
+    
+    <Grid>
+        <Image Margin="80,20,0,0" Width="140" Height="135" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image.Source>
+                <BitmapImage x:Name="imgSource" UriSource="ms-appx:///Assets/Conet/conet_light.png" />
+            </Image.Source>
+        </Image>
+        <TextBlock x:Name="mainText" Margin="250,25,0,0" Text="Conet" FontSize="55" FontWeight="Bold" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="156" Height="74" VerticalAlignment="Top"/>
+        <TextBlock x:Name="mainText2" Margin="250,100,0,0" FontSize="30" Text="Powered by ShareTech" Foreground="{ThemeResource SystemBaseMediumHighColor}" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="296" Height="48" VerticalAlignment="Top"/>
+        <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="conetGrid"/>
+        </ScrollViewer>
+        <Grid Margin="10,175,55,35" HorizontalAlignment="Right" Width="215">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="CornerRadius" Value="10" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="Width" Value="215"/>
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
+                <TextBlock><Run Text="&#xE710;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Add New"/></TextBlock>
+            </Button>
+            <Button x:Name="RemoveButton" Margin="0,155,0,0" CornerRadius="10,10,0,0" Height="50">
+                <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete..."/></TextBlock>
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Delete past tasks" Icon="ClosePane" Click="DeletePastButton_Click"/>
+                        <MenuFlyoutItem Text="Delete all" Icon="Rotate" Click="DeleteAllButton_Click"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutSubItem Text="Advanced">
+                            <MenuFlyoutItem Text="Select date" Icon="Calendar" Click="SelectDate_Click" />
+                            <MenuFlyoutItem Text="Select subject" Icon="AllApps"  Click="SelectSubject_Click"/>
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+            <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="0,0,10,10" Height="50">
+                <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Page>

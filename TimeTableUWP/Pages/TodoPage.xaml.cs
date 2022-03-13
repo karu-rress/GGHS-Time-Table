@@ -15,7 +15,7 @@ public sealed partial class TodoListPage : Page
     public TodoListPage()
     {
         InitializeComponent();
-        RequestedTheme = Info.Settings.Theme;
+        // RequestedTheme = Info.Settings.Theme;
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)

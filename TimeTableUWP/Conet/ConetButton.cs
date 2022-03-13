@@ -8,6 +8,7 @@ public class ConetButton : Button
 {
     private const int ButtonWidth = 2560;
     private const int ButtonHeight = 93;
+    private readonly int bodyLength = 40;
 
     public ConetHelp ConetHelp { get; private set; }
 
@@ -15,7 +16,6 @@ public class ConetButton : Button
     {
         ConetHelp = task;
         Click += TaskButton_Click;
-        RightTapped += TaskButton_RightTapped;
         Height = ButtonHeight;
         Margin = new(0, 0, 0, 5);
         CornerRadius = new(10);
@@ -35,14 +35,10 @@ public class ConetButton : Button
         outter.Children.Add(inner);
         outter.Children.Add(arrow);
 
-        if (ConetHelp.DueDate.Date == DateTime.Now.Date)
-        {
-            BorderThickness = new(2.6);
-            BorderBrush = new SolidColorBrush(Info.Settings.ColorType with { A = 200 });
-        }
         Content = outter;
     }
 
+    /*
     private void TaskButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
     {
         if (sender is UIElement uiElem)
@@ -76,6 +72,7 @@ public class ConetButton : Button
             btnFlyOut.ShowAt(uiElem, e.GetPosition(uiElem));
         }
     }
+    */
 
     private void CreateArrowTextBlock(out TextBlock arrow)
     {
@@ -102,7 +99,7 @@ public class ConetButton : Button
         };
         dday = new()
         {
-            Width = 65,
+            Width = 75,
             Margin = new(10, 0, 0, 0),
             HorizontalAlignment = HorizontalAlignment.Left
         };
@@ -113,29 +110,21 @@ public class ConetButton : Button
     {
         tb1 = new()
         {
-            FontSize = 19,
-            Text = ConetHelp.DueDate.ToString("MM/dd"),
-            Margin = new(0, 10, 0, 46),
+            FontSize = 16,
+            Text = ConetHelp.Uploader.name,
+            Margin = new(0, 12, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
-            FontFamily = new("Segoe"),
+            FontFamily = new("Malgun Gothic"),
             FontWeight = FontWeights.Bold
-        };
-
-        DateTime now = DateTime.Now;
-        int days = (new DateTime(now.Year, now.Month, now.Day) - ConetHelp.DueDate).Days;
-        string text = "D" + days switch
-        {
-            0 => "-Day",
-            _ => days.ToString("+0;-0"),
         };
 
         tb2 = new()
         {
-            FontSize = 15,
-            Text = text,
-            Margin = new(0, 44, 0, 12),
+            FontSize = 16,
+            Text = ConetHelp.Price.ToString() ?? "",
+            Margin = new(0, 41, 0, 12),
             HorizontalAlignment = HorizontalAlignment.Center,
-            FontFamily = new("Consolas"),
+            FontFamily = new("Malgun Gothic"),
             FontWeight = FontWeights.Bold
         };
     }
@@ -145,15 +134,15 @@ public class ConetButton : Button
         tb3 = new()
         {
             FontSize = 17,
-            Text = ConetHelp.Subject,
-            Margin = new(80, 12, 0, 44),
+            Text = ConetHelp.Title,
+            Margin = new(90, 12, 0, 44),
             Width = ButtonWidth
         };
         tb4 = new()
         {
             FontSize = 15,
-            Text = ConetHelp.Title,
-            Margin = new(80, 43, 0, 13),
+            Text = string.IsNullOrEmpty(ConetHelp.Body) ? "" : (ConetHelp.Body!.Length > bodyLength ? ConetHelp.Body[0..(bodyLength + 1)] + "..." : ConetHelp.Body),
+            Margin = new(90, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,
             Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xA0, 0xA0, 0xA0))

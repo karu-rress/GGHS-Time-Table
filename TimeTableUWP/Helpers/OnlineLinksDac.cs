@@ -22,6 +22,9 @@ internal class OnlineLinksDac
     public OnlineDacDict Dictionary { get; set; } = new();
     public async Task LoadLinksAsync()
     {
+        if (!Connection.IsInternetAvailable)
+            return;
+
         DataTable dt = new();
         using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
         {

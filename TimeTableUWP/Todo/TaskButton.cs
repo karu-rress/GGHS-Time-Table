@@ -117,7 +117,7 @@ public class TaskButton : Button
             Text = TodoTask.DueDate.ToString("MM/dd"),
             Margin = new(0, 10, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
-            FontFamily = new("Segoe"),
+            FontFamily = new("ms-appx:///Assets/ZegoeLight-U.ttf#Segoe"),
             FontWeight = FontWeights.Bold
         };
 

@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="Conet\ConetHelp.cs" />
     <Compile Include="Conet\Egg.cs" />
+    <Compile Include="Helpers\ConetHelpDac.cs" />
     <Compile Include="Helpers\ChatMessageDac.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />

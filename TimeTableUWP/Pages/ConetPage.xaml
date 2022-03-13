@@ -44,17 +44,6 @@
             </Button>
             <Button x:Name="RemoveButton" Margin="0,155,0,0" CornerRadius="10,10,0,0" Height="50">
                 <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete..."/></TextBlock>
-                <Button.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Delete past tasks" Icon="ClosePane" Click="DeletePastButton_Click"/>
-                        <MenuFlyoutItem Text="Delete all" Icon="Rotate" Click="DeleteAllButton_Click"/>
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutSubItem Text="Advanced">
-                            <MenuFlyoutItem Text="Select date" Icon="Calendar" Click="SelectDate_Click" />
-                            <MenuFlyoutItem Text="Select subject" Icon="AllApps"  Click="SelectSubject_Click"/>
-                        </MenuFlyoutSubItem>
-                    </MenuFlyout>
-                </Button.Flyout>
             </Button>
             <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="0,0,10,10" Height="50">
                 <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>

@@ -12,7 +12,7 @@
         <FontFamily x:Key="segoeFont">ms-appx://Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
         <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
-    
+
     <Grid>
         <Image Margin="80,20,0,0" Width="140" Height="135" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image.Source>
@@ -48,6 +48,10 @@
             <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="0,0,10,10" Height="50">
                 <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
             </Button>
+        </Grid>
+        <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" >
+            <muxc:ProgressRing HorizontalAlignment="Left" VerticalAlignment="Center" IsActive="True" Visibility="Visible"  />
+            <TextBlock Text="Loading..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="{StaticResource segoeFont}" />
         </Grid>
 
     </Grid>

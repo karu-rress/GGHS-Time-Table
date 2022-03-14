@@ -12,6 +12,7 @@
 
     <Grid>
         <Grid.Resources>
+            <FontFamily x:Key="segoeFont">ms-appx:///Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
             <SolidColorBrush x:Key="TextControlBorderBrushFocused" x:Name="TextBoxLineColor"/>
             <Style TargetType="Button">
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -31,9 +32,9 @@
         </Grid.Resources>
         <Grid x:Name="progressGrid" Margin="552,43,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="161" >
             <muxc:ProgressRing HorizontalAlignment="Left" VerticalAlignment="Center" IsActive="True" Visibility="Visible"  />
-            <TextBlock Text="Loading chats..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" />
+            <TextBlock Text="Loading chats..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="{StaticResource segoeFont}" />
         </Grid>
-        <TextBlock x:Name="mainText" Margin="72,25,0,0" Text="GGHS Anonymous" FontSize="55" FontWeight="Bold" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" HorizontalAlignment="Left" Width="460" Height="73" VerticalAlignment="Top" />
+        <TextBlock x:Name="mainText" Margin="72,25,0,0" Text="GGHS Anonymous" FontSize="55" FontWeight="Bold" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="460" Height="73" VerticalAlignment="Top" />
         <TextBox x:Name="viewBox" Margin="55,115,55,82" IsReadOnly="True" CanDrag="False" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
         <TextBox x:Name="textBox" Margin="55, 0, 55, 35" PlaceholderText="여기에 채팅을 입력하세요. (최대 80자) Enter 키를 누르면 전송됩니다." 
                  KeyDown="textBox_KeyDown" MaxLength="80" IsEnabled="False"  VerticalAlignment="Bottom" BorderThickness="1.8"/>

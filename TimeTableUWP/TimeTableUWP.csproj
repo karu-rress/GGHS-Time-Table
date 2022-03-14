@@ -134,9 +134,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Conet\ConetAddPage.xaml.cs">
+      <DependentUpon>ConetAddPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Conet\ConetHelp.cs" />
     <Compile Include="Conet\Egg.cs" />
-    <Compile Include="Helpers\ConetHelpDac.cs" />
+    <Compile Include="Conet\ConetHelpDac.cs" />
     <Compile Include="Helpers\ChatMessageDac.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
@@ -281,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Conet\ConetAddPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\ActivateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

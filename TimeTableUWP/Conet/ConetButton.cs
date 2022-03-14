@@ -79,7 +79,7 @@ public class ConetButton : Button
         arrow = new()
         {
             Text = "\xE971", // E9B9 
-            FontFamily = new("../Assets/segoefluent.ttf#Segoe Fluent Icons"),
+            FontFamily = new("ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons"),
             FontSize = 17,
             Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
             VerticalAlignment = VerticalAlignment.Center,
@@ -121,7 +121,7 @@ public class ConetButton : Button
         tb2 = new()
         {
             FontSize = 16,
-            Text = ConetHelp.Price.ToString() ?? "",
+            Text = ConetHelp.Price?.ToString() ?? "",
             Margin = new(0, 41, 0, 12),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("Malgun Gothic"),

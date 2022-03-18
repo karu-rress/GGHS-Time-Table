@@ -138,8 +138,11 @@
       <DependentUpon>ConetAddPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Conet\ConetHelp.cs" />
-    <Compile Include="Conet\Egg.cs" />
+    <Compile Include="Conet\Models.cs" />
     <Compile Include="Conet\ConetHelpDac.cs" />
+    <Compile Include="Dialogs\ConetLoginDialog.xaml.cs">
+      <DependentUpon>ConetLoginDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ChatMessageDac.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
@@ -289,6 +292,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\ActivateDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ConetLoginDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

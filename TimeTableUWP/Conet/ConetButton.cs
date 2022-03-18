@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using Windows.UI.Text;
-using Windows.UI.Xaml.Controls.Primitives;
 
 namespace TimeTableUWP.Conet;
 public class ConetButton : Button

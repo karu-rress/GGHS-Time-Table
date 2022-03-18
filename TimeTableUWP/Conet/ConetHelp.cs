@@ -11,11 +11,11 @@ public record struct Student(int id, string name)
 public class ConetHelp
 {
     public ConetHelp(DateTime upload, string uploader, string title, string? body, string? price)
-        : this(upload, new Student(Convert.ToInt32(uploader[0..4]), uploader[5..]),
-              title,
-              body,
+        : this(upload, new Student(Convert.ToInt32(uploader[0..4]), uploader[5..].TrimEnd()),
+              title, body,
               string.IsNullOrEmpty(price) ? null : new(Convert.ToUInt32(price)))
-    { }
+    {
+    }
 
     public ConetHelp(DateTime upload, Student uploader, string title, string? body = null, Egg? price = null)
     {

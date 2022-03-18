@@ -15,7 +15,7 @@ public sealed partial class ConetAddPage : Page
         if (Conet is not null) // Not creating, but modifying
         {
             DeleteButton.Visibility = Visibility.Visible;
-            mainText.Text = "Modify Conet";
+            mainText.Text = "Modify";
             TitleTextBox.Text = Conet.Title;
             idTextBox.Text = Conet.Uploader.id.ToString();
             nameTextBox.Text = Conet.Uploader.name.TrimEnd();
@@ -26,7 +26,6 @@ public sealed partial class ConetAddPage : Page
 
     private async void PostButton_Click(object sender, RoutedEventArgs e)
     {
-        // TODO: Egg를 올리세요.
         if (AreNullOrWhiteSpace(TitleTextBox.Text, idTextBox.Text, nameTextBox.Text))
         {
             await ShowMessageAsync("제목과 학번/이름을 입력하세요.", "Error", Info.Settings.Theme);
@@ -39,42 +38,46 @@ public sealed partial class ConetAddPage : Page
             return;
         }
 
-        bool eggExists = false;
-        uint egg = 0;
-        if (!eggTextBox.IsNullOrEmpty())
+        if (Modified)
         {
-            eggExists = true;
-            if (!uint.TryParse(eggTextBox.Text, out egg))
+
+            bool eggExists = false;
+            uint egg = 0;
+            if (!eggTextBox.IsNullOrEmpty())
             {
-                await ShowMessageAsync("에그가 올바르게 입력되지 않았습니다.", "Error", Info.Settings.Theme);
-                return;
+                eggExists = true;
+                if (!uint.TryParse(eggTextBox.Text, out egg))
+                {
+                    await ShowMessageAsync("에그가 올바르게 입력되지 않았습니다.", "Error", Info.Settings.Theme);
+                    return;
+                }
             }
-        }
 
+            ConetHelp conet = new(DateTime.Now, new(number, nameTextBox.Text), TitleTextBox.Text,
+                BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
 
-        ConetHelp conet = new(DateTime.Now, new(number, nameTextBox.Text), TitleTextBox.Text, 
-            BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
-        try
-        {
             using SqlConnection sql = new(ChatMessageDac.ConnectionString);
             using ConetHelpDac con = new(sql);
-
-            await sql.OpenAsync();
-            if (Conet is null)
-                await con.InsertAsync(conet);
-            else
-                await con.UpdateAsync(Conet.UploadDate, conet);
-        }
-        catch (Exception ex)
-        {
-            await Task.WhenAll(
-                ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme)
-                , TimeTableException.HandleException(ex));
-            throw;
-        }
-        finally
-        {
-            Close();
+            Disable(PostButton);
+            try
+            {
+                await sql.OpenAsync();
+                if (Conet is null)
+                    await con.InsertAsync(conet);
+                else
+                    await con.UpdateAsync(Conet.UploadDate, conet);
+            }
+            catch (Exception ex)
+            {
+                await Task.WhenAll(
+                    ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme)
+                    , TimeTableException.HandleException(ex));
+            }
+            finally
+            {
+                Close();
+                Enable(PostButton);
+            }
         }
     }
 
@@ -84,22 +87,35 @@ public sealed partial class ConetAddPage : Page
 
     private async void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        /*
         if (Modified)
         {
             await ShowMessageAsync("This task has been modified. Save or discard changes and try again.", "Couldn't delete", Info.Settings.Theme);
             return;
         }
 
-        if (await ConetList.DeleteTask(TitleTextBox.Text, Conet!) is true)
+        using SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        using ConetHelpDac con = new(sql);
+
+        Disable(DeleteButton);
+        try
+        {
+            await sql.OpenAsync();
+            await con.DeleteAsync(Conet!.UploadDate);
+        }
+        catch (Exception ex)
+        {
+            await Task.WhenAll(ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme),
+                TimeTableException.HandleException(ex));
+        }
+        finally
         {
             Close();
+            Enable(DeleteButton);
         }
-        */
     }
 
     private bool Modified => Conet is not null 
         && (TitleTextBox.Text != Conet.Title
                 || $"{idTextBox.Text} {nameTextBox.Text}" != Conet.Uploader.ToString()
-                || (BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text) != Conet.Body);
+                || (BodyTextBox.IsNullOrEmpty() ? null : BodyTextBox.Text) != Conet.Body);
 }

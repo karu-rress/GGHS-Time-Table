@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoneyType = System.UInt32;
+﻿using MoneyType = System.UInt32;
 
 namespace TimeTableUWP.Conet;
 
@@ -30,3 +25,5 @@ public readonly struct Egg
     public MoneyType Value => _egg;
     public override string ToString() => $"{_egg} 에그";
 }
+
+public record ConetUser(int Id, string Name);

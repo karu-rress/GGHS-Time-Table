@@ -20,7 +20,7 @@
             </Image.Source>
         </Image>
         <TextBlock x:Name="mainText" Margin="250,25,0,0" Text="Conet" FontSize="55" FontWeight="Bold" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="156" Height="74" VerticalAlignment="Top"/>
-        <TextBlock x:Name="mainText2" Margin="250,100,0,0" FontSize="30" Text="Powered by ShareTech" Foreground="{ThemeResource SystemBaseMediumHighColor}" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="296" Height="48" VerticalAlignment="Top"/>
+        <TextBlock x:Name="mainText2" Margin="250,100,0,0" FontSize="30" Text="지금. 여기. 우리. Conet." Foreground="{ThemeResource SystemBaseMediumHighColor}" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="314" Height="48" VerticalAlignment="Top"/>
         <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="conetGrid"/>
         </ScrollViewer>

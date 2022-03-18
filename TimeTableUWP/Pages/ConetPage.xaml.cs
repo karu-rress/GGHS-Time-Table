@@ -58,8 +58,8 @@ public sealed partial class ConetPage : Page
                     (DateTime)row["UploadDate"],
                     row["Uploader"].ToString(),
                     row["Title"].ToString(),
-                    row["Body"]?.ToString(),
-                    row["Price"]?.ToString()));
+                    (row["Body"] is string body) ? body : null,
+                    (row["Price"] is string price) ? price : null));
             }
         }
         catch (SqlException) // 이건 내가 대응할 수가 없음. 그냥 Swallow.

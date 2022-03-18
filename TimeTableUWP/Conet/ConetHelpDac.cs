@@ -1,9 +1,6 @@
 ﻿#nullable enable
 
-using Windows.Storage;
-
 namespace TimeTableUWP.Conet;
-
 
 public class ConetHelpDac : IDisposable
 {

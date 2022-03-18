@@ -6,9 +6,10 @@ public class User : BaseUser
 {
     public LoadStatus Status { get; set; }
     public ActivationLevel ActivationLevel { get; set; } = ActivationLevel.None;
-    public bool IsActivated => ActivationLevel != ActivationLevel.None;
+    public bool IsActivated => ActivationLevel is not ActivationLevel.None;
     public bool IsSpecialLevel => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
-
+    public Conet.ConetUser? ConetUser { get; set; } = null;
+    public bool IsConetLoggedIn => ConetUser is not null;
     /// <summary>
     /// Shows activation dialog and activate.
     /// </summary>

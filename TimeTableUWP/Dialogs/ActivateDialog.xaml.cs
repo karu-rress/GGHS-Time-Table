@@ -8,7 +8,6 @@ public sealed partial class ActivateDialog : ContentDialog
     public ActivateDialog()
     {
         InitializeComponent();
-        RequestedTheme = Info.Settings.Theme;
         keyBox1.BorderBrush = keyBox2.BorderBrush = Info.Settings.Brush;
     }
 

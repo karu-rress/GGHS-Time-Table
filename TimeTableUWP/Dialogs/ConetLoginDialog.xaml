@@ -18,28 +18,39 @@
     </ContentDialog.Resources>
 
 
-    <Grid Width="400" Height="120">
+    <Grid Width="400" Height="160">
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
             Text="학번, 이름, 비밀번호를 입력하세요. 비밀번호를 잊었거나 계정을 생성하지 않은 경우 3116 나선우에게 찾아오시기 바랍니다."/>
-        <Grid Width="370" Height="80" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,43,0,0">
+        <Grid Width="370" Height="113" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,47,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*" />
-                <ColumnDefinition Width="1.7*" />
-                <ColumnDefinition Width="2.8*" />
+                <ColumnDefinition Width="31*" />
+                <ColumnDefinition Width="43*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="52*" />
+                <RowDefinition Height="52*" />
+                <RowDefinition Height="22*" />
+            </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBox">
-                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontSize" Value="18"/>
                     <Setter Property="CornerRadius" Value="10"/>
                     <Setter Property="VerticalAlignment" Value="Top"/>
                     <Setter Property="BorderThickness" Value=".71" />
                     <Setter Property="TextWrapping" Value="Wrap" />
                 </Style>
+                <Style TargetType="PasswordBox">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                    <Setter Property="BorderThickness" Value=".71" />
+                </Style>
             </Grid.Resources>
-            <TextBox x:Name="keyBox1" Grid.Column="0" TextChanged="keyBox1_TextChanged" Width="70" MaxLength="4" PlaceholderText="31XX" Margin="4,10,4,0" />
-            <TextBox x:Name="keyBox2" Grid.Column="1" TextChanged="keyBox2_TextChanged" Width="100" MaxLength="4" PlaceholderText="이름" Margin="5,10,5,0" />
-            <TextBox x:Name="keyBox3" Grid.Column="2" TextChanged="keyBox3_TextChanged" MaxLength="7" Margin="10,10,10,0" PlaceholderText="비밀번호" />
-            <TextBlock x:Name="ErrorBox" Text="정확히 입력하세요." VerticalAlignment="Bottom" TextWrapping="Wrap"  Grid.ColumnSpan="2" Foreground="IndianRed" HorizontalAlignment="Left" Grid.Column="1" Margin="56,0,0,5"/>
+            <TextBox x:Name="idBox" Grid.Column="0" TextChanged="idBox_TextChanged" MaxLength="4" PlaceholderText="31XX" Margin="0, 0, 10, 0" Height="39"/>
+            <TextBox x:Name="nameBox" Grid.Column="1" MaxLength="4" PlaceholderText="이름" Height="36" />
+            <PasswordBox x:Name="pwBox" Grid.ColumnSpan="2" Grid.Row="1" PlaceholderText="비밀번호" Height="36" />
+            <TextBlock x:Name="ErrorBox" Text="학번, 이름을 정확히 입력하세요." VerticalAlignment="Center" TextWrapping="Wrap"  Grid.ColumnSpan="2" Foreground="IndianRed"
+                       HorizontalAlignment="Center"  Grid.Row="2" Visibility="Collapsed" />
         </Grid>
 
     </Grid>

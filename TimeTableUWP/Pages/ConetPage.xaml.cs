@@ -1,4 +1,5 @@
 ﻿using TimeTableUWP.Conet;
+using TimeTableUWP.Dialogs;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Pages;
@@ -32,7 +33,18 @@ public sealed partial class ConetPage : Page
             return;
         }
         conetGrid.Children.Clear();
-        await LoadHelps();    
+        ConetLoginDialog dialog = new();
+        await dialog.ShowAsync();
+
+        if (Info.User.Conet is null)
+        {
+            await ShowMessageAsync("이 기능을 사용하기 위해선 로그인이 필요합니다.", title, Info.Settings.Theme);
+            mainText2.Text = "로그인을 해 주세요.";
+            return;
+        }
+
+        mainText2.Text = "지금. 여기. 우리. Conet";
+        await LoadHelps();
     }
 
     private async Task LoadHelps()

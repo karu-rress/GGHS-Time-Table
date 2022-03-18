@@ -86,3 +86,43 @@ WHERE UploadDate = @UploadDate";
         sda.Fill(table);
     }
 }
+
+public class ConetUserDac
+{
+    private SqlConnection Sql { get; set; }
+    public string Id { get; set; }
+    public string Password { get; }
+    // private static DateTime LastSqlTime;
+
+    public ConetUserDac(SqlConnection sql, string id, string pw)
+    {
+        Sql = sql;
+        Id = id;
+        Password = pw;
+    }
+
+    public async Task<bool> IdExistsAsync()
+    {
+        string query = "SELECT COUNT(*) FROM users WHERE Student = @Student";
+
+        SqlCommand cmd = new(query, Sql);
+        SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
+        cmd.Parameters.Add(pStudent);
+
+        return await cmd.ExecuteScalarAsync() is int i && i != 0;
+    }
+
+    public async Task<bool> PasswordMachesAsync()
+    {
+        string query = "SELECT * FROM users WHERE Student = @Student";
+
+        SqlCommand cmd = new(query, Sql);
+        SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
+        cmd.Parameters.Add(pStudent);
+
+        using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+        reader.Read();
+        string pw = reader.GetString(1).Trim();
+        return pw == RollingRess.Security.Encyptor.SHA256(Password);
+    }
+}

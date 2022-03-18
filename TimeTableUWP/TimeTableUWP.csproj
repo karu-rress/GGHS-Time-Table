@@ -139,7 +139,7 @@
     </Compile>
     <Compile Include="Conet\ConetHelp.cs" />
     <Compile Include="Conet\Models.cs" />
-    <Compile Include="Conet\ConetHelpDac.cs" />
+    <Compile Include="Conet\ConetDac.cs" />
     <Compile Include="Dialogs\ConetLoginDialog.xaml.cs">
       <DependentUpon>ConetLoginDialog.xaml</DependentUpon>
     </Compile>
@@ -177,12 +177,6 @@
     </Compile>
     <Compile Include="Pages\ConetPage.xaml.cs">
       <DependentUpon>ConetPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Comp2Page.xaml.cs">
-      <DependentUpon>Comp2Page.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Comp3Page.xaml.cs">
-      <DependentUpon>Comp3Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Conet\ConetButton.cs" />
     <Compile Include="Pages\TimeTableUI.cs" />
@@ -324,14 +318,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\ConetPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Comp2Page.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Comp3Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

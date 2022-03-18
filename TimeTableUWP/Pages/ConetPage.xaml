@@ -49,7 +49,7 @@
                 <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112" >
+        <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"  Visibility="Collapsed">
             <muxc:ProgressRing HorizontalAlignment="Left" VerticalAlignment="Center" IsActive="True" Visibility="Visible"  />
             <TextBlock Text="Loading..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="{StaticResource segoeFont}" />
         </Grid>

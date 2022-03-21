@@ -6,7 +6,7 @@ namespace TimeTableUWP.Conet;
 
 public sealed partial class ConetAddPage : Page
 {
-    public static ConetHelp? Conet { get; set; } = null;
+    public static ConetHelp? Conet { get; set; }
 
     public ConetAddPage()
     {
@@ -19,7 +19,7 @@ public sealed partial class ConetAddPage : Page
             TitleTextBox.Text = Conet.Title;
             idTextBox.Text = Conet.Uploader.id.ToString();
             nameTextBox.Text = Conet.Uploader.name.TrimEnd();
-            eggTextBox.Text = Conet.Price?.Value.ToString() ?? string.Empty;
+            eggTextBox.Text = $"{Conet.Price?.Value}";
             BodyTextBox.Text = Conet.Body ?? string.Empty;
         }
     }
@@ -40,7 +40,6 @@ public sealed partial class ConetAddPage : Page
 
         if (Modified)
         {
-
             bool eggExists = false;
             uint egg = 0;
             if (!eggTextBox.IsNullOrEmpty())

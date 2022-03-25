@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using TimeTableUWP.Conet;
+
 namespace TimeTableUWP;
 
 public class User : BaseUser
@@ -8,7 +10,7 @@ public class User : BaseUser
     public ActivationLevel ActivationLevel { get; set; } = ActivationLevel.None;
     public bool IsActivated => ActivationLevel is not ActivationLevel.None;
     public bool IsSpecialLevel => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
-    public Conet.ConetUser? Conet { get; set; } = null;
+    public ConetUser? Conet { get; set; } = null;
     public bool IsConetLoggedIn => Conet is not null;
     /// <summary>
     /// Shows activation dialog and activate.

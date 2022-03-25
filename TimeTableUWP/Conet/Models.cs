@@ -25,5 +25,3 @@ public readonly struct Egg
     public MoneyType Value => _egg;
     public override string ToString() => $"{_egg} 에그";
 }
-
-public record ConetUser(int Id, string Name);

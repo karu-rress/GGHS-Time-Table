@@ -9,8 +9,10 @@
     CornerRadius="10"
     Title="Conet User Login"
     PrimaryButtonText="Login"
+    SecondaryButtonText="Register"
     CloseButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     DefaultButton="Primary"
     >
     <ContentDialog.Resources>
@@ -20,7 +22,7 @@
 
     <Grid Width="400" Height="160">
         <TextBlock x:Name="MainTextBlock" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" 
-            Text="학번, 이름, 비밀번호를 입력하세요. 비밀번호를 잊었거나 계정을 생성하지 않은 경우 3116 나선우에게 찾아오시기 바랍니다."/>
+            Text="로그인 또는 회원가입을 해주세요. 비밀번호를 잊어버린 경우 본인 확인을 위해 카루에게 찾아오시기 바랍니다."/>
         <Grid Width="370" Height="113" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,47,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="31*" />
@@ -46,7 +48,7 @@
                     <Setter Property="BorderThickness" Value=".71" />
                 </Style>
             </Grid.Resources>
-            <TextBox x:Name="idBox" Grid.Column="0" TextChanged="idBox_TextChanged" MaxLength="4" PlaceholderText="31XX" Margin="0, 0, 10, 0" Height="39"/>
+            <TextBox x:Name="idBox" Grid.Column="0" TextChanged="idBox_TextChanged" MaxLength="4" PlaceholderText="3XXX" Margin="0, 0, 10, 0" Height="39"/>
             <TextBox x:Name="nameBox" Grid.Column="1" MaxLength="4" PlaceholderText="이름" Height="36" />
             <PasswordBox x:Name="pwBox" Grid.ColumnSpan="2" Grid.Row="1" PlaceholderText="비밀번호" Height="36" />
             <TextBlock x:Name="ErrorBox" Text="학번, 이름을 정확히 입력하세요." VerticalAlignment="Center" TextWrapping="Wrap"  Grid.ColumnSpan="2" Foreground="IndianRed"

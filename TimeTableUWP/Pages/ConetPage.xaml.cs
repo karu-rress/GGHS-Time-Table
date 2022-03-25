@@ -33,17 +33,23 @@ public sealed partial class ConetPage : Page
             return;
         }
         conetGrid.Children.Clear();
-        ConetLoginDialog dialog = new();
-        await dialog.ShowAsync();
-
         if (Info.User.Conet is null)
         {
-            await ShowMessageAsync("이 기능을 사용하기 위해선 로그인이 필요합니다.", title, Info.Settings.Theme);
-            mainText2.Text = "로그인을 해 주세요.";
-            return;
+            ConetLoginDialog dialog = new();
+            await dialog.ShowAsync();
+
+            if (Info.User.Conet is null)
+            {
+                await ShowMessageAsync("이 기능을 사용하기 위해선 로그인이 필요합니다.", title, Info.Settings.Theme);
+                mainText2.Text = "로그인을 해 주세요.";
+                AddButton.IsEnabled = RefreshButton.IsEnabled = false;
+                return;
+            }
         }
 
         mainText2.Text = "지금. 여기. 우리. Conet";
+        nameText.Text = $"{Info.User.Conet.Id} {Info.User.Conet.Name}님";
+        eggText.Text = $"나의 에그: {Info.User.Conet.Eggs} 에그";
         await LoadHelps();
     }
 

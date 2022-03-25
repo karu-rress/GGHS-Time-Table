@@ -30,7 +30,7 @@
                     <Setter Property="FontFamily" Value="Segoe UI" />
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="mainText" Text="Add New Task" FontSize="55" Height="73" />
+            <TextBlock x:Name="mainText" Text="New Conet" FontSize="55" Height="73" />
         </Grid>
 
         <TextBlock Text="Title" FontFamily="{StaticResource segoeFont}" Height="34" FontSize="25" VerticalAlignment="Top" RenderTransformOrigin="0.93,1.029" Margin="59,119,0,0" HorizontalAlignment="Left" Width="52"/>
@@ -65,10 +65,10 @@
         <Grid Height="70" Margin="59,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="562">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="140*"/>
-                <ColumnDefinition Width="141*"/>
+                <ColumnDefinition Width="241*"/>
+                <ColumnDefinition Width="28*"/>
                 <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="143*"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
@@ -82,10 +82,9 @@
                 </Style>
             </Grid.Resources>
             <TextBlock Text="Writer" FontSize="25" Grid.Column="0" Margin="3,18,2,18"/>
-            <TextBox x:Name="idTextBox" Height="45" FontSize="21" PlaceholderText="학번 4자리" MaxLength="4" CornerRadius="10, 0, 0, 10" Grid.Column="1" />
-            <TextBox x:Name="nameTextBox" Height="45" FontSize="21" PlaceholderText="이름" MaxLength="4" CornerRadius="0, 10, 10, 0" Grid.Column="2" />
+            <TextBlock x:Name="idText" FontSize="21" Grid.Column="1" VerticalAlignment="Center" />
             <TextBlock Text="Eggs" FontSize="25" Grid.Column="3" Margin="5,18,5,18"/>
-            <TextBox x:Name="eggTextBox"  Height="45" FontSize="21" PlaceholderText="에그"  MaxLength="4" Grid.Column="4" CornerRadius="10"/>
+            <TextBox x:Name="eggTextBox"  Height="45" FontSize="21" PlaceholderText="에그"  MaxLength="4" Grid.Column="4" CornerRadius="10" Width="130"/>
         </Grid>
     </Grid>
 </Page>

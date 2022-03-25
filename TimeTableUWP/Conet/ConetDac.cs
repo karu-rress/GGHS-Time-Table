@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using RollingRess.Security;
+
 namespace TimeTableUWP.Conet;
 
 public class ConetHelpDac : IDisposable
@@ -91,14 +93,14 @@ public class ConetUserDac
 {
     private SqlConnection Sql { get; set; }
     public string Id { get; set; }
-    public string Password { get; }
+    public string EncryptedPassword { get; }
     // private static DateTime LastSqlTime;
 
     public ConetUserDac(SqlConnection sql, string id, string pw)
     {
         Sql = sql;
         Id = id;
-        Password = pw;
+        EncryptedPassword = Encryptor.SHA256(pw);
     }
 
     public async Task<bool> IdExistsAsync()
@@ -123,6 +125,22 @@ public class ConetUserDac
         using SqlDataReader reader = await cmd.ExecuteReaderAsync();
         reader.Read();
         string pw = reader.GetString(1).Trim();
-        return pw == RollingRess.Security.Encyptor.SHA256(Password);
+        return pw == EncryptedPassword;
     }
+
+    public async Task InsertAsync()
+    {
+        const string query = "INSERT INTO users VALUES(@Student, @Password)";
+
+        SqlCommand cmd = new(query, Sql);
+
+        SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
+        SqlParameter pPassword = new("Password", SqlDbType.Char, 44) { Value = EncryptedPassword };
+
+        cmd.Parameters.Add(pStudent);
+        cmd.Parameters.Add(pPassword);
+
+        await cmd.ExecuteNonQueryAsync();
+    }
+
 }

@@ -11,36 +11,40 @@ public sealed partial class ConetAddPage : Page
     public ConetAddPage()
     {
         InitializeComponent();
+        idText.Text = $"{Info.User.Conet!.Id} {Info.User.Conet.Name}";
 
         if (Conet is not null) // Not creating, but modifying
         {
-            DeleteButton.Visibility = Visibility.Visible;
-            mainText.Text = "Modify";
+            idText.Text = $"{Conet.Uploader.Id} {Conet.Uploader.Name}";
+            mainText.Text = "Conet Details";
             TitleTextBox.Text = Conet.Title;
-            idTextBox.Text = Conet.Uploader.id.ToString();
-            nameTextBox.Text = Conet.Uploader.name.TrimEnd();
             eggTextBox.Text = Conet.Price?.Value.ToString() ?? string.Empty;
             BodyTextBox.Text = Conet.Body ?? string.Empty;
+
+            // 다른 사람 글이라면
+            if (Conet.Uploader.Id != Info.User.Conet.Id)
+            {
+                ReadOnly(TitleTextBox, eggTextBox, BodyTextBox);
+                Disable(PostButton);
+            }
+            // 내가 쓴 글이라면
+            else
+            {
+                Visible(DeleteButton);
+            }
         }
     }
 
     private async void PostButton_Click(object sender, RoutedEventArgs e)
     {
-        if (AreNullOrWhiteSpace(TitleTextBox.Text, idTextBox.Text, nameTextBox.Text))
+        if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
         {
-            await ShowMessageAsync("제목과 학번/이름을 입력하세요.", "Error", Info.Settings.Theme);
+            await ShowMessageAsync("제목을 입력하세요.", "Error", Info.Settings.Theme);
             return;
         }
 
-        if (idTextBox.Text.Length is not 4 || idTextBox.Text[0] is not ('1' or '2' or '3') || !int.TryParse(idTextBox.Text, out int number))
+        if (Conet is null || Modified)
         {
-            await ShowMessageAsync("학번이 올바르지 않습니다.\n4자리 숫자를 정확히 입력하세요.", "Error", Info.Settings.Theme);
-            return;
-        }
-
-        if (Modified)
-        {
-
             bool eggExists = false;
             uint egg = 0;
             if (!eggTextBox.IsNullOrEmpty())
@@ -53,7 +57,7 @@ public sealed partial class ConetAddPage : Page
                 }
             }
 
-            ConetHelp conet = new(DateTime.Now, new(number, nameTextBox.Text), TitleTextBox.Text,
+            ConetHelp conet = new(DateTime.Now, Info.User.Conet!, TitleTextBox.Text,
                 BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
 
             using SqlConnection sql = new(ChatMessageDac.ConnectionString);
@@ -114,8 +118,8 @@ public sealed partial class ConetAddPage : Page
         }
     }
 
-    private bool Modified => Conet is not null 
+    private bool Modified => Conet is not null
         && (TitleTextBox.Text != Conet.Title
-                || $"{idTextBox.Text} {nameTextBox.Text}" != Conet.Uploader.ToString()
-                || (BodyTextBox.IsNullOrEmpty() ? null : BodyTextBox.Text) != Conet.Body);
+            || (BodyTextBox.IsNullOrEmpty() ? null : BodyTextBox.Text) != Conet.Body
+            || (eggTextBox.IsNullOrEmpty() ? null : eggTextBox.Text) != Conet.Price.ToString());
 }

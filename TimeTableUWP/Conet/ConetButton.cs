@@ -110,7 +110,7 @@ public class ConetButton : Button
         tb1 = new()
         {
             FontSize = 16,
-            Text = ConetHelp.Uploader.name,
+            Text = ConetHelp.Uploader.Name,
             Margin = new(0, 12, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("Malgun Gothic"),

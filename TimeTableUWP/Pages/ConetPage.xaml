@@ -42,16 +42,25 @@
             <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
                 <TextBlock><Run Text="&#xE710;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Add New"/></TextBlock>
             </Button>
-            <Button x:Name="RemoveButton" Margin="0,155,0,0" CornerRadius="10,10,0,0" Height="50">
-                <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete..."/></TextBlock>
-            </Button>
-            <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="0,0,10,10" Height="50">
+            <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="10" Height="50">
                 <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
             </Button>
         </Grid>
         <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"  Visibility="Collapsed">
             <muxc:ProgressRing HorizontalAlignment="Left" VerticalAlignment="Center" IsActive="True" Visibility="Visible"  />
             <TextBlock Text="Loading..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="{StaticResource segoeFont}" />
+        </Grid>
+        <Grid x:Name="ddayGrid" Margin="0,32,55,0" HorizontalAlignment="Right" Width="215" Height="101" VerticalAlignment="Top" Background="Transparent">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="FontSize" Value="30" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </Grid.Resources>
+            <TextBlock x:Name="nameText" Margin="0,24,0,0" FontSize="26" />
+            <TextBlock x:Name="eggText" Margin="0,65,0,0" FontSize="19"/>
         </Grid>
 
     </Grid>

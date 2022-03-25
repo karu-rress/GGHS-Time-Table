@@ -10,10 +10,11 @@ public sealed partial class TimeTablePage : Page
     private TimeTables TimeTable { get; } = new();
     private OnlineLinks Online { get; } = new();
     private OnlineLinksDac Links { get; } = new();
+    private bool NotInvoked { get; set; } = true;
+
     public TimeTablePage()
     {
         InitializeComponent();
-        // RequestedTheme = Info.Settings.Theme;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -153,22 +154,23 @@ public sealed partial class TimeTablePage : Page
             return; // Class is not yet selected, or a bug.
 
         EnableAllCombobox();
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Korean))
+        var common = TimeTable.Table.CommonSubject;
+        if (common.HasFlag(Common.Korean))
             DisableComboBoxByClass(korComboBox, Korean.Selected);
 
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Math))
+        if (common.HasFlag(Common.Math))
             DisableComboBoxByClass(mathComboBox, ttc::Math.Selected);
 
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Social))
+        if (common.HasFlag(Common.Social))
             DisableComboBoxByClass(socialComboBox, Social.Selected);
 
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Language))
+        if (common.HasFlag(Common.Language))
             DisableComboBoxByClass(langComboBox, ttc::Language.Selected);
 
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Global1))
+        if (common.HasFlag(Common.Global1))
             DisableComboBoxByClass(global1ComboBox, Global1.Selected);
 
-        if (TimeTable.Table.CommonSubject.HasFlag(Common.Global2))
+        if (common.HasFlag(Common.Global2))
             DisableComboBoxByClass(global2ComboBox, Global2.Selected);
     }
 
@@ -216,7 +218,6 @@ public sealed partial class TimeTablePage : Page
         DrawTimeTable();
     }
 
-    bool notInvoked = true;
     private async Task ShowSubjectZoom(string subjectCellName)
     {
         if (Info.User.ActivationLevel is ActivationLevel.None)
@@ -228,38 +229,22 @@ public sealed partial class TimeTablePage : Page
             SetSubText();
         }
 
-        if (notInvoked && Info.Settings.HotReload && Links.Dictionary.Count is 0)
+        if (NotInvoked && Info.Settings.HotReload && Links.Dictionary.Count is 0)
         {
-            notInvoked = false;
+            NotInvoked = false;
             return;
         }
 
-        ZoomDialog? contentDialog;
-
-        /*
-        if (Info.Settings.HotReload && Links.GetLinks(Info.User.Class).TryGetValue(subjectCellName, out var link)
-            && link is not null)
-        {
-            contentDialog = new(Info.User.Class, subjectCellName, link);
-        }
-        else if (GetClassZoomLink().TryGetValue(subjectCellName, out var online) && online is not null)
-        {
-            contentDialog = new(Info.User.Class, subjectCellName, online);
-        }
-        */
-
         if (GetOnlineLink(subjectCellName, out var online))
         {
-            contentDialog = new(Info.User.Class, subjectCellName, online!);
+            ZoomDialog contentDialog = new(Info.User.Class, subjectCellName, online!);
+            await contentDialog.ShowAsync();
         }
         else
         {
             await ShowMessageAsync(string.Format(Messages.Dialog.NotAvailable, subjectCellName, Info.Settings.Theme),
             "No data", Info.Settings.Theme);
-            return;
         }
-
-        await contentDialog?.ShowAsync();
     }
 
     private bool GetOnlineLink(string cell, out OnlineLink? online)
@@ -342,13 +327,5 @@ public sealed partial class TimeTablePage : Page
             
             clockGrid.Background = null;
         }
-    }
-}
-
-internal static class Extension
-{
-    public static void Select(this ComboBox cb, Subject subject)
-    {
-        cb.SelectedItem = subject.FullName;
     }
 }

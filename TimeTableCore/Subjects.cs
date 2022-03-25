@@ -1,6 +1,5 @@
 ﻿using System.Runtime.Serialization;
 
-// TODO 이거 Grade 3 S 1 아님?
 namespace TimeTableCore
 {
     [DataContract(Name = "Subject")]

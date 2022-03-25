@@ -9,13 +9,13 @@ namespace TimeTableUWP.Pages;
 
 public sealed partial class TodoListPage : Page
 {
+    const string todo = "TodoList";
     public static TaskList TaskList { get; set; } = new();
     private readonly DateTime sat = new(2022, 11, 17);
 
     public TodoListPage()
     {
         InitializeComponent();
-        // RequestedTheme = Info.Settings.Theme;
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -40,7 +40,7 @@ public sealed partial class TodoListPage : Page
             return;
 
         TaskList.Sort();
-        foreach (TodoTask? task in TaskList)
+        foreach (var task in TaskList)
             TaskGrid.Children.Add(new TaskButton(task, TaskButton_Click));
     }
 
@@ -56,45 +56,20 @@ public sealed partial class TodoListPage : Page
     private void AddButton_Click(object _, RoutedEventArgs e)
         => Frame.Navigate(typeof(AddPage), null, new DrillInNavigationTransitionInfo());
 
-    private async Task DeleteTasks(Predicate<TodoTask>? match)
-    {
-        if (TaskList.IsNullOrEmpty)
-        {
-            await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
-            return;
-        }
-
-        int cnt = TaskList.CountAll(match);
-        if (cnt is 0)
-        {
-            await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
-            return;
-        }
-
-        const string title = "Delete";
-        ContentDialog contentDialog = new()
-        {
-            Content = $"Are you sure want to delete {cnt} {"task".PutS(cnt)}?",
-            Title = title,
-            CloseButtonText = "Cancel",
-            PrimaryButtonText = "Yes, delete",
-            DefaultButton = ContentDialogButton.Primary,
-            RequestedTheme = Info.Settings.Theme,
-        };
-        if (await contentDialog.ShowAsync() is ContentDialogResult.None)
-            return;
-
-        TaskList.RemoveAll(match);
-
-        ReloadTasks();
-        await ShowMessageAsync($"Successfully deleted {cnt} {"task".PutS(cnt)}.", title, Info.Settings.Theme);
-    }
-
     private async void DeletePastButton_Click(object _, RoutedEventArgs e)
-        => await DeleteTasks(x => x.DueDate.Date < DateTime.Now.Date);
+    => await DeleteTasks(x => x.DueDate.Date < DateTime.Now.Date);
 
-    private async void DeleteAllButton_Click(object _, RoutedEventArgs e) 
+    private async void DeleteAllButton_Click(object _, RoutedEventArgs e)
         => await DeleteTasks(null);
+
+    private void TaskButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is TaskButton tb)
+        {
+            AddPage.Task = tb.TodoTask;
+            Frame.Navigate(typeof(AddPage));
+        }
+    }
 
     private async void SelectDate_Click(object _, RoutedEventArgs e)
     {
@@ -115,13 +90,37 @@ public sealed partial class TodoListPage : Page
         await DeleteTasks(x => x.Subject == dialog.SelectedSubject);
     }
 
-    private void TaskButton_Click(object sender, RoutedEventArgs e)
+    private async Task DeleteTasks(Predicate<TodoTask>? match)
     {
-        if (sender is TaskButton tb)
+        if (TaskList.IsNullOrEmpty)
         {
-            AddPage.Task = tb.TodoTask;
-            Frame.Navigate(typeof(AddPage));
+            await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
+            return;
         }
+
+        int cnt = TaskList.CountAll(match);
+        if (cnt is 0)
+        {
+            await ShowMessageAsync("Nothing to delete.", "Delete", theme: Info.Settings.Theme);
+            return;
+        }
+
+        ContentDialog contentDialog = new()
+        {
+            Content = $"Are you sure want to delete {cnt} {"task".PutS(cnt)}?",
+            Title = "Delete",
+            CloseButtonText = "Cancel",
+            PrimaryButtonText = "Yes, delete",
+            DefaultButton = ContentDialogButton.Primary,
+            RequestedTheme = Info.Settings.Theme,
+        };
+        if (await contentDialog.ShowAsync() is ContentDialogResult.None)
+            return;
+
+        TaskList.RemoveAll(match);
+
+        ReloadTasks();
+        await ShowMessageAsync($"Successfully deleted {cnt} {"task".PutS(cnt)}.", "Delete", Info.Settings.Theme);
     }
 
     private async void UndoButton_Click(object sender, RoutedEventArgs e)
@@ -136,7 +135,6 @@ public sealed partial class TodoListPage : Page
         await ShowMessageAsync($"Successfully restored {result} {"item".PutS(result)}.", "Undo Delete", Info.Settings.Theme);
     }
 
-    const string todo = "TodoList";
     private async void BackupButton_Click(object sender, RoutedEventArgs e)
     {
         if (!Connection.IsInternetAvailable)

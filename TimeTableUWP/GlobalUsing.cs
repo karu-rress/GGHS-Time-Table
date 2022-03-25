@@ -21,7 +21,6 @@ global using Windows.UI.Xaml.Input;
 // global using Windows.System; // Do NOT
 
 
-
 // My namespaces
 global using RollingRess;
 global using RollingRess.Net;

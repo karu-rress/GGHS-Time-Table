@@ -31,7 +31,6 @@ public sealed partial class SettingsPage : Page
     {
         InitializeComponent();
         use24Toggle.IsOn = Info.Settings.Use24Hour;
-        // RequestedTheme = Info.Settings.Theme;
         dateFormatRadio.SelectedIndex = DateFormatDict[Info.Settings.DateFormat];
         colorPicker.Color = Info.Settings.ColorType;
         SilentToggle.IsOn = Info.Settings.SilentMode;
@@ -47,7 +46,25 @@ public sealed partial class SettingsPage : Page
             button.BorderBrush = Info.Settings.Brush;
     }
 
-    private void ToggleSwitch_Toggled(object _, RoutedEventArgs e) => Info.Settings.Use24Hour = use24Toggle.IsOn;
+    private void use24Toggle_Toggled(object _, RoutedEventArgs e) => Info.Settings.Use24Hour = use24Toggle.IsOn;
+
+    private async void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __)
+    {
+        if (await User.AuthorAsync() is false)
+        {
+            SetDarkToggle(false);
+            return;
+        }
+
+        Info.Settings.IsDarkMode = darkToggle.IsOn;
+        AppStyle.SetTheme(Info.Settings.Theme);
+    }
+
+    private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
+=> Info.Settings.SilentMode = SilentToggle.IsOn;
+
+    private void ReloadToggle_Toggled(object sender, RoutedEventArgs e)
+    => Info.Settings.HotReload = ReloadToggle.IsOn;
 
     private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -69,7 +86,10 @@ public sealed partial class SettingsPage : Page
         SetButtonColor();
     }
 
-    private async void Button_Click_1(object sender, RoutedEventArgs e)
+    private void ResetColor_Click(object sender, RoutedEventArgs e)
+=> colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
+
+    private async void aboutButton_Click(object sender, RoutedEventArgs e)
     {
         Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527") };
         hyperlink.AddText("개발자 블로그 1 (네이버: 카루)");
@@ -106,51 +126,19 @@ public sealed partial class SettingsPage : Page
         }
     }
 
-    private async void Button_Click_2(object sender, RoutedEventArgs e)
+    private async void feedbackButton_Click(object sender, RoutedEventArgs e)
     {
         FeedbackDialog feedbackDialog = new();
         await feedbackDialog.ShowAsync();
     }
 
-    private async void DarkToggleSwitch_Toggled(object _, RoutedEventArgs __)
-    {
-        if (await User.AuthorAsync() is false)
-        {
-            SetDarkToggle(false);
-            return;
-        }
+    private async void activateButton_Click(object sender, RoutedEventArgs e)
+=> await User.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
 
-        Info.Settings.IsDarkMode = darkToggle.IsOn;
-        AppStyle.SetTheme(Info.Settings.Theme);
-    }
+    private async void troubleButton_Click(object sender, RoutedEventArgs e)
+=> await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot", Info.Settings.Theme);
 
-    private void SetDarkToggle(bool value)
-    {
-        if (darkToggle.IsOn == value)
-            return;
-
-        RoutedEventHandler handler = new(DarkToggleSwitch_Toggled);
-        darkToggle.Toggled -= handler;
-        darkToggle.IsOn = value;
-        darkToggle.Toggled += handler;
-    }
-
-    private async void Button_Click_4(object sender, RoutedEventArgs e)
-    => await User.ActivateAsync("인증 레벨을 바꾸고 싶으신가요?");
-
-    private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
-    => Info.Settings.SilentMode = SilentToggle.IsOn;
-
-    private void ReloadToggle_Toggled(object sender, RoutedEventArgs e)
-    => Info.Settings.HotReload = ReloadToggle.IsOn;
-
-    private async void Button_Click_5(object sender, RoutedEventArgs e)
-    => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot", Info.Settings.Theme);
-
-    private void Button_Click_6(object sender, RoutedEventArgs e)
-    => colorPicker.Color = Info.Settings.ColorType = Settings.DefaultColor;
-
-    private async void Button_Click_7(object sender, RoutedEventArgs e)
+    private async void howtoButton_Click(object sender, RoutedEventArgs e)
     {
 
         Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527/222659315481") };
@@ -183,5 +171,16 @@ public sealed partial class SettingsPage : Page
 
         if (await contentDialog.ShowAsync() is ContentDialogResult.Primary)
             await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527/222659315481"));
+    }
+
+    private void SetDarkToggle(bool value)
+    {
+        if (darkToggle.IsOn == value)
+            return;
+
+        RoutedEventHandler handler = new(DarkToggleSwitch_Toggled);
+        darkToggle.Toggled -= handler;
+        darkToggle.IsOn = value;
+        darkToggle.Toggled += handler;
     }
 }

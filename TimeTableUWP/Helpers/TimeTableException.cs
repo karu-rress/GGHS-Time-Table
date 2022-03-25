@@ -58,11 +58,16 @@ public class TimeTableException : Exception
         if (Connection.IsInternetAvailable)
         {
             Task mail = smtp.SendAsync(msg);
-            SqlConnection sql = new(ChatMessageDac.ConnectionString);
-            ChatMessageDac chat = new(sql);
-            await sql.OpenAsync();
-            await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.ErrorChat, exception.GetType().Name));
-            sql.Close();
+
+            if (Info.User.ActivationLevel is not ActivationLevel.Developer)
+            {
+                SqlConnection sql = new(ChatMessageDac.ConnectionString);
+                ChatMessageDac chat = new(sql);
+                await sql.OpenAsync();
+                await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.ErrorChat, exception.GetType().Name));
+                sql.Close();
+            }
+
             await mail;
         }
         else

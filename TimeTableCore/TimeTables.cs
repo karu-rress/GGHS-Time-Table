@@ -7,7 +7,10 @@ public class TimeTable
 {
     public Subject[] Data { get; set; }
     public int Class { get; }
-    // Usage: = Common.Korean | Common.Math;
+
+    /// <summary>
+    /// Use | operator to combine.
+    /// </summary>
     public Common CommonSubject { get; private set; } = Common.None; 
     public TimeTable(int @class, Subject[] timeTable)
     {
@@ -32,19 +35,6 @@ public class TimeTable
         // TODO: CommonSubject = switch @class {  Common.None , ..... 
         // 창체, 동아리 시간, 홈커밍은 여기서 잘라버리기
 
-
-        // 반별 공통과목 제한
-        // 예를 들어, 1반이 모두 언매, 확통이라면
-        // CommonSubject = Common.Korean | Common.Math
-
-        // Subjects.Korean = Korean.언매 <- 근데 이건 애초에 TimeTable을 저렇게 대입하면 필요 없음.
-        // Subjects.Math = Math.Probabiility..
-
-        // TODO 1: 반별 공통과목 제한하기
-        //throw new NotImplementedException();
-#if !NOT_YET
-
-        // Korean, Math, Social, Language, Global1(사탐), Global2(윤연)
         CommonSubject = @class switch
         {
             1 => Common.Global1,
@@ -59,8 +49,6 @@ public class TimeTable
             | Common.Global1 | Common.Global2, // 언매, 확통, 사문, 스문, 사탐방, 윤리
             _ => throw new IndexOutOfRangeException(@"SetByClass: @class is {@class}")
         };
-
-#endif
     }
 }
 
@@ -78,7 +66,6 @@ public enum Common
 
 public class TimeTables
 {
-    // TODO: 실제 시간표 대입
     public TimeTable Class1 { get; } = new(1, new Subject[]
     {
         Subjects.AdvancedEnglish.B, Subjects.Korean, Subjects.Sports, Subjects.Math, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
@@ -144,7 +131,7 @@ public class TimeTables
         Language.Spanish, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others, 
     });
 
-    private static TimeTable? table = null;
+    private static TimeTable? table;
     public TimeTable? Table { get => table; set => table = value; }
 
     public TimeTables() { }
@@ -196,7 +183,7 @@ public class TimeTables
             6 => Class6,
             7 => Class7,
             8 => Class8,
-            _ => throw new ArgumentException("@class is not in 1-8.")
+            _ => throw new ArgumentException($"@class is not in 1-8. @class = {@class}")
         };
     }
 }

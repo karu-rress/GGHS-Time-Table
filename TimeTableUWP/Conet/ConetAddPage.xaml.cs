@@ -6,7 +6,7 @@ namespace TimeTableUWP.Conet;
 
 public sealed partial class ConetAddPage : Page
 {
-    public static ConetHelp? Conet { get; set; } = null;
+    public static ConetHelp? Conet { get; set; }
 
     public ConetAddPage()
     {
@@ -18,7 +18,7 @@ public sealed partial class ConetAddPage : Page
             idText.Text = $"{Conet.Uploader.Id} {Conet.Uploader.Name}";
             mainText.Text = "Conet Details";
             TitleTextBox.Text = Conet.Title;
-            eggTextBox.Text = Conet.Price?.Value.ToString() ?? string.Empty;
+            eggTextBox.Text = $"{Conet.Price?.Value}";
             BodyTextBox.Text = Conet.Body ?? string.Empty;
 
             // 다른 사람 글이라면
@@ -44,6 +44,12 @@ public sealed partial class ConetAddPage : Page
         }
 
         if (Conet is null || Modified)
+        {
+            await ShowMessageAsync("학번이 올바르지 않습니다.\n4자리 숫자를 정확히 입력하세요.", "Error", Info.Settings.Theme);
+            return;
+        }
+
+        if (Modified)
         {
             bool eggExists = false;
             uint egg = 0;

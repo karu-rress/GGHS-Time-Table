@@ -1,5 +1,5 @@
 ﻿#nullable enable
-#define TOAST_ENABLED
+// #define TOAST_ENABLED
 
 using System.Globalization;
 using Windows.UI.Core;
@@ -44,7 +44,6 @@ public sealed partial class TimeTablePage : Page
         ActivationLevel.Coral => SubTitles.Coral,
         _ => string.Empty
     };
-
 
     private void DrawTimeTable()
     {
@@ -195,7 +194,6 @@ public sealed partial class TimeTablePage : Page
             item.BorderThickness = new();
         }
     }
-
     private void SetClock()
     {
         clock.Text = DateTime.Now.ToString(Info.Settings.Use24Hour ? "HH:mm" : "hh:mm");
@@ -209,5 +207,13 @@ public sealed partial class TimeTablePage : Page
             _ => throw new NotImplementedException()
         });
         dayBlock.Text = DateTime.Now.ToString("ddd", CultureInfo.CreateSpecificCulture("en-US"));
+    }
+}
+
+internal static class Extension
+{
+    public static void Select(this ComboBox cb, Subject subject)
+    {
+        cb.SelectedItem = subject.FullName;
     }
 }

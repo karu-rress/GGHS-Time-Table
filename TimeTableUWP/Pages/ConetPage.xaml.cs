@@ -9,9 +9,9 @@ namespace TimeTableUWP.Pages;
 /// </summary>
 public sealed partial class ConetPage : Page
 {
-    public static List<ConetHelp> ConetList { get; set; } = new();
     private const string title = "Conet";
-
+    public static List<ConetHelp> ConetList { get; set; } = new();
+    
     public ConetPage()
     {
         InitializeComponent();
@@ -25,11 +25,9 @@ public sealed partial class ConetPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        // ConetList.Add(new("수행평가 대리응시자 구합니다!", new(3116, "나선우")) { Body = "사탐방 하다가 빡쳐서요! 대신 좀 해주실 분!", Price = new(10)});
-        // 인터넷 없으면 리턴
         if (!Connection.IsInternetAvailable)
         {
-            // await ShowMessageAsync()
+            await ShowMessageAsync("인터넷에 연결되어 있어야 Conet을 사용할 수 있습니다.", title, Info.Settings.Theme);
             return;
         }
         conetGrid.Children.Clear();
@@ -57,8 +55,6 @@ public sealed partial class ConetPage : Page
     {
         ConetList.Clear();
         Visible(progressGrid);
-        // progresgrid 따오기 (chattingpage)
-        // SQL 다운로드 후
         try
         {
             DataTable dt = new();
@@ -112,5 +108,4 @@ public sealed partial class ConetPage : Page
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
         => Frame.Navigate(typeof(ConetAddPage), null, new DrillInNavigationTransitionInfo());
-
 }

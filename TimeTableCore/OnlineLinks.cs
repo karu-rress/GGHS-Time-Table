@@ -5,10 +5,10 @@ namespace TimeTableCore
 {
     public record OnlineLink
     {
-        public string? Zoom { get; init; } = null;
-        public string? Id { get; init; } = null;
-        public string? Password { get; init; } = null;
-        public string? Classroom { get; init; } = null;
+        public string? Zoom { get; init; }
+        public string? Id { get; init; }
+        public string? Password { get; init; }
+        public string? Classroom { get; init; }
         public string Teacher { get; init; } = string.Empty;
     }
 

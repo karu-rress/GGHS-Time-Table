@@ -1,4 +1,5 @@
-﻿using MoneyType = System.UInt32;
+﻿using System.Runtime.Serialization;
+using MoneyType = System.UInt32;
 
 namespace TimeTableUWP.Conet;
 
@@ -12,16 +13,20 @@ public readonly struct Won
     public Won(Egg egg) => _won = egg.Value * 1000;
     public MoneyType Value => _won;
     public static explicit operator Egg(Won won) => new(won);
+    public static explicit operator Won(MoneyType won) => new(won);
     public override string ToString() => $"{_won}원";
 }
 
+[DataContract(Name = "Egg")]
 public readonly struct Egg
 {
+    [DataMember]
     private readonly MoneyType _egg;
     public Egg(MoneyType egg) => _egg = egg;
     public Egg(Won won) => _egg = won.Value / 1000;
 
     public static explicit operator Won(Egg egg) => new(egg);
+    public static implicit operator Egg(MoneyType egg) => new(egg);
     public MoneyType Value => _egg;
     public override string ToString() => $"{_egg} 에그";
 }

@@ -47,7 +47,7 @@ public sealed partial class ConetPage : Page
 
         mainText2.Text = "지금. 여기. 우리. Conet";
         nameText.Text = $"{Info.User.Conet.Id} {Info.User.Conet.Name}님";
-        eggText.Text = $"나의 에그: {Info.User.Conet.Eggs} 에그";
+        eggText.Text = $"나의 에그: {Info.User.Conet.Eggs.Value} 에그";
         await LoadHelps();
     }
 

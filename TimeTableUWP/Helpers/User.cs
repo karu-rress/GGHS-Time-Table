@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using System.Runtime.Serialization;
 using TimeTableUWP.Conet;
 
 namespace TimeTableUWP;

@@ -41,4 +41,6 @@ public class ConetHelp
     public ConetUser Uploader { get; set; }
 
     // 관계 연산자는 UploadDate 기준으로.
+    public static bool operator <(ConetHelp c1, ConetHelp c2) => c1.UploadDate < c2.UploadDate;
+    public static bool operator >(ConetHelp c1, ConetHelp c2) => c1.UploadDate > c2.UploadDate;
 }

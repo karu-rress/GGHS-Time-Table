@@ -1,5 +1,5 @@
 ﻿#nullable enable
-#define CONET_DONT_SAVE
+// #define CONET_DONT_SAVE
 
 using Windows.Storage;
 using System.Runtime.Serialization;

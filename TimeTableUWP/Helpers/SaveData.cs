@@ -20,6 +20,7 @@ public class DataSaver
         public const string Settings = "Settings";
         public const string Todo = "TodoList";
         public const string Conet = "ConetUser";
+        public const string Egg = "ConetEgg"; 
     }
 
     public static void Save()
@@ -31,6 +32,12 @@ public class DataSaver
         localSettings.Values[SettingValues.Conet] = Serialize(Info.User.Conet);
         localSettings.Values[SettingValues.Settings] = Serialize(Info.Settings);
         localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
+
+#if !CONET_DONT_SAVE
+
+        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+        roamingSettings.Values[SettingValues.Egg] = Info.User.Conet?.Eggs.Value;//Uint32
+#endif
     }
 
     public static void Load()
@@ -53,6 +60,10 @@ public class DataSaver
 #if !CONET_DONT_SAVE
         if (Deserialize<ConetUser>(localSettings.Values[SettingValues.Conet]) is ConetUser conet)
             Info.User.Conet = conet;
+
+        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
+        if (roamingSettings.Values[SettingValues.Egg] is UInt32 egg && Info.User.Conet is not null)
+            Info.User.Conet.Eggs = egg;
 #endif
 
         if (localSettings.Values[SettingValues.Class] is int cls)

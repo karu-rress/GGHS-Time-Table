@@ -1,11 +1,20 @@
 ﻿#nullable enable
-
+#define THINKPAD
 using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Conet;
 
 public sealed partial class ConetAddPage : Page
 {
+#if THINKPAD
+    private static void ReadOnly(params TextBox[] textBox)
+    {
+        foreach (var text in textBox)
+        {
+            text.IsReadOnly = true;
+        }
+    }
+#endif
     public static ConetHelp? Conet { get; set; }
 
     public ConetAddPage()

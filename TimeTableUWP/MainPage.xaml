@@ -45,6 +45,7 @@
                 <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>
                 <muxc:NavigationViewItem Content="Anonymous" Tag="chat"/>
                 <muxc:NavigationViewItem Content="Conet" Tag="conet"/>
+                <muxc:NavigationViewItem Content="NEIS 해킹" Tag="conet"/>
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />
         </muxc:NavigationView>

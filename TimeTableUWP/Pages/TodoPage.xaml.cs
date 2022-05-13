@@ -29,6 +29,14 @@ public sealed partial class TodoListPage : Page
             0 => "D-Day",
             > 0 => $"🎓🎉"
         };
+        ShowTaskCounts();
+    }
+
+    private void ShowTaskCounts()
+    {
+        int todayCount = TaskList.Count(task => task.DueDate.Date == DateTime.Now.Date);
+        int totalCount = TaskList.Count;
+        mainText2.Text = $"Today: {todayCount} task{(todayCount <= 1 ? "" : 's')}, Total: {totalCount} task{(totalCount <= 1 ? "" : 's')}";
     }
 
     /// <summary>
@@ -51,6 +59,7 @@ public sealed partial class TodoListPage : Page
     {
         TaskGrid.Children.Clear();
         LoadTasks();
+        ShowTaskCounts();
     }
 
     private void AddButton_Click(object _, RoutedEventArgs e)

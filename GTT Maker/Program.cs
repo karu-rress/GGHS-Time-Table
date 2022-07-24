@@ -4,12 +4,6 @@ Console.WriteLine("==================GTT 5 Creator==================");
 
 Dictionary<string, string> subjectDict = new()
 {
-    ["언매"] = "Korean",
-    ["화작"] = "Korean",
-
-    ["확통"] = "Math",
-    ["미적"] = "Math",
-
     ["동사"] = "Social",
     ["한지"] = "Social",
     ["사문"] = "Social",
@@ -24,10 +18,16 @@ Dictionary<string, string> subjectDict = new()
     ["세문미"] = "Global2",
     ["윤리"] = "Global2",
 
-    ["영문"] = "EnglishLiterature",
     ["체육"] = "Sports",
     ["독의"] = "Reading",
-    ["심영"] = "AdvancedEnglish",
+
+
+
+
+
+    // ["영문"] = "EnglishLiterature",
+
+    // ["심영"] = "AdvancedEnglish",
     ["창체"] = "Others",
 
     ["asdf"] = "Empty",

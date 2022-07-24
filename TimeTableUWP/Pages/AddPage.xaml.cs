@@ -11,24 +11,23 @@ public sealed partial class AddPage : Page
 
     public List<string> Subjects { get; } = new() // Don't make this as static
     {
-        "언어와 매체",
-        "화법과 작문",
-        "확률과 통계",
-        "미적분",
-        "영미 문학 읽기",
         "동아시아사",
         "한국지리",
         "사회/문화",
-        "체육",
         "스페인어권 문화",
         "일본문화",
         "중국문화",
-        "심화영어Ⅱ",
-        "독서와 의사소통",
         "사회 탐구 방법",
         "한국 사회의 이해",
         "세계 문제와 미래사회",
         "윤리학 연습",
+
+        "논리적 글쓰기",
+        "독서와 의사소통",
+        "전통 예술과 사상",
+        "심화 영어 독해Ⅱ",
+        "통계로 바라보는 국제 문제",
+        "체육",
         "기타"
     };
 
@@ -42,15 +41,15 @@ public sealed partial class AddPage : Page
 
         SubjectPicker.ItemsSource = new List<string>()
         {
-            Korean.Selected.FullName,
-            ttc::Math.Selected.FullName,
             Social.Selected.FullName,
             ttc::Language.Selected.FullName,
             Global1.Selected.FullName,
             Global2.Selected.FullName,
-            "영미 문학 읽기",
-            "심화영어Ⅱ",
+            "논리적 글쓰기",
             "독서와 의사소통",
+            "전통 예술과 사상",
+            "심화 영어 독해Ⅱ",
+            "통계로 바라보는 국제 문제",
             "체육",
             "기타"
         };

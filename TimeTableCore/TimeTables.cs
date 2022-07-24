@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TimeTableCore.Grade3.Semester1;
+using TimeTableCore.Grade3.Semester2;
 
 namespace TimeTableCore;
 public class TimeTable
@@ -68,66 +68,66 @@ public class TimeTables
 {
     public TimeTable Class1 { get; } = new(1, new Subject[]
     {
-        Subjects.AdvancedEnglish.B, Subjects.Korean, Subjects.Sports, Subjects.Math, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
-        Subjects.EnglishLiterature, Subjects.Korean, Subjects.Reading, Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
-        Subjects.Sports, Subjects.Language, Subjects.Math, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
-        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.B, Subjects.Math, Subjects.Reading, Subjects.Global2, Global1.SocialResearch,
-        Subjects.EnglishLiterature, Global1.SocialResearch, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others,
+        Subjects.AdvancedEnglish.B, Subjects.TraditionalArt, Subjects.Sports, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
+        Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.Reading, Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
+        Subjects.Sports, Subjects.Language, Subjects.GlobalStatistics, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
+        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics, Subjects.Reading, Subjects.Global2, Global1.SocialResearch,
+        Subjects.LogicalWriting, Global1.SocialResearch, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class2 { get; } = new(2, new Subject[]
     {
-        Subjects.EnglishLiterature, Subjects.Korean, Subjects.Reading, Subjects.Math, Subjects.AdvancedEnglish.B, Subjects.Others, Subjects.Others,
-        Subjects.Sports, Subjects.Korean, Global1.KoreanSociety, Subjects.Global2, Subjects.Language, Subjects.Reading, Global1.KoreanSociety,
-        Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Math, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.B, Global1.KoreanSociety,
-        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.A, Subjects.Math, Global1.KoreanSociety, Subjects.Global2, Subjects.Sports,
-        Subjects.AdvancedEnglish.A, Subjects.EnglishLiterature, Subjects.Math, Subjects.Korean, Subjects.Others, Subjects.Others,
+        Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.Reading, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Others, Subjects.Others,
+        Subjects.Sports, Subjects.TraditionalArt, Global1.KoreanSociety, Subjects.Global2, Subjects.Language, Subjects.Reading, Global1.KoreanSociety,
+        Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.GlobalStatistics, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.B, Global1.KoreanSociety,
+        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Global1.KoreanSociety, Subjects.Global2, Subjects.Sports,
+        Subjects.AdvancedEnglish.A, Subjects.LogicalWriting, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class3 { get; } = new(3, new Subject[]
     {
-        Subjects.Global2, Subjects.Korean, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Sports, Subjects.Others, Subjects.Others,
-        Subjects.Global2, Subjects.Korean, Math.Probability.B, Subjects.EnglishLiterature, Subjects.Language, Math.Probability.A, Subjects.AdvancedEnglish.A,
-        Math.Probability.A, Subjects.Language, Subjects.Global2, Subjects.Social, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.B,
-        Subjects.Social, Subjects.Language, Subjects.Reading, Subjects.EnglishLiterature, Subjects.AdvancedEnglish.A, Subjects.Global1, Math.Probability.A,
-        Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Sports, Subjects.Korean, Subjects.Others, Subjects.Others,
+        Subjects.Global2, Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Sports, Subjects.Others, Subjects.Others,
+        Subjects.Global2, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.LogicalWriting, Subjects.Language, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A,
+        Subjects.GlobalStatistics, Subjects.Language, Subjects.Global2, Subjects.Social, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.B,
+        Subjects.Social, Subjects.Language, Subjects.Reading, Subjects.LogicalWriting, Subjects.AdvancedEnglish.A, Subjects.Global1, Subjects.GlobalStatistics,
+        Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Sports, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class4 { get; } = new(4, new Subject[]
     {
-        Subjects.Global2, Subjects.EnglishLiterature, Subjects.Global1, Subjects.Reading, Social.Culture, Subjects.Others, Subjects.Others,
-        Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Math.Probability.A, Social.Culture, Subjects.AdvancedEnglish.B, Subjects.Sports,
-        Korean.LangMedia, Subjects.Sports, Subjects.Global2, Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Global1, Math.Probability.A,
-        Math.Probability.A, Subjects.EnglishLiterature, Korean.LangMedia, Math.Probability.B, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.AdvancedEnglish.A,
-        Subjects.Global1, Korean.LangMedia, Subjects.Language, Subjects.Reading, Subjects.Others, Subjects.Others,
+        Subjects.Global2, Subjects.LogicalWriting, Subjects.Global1, Subjects.Reading, Social.Culture, Subjects.Others, Subjects.Others,
+        Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Social.Culture, Subjects.AdvancedEnglish.B, Subjects.Sports,
+        Subjects.TraditionalArt, Subjects.Sports, Subjects.Global2, Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Global1, Subjects.GlobalStatistics,
+        Subjects.GlobalStatistics, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.AdvancedEnglish.A,
+        Subjects.Global1, Subjects.TraditionalArt, Subjects.Language, Subjects.Reading, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class5 { get; } = new(5, new Subject[]
     {
-        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.Global2, Math.Probability.A, Subjects.Others, Subjects.Others,
-        Subjects.AdvancedEnglish.A, Subjects.Language, Math.Probability.A, Subjects.AdvancedEnglish.B, Korean.LangMedia, Subjects.Global1, Subjects.Global2,
-        Subjects.Sports, Korean.LangMedia, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Language, Math.Probability.A, Subjects.EnglishLiterature,
-        Subjects.AdvancedEnglish.A, Social.Culture, Math.Probability.B, Subjects.Global2, Korean.LangMedia, Subjects.Reading, Subjects.EnglishLiterature,
+        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.Global2, Subjects.GlobalStatistics, Subjects.Others, Subjects.Others,
+        Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.TraditionalArt, Subjects.Global1, Subjects.Global2,
+        Subjects.Sports, Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Language, Subjects.GlobalStatistics, Subjects.LogicalWriting,
+        Subjects.AdvancedEnglish.A, Social.Culture, Subjects.GlobalStatistics, Subjects.Global2, Subjects.TraditionalArt, Subjects.Reading, Subjects.LogicalWriting,
         Social.Culture, Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others,
     });
     public TimeTable Class6 { get; } = new(6, new Subject[]
     {
-        Korean.LangMedia, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Global2, Language.Spanish, Subjects.Others, Subjects.Others,
-        Subjects.Sports, Math.Probability.A, Korean.LangMedia, Subjects.EnglishLiterature, Subjects.Reading, Subjects.Global1, Subjects.Global2,
-        Subjects.Reading, Subjects.AdvancedEnglish.B, Subjects.Global1, Korean.LangMedia, Subjects.AdvancedEnglish.A, Social.Culture, Language.Spanish,
-        Math.Probability.B, Subjects.AdvancedEnglish.B, Math.Probability.A, Subjects.Global2, Subjects.AdvancedEnglish.A, Social.Culture, Subjects.Sports,
-        Subjects.EnglishLiterature, Math.Probability.A, Language.Spanish, Subjects.Global1, Subjects.Others, Subjects.Others, 
+        Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Global2, Language.Spanish, Subjects.Others, Subjects.Others,
+        Subjects.Sports, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.Reading, Subjects.Global1, Subjects.Global2,
+        Subjects.Reading, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Social.Culture, Language.Spanish,
+        Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics, Subjects.Global2, Subjects.AdvancedEnglish.A, Social.Culture, Subjects.Sports,
+        Subjects.LogicalWriting, Subjects.GlobalStatistics, Language.Spanish, Subjects.Global1, Subjects.Others, Subjects.Others, 
     });
     public TimeTable Class7 { get; } = new(7, new Subject[]
     {
-        Math.Probability.A, Subjects.Global1, Subjects.Global2, Korean.LangMedia, Subjects.Sports, Subjects.Others, Subjects.Others,
-        Math.Probability.A, Social.Culture, Language.Spanish, Subjects.AdvancedEnglish.A, Korean.LangMedia, Subjects.Global1, Subjects.EnglishLiterature,
-        Language.Spanish, Subjects.Global2, Subjects.AdvancedEnglish.A, Math.Probability.A, Subjects.Reading, Subjects.AdvancedEnglish.B, Social.Culture,
-        Subjects.Global2, Korean.LangMedia, Subjects.EnglishLiterature, Math.Probability.B, Language.Spanish, Subjects.Global1, Subjects.AdvancedEnglish.A,
+        Subjects.GlobalStatistics, Subjects.Global1, Subjects.Global2, Subjects.TraditionalArt, Subjects.Sports, Subjects.Others, Subjects.Others,
+        Subjects.GlobalStatistics, Social.Culture, Language.Spanish, Subjects.AdvancedEnglish.A, Subjects.TraditionalArt, Subjects.Global1, Subjects.LogicalWriting,
+        Language.Spanish, Subjects.Global2, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Subjects.Reading, Subjects.AdvancedEnglish.B, Social.Culture,
+        Subjects.Global2, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.GlobalStatistics, Language.Spanish, Subjects.Global1, Subjects.AdvancedEnglish.A,
         Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.AdvancedEnglish.B, Subjects.Others, Subjects.Others, 
     });
     public TimeTable Class8 { get; } = new(8, new Subject[]
     {
-        Subjects.AdvancedEnglish.A, Social.Culture, Math.Probability.A, Subjects.AdvancedEnglish.B, Subjects.Global2, Subjects.Others, Subjects.Others,
-        Language.Spanish, Subjects.EnglishLiterature, Korean.LangMedia, Math.Probability.A, Subjects.Global1, Social.Culture, Subjects.Sports,
-        Subjects.Reading, Subjects.Sports, Subjects.AdvancedEnglish.B, Language.Spanish, Subjects.Global1, Subjects.Global2, Korean.LangMedia,
-        Math.Probability.A, Subjects.AdvancedEnglish.A, Subjects.Global2, Subjects.Global1, Subjects.EnglishLiterature, Korean.LangMedia, Math.Probability.B,
+        Subjects.AdvancedEnglish.A, Social.Culture, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Global2, Subjects.Others, Subjects.Others,
+        Language.Spanish, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.Global1, Social.Culture, Subjects.Sports,
+        Subjects.Reading, Subjects.Sports, Subjects.AdvancedEnglish.B, Language.Spanish, Subjects.Global1, Subjects.Global2, Subjects.TraditionalArt,
+        Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A, Subjects.Global2, Subjects.Global1, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics,
         Language.Spanish, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others, 
     });
 
@@ -151,7 +151,6 @@ public class TimeTables
                 Global1.Selected = Global1.KoreanSociety;
                 break;
             case 3:
-                Math.Selected = Math.Probability;
                 break;
             case 7: // 사탐방, 세문미
                 Global1.Selected = Global1.SocialResearch;
@@ -167,8 +166,6 @@ public class TimeTables
                 
             case 4:
             case 5:  // (+) 언매 확통 사문
-                Korean.Selected = Korean.LangMedia;
-                Math.Selected = Math.Probability;
                 Social.Selected = Social.Culture;
                 break;
         }

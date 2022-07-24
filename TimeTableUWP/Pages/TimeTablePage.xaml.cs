@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-using TimeTableCore.Grade3.Semester1;
+using TimeTableCore.Grade3.Semester2;
 using TimeTableUWP.Helpers;
 
 namespace TimeTableUWP.Pages;
@@ -32,12 +32,6 @@ public sealed partial class TimeTablePage : Page
             classComboBox.SelectionChanged -= handler;
             classComboBox.SelectedIndex = Info.User.Class - 1;
             classComboBox.SelectionChanged += handler;
-
-            if (Korean.Selected != Korean.Default)
-                korComboBox.Select(Subjects.Korean);
-
-            if (ttc::Math.Selected != ttc::Math.Default)
-                mathComboBox.Select(Subjects.Math);
 
             if (Social.Selected != Social.Default)
                 socialComboBox.Select(Subjects.Social);
@@ -79,8 +73,6 @@ public sealed partial class TimeTablePage : Page
         get
         {
             yield return classComboBox;
-            yield return korComboBox;
-            yield return mathComboBox;
             yield return socialComboBox;
             yield return langComboBox;
             yield return global1ComboBox;
@@ -138,7 +130,7 @@ public sealed partial class TimeTablePage : Page
     #endregion
 
     private void EnableAllCombobox()
-    => Enable(korComboBox, mathComboBox, socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
+    => Enable(socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
 
     // TODO: need ref?
     private void DisableComboBoxByClass(ComboBox cb, Subject subject)
@@ -155,12 +147,6 @@ public sealed partial class TimeTablePage : Page
 
         EnableAllCombobox();
         var common = TimeTable.Table.CommonSubject;
-        if (common.HasFlag(Common.Korean))
-            DisableComboBoxByClass(korComboBox, Korean.Selected);
-
-        if (common.HasFlag(Common.Math))
-            DisableComboBoxByClass(mathComboBox, ttc::Math.Selected);
-
         if (common.HasFlag(Common.Social))
             DisableComboBoxByClass(socialComboBox, Social.Selected);
 
@@ -184,19 +170,11 @@ public sealed partial class TimeTablePage : Page
             case "classComboBox":
                 EnableAllCombobox();
                 Subjects.ResetSelectiveSubjects();
-                Empty(korComboBox, mathComboBox, socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
+                Empty(socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
 
                 Info.User.Class = comboBox.SelectedIndex + 1;
                 TimeTable.ResetClass(Info.User.Class);
                 DisableComboBoxBySubjects();
-                break;
-
-            case "korComboBox":
-                Subjects.Korean.SetAs(selected);
-                break;
-
-            case "mathComboBox":
-                Subjects.Math.SetAs(selected);
                 break;
 
             case "socialComboBox": 

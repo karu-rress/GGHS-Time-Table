@@ -8,15 +8,15 @@ public sealed partial class SubjectSelectDialog : ContentDialog
         InitializeComponent();
         SubjectComboBox.ItemsSource = new List<string>()
         {
-            Korean.Selected.FullName,
-            ttc::Math.Selected.FullName,
             Social.Selected.FullName,
             ttc::Language.Selected.FullName,
             Global1.Selected.FullName,
             Global2.Selected.FullName,
-            "영미 문학 읽기",
-            "심화영어Ⅱ",
+            "논리적 글쓰기",
             "독서와 의사소통",
+            "전통 예술과 사상",
+            "심화 영어 독해Ⅱ",
+            "통계로 바라보는 국제 문제",
             "체육",
             "기타"
         };

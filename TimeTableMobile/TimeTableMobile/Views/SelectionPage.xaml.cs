@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeTableCore;
-using TimeTableCore.Grade3.Semester1;
+using TimeTableCore.Grade3.Semester2;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -61,14 +61,6 @@ public partial class SelectionPage : ContentPage
         string selected = radio.ContentAsString();
         switch (radio.GroupName)
         {
-            case "Korean":
-                Subjects.Korean.SetAs(selected);
-                break;
-
-            case "Math":
-                Subjects.Math.SetAs(selected);
-                break;
-
             case "Social":
                 Subjects.Social.SetAs(selected);
                 break;
@@ -92,16 +84,6 @@ public partial class SelectionPage : ContentPage
             return;
 
 #pragma warning disable CS8509
-        (Subjects.Korean.FullName switch
-        {
-            "언어와 매체" => RadioKorLang,
-            "화법과 작문" => RadioKorSpeech,
-        }).IsChecked = true;
-        (Subjects.Math.FullName switch
-        { 
-            "확률과 통계" => RadioMathProbaility,
-            "미적분" => RadioMathDaic,
-        }).IsChecked = true;
         (Subjects.Social.FullName switch
         {
             "동아시아사" => RadioSocialEastern,

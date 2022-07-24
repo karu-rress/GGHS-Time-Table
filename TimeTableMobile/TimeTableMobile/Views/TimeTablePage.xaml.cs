@@ -9,7 +9,7 @@ using TimeTableCore;
 using System.Collections;
 using System.IO;
 
-using TimeTableCore.Grade3.Semester1;
+using TimeTableCore.Grade3.Semester2;
 
 namespace TimeTableMobile.Views;
 
@@ -81,12 +81,10 @@ public partial class TimeTablePage : ContentPage
 
             SelectionPage.User.Class = Convert.ToInt32(array[0]);
 
-            Subjects.Korean.SetAs(array[1]);
-            Subjects.Math.SetAs(array[2]);
-            Subjects.Social.SetAs(array[3]);
-            Subjects.Language.SetAs(array[4]);
-            Subjects.Global1.SetAs(array[5]);
-            Subjects.Global2.SetAs(array[6]);
+            Subjects.Social.SetAs(array[1]);
+            Subjects.Language.SetAs(array[2]);
+            Subjects.Global1.SetAs(array[3]);
+            Subjects.Global2.SetAs(array[4]);
         }
     }
 

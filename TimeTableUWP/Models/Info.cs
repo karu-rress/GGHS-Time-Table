@@ -25,6 +25,7 @@ public class Version
     public override bool Equals(object obj) => (obj is Version rhs) && Value == rhs.Value;
     public override int GetHashCode() => Value.GetHashCode();
     public char GetLastNumber() => Value[^1];
+    public bool IsUpgradedFromGTT5 => PackageVer.Major == 5;
 }
 
 [DataContract(Name = "Settings")]

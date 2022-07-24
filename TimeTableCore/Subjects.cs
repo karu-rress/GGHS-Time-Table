@@ -31,47 +31,6 @@ namespace TimeTableCore
         void SetAs(string subject);
     }
 
-    [DataContract(Name = "Korean")]
-    public class Korean : Subject, ISelectiveSubject
-    {
-        public static Subject LangMedia => new("언어와 매체", "언매");
-        public static Subject SpeechWriting => new("화법과 작문", "화작");
-        public static Subject Default => new("국어");
-        [DataMember] public static Subject Selected { get; set; } = Default; // set 변경
-        public Korean() : base(Default) { }
-        public Korean(in Subject korean) : base(korean) { }
-        public void SetAs(string subject)
-        {
-            if (LangMedia.IsSameWith(subject))
-                Selected = LangMedia;
-            else if (SpeechWriting.IsSameWith(subject))
-                Selected = SpeechWriting;
-        }
-        [DataMember] public override string FullName => Selected.FullName;
-        [DataMember] public override string? ShortName => Selected.ShortName;
-        public override string Name => ShortName ?? FullName;
-    }
-
-    [DataContract(Name = "Math")]
-    public class Math : Subject, ISelectiveSubject
-    {
-        public static Subject Probability => new("확률과 통계", "확통");
-        public static Subject Daic => new("미적분");
-        public static Subject Default => new("수학");
-        [DataMember] public static Subject Selected { get; set; } = Default;
-        public Math() : base(Default) { }
-        public Math(in Subject math) : base(math) { }
-        public void SetAs(string subject)
-        {
-            if (Probability.IsSameWith(subject))
-                Selected = Probability;
-            else if (Daic.IsSameWith(subject))
-                Selected = Daic;
-        }
-        [DataMember] public override string FullName => Selected.FullName;
-        [DataMember] public override string? ShortName => Selected.ShortName;
-        public override string Name => ShortName ?? FullName;
-    }
 
     [DataContract(Name = "Social")]
     public class Social : Subject, ISelectiveSubject
@@ -163,29 +122,27 @@ namespace TimeTableCore
         public override string Name => ShortName ?? FullName;
     }
 
-    namespace Grade3.Semester1
+    namespace Grade3.Semester2
     {
         public static class Subjects
         {
-            public static Korean Korean { get; set; } = new();
-            public static Math Math { get; set; } = new();
             public static Social Social { get; set; } = new();
             public static Language Language { get; set; } = new();
             public static Global1 Global1 { get; set; } = new();
             public static Global2 Global2 { get; set; } = new();
 
-            public static Subject EnglishLiterature => new("영미 문학 읽기", "영문");
-            public static Subject Sports => new("체육");
+            public static Subject LogicalWriting => new("논리적 글쓰기", "논글");
             public static Subject Reading => new("독서와 의사소통", "독의");
-            public static Subject AdvancedEnglish => new("심화영어Ⅱ", "심영Ⅱ");
+            public static Subject TraditionalArt => new("전통 예술과 사상", "전예");
+            public static Subject AdvancedEnglish => new("심화 영어 독해Ⅱ", "심영독");
+            public static Subject GlobalStatistics => new("통계로 바라보는 국제 문제", "통국");
+            public static Subject Sports => new("체육");
 
             public static Subject HomeComing => new("🏠");
             public static Subject Others => new("창의적 체험활동", "창체");
             public static Subject Empty => new("");
             public static void ResetSelectiveSubjects()
             {
-                Korean.Selected = Korean.Default;
-                Math.Selected = Math.Default;
                 Social.Selected = Social.Default;
                 Language.Selected = Language.Default;
                 Global1.Selected = Global1.Default;

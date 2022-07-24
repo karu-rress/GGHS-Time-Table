@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TimeTableCore.Grade3.Semester1;
+using TimeTableCore.Grade3.Semester2;
 
 namespace TimeTableCore;
 public class TimeTable

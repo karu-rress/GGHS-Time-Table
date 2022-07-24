@@ -39,23 +39,6 @@ namespace TimeTableCore
                     Teacher = "김찬미"
                 };
 
-                public static OnlineLink EngLiterature1to3 { get; set; } = new()
-                {
-                    Zoom = "https://zoom.us/j/3947441557",
-                    Id = "394 744 1557",
-                    Password = "1234",
-                    Classroom = "https://classroom.google.com/c/NDc0NjQ1MTQzMjQy",
-                    Teacher = "오경은"
-                };
-
-                public static OnlineLink EngLiterature4to8 { get; set; } = EngLiterature1to3 with
-                {
-                    Zoom = "https://zoom.us/j/5031101343?pwd=QXZMWUVoZEkzVnUyY0poanAyclBHdz09",
-                    Id = "503 110 1343",
-                    Password = "1111",
-                    Teacher = "김한나"
-                };
-
                 public static OnlineLink Reading { get; } = new()
                 {
                     Classroom = "https://classroom.google.com/c/NDY4NjkyMjU3MDkx",

@@ -37,3 +37,9 @@ namespace System.Runtime.CompilerServices
 {
     public static class IsExternalInit { }
 }
+
+[System.AttributeUsage(System.AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+public sealed class GTT6Attribute : System.Attribute
+{
+
+}

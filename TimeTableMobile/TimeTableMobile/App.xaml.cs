@@ -28,8 +28,6 @@ namespace TimeTableMobile
             {
                 File.WriteAllText(User.FileName, 
                     $"{SelectionPage.User.Class}," +
-                    $"{Korean.Selected}," +
-                    $"{TimeTableCore.Math.Selected}," +
                     $"{Social.Selected}," +
                     $"{Language.Selected},"+
                     $"{Global1.Selected},"+

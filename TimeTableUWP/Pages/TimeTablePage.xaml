@@ -32,7 +32,7 @@
                 <Setter Property="FontFamily" Value="ms-appx:///Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 6 Beta" FontSize="55" Height="73" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 6α" FontSize="55" Height="73" FontWeight="Bold"/>
         <TextBlock x:Name="mainText2" Margin="80,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
         <Grid Name="clockGrid" Margin="0,25,19,0" HorizontalAlignment="Right" Width="445" Height="135" VerticalAlignment="Top" >
@@ -160,10 +160,8 @@
             </Button>
         </Grid>
 
-        <Grid Name="comboBoxGrid" Margin="0,183,55,0" HorizontalAlignment="Right" Width="215">
+        <Grid Name="comboBoxGrid" Margin="0,183,55,105" HorizontalAlignment="Right" Width="215">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -200,29 +198,21 @@
                 <x:String>Class 7</x:String>
                 <x:String>Class 8</x:String>
             </ComboBox>
-            <ComboBox x:Name="korComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="국어 선택" Grid.Row="1">
-                <x:String>언어와 매체</x:String>
-                <x:String>화법과 작문</x:String>
-            </ComboBox>
-            <ComboBox x:Name="mathComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="수학 선택" Grid.Row="2">
-                <x:String>확률과 통계</x:String>
-                <x:String>미적분</x:String>
-            </ComboBox>
-            <ComboBox x:Name="socialComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="사회 선택" Grid.Row="3">
+            <ComboBox x:Name="socialComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="사회 선택" Grid.Row="1">
                 <x:String>동아시아사</x:String>
                 <x:String>한국지리</x:String>
                 <x:String>사회·문화</x:String>
             </ComboBox>
-            <ComboBox x:Name="langComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="외국어 선택" Grid.Row="4">
+            <ComboBox x:Name="langComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="외국어 선택" Grid.Row="2">
                 <x:String>스페인어권 문화</x:String>
                 <x:String>일본문화</x:String>
                 <x:String>중국문화</x:String>
             </ComboBox>
-            <ComboBox x:Name="global1ComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="국제 계열 (1)" Grid.Row="5">
+            <ComboBox x:Name="global1ComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="국제 계열 (1)" Grid.Row="3">
                 <x:String>사회 탐구 방법</x:String>
                 <x:String>한국 사회의 이해</x:String>
             </ComboBox>
-            <ComboBox x:Name="global2ComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="국제 계열 (2)" Grid.Row="6">
+            <ComboBox x:Name="global2ComboBox" SelectionChanged="ComboBox_SelectionChanged" PlaceholderText="국제 계열 (2)" Grid.Row="4">
                 <x:String>세계 문제와 미래 사회</x:String>
                 <x:String>윤리학 연습</x:String>
             </ComboBox>

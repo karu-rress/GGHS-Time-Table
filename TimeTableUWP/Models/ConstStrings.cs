@@ -17,15 +17,15 @@ internal static class ActivateKeys
 
 internal static class SubTitles
 {
-    public const string Developer = "Welcome to the Ultimate GTT5, Karu";
-    public const string Azure = "Let's try our hardest, our last journey.";
-    public const string Bisque = "We're the ones who've made it this far";
-    public const string Coral = "Now we are the K-高3, LOL";
+    public const string Developer = "You did your best, feel free to enjoy ;)";
+    public const string Azure = "Special thanks to Azures";
+    public const string Bisque = "Let's put a period to our last journey.";
+    public const string Coral = "Let's put a period to our last journey.";
 }
 
 public static class Datas
 {
-    public const string GTTWithVer = "GGHS Time Table 5";
+    public const string GTTWithVer = "GGHS Time Table 6";
     public const string ChatFormat = "[{0:MM/dd HH:mm}] {1}:\t{2}\n";
 }
 
@@ -43,7 +43,7 @@ internal static class Messages
     }
 
     public const string WhatsNew =
-@"- GGHS Todo 항목 표시 개선";
+@"- 2학기 시간표 지원";
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {
@@ -89,7 +89,7 @@ ZOOM 및 클래스룸 링크가 띄워집니다.
 카루 블로그 링크:
 ";
 
-    public const string Troubleshoot = "GGHS Time Table 5 사용중 문제가 발생했나요?\n\n"
+    public const string Troubleshoot = "GGHS Time Table 6 사용중 문제가 발생했나요?\n\n"
         + "오류가 난 경우 대부분 개발자에게 자동으로 보고되며, 별다른 조치를 취하실 필요가 없습니다. "
         + "만약 오류 창이 뜨거나 경고 메시지가 뜬 경우 해당 화면을 캡처해서 제게 보내주시기 바랍니다. "
         + "혹은, 'Send Feedback' 버튼을 통해 오류를 제보해주세요.\n\n"

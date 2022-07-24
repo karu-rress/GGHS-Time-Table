@@ -7,7 +7,6 @@ using Windows.UI.Core;
 namespace TimeTableUWP.Pages;
 public sealed partial class ChattingPage : Page
 {
-    private static bool isFirstLoaded = true;
     private static bool isReloadPaused = false;
     private bool isCancelRequested = false;
     private const int chatDelay = 900;
@@ -42,12 +41,6 @@ public sealed partial class ChattingPage : Page
             return;
         }
 
-        if (isFirstLoaded)
-        {
-            await User.AuthorAsync("여기는 GTT 유저 대화방으로, Azure/Bisque 레벨만 이용할 수 있습니다.", false);
-            isFirstLoaded = false;
-        }
-
         if (!Info.User.IsSpecialLevel)
             await ShowMessageAsync(Messages.NotAuthored, title, Info.Settings.Theme);
 
@@ -58,7 +51,6 @@ public sealed partial class ChattingPage : Page
                 sqlButton, delButton, notiButton, botButton);
             textBox.Margin = new(55, 0, 167, 35);
         }
-
 
         // 아예 이걸 firstloaded로 넣어버리고
         // date 기본값을 아주 먼 옛날로 해버리는 방법도 있음.
@@ -195,7 +187,7 @@ public sealed partial class ChattingPage : Page
             return;
         }
         // 욕설 필터링
-        if (BadWords.Any(s => textBox.Text.Contains(s)))
+        if (BadWords.Any(textBox.Text.Contains))
         {
             ContentDialog dialog = new()
             {

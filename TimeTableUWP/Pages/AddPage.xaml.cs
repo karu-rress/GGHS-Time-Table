@@ -100,13 +100,11 @@ public sealed partial class AddPage : Page
         }
 
         if (await TaskList.DeleteTask(TitleTextBox.Text, Task!) is true)
-        {
             Close();
-        }
     }
 
     private bool Modified => Task is not null && (DueDatePicker.Date.DateTime != Task.DueDate
                 || SubjectPicker.GetSelectedString() != Task.Subject
                 || TitleTextBox.Text != Task.Title
-                || (BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text) != Task.Body);
+                || (!BodyTextBox.IsSameWith(Task.Body)));
 }

@@ -37,7 +37,7 @@ public sealed partial class ChattingPage : Page
     {
         if (!Connection.IsInternetAvailable)
         {
-            await ShowMessageAsync("인터넷에 연결하지 못했습니다.\n네트워크 연결을 확인하세요.\n이 메뉴로 다시 돌아오면 재접속을 시도합니다.", "Connection Error", Info.Settings.Theme);
+            await ShowMessageAsync(Messages.ConnectionFailed, "Connection Error", Info.Settings.Theme);
             return;
         }
 

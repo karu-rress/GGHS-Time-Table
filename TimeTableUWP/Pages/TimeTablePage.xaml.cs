@@ -275,7 +275,7 @@ public sealed partial class TimeTablePage : Page
         {
             "fri5Button" or "fri6Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
             "mon6Button" or "mon7Button" => ("창의적 체험활동 시간입니다.", "창의적 체험활동"),
-            "wed7Button" => ("자기주도학습 시간입니다.", "수업 없음"),
+            // "wed7Button" => ("자기주도학습 시간입니다.", "수업 없음"),
             "fri7Button" => ("즐거운 홈커밍 데이 :)", "Homecoming"),
             _ => throw new TableCellException($"SpecialButtons_Click(): No candidate to show for button '{btn.Name}'")
         };

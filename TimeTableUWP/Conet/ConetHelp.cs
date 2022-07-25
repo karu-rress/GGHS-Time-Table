@@ -18,14 +18,13 @@ public class ConetUser
 
 public class ConetHelp
 {
-    public ConetHelp(DateTime upload, string uploader, string title, string? body, string? price)
+    public ConetHelp(DateTime upload, string uploader, string title, string body, string? price)
         : this(upload, new ConetUser(Convert.ToInt32(uploader[0..4]), uploader[5..].TrimEnd()),
-              title, body,
-              string.IsNullOrEmpty(price) ? null : new(Convert.ToUInt32(price)))
+              title, body, string.IsNullOrEmpty(price) ? null : new((uint)Convert.ToInt16(price)))
     {
     }
 
-    public ConetHelp(DateTime upload, ConetUser uploader, string title, string? body = null, Egg? price = null)
+    public ConetHelp(DateTime upload, ConetUser uploader, string title, string body = "", Egg? price = null)
     {
         UploadDate = upload;
         Title = title;

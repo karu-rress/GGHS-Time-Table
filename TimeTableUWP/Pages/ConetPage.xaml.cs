@@ -68,18 +68,24 @@ public sealed partial class ConetPage : Page
             StringBuilder sb = new();
             foreach (DataRow row in dt.Rows)
             {
+                object price = row["Price"];
                 ConetList.Add(new(
                     (DateTime)row["UploadDate"],
                     row["Uploader"].ToString(),
                     row["Title"].ToString(),
-                    (row["Body"] is string body) ? body : null,
-                    (row["Price"] is string price) ? price : null));
+                    row["Body"].ToString(),
+                    price == DBNull.Value ? null : price.ToString()));
             }
         }
-        catch (SqlException) // 이건 내가 대응할 수가 없음. 그냥 Swallow.
+        // 이건 내가 대응할 수가 없음. 그냥 Swallow.
+        catch (SqlException) 
         {
-            await ShowMessageAsync("서버 연결에 실패했습니다.\n다른 탭으로 나간 뒤, 다시 Conet에 들어오면\n재접속을 시도합니다.", title, Info.Settings.Theme);
+            await ShowMessageAsync(Messages.Dialog.ConetError, title, Info.Settings.Theme);
             return;
+        }
+        catch // 근데 이상한 거면 다시 throw
+        {
+            throw;
         }
         finally
         {

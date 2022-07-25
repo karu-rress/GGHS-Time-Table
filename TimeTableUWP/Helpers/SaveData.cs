@@ -1,10 +1,10 @@
 ﻿#nullable enable
 // #define CONET_DONT_SAVE
 
-using Windows.Storage;
 using System.Runtime.Serialization;
-using static RollingRess.Serializer;
 using TimeTableUWP.Conet;
+using Windows.Storage;
+using static RollingRess.Serializer;
 
 namespace TimeTableUWP;
 
@@ -36,15 +36,29 @@ public class DataSaver
         localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
 
 #if !CONET_DONT_SAVE
-
-        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-        roamingSettings.Values[SettingValues.Egg] = Info.User.Conet?.Eggs.Value;//Uint32
+        localSettings.Values[SettingValues.Egg] = Info.User.Conet?.Eggs.Value;
 #endif
+    }
+
+    // value maybe null if return value is false
+    public static bool SettingExists<T>(string key, out T value)
+    {
+        if (Deserialize<T>(localSettings.Values[key]) is T v)
+        {
+            value = v;
+            return true;
+        }
+        else
+        {
+            value = default;
+            return false;
+        }
     }
 
     public static void Load()
     {
-        if (Deserialize<Version?>(localSettings.Values[SettingValues.Version]) is Version version)
+        // TODO: ? 없어도 작동하는지
+        if (SettingExists<Version>(SettingValues.Version, out var version))
             Info.User.Status = version != Info.Version ? LoadStatus.Updated : LoadStatus.Normal;      
 
         else // Version not exists? Newly installed.
@@ -58,7 +72,8 @@ public class DataSaver
         if (localSettings.Values[SettingValues.Class] is int cls)
             Info.User.Class = cls;
 
-        if (Deserialize<ActivationLevel>(localSettings.Values[SettingValues.Level]) is ActivationLevel level)
+        // SettingExists<Version>(SettingValues.Version, out var version)
+        if (SettingExists<ActivationLevel>(SettingValues.Level, out var level))
             Info.User.ActivationLevel = level;
 
         if (version.IsUpgradedFromGTT5) // Upgraded from GTT5?
@@ -72,22 +87,21 @@ public class DataSaver
             return;
         }
 
-        if (Deserialize<SubjectTuple>(localSettings.Values[SettingValues.Subjects]) is SubjectTuple list)
+        if (SettingExists<SubjectTuple>(SettingValues.Subjects, out var list))
             (Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list;
 
-        if (Deserialize<Settings>(localSettings.Values[SettingValues.Settings]) is Settings setting)
+        if (SettingExists<Settings>(SettingValues.Settings, out var setting))
             Info.Settings = setting;
 
 #if !CONET_DONT_SAVE
-        if (Deserialize<ConetUser>(localSettings.Values[SettingValues.Conet]) is ConetUser conet)
+        if (SettingExists<ConetUser>(SettingValues.Conet, out var conet))
             Info.User.Conet = conet;
 
-        ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-        if (roamingSettings.Values[SettingValues.Egg] is uint egg && Info.User.Conet is not null)
+        if (localSettings.Values[SettingValues.Egg] is uint egg && Info.User.Conet is not null)
             Info.User.Conet.Eggs = egg;
 #endif
 
-        if (Deserialize<List<Todo.TodoTask>>(localSettings.Values[SettingValues.Todo]) is List<Todo.TodoTask> tasklist)
+        if (SettingExists<List<Todo.TodoTask>>(SettingValues.Todo, out var tasklist))
             TodoListPage.TaskList.List = tasklist;
     }
 

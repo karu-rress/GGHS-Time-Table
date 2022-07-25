@@ -1,20 +1,10 @@
 ﻿#nullable enable
-#define THINKPAD
 using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Conet;
 
 public sealed partial class ConetAddPage : Page
 {
-#if THINKPAD
-    private static void ReadOnly(params TextBox[] textBox)
-    {
-        foreach (var text in textBox)
-        {
-            text.IsReadOnly = true;
-        }
-    }
-#endif
     public static ConetHelp? Conet { get; set; }
 
     public ConetAddPage()
@@ -52,45 +42,45 @@ public sealed partial class ConetAddPage : Page
             return;
         }
 
-        if (Modified)
+        bool eggExists = false;
+        uint egg = 0;
+
+        if (!eggTextBox.IsNullOrEmpty())
         {
-            bool eggExists = false;
-            uint egg = 0;
-            if (!eggTextBox.IsNullOrEmpty())
+            eggExists = true;
+            if (!uint.TryParse(eggTextBox.Text, out egg))
             {
-                eggExists = true;
-                if (!uint.TryParse(eggTextBox.Text, out egg))
-                {
-                    await ShowMessageAsync("에그가 올바르게 입력되지 않았습니다.", "Error", Info.Settings.Theme);
-                    return;
-                }
+                await ShowMessageAsync("에그가 올바르게 입력되지 않았습니다.", "Error", Info.Settings.Theme);
+                return;
             }
+        }
 
-            ConetHelp conet = new(DateTime.Now, Info.User.Conet!, TitleTextBox.Text,
-                BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
+        ConetHelp conet = new(DateTime.Now, Info.User.Conet!, TitleTextBox.Text,
+            BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
 
-            using SqlConnection sql = new(ChatMessageDac.ConnectionString);
-            using ConetHelpDac con = new(sql);
-            Disable(PostButton);
-            try
-            {
-                await sql.OpenAsync();
-                if (Conet is null)
-                    await con.InsertAsync(conet);
-                else
-                    await con.UpdateAsync(Conet.UploadDate, conet);
-            }
-            catch (Exception ex)
-            {
-                await Task.WhenAll(
-                    ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme)
-                    , TimeTableException.HandleException(ex));
-            }
-            finally
-            {
-                Close();
-                Enable(PostButton);
-            }
+        using SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        using ConetHelpDac con = new(sql);
+        Disable(PostButton, TitleTextBox, BodyTextBox, eggTextBox);
+       
+        try
+        {
+            await sql.OpenAsync();
+            if (Conet is null)
+                await con.InsertAsync(conet);
+            else
+                await con.UpdateAsync(Conet.UploadDate, conet);
+        }
+        catch (Exception ex)
+        {
+            await Task.WhenAll(
+                ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme)
+                , TimeTableException.HandleException(ex));
+        }
+        finally
+        {
+            // Why Enable is here...?
+            Disable(PostButton, TitleTextBox, BodyTextBox, eggTextBox);
+            Close();
         }
     }
 
@@ -127,8 +117,7 @@ public sealed partial class ConetAddPage : Page
         }
     }
 
-    private bool Modified => Conet is not null
-        && (TitleTextBox.Text != Conet.Title
-            || (BodyTextBox.IsNullOrEmpty() ? null : BodyTextBox.Text) != Conet.Body
-            || (eggTextBox.IsNullOrEmpty() ? null : eggTextBox.Text) != Conet.Price.ToString());
+    private bool Modified => Conet is not null && (TitleTextBox.Text != Conet.Title
+            || (!BodyTextBox.IsSameWith(Conet.Body))
+            || (!eggTextBox.IsSameWith(Conet.Price?.Value.ToString())));
 }

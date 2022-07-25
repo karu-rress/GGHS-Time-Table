@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using TimeTableCore.Grade3.Semester2;
 
 namespace TimeTableCore;
+
+[Flags]
+public enum Common
+{
+    None = 0,
+    Social = 1,
+    Language = 2,
+    Global1 = 4,
+    Global2 = 8,
+}
+
 public class TimeTable
 {
     public Subject[] Data { get; set; }
@@ -32,36 +43,16 @@ public class TimeTable
 
     private void SetByClass(int @class)
     {
-        // TODO: CommonSubject = switch @class {  Common.None , ..... 
-        // 창체, 동아리 시간, 홈커밍은 여기서 잘라버리기
-
         CommonSubject = @class switch
         {
-            1 => Common.Global1,
-            2 => Common.Global1,
-            3 => Common.Math,
-            4 => Common.Korean | Common.Math | Common.Social, // 언매, 확통, 사문
-            5 => Common.Korean | Common.Math | Common.Social, // 언매, 확통, 사문
-            6 => Common.Korean | Common.Math | Common.Social | Common.Language, // 언매, 확통, 사문, 스문
-            7 => Common.Korean | Common.Math | Common.Social | Common.Language 
-            | Common.Global1 | Common.Global2, // 언매, 확통, 사문, 스문, 사탐방, 세문미
-            8 => Common.Korean | Common.Math | Common.Social | Common.Language
-            | Common.Global1 | Common.Global2, // 언매, 확통, 사문, 스문, 사탐방, 윤리
+            1 or 2 => Common.Global1,
+            3 => Common.None,
+            4 or 5 => Common.Social,
+            6 => Common.Social | Common.Language,
+            7 or 8 => Common.Social | Common.Language | Common.Global1 | Common.Global2,
             _ => throw new IndexOutOfRangeException(@"SetByClass: @class is {@class}")
         };
     }
-}
-
-[Flags]
-public enum Common
-{
-    None = 0,
-    Korean = 1,
-    Math = 2,
-    Social = 4,
-    Language = 8,
-    Global1 = 16,
-    Global2 = 32,
 }
 
 public class TimeTables
@@ -150,8 +141,6 @@ public class TimeTables
             case 2:
                 Global1.Selected = Global1.KoreanSociety;
                 break;
-            case 3:
-                break;
             case 7: // 사탐방, 세문미
                 Global1.Selected = Global1.SocialResearch;
                 Global2.Selected = Global2.FutureSociety;
@@ -165,7 +154,7 @@ public class TimeTables
                 goto case 4;
                 
             case 4:
-            case 5:  // (+) 언매 확통 사문
+            case 5:  // (+) 사문
                 Social.Selected = Social.Culture;
                 break;
         }

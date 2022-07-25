@@ -17,8 +17,8 @@ internal static class ActivateKeys
 
 internal static class SubTitles
 {
-    public const string Developer = "You did your best, feel free to enjoy ;)";
-    public const string Azure = "Special thanks to Azures";
+    public const string Developer = "With the next generation GTT, GTT 6";
+    public const string Azure = "Welcome to the Ultimate GTT 6";
     public const string Bisque = "Let's put a period to our last journey.";
     public const string Coral = "Let's put a period to our last journey.";
 }
@@ -40,10 +40,12 @@ internal static class Messages
             +"\n인증키를 모르는 경우 설정 창의 'Send Feedback' 기능을 이용하세요.";
         public const string NotAvailable = "Links for {0} is currently not available.\n"
                 + "카루에게 링크 추가를 요청해보세요.";
+        public const string ConetError = "서버 연결에 실패했습니다.\n다른 탭으로 나간 뒤, 다시 Conet에 들어오면\n재접속을 시도합니다.";
     }
 
     public const string WhatsNew =
-@"- 2학기 시간표 지원";
+@"- 2학기 시간표 지원
+- Conet 탭 지원";
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {
@@ -99,4 +101,11 @@ ZOOM 및 클래스룸 링크가 띄워집니다.
 공지 읽기 전용 모드로 동작합니다.
 의견이 있으신 경우 설정창의 'Send Feedback' 기능을 이용하실 수 있으며,
 다른 인증키를 받으신 경우 설정창에서 인증 레벨을 변경할 수 있습니다.";
+
+    public const string ConnectionFailed = @"인터넷에 연결하지 못했습니다.
+네트워크 연결을 확인하세요.
+이 메뉴로 다시 돌아오면 재접속을 시도합니다.
+
+G20_137 Wi-Fi의 경우 접속이 안 되는 현상이 보고되고 있으니,
+GGHS_OPEN으로 접속해주시면 감사하겠습니다.";
 }

@@ -10,9 +10,10 @@ public class User : BaseUser
     public LoadStatus Status { get; set; }
     public ActivationLevel ActivationLevel { get; set; } = ActivationLevel.None;
     public bool IsActivated => ActivationLevel is not ActivationLevel.None;
-    public bool IsSpecialLevel => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure or ActivationLevel.Bisque;
+    public bool IsSpecialLevel => ActivationLevel is ActivationLevel.Developer or ActivationLevel.Azure;
     public ConetUser? Conet { get; set; } = null;
     public bool IsConetLoggedIn => Conet is not null;
+
     /// <summary>
     /// Shows activation dialog and activate.
     /// </summary>
@@ -39,20 +40,20 @@ public class User : BaseUser
     }
 
     /// <summary>
-    /// Shows activation dialog and activate as Azure/Bisque.
+    /// Shows activation dialog and activate as Azure.
     /// </summary>
     /// <param name="msg">The first line showing in activation dialog. If null is given, then shows defualt message</param>
-    /// <returns>true if activated as Azure/Bisque. Otherwise, false</returns>
+    /// <returns>true if activated as Azure. Otherwise, false</returns>
     public static async Task<bool> AuthorAsync(string? msg = null, bool showMessage = true)
     {
         if (Info.User.IsSpecialLevel)
             return true;
 
-        _ = await ActivateAsync(msg ?? "Azure / Bisque 레벨 전용 기능입니다.");
+        _ = await ActivateAsync(msg ?? "Azure 레벨 전용 기능입니다.");
         if (!Info.User.IsSpecialLevel)
         {
             if (showMessage)
-                await ShowMessageAsync("You need to be Azure/Bisque level to use this feature", "Limited feature", Info.Settings.Theme);
+                await ShowMessageAsync("You need to be Azure level to use this feature", "Limited feature", Info.Settings.Theme);
             return false;
         }
         return true;

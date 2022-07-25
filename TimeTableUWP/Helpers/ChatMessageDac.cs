@@ -26,7 +26,7 @@ public class ChatMessageDac : IDisposable
     {
         var getFile = StorageFile.GetFileFromApplicationUriAsync(new("ms-appx:///connection.txt")).AsTask();
         getFile.Wait();
-        Task<string> read = FileIO.ReadTextAsync(getFile.Result).AsTask();
+        var read = FileIO.ReadTextAsync(getFile.Result).AsTask();
         read.Wait();
         ConnectionString = read.Result;
     }

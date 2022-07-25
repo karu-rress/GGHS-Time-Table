@@ -28,8 +28,10 @@ namespace TimeTableCore
     {
         public class OnlineLinks : IOnlineLinks
         {
+
             private record Common
             {
+                
                 public static OnlineLink EnglishA1to4 { get; set; } = new()
                 {
                     Zoom = "https://zoom.us/j/5472878985?pwd=RlIzSmJnWHBRaWhkRTNkOEJ6UUF5UT09",
@@ -44,9 +46,6 @@ namespace TimeTableCore
                     Classroom = "https://classroom.google.com/c/NDY4NjkyMjU3MDkx",
                     Teacher = "윤채영",
                 };
-                public static OnlineLink ProbabilityA { get; } = new() { Teacher = "백승범" };
-                public static OnlineLink ProbabilityB { get; } = new() { Teacher = "김수진" };
-                public static OnlineLink Daic { get; } = new() { Teacher = "백승범" };
                 public static OnlineLink Ethics { get; } = new()
                 {
                     Classroom = "https://classroom.google.com/c/NDc1MzA4NDU5NzYw",
@@ -71,7 +70,7 @@ namespace TimeTableCore
                     Teacher = "김용지"
                 },
 
-                [Subjects.AdvancedEnglish.Name + 'A'] = Common.EnglishA1to4,
+                [Subjects.AdvancedEnglish.A.Name] = Common.EnglishA1to4,
 
                 [Subjects.Reading.Name] = Common.Reading,
 
@@ -82,7 +81,7 @@ namespace TimeTableCore
 
             public OnlineDictionary Class2 { get; } = new()
             {
-                [Subjects.AdvancedEnglish.Name + 'A'] = Common.EnglishA1to4,
+                [Subjects.AdvancedEnglish.A.Name] = Common.EnglishA1to4,
 
                 [Subjects.Reading.Name] = Common.Reading,
 

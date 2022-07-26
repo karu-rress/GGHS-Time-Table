@@ -11,7 +11,7 @@ public class TaskButton : Button
 
     public TodoTask TodoTask { get; private set; }
 
-    public TaskButton(in TodoTask task, RoutedEventHandler TaskButton_Click)
+    public TaskButton(TodoTask task, RoutedEventHandler TaskButton_Click)
     {
         TodoTask = task;
         Click += TaskButton_Click;

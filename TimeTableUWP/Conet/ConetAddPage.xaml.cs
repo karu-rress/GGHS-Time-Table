@@ -6,7 +6,6 @@ namespace TimeTableUWP.Conet;
 public sealed partial class ConetAddPage : Page
 {
     public static ConetHelp? Conet { get; set; }
-
     public ConetAddPage()
     {
         InitializeComponent();
@@ -53,10 +52,26 @@ public sealed partial class ConetAddPage : Page
                 await ShowMessageAsync("에그가 올바르게 입력되지 않았습니다.", "Error", Info.Settings.Theme);
                 return;
             }
+            if (Info.User.Conet!.Eggs.Value < egg)
+            {
+                await ShowMessageAsync("보유 에그보다 많은 금액을 입력하셨습니다.", "Error", Info.Settings.Theme);
+                return;
+            }
+            if (Conet is not null)
+            {
+                // 기존 Egg 보충
+                Info.User.Conet!.Eggs += Conet.Price!.Value;
+            }
+            Info.User.Conet!.Eggs -= new Egg(egg);
+
+            using SqlConnection _sql = new(ChatMessageDac.ConnectionString);
+            ConetUserDac user = new(_sql, Info.User.Conet);
+            await _sql.OpenAsync();
+            await user.UpdateEggAsync(Info.User.Conet!.Eggs);
         }
 
         ConetHelp conet = new(DateTime.Now, Info.User.Conet!, TitleTextBox.Text,
-            BodyTextBox.IsNullOrWhiteSpace() ? null : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
+            BodyTextBox.IsNullOrWhiteSpace() ? "" : BodyTextBox.Text, eggExists ? new Egg(egg) : null);
 
         using SqlConnection sql = new(ChatMessageDac.ConnectionString);
         using ConetHelpDac con = new(sql);
@@ -73,12 +88,11 @@ public sealed partial class ConetAddPage : Page
         catch (Exception ex)
         {
             await Task.WhenAll(
-                ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme)
-                , TimeTableException.HandleException(ex));
+                ShowMessageAsync("업로드에 실패했습니다.", "에러", Info.Settings.Theme),
+                TimeTableException.HandleException(ex));
         }
         finally
         {
-            // Why Enable is here...?
             Disable(PostButton, TitleTextBox, BodyTextBox, eggTextBox);
             Close();
         }
@@ -117,7 +131,7 @@ public sealed partial class ConetAddPage : Page
         }
     }
 
-    private bool Modified => Conet is not null && (TitleTextBox.Text != Conet.Title
-            || (!BodyTextBox.IsSameWith(Conet.Body))
-            || (!eggTextBox.IsSameWith(Conet.Price?.Value.ToString())));
+    private bool Modified => Conet is not null && !(TitleTextBox.Text == Conet.Title
+            && BodyTextBox.IsSameWith(Conet.Body)
+            && eggTextBox.IsSameWith(Conet.Price?.Value.ToString()));
 }

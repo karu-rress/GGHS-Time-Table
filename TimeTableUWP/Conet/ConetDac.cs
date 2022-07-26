@@ -94,7 +94,15 @@ public class ConetUserDac
     private SqlConnection Sql { get; set; }
     public string Id { get; set; }
     public string EncryptedPassword { get; }
+    public const int DefaultEggs = 50;
     // private static DateTime LastSqlTime;
+
+    public ConetUserDac(SqlConnection sql, ConetUser user)
+    {
+        Sql = sql;
+        Id = $"{user.Id} {user.Name}";
+        EncryptedPassword = "";
+    }
 
     public ConetUserDac(SqlConnection sql, string id, string pw)
     {
@@ -105,7 +113,7 @@ public class ConetUserDac
 
     public async Task<bool> IdExistsAsync()
     {
-        string query = "SELECT COUNT(*) FROM users WHERE Student = @Student";
+        const string query = "SELECT COUNT(*) FROM users WHERE Student = @Student";
 
         SqlCommand cmd = new(query, Sql);
         SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
@@ -116,7 +124,7 @@ public class ConetUserDac
 
     public async Task<bool> PasswordMachesAsync()
     {
-        string query = "SELECT * FROM users WHERE Student = @Student";
+        const string query = "SELECT * FROM users WHERE Student = @Student";
 
         SqlCommand cmd = new(query, Sql);
         SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
@@ -130,7 +138,8 @@ public class ConetUserDac
 
     public async Task InsertAsync()
     {
-        const string query = "INSERT INTO users VALUES(@Student, @Password)";
+        // TODO: 정식 버전에선 30에그로 줄이기
+        string query = $"INSERT INTO users VALUES(@Student, @Password, {DefaultEggs})";
 
         SqlCommand cmd = new(query, Sql);
 
@@ -143,4 +152,29 @@ public class ConetUserDac
         await cmd.ExecuteNonQueryAsync();
     }
 
+    public async Task<Egg> GetEggAsync()
+    {
+        const string query = "SELECT Eggs FROM users WHERE Student = @Student";
+
+        SqlCommand cmd = new(query, Sql);
+        SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
+        cmd.Parameters.Add(pStudent);
+
+        return new((short)await cmd.ExecuteScalarAsync());
+    }
+
+    public async Task UpdateEggAsync(Egg egg)
+    {
+        const string query = "UPDATE users SET Eggs = @Eggs WHERE Student = @Student";
+
+        SqlCommand cmd = new(query, Sql);
+
+        SqlParameter pStudent = new("Student", SqlDbType.NChar, 10) { Value = Id };
+        SqlParameter pEggs = new("Eggs", SqlDbType.SmallInt) { Value = (short)egg.Value };
+
+        cmd.Parameters.Add(pStudent);
+        cmd.Parameters.Add(pEggs);
+
+        await cmd.ExecuteNonQueryAsync();
+    }
 }

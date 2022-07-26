@@ -45,7 +45,8 @@ internal static class Messages
 
     public const string WhatsNew =
 @"- 2학기 시간표 지원
-- Conet 탭 지원";
+- Conet 탭 지원
+- 가상화폐 <에그> 지원";
 
     public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
     {

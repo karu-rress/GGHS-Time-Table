@@ -62,13 +62,14 @@
                 <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete"/></TextBlock>
             </Button>
         </Grid>
-        <Grid Height="70" Margin="59,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="562">
+        <Grid Height="70" Margin="59,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="741">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="241*"/>
+                <ColumnDefinition Width="231*"/>
                 <ColumnDefinition Width="28*"/>
                 <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="143*"/>
+                <ColumnDefinition Width="123*"/>
+                <ColumnDefinition Width="180"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
@@ -85,6 +86,7 @@
             <TextBlock x:Name="idText" FontSize="21" Grid.Column="1" VerticalAlignment="Center" />
             <TextBlock Text="Eggs" FontSize="25" Grid.Column="3" Margin="5,18,5,18"/>
             <TextBox x:Name="eggTextBox"  Height="45" FontSize="21" PlaceholderText="에그"  MaxLength="4" Grid.Column="4" CornerRadius="10" Width="130"/>
+            <TextBlock Text="보유 에그: " FontSize="25" Grid.Column="5" Margin="5,18,5,18"/>
         </Grid>
     </Grid>
 </Page>

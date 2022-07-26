@@ -11,7 +11,7 @@ public class ConetButton : Button
 
     public ConetHelp ConetHelp { get; private set; }
 
-    public ConetButton(in ConetHelp task, RoutedEventHandler TaskButton_Click)
+    public ConetButton(ConetHelp task, RoutedEventHandler TaskButton_Click)
     {
         ConetHelp = task;
         Click += TaskButton_Click;

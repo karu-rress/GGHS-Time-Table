@@ -39,7 +39,7 @@ public class TaskList : IEnumerable<TodoTask>
     public List<TodoTask> FindAll(Match? match) => match is null ? new() : List.FindAll(match);
 
 
-    public void Remove(in TodoTask task)
+    public void Remove(TodoTask task)
     {
         TaskStack.Push(new() { task });
         List.Remove(task);

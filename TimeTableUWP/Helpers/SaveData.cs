@@ -22,7 +22,6 @@ public class DataSaver
         public const string Settings = "Settings";
         public const string Todo = "TodoList";
         public const string Conet = "ConetUser";
-        public const string Egg = "ConetEgg"; 
     }
 
     public static void Save()
@@ -34,14 +33,10 @@ public class DataSaver
         localSettings.Values[SettingValues.Conet] = Serialize(Info.User.Conet);
         localSettings.Values[SettingValues.Settings] = Serialize(Info.Settings);
         localSettings.Values[SettingValues.Todo] = Serialize(TodoListPage.TaskList.List);
-
-#if !CONET_DONT_SAVE
-        localSettings.Values[SettingValues.Egg] = Info.User.Conet?.Eggs.Value;
-#endif
     }
 
     // value maybe null if return value is false
-    public static bool SettingExists<T>(string key, out T value)
+    public static bool SettingExists<T>(string key, out T? value)
     {
         if (Deserialize<T>(localSettings.Values[key]) is T v)
         {
@@ -76,33 +71,27 @@ public class DataSaver
         if (SettingExists<ActivationLevel>(SettingValues.Level, out var level))
             Info.User.ActivationLevel = level;
 
-        if (version.IsUpgradedFromGTT5) // Upgraded from GTT5?
+        if (version!.IsUpgradedFromGTT5) // Upgraded from GTT5?
         {
             // Cleans legacy settings
             localSettings.Values.Remove(SettingValues.Subjects);
             localSettings.Values.Remove(SettingValues.Settings);
             localSettings.Values.Remove(SettingValues.Conet);
-            localSettings.Values.Remove(SettingValues.Egg);
             localSettings.Values.Remove(SettingValues.Todo);
             return;
         }
 
         if (SettingExists<SubjectTuple>(SettingValues.Subjects, out var list))
-            (Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list;
+            (Social.Selected, Language.Selected, Global1.Selected, Global2.Selected) = list!;
 
         if (SettingExists<Settings>(SettingValues.Settings, out var setting))
             Info.Settings = setting;
 
-#if !CONET_DONT_SAVE
         if (SettingExists<ConetUser>(SettingValues.Conet, out var conet))
             Info.User.Conet = conet;
 
-        if (localSettings.Values[SettingValues.Egg] is uint egg && Info.User.Conet is not null)
-            Info.User.Conet.Eggs = egg;
-#endif
-
         if (SettingExists<List<Todo.TodoTask>>(SettingValues.Todo, out var tasklist))
-            TodoListPage.TaskList.List = tasklist;
+            TodoListPage.TaskList.List = tasklist!;
     }
 
     [DataContract(Name = "Subjects")]

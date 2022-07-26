@@ -30,6 +30,7 @@ public sealed partial class ConetPage : Page
             await ShowMessageAsync("인터넷에 연결되어 있어야 Conet을 사용할 수 있습니다.", title, Info.Settings.Theme);
             return;
         }
+
         conetGrid.Children.Clear();
         if (Info.User.Conet is null)
         {
@@ -45,10 +46,21 @@ public sealed partial class ConetPage : Page
             }
         }
 
+        await LoadEggsAsync();
         mainText2.Text = "지금. 여기. 우리. Conet";
         nameText.Text = $"{Info.User.Conet.Id} {Info.User.Conet.Name}님";
         eggText.Text = $"나의 에그: {Info.User.Conet.Eggs.Value} 에그";
         await LoadHelps();
+    }
+
+    private static async Task LoadEggsAsync()
+    {
+        using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
+        {
+            await sql.OpenAsync();
+            ConetUserDac conet = new(sql, Info.User.Conet);
+            Info.User.Conet.Eggs = await conet.GetEggAsync();
+        }
     }
 
     private async Task LoadHelps()
@@ -77,20 +89,17 @@ public sealed partial class ConetPage : Page
                     price == DBNull.Value ? null : price.ToString()));
             }
         }
-        // 이건 내가 대응할 수가 없음. 그냥 Swallow.
-        catch (SqlException) 
+        catch (SqlException) // 이건 내가 대응할 수가 없음. 그냥 Swallow.
         {
             await ShowMessageAsync(Messages.Dialog.ConetError, title, Info.Settings.Theme);
             return;
-        }
-        catch // 근데 이상한 거면 다시 throw
-        {
-            throw;
         }
         finally
         {
             Invisible(progressGrid);
         }
+
+        // ConetList => sort by egg, uploaddate
 
         foreach (var help in ConetList)
             conetGrid.Children.Add(new ConetButton(help, ConetButton_Click));
@@ -108,6 +117,7 @@ public sealed partial class ConetPage : Page
     // ChattingPage 보면서 SQL 쿼리 따기
     private async void RefreshButton_Click(object sender, RoutedEventArgs e)
     {
+        // load eggs async?
         conetGrid.Children.Clear();
         await LoadHelps();
     }

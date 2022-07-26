@@ -140,6 +140,9 @@
     <Compile Include="Conet\ConetHelp.cs" />
     <Compile Include="Conet\Models.cs" />
     <Compile Include="Conet\ConetDac.cs" />
+    <Compile Include="Dialogs\ConetDeleteDialog.xaml.cs">
+      <DependentUpon>ConetDeleteDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ConetLoginDialog.xaml.cs">
       <DependentUpon>ConetLoginDialog.xaml</DependentUpon>
     </Compile>
@@ -286,6 +289,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\ActivateDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ConetDeleteDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -46,6 +46,9 @@ public sealed partial class ConetPage : Page
             }
         }
 
+        if (Info.User.ActivationLevel is ActivationLevel.Developer)
+            SignOutButton.Visibility = Visibility.Visible;
+
         await LoadEggsAsync();
         mainText2.Text = "지금. 여기. 우리. Conet";
         nameText.Text = $"{Info.User.Conet.Id} {Info.User.Conet.Name}님";
@@ -55,12 +58,10 @@ public sealed partial class ConetPage : Page
 
     private static async Task LoadEggsAsync()
     {
-        using (SqlConnection sql = new(ChatMessageDac.ConnectionString))
-        {
-            await sql.OpenAsync();
-            ConetUserDac conet = new(sql, Info.User.Conet);
-            Info.User.Conet.Eggs = await conet.GetEggAsync();
-        }
+        using SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        await sql.OpenAsync();
+        ConetUserDac conet = new(sql, Info.User.Conet);
+        Info.User.Conet.Eggs = await conet.GetEggAsync();
     }
 
     private async Task LoadHelps()
@@ -99,9 +100,11 @@ public sealed partial class ConetPage : Page
             Invisible(progressGrid);
         }
 
-        // ConetList => sort by egg, uploaddate
+        var conetEnum = from conet in ConetList
+                   orderby conet.Price descending, conet.UploadDate descending
+                   select conet;
 
-        foreach (var help in ConetList)
+        foreach (var help in conetEnum)
             conetGrid.Children.Add(new ConetButton(help, ConetButton_Click));
     }
 
@@ -124,4 +127,21 @@ public sealed partial class ConetPage : Page
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
         => Frame.Navigate(typeof(ConetAddPage), null, new DrillInNavigationTransitionInfo());
+
+    private async void SignOutButton_Click(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new()
+        {
+            Title = "Sign Out",
+            Content = "Are you sure want to sign out?",
+            PrimaryButtonText = "Yes, sign out",
+            CloseButtonText = "Cancel",
+            DefaultButton = ContentDialogButton.Primary,
+        };
+        if (await dialog.ShowAsync() is ContentDialogResult.Primary)
+        {
+            Info.User.Conet = null;
+            Frame.Navigate(GetType());
+        }
+    }
 }

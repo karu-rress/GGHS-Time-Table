@@ -4,7 +4,7 @@
     xmlns:local="using:TimeTableUWP.Conet"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Custom="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     x:Class="TimeTableUWP.Conet.ConetAddPage"
     mc:Ignorable="d">
 
@@ -33,10 +33,10 @@
             <TextBlock x:Name="mainText" Text="New Conet" FontSize="55" Height="73" />
         </Grid>
 
-        <TextBlock Text="Title" FontFamily="{StaticResource segoeFont}" Height="34" FontSize="25" VerticalAlignment="Top" RenderTransformOrigin="0.93,1.029" Margin="59,119,0,0" HorizontalAlignment="Left" Width="52"/>
+        <TextBlock Text="Title" FontFamily="{StaticResource segoeFont}" Height="34" FontSize="25" VerticalAlignment="Top" RenderTransformOrigin="0.93,1.029" Margin="61,119,0,0" HorizontalAlignment="Left" Width="52"/>
         <TextBox x:Name="TitleTextBox" VerticalAlignment="Top" Height="45" FontSize="21" PlaceholderText="제목을 입력하세요 (최대 50자)" Margin="134,115,307,0" MaxLength="50" />
-        <TextBlock Text="Memo (optional)" FontFamily="{StaticResource segoeFont}" FontSize="25" Margin="59,242,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="55,300,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
+        <TextBlock Text="Body (optional)" FontFamily="{StaticResource segoeFont}" FontSize="25" Margin="63,325,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
+        <TextBox x:Name="BodyTextBox" Margin="55,385,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText="필요한 경우 세부 내용을 입력해주세요."/>
         <Grid Width="215" HorizontalAlignment="Right" Margin="0,40,55,10">
             <Grid.Resources>
                 <Style TargetType="Button">
@@ -62,15 +62,16 @@
                 <TextBlock><Run Text="&#xE74D;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Delete"/></TextBlock>
             </Button>
         </Grid>
-        <Grid Height="70" Margin="59,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="741">
+        <Grid Height="141" Margin="59,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1041">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="231*"/>
-                <ColumnDefinition Width="28*"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="123*"/>
-                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="246*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="FontFamily" Value="{StaticResource segoeFont}" />
@@ -84,9 +85,11 @@
             </Grid.Resources>
             <TextBlock Text="Writer" FontSize="25" Grid.Column="0" Margin="3,18,2,18"/>
             <TextBlock x:Name="idText" FontSize="21" Grid.Column="1" VerticalAlignment="Center" />
-            <TextBlock Text="Eggs" FontSize="25" Grid.Column="3" Margin="5,18,5,18"/>
-            <TextBox x:Name="eggTextBox"  Height="45" FontSize="21" PlaceholderText="에그"  MaxLength="4" Grid.Column="4" CornerRadius="10" Width="130"/>
-            <TextBlock Text="보유 에그: " FontSize="25" Grid.Column="5" Margin="5,18,5,18"/>
+            <TextBlock x:Name="dateText" FontSize="21" Grid.Column="2" VerticalAlignment="Center" />
+
+            <TextBlock Text="Eggs" FontSize="25" Grid.Column="0" Grid.Row="1" Margin="5,18,5,18"/>
+            <TextBox x:Name="eggTextBox"  Height="45" FontSize="21" PlaceholderText="에그"  MaxLength="4" Grid.Column="1" Grid.Row="1" CornerRadius="10" Width="130"/>
+            <TextBlock x:Name="myEggs" FontSize="23" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" Text="My Eggs: " />
         </Grid>
     </Grid>
 </Page>

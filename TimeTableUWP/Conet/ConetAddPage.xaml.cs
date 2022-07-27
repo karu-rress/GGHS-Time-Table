@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System.Globalization;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace TimeTableUWP.Conet;
@@ -10,10 +11,12 @@ public sealed partial class ConetAddPage : Page
     {
         InitializeComponent();
         idText.Text = $"{Info.User.Conet!.Id} {Info.User.Conet.Name}";
+        myEggs.Text = $"My Eggs: {Info.User.Conet!.Eggs}";
 
         if (Conet is not null) // Not creating, but modifying
         {
             idText.Text = $"{Conet.Uploader.Id} {Conet.Uploader.Name}";
+            dateText.Text = "Uploaded Date: " + Conet.UploadDate.ToString("yyyy/MM/dd hh:mm tt", CultureInfo.InvariantCulture);
             mainText.Text = "Conet Details";
             TitleTextBox.Text = Conet.Title;
             eggTextBox.Text = $"{Conet.Price?.Value}";
@@ -22,8 +25,10 @@ public sealed partial class ConetAddPage : Page
             // 다른 사람 글이라면
             if (Conet.Uploader.Id != Info.User.Conet.Id)
             {
+                BodyTextBox.PlaceholderText = string.Empty;
                 ReadOnly(TitleTextBox, eggTextBox, BodyTextBox);
                 Disable(PostButton);
+                myEggs.Text = string.Empty;
             }
             // 내가 쓴 글이라면
             else
@@ -44,7 +49,8 @@ public sealed partial class ConetAddPage : Page
         bool eggExists = false;
         uint egg = 0;
 
-        if (!eggTextBox.IsNullOrEmpty())
+        // 0이면 그냥 null 처리
+        if (!eggTextBox.IsNullOrEmpty() && eggTextBox.Text[0] is not '0')
         {
             eggExists = true;
             if (!uint.TryParse(eggTextBox.Text, out egg))
@@ -118,6 +124,14 @@ public sealed partial class ConetAddPage : Page
         {
             await sql.OpenAsync();
             await con.DeleteAsync(Conet!.UploadDate);
+
+            // 기존 Egg 보충: 실제 상황에서는 완료/취소 구분해서.
+            Info.User.Conet!.Eggs += Conet.Price!.Value;
+
+            using SqlConnection _sql = new(ChatMessageDac.ConnectionString);
+            ConetUserDac user = new(_sql, Info.User.Conet);
+            await _sql.OpenAsync();
+            await user.UpdateEggAsync(Info.User.Conet!.Eggs);
         }
         catch (Exception ex)
         {

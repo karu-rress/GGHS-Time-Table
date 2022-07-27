@@ -106,10 +106,10 @@ public sealed partial class ConetLoginDialog : ContentDialog
             Info.User.Conet = new(snum, nameBox.Text);
             Hide();
         }
-        catch (Exception ex)
+        catch // (Exception ex)
         {
             ShowError("프로그램 오류로 회원가입을 할 수 없습니다.");
-            await TimeTableException.HandleException(ex);
+            // await TimeTableException.HandleException(ex);
         }
         finally
         {

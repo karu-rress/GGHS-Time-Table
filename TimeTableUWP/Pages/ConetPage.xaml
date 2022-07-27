@@ -42,8 +42,11 @@
             <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
                 <TextBlock><Run Text="&#xE710;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Add New"/></TextBlock>
             </Button>
-            <Button x:Name="RefreshButton" Margin="0,205,0,0" Click="RefreshButton_Click" CornerRadius="10" Height="50">
+            <Button x:Name="RefreshButton" Margin="0,185,0,0" Click="RefreshButton_Click" CornerRadius="10" Height="50">
                 <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
+            </Button>
+            <Button x:Name="SignOutButton" Margin="0,350,0,0" Click="SignOutButton_Click" Visibility="Collapsed">
+                <TextBlock><Run Text="&#xF3B1;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Sign Out"/></TextBlock>
             </Button>
         </Grid>
         <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"  Visibility="Collapsed">

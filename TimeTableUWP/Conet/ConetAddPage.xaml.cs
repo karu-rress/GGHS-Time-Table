@@ -66,14 +66,10 @@ public sealed partial class ConetAddPage : Page
             if (Conet is not null)
             {
                 // 기존 Egg 보충
-                Info.User.Conet!.Eggs += Conet.Price!.Value;
+                Info.User.Conet.Eggs += Conet.Price!.Value;
             }
-            Info.User.Conet!.Eggs -= new Egg(egg);
-
-            using SqlConnection _sql = new(ChatMessageDac.ConnectionString);
-            ConetUserDac user = new(_sql, Info.User.Conet);
-            await _sql.OpenAsync();
-            await user.UpdateEggAsync(Info.User.Conet!.Eggs);
+            Info.User.Conet.Eggs -= new Egg(egg);
+            await Info.User.Conet.SyncAsync();
         }
 
         ConetHelp conet = new(DateTime.Now, Info.User.Conet!, TitleTextBox.Text,
@@ -116,6 +112,19 @@ public sealed partial class ConetAddPage : Page
             return;
         }
 
+        ContentDialog dialog = new()
+        {
+            Title = "Delete",
+            Content = "Are you sure want to delete?",
+            PrimaryButtonText = "Delete",
+            CloseButtonText = "Cancel",
+            DefaultButton = ContentDialogButton.Primary,
+        };
+        if (await dialog.ShowAsync() is not ContentDialogResult.Primary)
+        {
+            return;
+        }
+
         using SqlConnection sql = new(ChatMessageDac.ConnectionString);
         using ConetHelpDac con = new(sql);
 
@@ -127,11 +136,7 @@ public sealed partial class ConetAddPage : Page
 
             // 기존 Egg 보충: 실제 상황에서는 완료/취소 구분해서.
             Info.User.Conet!.Eggs += Conet.Price!.Value;
-
-            using SqlConnection _sql = new(ChatMessageDac.ConnectionString);
-            ConetUserDac user = new(_sql, Info.User.Conet);
-            await _sql.OpenAsync();
-            await user.UpdateEggAsync(Info.User.Conet!.Eggs);
+            await Info.User.Conet.SyncAsync();
         }
         catch (Exception ex)
         {

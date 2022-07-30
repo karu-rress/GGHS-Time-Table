@@ -5,15 +5,25 @@ using System.Runtime.Serialization;
 namespace TimeTableUWP.Conet;
 
 [DataContract(Name = "ConetUser")]
-public class ConetUser
+public class ConetUser : ISyncable
 {
     [DataMember] public int Id { get; init; }
     [DataMember] public string Name { get; init; }
-    [DataMember] public Egg Eggs { get; set; }
+    public Egg Eggs { get; set; }
     public ConetUser(int id, string name) { Id = id; Name = name; }
 
-    /// <returns>a string like "3116 나선우"</returns>
+    /// <returns>a string like "3000 김카루"</returns>
     public override string ToString() => $"{Id} {Name}";
+
+    public async Task SyncAsync()
+    {
+        using SqlConnection _sql = new(ChatMessageDac.ConnectionString);
+        ConetUserDac user = new(_sql, this);
+        await _sql.OpenAsync();
+        await user.UpdateEggAsync(Info.User.Conet!.Eggs);
+    }
+
+    // TODO: 대입과 Sync를 한번에?
 }
 
 public class ConetHelp

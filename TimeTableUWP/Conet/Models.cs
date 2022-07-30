@@ -49,7 +49,7 @@ public readonly struct Egg : IComparable, IComparable<Egg>, IEquatable<Egg>
     public Egg(MoneyType egg) => _egg = egg;
     public Egg(short egg) : this((MoneyType)egg) { }
     public Egg(Won won) => _egg = won.Value / 1000;
-
+    
 
     public static explicit operator Won(Egg egg) => new(egg);
     public static implicit operator Egg(MoneyType egg) => new(egg);

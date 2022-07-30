@@ -49,8 +49,7 @@ public sealed partial class TimeTablePage : Page
         }
 
         await InitializeUIAsync();
-        if (Info.User.Class != 0)
-            DrawTimeTable();
+        DrawTimeTable();
 
         await getLinks;
     }
@@ -173,7 +172,7 @@ public sealed partial class TimeTablePage : Page
                 Empty(socialComboBox, langComboBox, global1ComboBox, global2ComboBox);
 
                 Info.User.Class = comboBox.SelectedIndex + 1;
-                TimeTable.ResetClass(Info.User.Class);
+                TimeTable.ResetClass(Info.User.Class); // 이건 오류날 일이 없는데...
                 DisableComboBoxBySubjects();
                 break;
 

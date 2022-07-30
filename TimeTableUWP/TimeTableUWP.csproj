@@ -147,6 +147,7 @@
       <DependentUpon>ConetLoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ChatMessageDac.cs" />
+    <Compile Include="Helpers\ISyncable.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
     <Compile Include="Models\ConstStrings.cs" />

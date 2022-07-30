@@ -21,7 +21,7 @@ public sealed partial class ConetDeleteDialog : ContentDialog
 {
     public ConetDeleteDialog()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -41,7 +41,7 @@ public class TimeTableException : Exception
     {
         int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
 
-        string result = "에러가 발생했습니다.";
+        string result = "에러가 발생했습니다. ";
         result += Info.User.ActivationLevel is not ActivationLevel.Developer
             ? "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다.\n"
             : "디버그 중 발생한 오류입니다.\n";
@@ -55,8 +55,18 @@ public class TimeTableException : Exception
         var smtp = FeedbackDialog.PrepareSendMail(result,
             $"GGHS Time Table EXCEPTION OCCURED in V{Info.Version}", out var msg);
 
-        if (Connection.IsInternetAvailable)
+        if (!Connection.IsInternetAvailable)
         {
+            MessageDialog messageDialog = new("카루에게 아래 정보를 제공해주세요.\n" + result, "에러가 발생했습니다.");
+            await messageDialog.ShowAsync();
+        }
+        else
+        {
+            result += $@"
+=========================
+User Level: {Info.User.ActivationLevel}
+User: {Info.User.Conet?.ToString() ?? "Unknown"}";
+
             Task mail = smtp.SendAsync(msg);
 
             if (Info.User.ActivationLevel is not ActivationLevel.Developer)
@@ -67,13 +77,7 @@ public class TimeTableException : Exception
                 await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, string.Format(Messages.ErrorChat, exception.GetType().Name));
                 sql.Close();
             }
-
             await mail;
-        }
-        else
-        {
-            MessageDialog messageDialog = new("카루에게 아래 정보를 제공해주세요.\n" + result, "에러가 발생했습니다.");
-            await messageDialog.ShowAsync();
         }
     }
 }

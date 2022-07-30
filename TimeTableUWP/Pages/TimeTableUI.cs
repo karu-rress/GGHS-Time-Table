@@ -47,8 +47,11 @@ public sealed partial class TimeTablePage : Page
 
     private void DrawTimeTable()
     {
-        TimeTable.ResetClass(Info.User.Class);
-        AssignButtonsByTable(TimeTable.Table!);
+        if (Info.User.Class is not 0)
+        {
+            TimeTable.ResetClass(Info.User.Class);
+            AssignButtonsByTable(TimeTable.Table!);
+        }
     }
 
     private void AssignButtonsByTable(TimeTable subjectTable)

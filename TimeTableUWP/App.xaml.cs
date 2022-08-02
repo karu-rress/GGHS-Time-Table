@@ -89,13 +89,15 @@ public sealed partial class App : Application
     /// </summary>
     /// <param name="sender">The source of the suspend request.</param>
     /// <param name="e">Details about the suspend request.</param>
-    private void OnSuspending(object sender, SuspendingEventArgs e)
+    private async void OnSuspending(object sender, SuspendingEventArgs e)
     {
         SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
         //TODO: Save application state and stop any background activity
       
-        DataSaver.Save();
+        if (Connection.IsInternetAvailable)
+            await TimeTableException.SendUnsentErrorLogs();
 
+        DataSaver.Save();
         deferral.Complete();
     }
     

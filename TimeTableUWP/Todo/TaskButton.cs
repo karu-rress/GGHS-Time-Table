@@ -6,38 +6,19 @@ using Windows.UI.Xaml.Controls.Primitives;
 namespace TimeTableUWP.Todo;
 public class TaskButton : GttButton<TodoTask>
 {
-    public TaskButton(TodoTask task, RoutedEventHandler TaskButton_Click)
+    public TaskButton(TodoTask task, RoutedEventHandler task_click)
+        : base(task, task_click)
     {
-        Data = task;
-        Click += TaskButton_Click;
-        RightTapped += TaskButton_RightTapped;
-        Height = ButtonHeight;
-        Margin = new(0, 0, 0, 5);
-        CornerRadius = new(10);
-        VerticalAlignment = VerticalAlignment.Top;
-
-        CreateGrid(out Grid inner, out Grid dday, out Grid outter);
-        CreateDdayTextBlock(out TextBlock tb1, out TextBlock tb2);
-        dday.Children.Add(tb1);
-        dday.Children.Add(tb2);
-        inner.Children.Add(dday);
-
-        CreateTaskTextBlock(out TextBlock tb3, out TextBlock tb4);
-        inner.Children.Add(tb3);
-        inner.Children.Add(tb4);
-
-        CreateArrowTextBlock(out TextBlock arrow);
-        outter.Children.Add(inner);
-        outter.Children.Add(arrow);
+        // RightTapped += TaskButton_RightTapped;
 
         if (Data.DueDate.Date == DateTime.Now.Date)
         {
             BorderThickness = new(2.6);
             BorderBrush = new SolidColorBrush(Info.Settings.ColorType with { A = 200 });
         }
-        Content = outter;
     }
 
+    /*
     private void TaskButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
     {
         if (sender is UIElement uiElem)
@@ -71,22 +52,10 @@ public class TaskButton : GttButton<TodoTask>
             btnFlyOut.ShowAt(uiElem, e.GetPosition(uiElem));
         }
     }
+    */
 
-    private void CreateArrowTextBlock(out TextBlock arrow)
-    {
-        arrow = new()
-        {
-            Text = "\xE971", // E9B9 
-            FontFamily = new("../Assets/segoefluent.ttf#Segoe Fluent Icons"),
-            FontSize = 17,
-            Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
-            VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new(0, 0, 15, 0)
-        };
-    }
 
-    private void CreateGrid(out Grid inner, out Grid dday, out Grid outter)
+    protected override void CreateGrid(out Grid inner, out Grid dday, out Grid outter)
     {
         inner = new()
         {
@@ -104,9 +73,9 @@ public class TaskButton : GttButton<TodoTask>
         outter = new();
     }
 
-    private void CreateDdayTextBlock(out TextBlock tb1, out TextBlock tb2)
+    protected override void CreateLeftTextBlocks(out TextBlock date, out TextBlock dday)
     {
-        tb1 = new()
+        date = new()
         {
             FontSize = 19,
             Text = Data.DueDate.ToString("MM/dd"),
@@ -124,7 +93,7 @@ public class TaskButton : GttButton<TodoTask>
             _ => days.ToString("+0;-0"),
         };
 
-        tb2 = new()
+        dday = new()
         {
             FontSize = 15,
             Text = text,
@@ -135,16 +104,16 @@ public class TaskButton : GttButton<TodoTask>
         };
     }
 
-    private void CreateTaskTextBlock(out TextBlock tb3, out TextBlock tb4)
+    protected override void CreateRightTextBlocks(out TextBlock subject, out TextBlock title)
     {
-        tb3 = new()
+        subject = new()
         {
             FontSize = 17,
             Text = Data.Subject,
             Margin = new(80, 12, 0, 44),
             Width = ButtonWidth
         };
-        tb4 = new()
+        title = new()
         {
             FontSize = 15,
             Text = Data.Title,

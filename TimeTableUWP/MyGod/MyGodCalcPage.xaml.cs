@@ -24,7 +24,7 @@ namespace TimeTableUWP.MyGod
     {
         public MyGodCalcPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

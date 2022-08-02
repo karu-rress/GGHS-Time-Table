@@ -7,85 +7,12 @@ public class ConetButton : GttButton<ConetHelp>
 {
     private readonly int bodyLength = 40;
 
-
-    public ConetButton(ConetHelp task, RoutedEventHandler TaskButton_Click)
-    //    : base(task)
+    public ConetButton(ConetHelp task, RoutedEventHandler conet_click)
+        : base(task, conet_click)
     {
-        Data = task;
-        Height = ButtonHeight;
-        Click += TaskButton_Click;
-        Margin = new(0, 0, 0, 5);
-        CornerRadius = new(10);
-        VerticalAlignment = VerticalAlignment.Top;
-
-        CreateGrid(out Grid inner, out Grid dday, out Grid outter);
-        CreateDdayTextBlock(out TextBlock tb1, out TextBlock tb2);
-        dday.Children.Add(tb1);
-        dday.Children.Add(tb2);
-        inner.Children.Add(dday);
-
-        CreateTaskTextBlock(out TextBlock tb3, out TextBlock tb4);
-        inner.Children.Add(tb3);
-        inner.Children.Add(tb4);
-
-        CreateArrowTextBlock(out TextBlock arrow);
-        outter.Children.Add(inner);
-        outter.Children.Add(arrow);
-
-        Content = outter;
     }
 
-    /*
-    private void TaskButton_RightTapped(object sender, RightTappedRoutedEventArgs e)
-    {
-        if (sender is UIElement uiElem)
-        {
-            MenuFlyout btnFlyOut = new();
-            MenuFlyoutItem edit = new() { Text = "Edit", Icon = new SymbolIcon(Symbol.Edit) };
-            MenuFlyoutItem delete = new() { Text = "Delete", Icon = new SymbolIcon(Symbol.Delete) };
-
-            edit.Click += (_, e) => {
-                AddPage.Task = ConetHelp;
-                if (Window.Current.Content is Frame rootFrame)
-                    rootFrame.Navigate(typeof(AddPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
-            };
-            delete.Click += async (_, e) =>
-            {
-                if (await TaskList.DeleteTask(ConetHelp.Title, ConetHelp) is false)
-                    return;
-                await Task.Delay(100);
-                if (Window.Current.Content is Frame rootFrame)
-                {
-                    // TODO: 이걸 그냥 MainPage의 Reload Task..?
-                    // TODO: 이거 그냥 TodoPage로 하면 NavigationView 날아간다. 수정좀.
-                    MainPage.IsGoingToTodoPage = true;
-                    rootFrame.Navigate(typeof(MainPage), null, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
-                }
-            };
-
-            btnFlyOut.Items.Add(edit);
-            btnFlyOut.Items.Add(delete);
-            btnFlyOut.Placement = FlyoutPlacementMode.Bottom;
-            btnFlyOut.ShowAt(uiElem, e.GetPosition(uiElem));
-        }
-    }
-    */
-
-    private void CreateArrowTextBlock(out TextBlock arrow)
-    {
-        arrow = new()
-        {
-            Text = "\xE971", // E9B9 
-            FontFamily = new("ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons"),
-            FontSize = 17,
-            Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x72, 0x72, 0x72)),
-            VerticalAlignment = VerticalAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new(0, 0, 15, 0)
-        };
-    }
-
-    private void CreateGrid(out Grid inner, out Grid dday, out Grid outter)
+    protected override void CreateGrid(out Grid inner, out Grid dday, out Grid outter)
     {
         inner = new()
         {
@@ -103,9 +30,9 @@ public class ConetButton : GttButton<ConetHelp>
         outter = new();
     }
 
-    private void CreateDdayTextBlock(out TextBlock tb1, out TextBlock tb2)
+    protected override void CreateLeftTextBlocks(out TextBlock uploader, out TextBlock price)
     {
-        tb1 = new()
+        uploader = new()
         {
             FontSize = 16,
             Text = Data.Uploader.Name,
@@ -115,7 +42,7 @@ public class ConetButton : GttButton<ConetHelp>
             FontWeight = FontWeights.Bold
         };
 
-        tb2 = new()
+        price = new()
         {
             FontSize = 16,
             Text = Data.Price?.ToString() ?? "",
@@ -126,16 +53,16 @@ public class ConetButton : GttButton<ConetHelp>
         };
     }
 
-    private void CreateTaskTextBlock(out TextBlock tb3, out TextBlock tb4)
+    protected override void CreateRightTextBlocks(out TextBlock title, out TextBlock body)
     {
-        tb3 = new()
+        title = new()
         {
             FontSize = 17,
             Text = Data.Title,
             Margin = new(90, 12, 0, 44),
             Width = ButtonWidth
         };
-        tb4 = new()
+        body = new()
         {
             FontSize = 15,
             Text = string.IsNullOrEmpty(Data.Body) ? "" : (Data.Body!.Length > bodyLength ? Data.Body[0..(bodyLength + 1)] + "..." : Data.Body),

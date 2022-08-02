@@ -5,6 +5,7 @@ namespace TimeTableUWP;
 using RollingRess.Net;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Popups;
 using wux = Windows.UI.Xaml;
 
@@ -41,32 +42,24 @@ public class TimeTableException : Exception
     {
         int? code = (exception is TimeTableException te) ? te.ErrorCode : null;
 
-        string result = "에러가 발생했습니다. ";
-        result += Info.User.ActivationLevel is not ActivationLevel.Developer
-            ? "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다.\n"
-            : "디버그 중 발생한 오류입니다.\n";
+        string message = @$"에러가 발생했습니다. {(Info.User.ActivationLevel is not ActivationLevel.Developer
+            ? "다른 사용자들에게서 발생한 오류이므로 속히 해결 부탁드립니다."
+            : "디버그 중 발생한 오류입니다.")}
 
-        if (code is not null)
-        {
-            result += $"\nError code: {code}";
-        }
-        result += $"\n{exception}";
+==========EXCEPTION INFO==========
+Code: {code?.ToString() ?? "Not Available"}
+User Level: {Info.User.ActivationLevel}
+User: {Info.User.Conet?.ToString() ?? "Unknown"}
+Time: {DateTime.Now:yyyy-MM-dd HH:mm:ss}
 
-        var smtp = FeedbackDialog.PrepareSendMail(result,
+========FULL REPRESENTATION========
+{exception}";
+
+        var smtp = FeedbackDialog.PrepareSendMail(message,
             $"GGHS Time Table EXCEPTION OCCURED in V{Info.Version}", out var msg);
 
-        if (!Connection.IsInternetAvailable)
+        if (Connection.IsInternetAvailable)
         {
-            MessageDialog messageDialog = new("카루에게 아래 정보를 제공해주세요.\n" + result, "에러가 발생했습니다.");
-            await messageDialog.ShowAsync();
-        }
-        else
-        {
-            result += $@"
-=========================
-User Level: {Info.User.ActivationLevel}
-User: {Info.User.Conet?.ToString() ?? "Unknown"}";
-
             Task mail = smtp.SendAsync(msg);
 
             if (Info.User.ActivationLevel is not ActivationLevel.Developer)
@@ -79,8 +72,55 @@ User: {Info.User.Conet?.ToString() ?? "Unknown"}";
             }
             await mail;
         }
+        else if (Info.User.ActivationLevel is not ActivationLevel.Developer) // TODO : 종료시, 혹은 시작시 메일 보내고 삭제
+        {
+            int idx = 0;
+            while (true)
+            {
+                if ((await ApplicationData.Current.LocalFolder.TryGetItemAsync($"error{idx}.txt")) is null)
+                    break;
+                idx++;
+            }
+
+            var storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile errorLog = await storageFolder.CreateFileAsync($"error{idx}.txt");
+            await FileIO.WriteTextAsync(errorLog, message);
+        }
+    }
+
+    public static async Task SendUnsentErrorLogs()
+    {
+        int idx = 0;
+        string message = "";
+
+        while (true)
+        {
+            var storageFolder = ApplicationData.Current.LocalFolder;
+            if ((await storageFolder.TryGetItemAsync($"error{idx}.txt")) is null)
+                break; // file not exists.
+
+            var errorLog = await storageFolder.GetFileAsync($"error{idx}.txt");
+            message += await FileIO.ReadTextAsync(errorLog) + "\n\n";
+            await errorLog.DeleteAsync();
+
+            idx++;
+        }
+
+        if (idx is 0) return;
+
+        var smtp = FeedbackDialog.PrepareSendMail(message,
+    $"GGHS Time Table UNSENT {idx} EXCEPTIONS in V{Info.Version}", out var msg);
+        Task mail = smtp.SendAsync(msg);
+        await mail;
+        SqlConnection sql = new(ChatMessageDac.ConnectionString);
+        ChatMessageDac chat = new(sql);
+        await sql.OpenAsync();
+        await chat.InsertAsync((byte)ChatMessageDac.Sender.GttBot, $"⛔ERROR⛔ 카루님, 전송되지 못한 {idx}개의 에러가 보고되었습니다. 확인해주세요.");
+        sql.Close();
     }
 }
+
+
 
 [Serializable, ErrorCode("2xxx")]
 public class TableCellException : TimeTableException

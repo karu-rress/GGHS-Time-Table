@@ -24,8 +24,8 @@
             <TextBlock x:Name="mainText" Text="GGHS My God" FontSize="55" Height="73" FontWeight="Bold" Width="358" Margin="-40,0,0,0"/>
             <!--TextBlock x:Name="mainText2" Text="가장 무서운 신은? 내신" FontSize="30" Width="454" Margin="-40,77,0,0"/-->
         </Grid>
-        <ScrollViewer Margin="55,175,55,35" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="UniGrid"/>
+        <ScrollViewer Margin="55,120,55,35" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="UniStack"/>
         </ScrollViewer>
 
     </Grid>

@@ -2,7 +2,8 @@
 
 namespace TimeTableUWP.Todo;
 
-public class TodoTask
+// TODO: readonly, record
+public class TodoTask : IButtonData
 {
     public DateTime DueDate { get; set; }
     public string Subject { get; set; }

@@ -112,7 +112,7 @@ public sealed partial class ConetPage : Page
     {
         if (sender is ConetButton cb)
         {
-            ConetAddPage.Conet = cb.ConetHelp;
+            ConetAddPage.Conet = cb.Data;
             Frame.Navigate(typeof(ConetAddPage));
         }
     }

@@ -26,7 +26,8 @@ public class ConetUser : ISyncable
     // TODO: 대입과 Sync를 한번에?
 }
 
-public class ConetHelp
+// TODO : readonly, record
+public class ConetHelp : IButtonData
 {
     public ConetHelp(DateTime upload, string uploader, string title, string body, string? price)
         : this(upload, new ConetUser(Convert.ToInt32(uploader[0..4]), uploader[5..].TrimEnd()),
@@ -44,10 +45,10 @@ public class ConetHelp
     }
 
     public DateTime UploadDate { get; }
-    public Egg? Price { get; set; }
-    public string Title { get; set; }
-    public string? Body { get; set; }
-    public ConetUser Uploader { get; set; }
+    public Egg? Price { get; }
+    public string Title { get; }
+    public string? Body { get; }
+    public ConetUser Uploader { get; }
 
     // 관계 연산자는 UploadDate 기준으로.
     public static bool operator <(ConetHelp c1, ConetHelp c2) => c1.UploadDate < c2.UploadDate;

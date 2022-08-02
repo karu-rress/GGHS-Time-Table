@@ -4,16 +4,11 @@ using Windows.UI.Text;
 using Windows.UI.Xaml.Controls.Primitives;
 
 namespace TimeTableUWP.Todo;
-public class TaskButton : Button
+public class TaskButton : GttButton<TodoTask>
 {
-    private const int ButtonWidth = 2560;
-    private const int ButtonHeight = 93;
-
-    public TodoTask TodoTask { get; private set; }
-
     public TaskButton(TodoTask task, RoutedEventHandler TaskButton_Click)
     {
-        TodoTask = task;
+        Data = task;
         Click += TaskButton_Click;
         RightTapped += TaskButton_RightTapped;
         Height = ButtonHeight;
@@ -35,7 +30,7 @@ public class TaskButton : Button
         outter.Children.Add(inner);
         outter.Children.Add(arrow);
 
-        if (TodoTask.DueDate.Date == DateTime.Now.Date)
+        if (Data.DueDate.Date == DateTime.Now.Date)
         {
             BorderThickness = new(2.6);
             BorderBrush = new SolidColorBrush(Info.Settings.ColorType with { A = 200 });
@@ -52,13 +47,13 @@ public class TaskButton : Button
             MenuFlyoutItem delete = new() { Text = "Delete", Icon = new SymbolIcon(Symbol.Delete) };
 
             edit.Click += (_, e) => {
-                AddPage.Task = TodoTask;
+                AddPage.Task = Data;
                 if (Window.Current.Content is Frame rootFrame)
                     rootFrame.Navigate(typeof(AddPage), null, new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
             };
             delete.Click += async (_, e) =>
             {
-                if (await TaskList.DeleteTask(TodoTask.Title, TodoTask) is false)
+                if (await TaskList.DeleteTask(Data.Title, Data) is false)
                     return;
                 await Task.Delay(100);
                 if (Window.Current.Content is Frame rootFrame)
@@ -114,7 +109,7 @@ public class TaskButton : Button
         tb1 = new()
         {
             FontSize = 19,
-            Text = TodoTask.DueDate.ToString("MM/dd"),
+            Text = Data.DueDate.ToString("MM/dd"),
             Margin = new(0, 10, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("ms-appx:///Assets/ZegoeLight-U.ttf#Segoe"),
@@ -122,7 +117,7 @@ public class TaskButton : Button
         };
 
         DateTime now = DateTime.Now;
-        int days = (new DateTime(now.Year, now.Month, now.Day) - TodoTask.DueDate).Days;
+        int days = (new DateTime(now.Year, now.Month, now.Day) - Data.DueDate).Days;
         string text = "D" + days switch
         {
             0 => "-Day",
@@ -145,14 +140,14 @@ public class TaskButton : Button
         tb3 = new()
         {
             FontSize = 17,
-            Text = TodoTask.Subject,
+            Text = Data.Subject,
             Margin = new(80, 12, 0, 44),
             Width = ButtonWidth
         };
         tb4 = new()
         {
             FontSize = 15,
-            Text = TodoTask.Title,
+            Text = Data.Title,
             Margin = new(80, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,

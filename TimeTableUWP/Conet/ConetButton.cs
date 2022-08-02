@@ -3,19 +3,17 @@
 using Windows.UI.Text;
 
 namespace TimeTableUWP.Conet;
-public class ConetButton : Button
+public class ConetButton : GttButton<ConetHelp>
 {
-    private const int ButtonWidth = 2560;
-    private const int ButtonHeight = 93;
     private readonly int bodyLength = 40;
 
-    public ConetHelp ConetHelp { get; private set; }
 
     public ConetButton(ConetHelp task, RoutedEventHandler TaskButton_Click)
+    //    : base(task)
     {
-        ConetHelp = task;
-        Click += TaskButton_Click;
+        Data = task;
         Height = ButtonHeight;
+        Click += TaskButton_Click;
         Margin = new(0, 0, 0, 5);
         CornerRadius = new(10);
         VerticalAlignment = VerticalAlignment.Top;
@@ -110,7 +108,7 @@ public class ConetButton : Button
         tb1 = new()
         {
             FontSize = 16,
-            Text = ConetHelp.Uploader.Name,
+            Text = Data.Uploader.Name,
             Margin = new(0, 12, 0, 46),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("Malgun Gothic"),
@@ -120,7 +118,7 @@ public class ConetButton : Button
         tb2 = new()
         {
             FontSize = 16,
-            Text = ConetHelp.Price?.ToString() ?? "",
+            Text = Data.Price?.ToString() ?? "",
             Margin = new(0, 41, 0, 12),
             HorizontalAlignment = HorizontalAlignment.Center,
             FontFamily = new("Malgun Gothic"),
@@ -133,14 +131,14 @@ public class ConetButton : Button
         tb3 = new()
         {
             FontSize = 17,
-            Text = ConetHelp.Title,
+            Text = Data.Title,
             Margin = new(90, 12, 0, 44),
             Width = ButtonWidth
         };
         tb4 = new()
         {
             FontSize = 15,
-            Text = string.IsNullOrEmpty(ConetHelp.Body) ? "" : (ConetHelp.Body!.Length > bodyLength ? ConetHelp.Body[0..(bodyLength + 1)] + "..." : ConetHelp.Body),
+            Text = string.IsNullOrEmpty(Data.Body) ? "" : (Data.Body!.Length > bodyLength ? Data.Body[0..(bodyLength + 1)] + "..." : Data.Body),
             Margin = new(90, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,

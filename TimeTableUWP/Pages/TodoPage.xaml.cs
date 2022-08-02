@@ -75,7 +75,7 @@ public sealed partial class TodoListPage : Page
     {
         if (sender is TaskButton tb)
         {
-            AddPage.Task = tb.TodoTask;
+            AddPage.Task = tb.Data;
             Frame.Navigate(typeof(AddPage));
         }
     }

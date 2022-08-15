@@ -95,7 +95,6 @@ public class ConetUserDac
     public string Id { get; set; }
     public string EncryptedPassword { get; }
     public const int DefaultEggs = 50;
-    // private static DateTime LastSqlTime;
 
     public ConetUserDac(SqlConnection sql, ConetUser user)
     {
@@ -132,14 +131,13 @@ public class ConetUserDac
 
         using SqlDataReader reader = await cmd.ExecuteReaderAsync();
         reader.Read();
-        string pw = reader.GetString(1).Trim();
-        return pw == EncryptedPassword;
+        return reader.GetString(1).Trim() == EncryptedPassword;
     }
 
     public async Task InsertAsync()
     {
         // TODO: 정식 버전에선 30에그로 줄이기
-        string query = $"INSERT INTO users VALUES(@Student, @Password, {DefaultEggs})";
+        string query = $"INSERT INTO users VALUES(@Student, @Password, { DefaultEggs })";
 
         SqlCommand cmd = new(query, Sql);
 

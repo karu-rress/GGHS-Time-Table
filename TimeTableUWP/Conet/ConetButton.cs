@@ -3,16 +3,15 @@
 using Windows.UI.Text;
 
 namespace TimeTableUWP.Conet;
+
 public class ConetButton : GttButton<ConetHelp>
 {
     private readonly int bodyLength = 40;
 
     public ConetButton(ConetHelp task, RoutedEventHandler conet_click)
-        : base(task, conet_click)
-    {
-    }
+        : base(task, conet_click) {  }
 
-    protected override void CreateGrid(out Grid inner, out Grid dday, out Grid outter)
+    protected override void CreateGrid(out Grid inner, out Grid egg, out Grid outter)
     {
         inner = new()
         {
@@ -21,7 +20,7 @@ public class ConetButton : GttButton<ConetHelp>
             Margin = new(-12, 0, 0, 0),
             HorizontalAlignment = HorizontalAlignment.Left
         };
-        dday = new()
+        egg = new()
         {
             Width = 75,
             Margin = new(10, 0, 0, 0),
@@ -60,12 +59,13 @@ public class ConetButton : GttButton<ConetHelp>
             FontSize = 17,
             Text = Data.Title,
             Margin = new(90, 12, 0, 44),
-            Width = ButtonWidth
+            Width = ButtonWidth,
         };
         body = new()
         {
             FontSize = 15,
-            Text = string.IsNullOrEmpty(Data.Body) ? "" : (Data.Body!.Length > bodyLength ? Data.Body[0..(bodyLength + 1)] + "..." : Data.Body),
+            Text = string.IsNullOrEmpty(Data.Body) ? string.Empty
+                : (Data.Body!.Length > bodyLength ? Data.Body[0..(bodyLength + 1)] + "..." : Data.Body),
             Margin = new(90, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,

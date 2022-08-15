@@ -27,7 +27,7 @@ public class ConetUser : ISyncable
 }
 
 // TODO : readonly, record
-public class ConetHelp : IButtonData
+public record ConetHelp : IButtonData
 {
     public ConetHelp(DateTime upload, string uploader, string title, string body, string? price)
         : this(upload, new ConetUser(Convert.ToInt32(uploader[0..4]), uploader[5..].TrimEnd()),

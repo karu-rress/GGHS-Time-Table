@@ -6,7 +6,7 @@ Dictionary<string, string> subjectDict = new()
 {
     ["동사"] = "Social",
     ["한지"] = "Social",
-    ["사문"] = "Social",
+    ["사문"] = "Social", 
 
     ["스문"] = "Language",
     ["중문"] = "Language",
@@ -15,7 +15,7 @@ Dictionary<string, string> subjectDict = new()
     ["사탐방"] = "Global1",
     ["한사"] = "Global1",
 
-    ["세문미"] = "Global2",
+    ["세문"] = "Global2",
     ["윤리"] = "Global2",
 
     ["체육"] = "Sports",
@@ -24,10 +24,10 @@ Dictionary<string, string> subjectDict = new()
 
 
 
-
-    // ["영문"] = "EnglishLiterature",
-
-    // ["심영"] = "AdvancedEnglish",
+    ["통계"] = "GlobalStatistics",
+    ["논리"] = "LogicalWriting",
+    ["전통"] = "TraditionalArt",
+    ["영독"] = "AdvancedEnglish",
     ["창체"] = "Others",
 
     ["asdf"] = "Empty",
@@ -45,7 +45,7 @@ for (int i = 0; i < cls; i++)
     {
         char? post = null;
         string key = subject;
-        if (subject[^1] is 'A' or 'B' or 'C' or 'D')
+        if (subject[^1] is 'A' or 'B' or 'C')
         {
             post = subject[^1];
             key = subject[..^1];
@@ -57,6 +57,5 @@ for (int i = 0; i < cls; i++)
             Console.Write("\n        ");
     }
 
-    Console.WriteLine("Subjects.HomeComing,");
     Console.WriteLine("    });");
 }

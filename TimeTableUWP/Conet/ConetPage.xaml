@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="TimeTableUWP.Pages.ConetPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TimeTableUWP.Pages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <FontFamily x:Key="segoeFont">ms-appx://Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
+        <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
+    </Page.Resources>
+
+    <Grid>
+        <Image Margin="80,20,0,0" Width="140" Height="135" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image.Source>
+                <BitmapImage x:Name="imgSource" UriSource="ms-appx:///Assets/Conet/conet_light.png" />
+            </Image.Source>
+        </Image>
+        <TextBlock x:Name="mainText" Margin="250,25,0,0" Text="Conet" FontSize="55" FontWeight="Bold" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="156" Height="74" VerticalAlignment="Top"/>
+        <TextBlock x:Name="mainText2" Margin="250,100,0,0" FontSize="30" Text="지금. 여기. 우리. Conet." Foreground="{ThemeResource SystemBaseMediumHighColor}" FontFamily="{StaticResource segoeFont}" HorizontalAlignment="Left" Width="314" Height="48" VerticalAlignment="Top"/>
+        <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="conetGrid"/>
+        </ScrollViewer>
+        <Grid Margin="10,175,55,35" HorizontalAlignment="Right" Width="215">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="CornerRadius" Value="10" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="Width" Value="215"/>
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontFamily" Value="../Assets/ZegoeLight-U.ttf#Segoe" />
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <Button x:Name="AddButton" Margin="0,20,0,0" Click="AddButton_Click">
+                <TextBlock><Run Text="&#xE710;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Add New"/></TextBlock>
+            </Button>
+            <Button x:Name="RefreshButton" Margin="0,185,0,0" Click="RefreshButton_Click" CornerRadius="10" Height="50">
+                <TextBlock><Run Text="&#xE72C;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Refresh List"/></TextBlock>
+            </Button>
+            <Button x:Name="SignOutButton" Margin="0,350,0,0" Click="SignOutButton_Click" Visibility="Collapsed">
+                <TextBlock><Run Text="&#xF3B1;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Sign Out"/></TextBlock>
+            </Button>
+        </Grid>
+        <Grid x:Name="progressGrid" Margin="426,41,0,0" Height="54" VerticalAlignment="Top" HorizontalAlignment="Left" Width="112"  Visibility="Collapsed">
+            <muxc:ProgressRing HorizontalAlignment="Left" VerticalAlignment="Center" IsActive="True" Visibility="Visible"  />
+            <TextBlock Text="Loading..." FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="{StaticResource segoeFont}" />
+        </Grid>
+        <Grid x:Name="ddayGrid" Margin="0,32,55,0" HorizontalAlignment="Right" Width="215" Height="101" VerticalAlignment="Top" Background="Transparent">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="FontSize" Value="30" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </Grid.Resources>
+            <TextBlock x:Name="nameText" Margin="0,24,0,0" FontSize="26" />
+            <TextBlock x:Name="eggText" Margin="0,65,0,0" FontSize="19"/>
+        </Grid>
+
+    </Grid>
+</Page>

@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using System.Runtime.Serialization;
 using MoneyType = System.UInt32;
 
 namespace TimeTableUWP.Conet;
@@ -9,7 +8,6 @@ namespace TimeTableUWP.Conet;
 /// Conet's money
 /// </summary>
 /// 
-
 
 public readonly struct Won : IComparable, IComparable<Won>, IEquatable<Won>
 {

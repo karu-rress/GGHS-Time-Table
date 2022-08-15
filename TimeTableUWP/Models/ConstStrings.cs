@@ -46,15 +46,16 @@ internal static class Messages
     public const string WhatsNew =
 @"- 2학기 시간표 지원
 - Conet 탭 지원
-- 가상화폐 <에그> 지원";
+- 가상화폐 <에그> 지원
+- 변환내신산출 기능 지원 (베타)";
 
-    public static string Updated => @$"GGHS Time Table이 V{Info.Version}{Info.Version.GetLastNumber() switch
+    public static string Updated => @$"GGHS Time Table이 {Info.Version}{Info.Version.GetLastNumber() switch
     {
         '0' or '3' or '6' => "으로",
         _ => "로",
     }} 업데이트 되었습니다.
 
-V{Info.Version}에서 변경된 기능
+GTT {Info.Version}에서 변경된 기능
 {WhatsNew}";
 
     public const string Welcome =
@@ -75,7 +76,7 @@ Anonymous 메뉴에선 GGHS 10기 학생들이 자유롭게
 기능에 문제가 있거나, 줌 링크가 누락이 된 반 혹은 과목이 있다면
 설정 창의 'Send Feedback' 버튼을 통해 제보해주시면 감사하겠습니다.";
 
-    public static string About => $@"GGHS Time Table V{Info.Version}
+    public static string About => $@"GGHS Time Table {Info.Version}
 
 환영합니다, Rolling Ress의 카루입니다.
 GGHS Time Table을 설치해주셔서 감사합니다.
@@ -92,7 +93,7 @@ ZOOM 및 클래스룸 링크가 띄워집니다.
 카루 블로그 링크:
 ";
 
-    public const string Troubleshoot = "GGHS Time Table 6 사용중 문제가 발생했나요?\n\n"
+    public const string Troubleshoot = $"{Datas.GTTWithVer} 사용중 문제가 발생했나요?\n\n"
         + "오류가 난 경우 대부분 개발자에게 자동으로 보고되며, 별다른 조치를 취하실 필요가 없습니다. "
         + "만약 오류 창이 뜨거나 경고 메시지가 뜬 경우 해당 화면을 캡처해서 제게 보내주시기 바랍니다. "
         + "혹은, 'Send Feedback' 버튼을 통해 오류를 제보해주세요.\n\n"

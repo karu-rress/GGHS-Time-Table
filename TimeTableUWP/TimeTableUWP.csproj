@@ -148,7 +148,6 @@
     </Compile>
     <Compile Include="Helpers\ChatMessageDac.cs" />
     <Compile Include="Helpers\GttButton.cs" />
-    <Compile Include="Helpers\ISyncable.cs" />
     <Compile Include="Helpers\OnlineLinksDac.cs" />
     <Compile Include="Helpers\User.cs" />
     <Compile Include="Models\ConstStrings.cs" />
@@ -172,7 +171,7 @@
     <Compile Include="MyGod\MyGodCalcPage.xaml.cs">
       <DependentUpon>MyGodCalcPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddPage.xaml.cs">
+    <Compile Include="Todo\AddPage.xaml.cs">
       <DependentUpon>AddPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ChattingPage.xaml.cs">
@@ -184,11 +183,11 @@
     <Compile Include="Dialogs\SubjectSelectDialog.xaml.cs">
       <DependentUpon>SubjectSelectDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ConetPage.xaml.cs">
+    <Compile Include="Conet\ConetPage.xaml.cs">
       <DependentUpon>ConetPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Conet\ConetButton.cs" />
-    <Compile Include="Pages\MyGodPage.xaml.cs">
+    <Compile Include="MyGod\MyGodPage.xaml.cs">
       <DependentUpon>MyGodPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TimeTableUI.cs" />
@@ -321,7 +320,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AddPage.xaml">
+    <Page Include="Todo\AddPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -337,11 +336,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\ConetPage.xaml">
+    <Page Include="Conet\ConetPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MyGodPage.xaml">
+    <Page Include="MyGod\MyGodPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

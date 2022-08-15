@@ -57,69 +57,69 @@ public class TimeTable
 
 public class TimeTables
 {
-    public TimeTable Class1 { get; } = new(1, new Subject[]
+    public TimeTable Class1 => new(1, new Subject[]
+{
+        Subjects.Social, Subjects.AdvancedEnglish.A, Subjects.Global2.B, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.Others, Subjects.Others,
+        Subjects.GlobalStatistics.A, Subjects.Global2.A, Subjects.Reading, Subjects.AdvancedEnglish.A, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.Global1,
+        Subjects.Reading, Subjects.Global2.A, Subjects.Global2.B, Subjects.Language.A, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.GlobalStatistics.A,
+        Subjects.Language.B, Subjects.Global1, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics.B, Subjects.Sports,
+        Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.Global2.A, Subjects.GlobalStatistics.A, Subjects.Others, Subjects.Others,
+});
+    public TimeTable Class2 => new(2, new Subject[]
     {
-        Subjects.AdvancedEnglish.B, Subjects.TraditionalArt, Subjects.Sports, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
-        Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.Reading, Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
-        Subjects.Sports, Subjects.Language, Subjects.GlobalStatistics, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.A, Global1.SocialResearch,
-        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics, Subjects.Reading, Subjects.Global2, Global1.SocialResearch,
-        Subjects.LogicalWriting, Global1.SocialResearch, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
+        Subjects.Social, Subjects.LogicalWriting, Subjects.Global2.B, Subjects.Sports, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
+        Subjects.AdvancedEnglish.A, Subjects.Global2.A, Subjects.Global1.B, Subjects.AdvancedEnglish.B, Subjects.TraditionalArt, Subjects.Global1.A, Subjects.Reading,
+        Subjects.TraditionalArt, Subjects.Global2.A, Subjects.Global2.B, Subjects.Language.A, Subjects.GlobalStatistics.A, Subjects.Reading, Subjects.LogicalWriting,
+        Subjects.Language.B, Subjects.GlobalStatistics.B, Subjects.Global1.A, Subjects.GlobalStatistics.A, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Subjects.AdvancedEnglish.B,
+        Subjects.GlobalStatistics.A, Subjects.Global1.A, Subjects.Global2.A, Subjects.LogicalWriting, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class2 { get; } = new(2, new Subject[]
+    public TimeTable Class3 => new(3, new Subject[]
     {
-        Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.Reading, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Others, Subjects.Others,
-        Subjects.Sports, Subjects.TraditionalArt, Global1.KoreanSociety, Subjects.Global2, Subjects.Language, Subjects.Reading, Global1.KoreanSociety,
-        Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.GlobalStatistics, Subjects.Social, Subjects.Global2, Subjects.AdvancedEnglish.B, Global1.KoreanSociety,
-        Subjects.Social, Subjects.Language, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Global1.KoreanSociety, Subjects.Global2, Subjects.Sports,
-        Subjects.AdvancedEnglish.A, Subjects.LogicalWriting, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
+        Subjects.Social, Subjects.GlobalStatistics.A, Subjects.Reading, Subjects.AdvancedEnglish.B, Subjects.Global2.A, Subjects.Others, Subjects.Others,
+        Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.Global2.B, Subjects.Global1.A, Subjects.GlobalStatistics.A, Subjects.AdvancedEnglish.B, Subjects.AdvancedEnglish.A,
+        Subjects.Global1.A, Subjects.GlobalStatistics.B, Subjects.TraditionalArt, Subjects.Language.A, Subjects.AdvancedEnglish.A, Subjects.Global2.B, Subjects.LogicalWriting,
+        Subjects.Language.B, Subjects.Global1.A, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.Sports, Subjects.GlobalStatistics.A, Subjects.Global2.A,
+        Subjects.Global1.B, Subjects.Global2.A, Subjects.AdvancedEnglish.A, Subjects.Reading, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class3 { get; } = new(3, new Subject[]
+    public TimeTable Class4 => new(4, new Subject[]
     {
-        Subjects.Global2, Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Sports, Subjects.Others, Subjects.Others,
-        Subjects.Global2, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.LogicalWriting, Subjects.Language, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A,
-        Subjects.GlobalStatistics, Subjects.Language, Subjects.Global2, Subjects.Social, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.B,
-        Subjects.Social, Subjects.Language, Subjects.Reading, Subjects.LogicalWriting, Subjects.AdvancedEnglish.A, Subjects.Global1, Subjects.GlobalStatistics,
-        Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Sports, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
+        Subjects.TraditionalArt, Subjects.Language.A, Subjects.LogicalWriting, Subjects.GlobalStatistics.A, Subjects.Global2.A, Subjects.Others, Subjects.Others,
+        Subjects.GlobalStatistics.B, Subjects.AdvancedEnglish.B, Subjects.Global2.B, Subjects.Global1, Subjects.Social, Subjects.TraditionalArt, Subjects.GlobalStatistics.A,
+        Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.AdvancedEnglish.A, Subjects.Reading, Subjects.TraditionalArt, Subjects.Global2.B, Subjects.GlobalStatistics.A,
+        Subjects.AdvancedEnglish.A, Subjects.Global1, Subjects.Sports, Subjects.Language.B, Subjects.Reading, Subjects.LogicalWriting, Subjects.Global2.A,
+        Subjects.Global1, Subjects.Global2.A, Subjects.LogicalWriting, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class4 { get; } = new(4, new Subject[]
+    public TimeTable Class5 => new(5, new Subject[]
     {
-        Subjects.Global2, Subjects.LogicalWriting, Subjects.Global1, Subjects.Reading, Social.Culture, Subjects.Others, Subjects.Others,
-        Subjects.Global2, Subjects.Language, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Social.Culture, Subjects.AdvancedEnglish.B, Subjects.Sports,
-        Subjects.TraditionalArt, Subjects.Sports, Subjects.Global2, Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Global1, Subjects.GlobalStatistics,
-        Subjects.GlobalStatistics, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.AdvancedEnglish.A,
-        Subjects.Global1, Subjects.TraditionalArt, Subjects.Language, Subjects.Reading, Subjects.Others, Subjects.Others,
+        Subjects.LogicalWriting, Subjects.Language.A, Subjects.AdvancedEnglish.A, Subjects.Reading, Subjects.Global1, Subjects.Others, Subjects.Others,
+        Subjects.AdvancedEnglish.B, Subjects.LogicalWriting, Subjects.Global2.B, Subjects.AdvancedEnglish.A, Subjects.Reading, Subjects.Global1, Subjects.Global2.A,
+        Subjects.TraditionalArt, Subjects.GlobalStatistics.A, Subjects.Global1, Subjects.Social, Subjects.Global2.A, Subjects.GlobalStatistics.B, Subjects.LogicalWriting,
+        Subjects.GlobalStatistics.A, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Subjects.Language.B, Subjects.Global1, Subjects.Global2.A, Subjects.Sports,
+        Subjects.Global2.B, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics.A, Subjects.TraditionalArt, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class5 { get; } = new(5, new Subject[]
+    public TimeTable Class6 => new(6, new Subject[]
     {
-        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.Global2, Subjects.GlobalStatistics, Subjects.Others, Subjects.Others,
-        Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.TraditionalArt, Subjects.Global1, Subjects.Global2,
-        Subjects.Sports, Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.B, Subjects.Language, Subjects.GlobalStatistics, Subjects.LogicalWriting,
-        Subjects.AdvancedEnglish.A, Social.Culture, Subjects.GlobalStatistics, Subjects.Global2, Subjects.TraditionalArt, Subjects.Reading, Subjects.LogicalWriting,
-        Social.Culture, Subjects.AdvancedEnglish.A, Subjects.Language, Subjects.Global1, Subjects.Others, Subjects.Others,
+        Subjects.Reading, Subjects.Language.B, Subjects.GlobalStatistics.A, Subjects.Sports, Subjects.Global1.A, Subjects.Others, Subjects.Others,
+        Subjects.Social, Subjects.TraditionalArt, Subjects.Global2.B, Subjects.GlobalStatistics.A, Subjects.LogicalWriting, Subjects.Global1.B, Subjects.Global2.A,
+        Subjects.GlobalStatistics.B, Subjects.TraditionalArt, Subjects.Global1.A, Subjects.AdvancedEnglish.A, Subjects.Global2.A, Subjects.AdvancedEnglish.B, Subjects.LogicalWriting,
+        Subjects.Reading, Subjects.AdvancedEnglish.A, Subjects.AdvancedEnglish.B, Subjects.Language.A, Subjects.Global1.A, Subjects.Global2.A, Subjects.LogicalWriting,
+        Subjects.Global2.B, Subjects.TraditionalArt, Subjects.GlobalStatistics.A, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class6 { get; } = new(6, new Subject[]
+    public TimeTable Class7 => new(7, new Subject[]
     {
-        Subjects.TraditionalArt, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Global2, Language.Spanish, Subjects.Others, Subjects.Others,
-        Subjects.Sports, Subjects.GlobalStatistics, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.Reading, Subjects.Global1, Subjects.Global2,
-        Subjects.Reading, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Social.Culture, Language.Spanish,
-        Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics, Subjects.Global2, Subjects.AdvancedEnglish.A, Social.Culture, Subjects.Sports,
-        Subjects.LogicalWriting, Subjects.GlobalStatistics, Language.Spanish, Subjects.Global1, Subjects.Others, Subjects.Others, 
+        Subjects.GlobalStatistics.A, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.AdvancedEnglish.B, Subjects.Global2.B, Subjects.Others, Subjects.Others,
+        Subjects.Language.B, Subjects.TraditionalArt, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics.B, Subjects.Global2.A, Subjects.AdvancedEnglish.B, Subjects.Global1,
+        Subjects.LogicalWriting, Subjects.Language.A, Subjects.Social, Subjects.Reading, Subjects.GlobalStatistics.A, Subjects.AdvancedEnglish.A, Subjects.Global1,
+        Subjects.TraditionalArt, Subjects.Global1, Subjects.LogicalWriting, Subjects.Global2.A, Subjects.Sports, Subjects.Global2.B, Subjects.GlobalStatistics.A,
+        Subjects.AdvancedEnglish.A, Subjects.Global2.A, Subjects.Global1, Subjects.Reading, Subjects.Others, Subjects.Others,
     });
-    public TimeTable Class7 { get; } = new(7, new Subject[]
+    public TimeTable Class8 => new(8, new Subject[]
     {
-        Subjects.GlobalStatistics, Subjects.Global1, Subjects.Global2, Subjects.TraditionalArt, Subjects.Sports, Subjects.Others, Subjects.Others,
-        Subjects.GlobalStatistics, Social.Culture, Language.Spanish, Subjects.AdvancedEnglish.A, Subjects.TraditionalArt, Subjects.Global1, Subjects.LogicalWriting,
-        Language.Spanish, Subjects.Global2, Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics, Subjects.Reading, Subjects.AdvancedEnglish.B, Social.Culture,
-        Subjects.Global2, Subjects.TraditionalArt, Subjects.LogicalWriting, Subjects.GlobalStatistics, Language.Spanish, Subjects.Global1, Subjects.AdvancedEnglish.A,
-        Subjects.Reading, Subjects.Global1, Subjects.Sports, Subjects.AdvancedEnglish.B, Subjects.Others, Subjects.Others, 
-    });
-    public TimeTable Class8 { get; } = new(8, new Subject[]
-    {
-        Subjects.AdvancedEnglish.A, Social.Culture, Subjects.GlobalStatistics, Subjects.AdvancedEnglish.B, Subjects.Global2, Subjects.Others, Subjects.Others,
-        Language.Spanish, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics, Subjects.Global1, Social.Culture, Subjects.Sports,
-        Subjects.Reading, Subjects.Sports, Subjects.AdvancedEnglish.B, Language.Spanish, Subjects.Global1, Subjects.Global2, Subjects.TraditionalArt,
-        Subjects.GlobalStatistics, Subjects.AdvancedEnglish.A, Subjects.Global2, Subjects.Global1, Subjects.LogicalWriting, Subjects.TraditionalArt, Subjects.GlobalStatistics,
-        Language.Spanish, Subjects.Reading, Subjects.Global1, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others, 
+        Subjects.LogicalWriting, Subjects.Global1, Subjects.Global2.A, Subjects.GlobalStatistics.B, Subjects.AdvancedEnglish.A, Subjects.Others, Subjects.Others,
+        Subjects.TraditionalArt, Subjects.GlobalStatistics.A, Subjects.Global1, Subjects.Global2.A, Subjects.Language.B, Subjects.Reading, Subjects.AdvancedEnglish.A,
+        Subjects.AdvancedEnglish.A, Subjects.GlobalStatistics.A, Subjects.LogicalWriting, Subjects.AdvancedEnglish.B, Subjects.Global1, Subjects.Global2.A, Subjects.TraditionalArt,
+        Subjects.LogicalWriting, Subjects.Reading, Subjects.Sports, Subjects.AdvancedEnglish.B, Subjects.GlobalStatistics.A, Subjects.Global1, Subjects.Global2.B,
+        Subjects.Language.A, Subjects.TraditionalArt, Subjects.Global2.B, Subjects.Social, Subjects.Others, Subjects.Others,
     });
 
     private static TimeTable? table;

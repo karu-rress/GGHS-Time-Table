@@ -36,9 +36,9 @@ namespace TimeTableCore
     public class Social : Subject, ISelectiveSubject
     {
         public static Subject Eastern => new("동아시아사", "동사");
-        public static Subject KoreanGeo => new("한국지리");
-        public static Subject Culture => new("사회·문화");
-        public static Subject Default => new("사회");
+        public static Subject KoreanGeo => new("한국지리", "한지");
+        public static Subject Culture => new("사회·문화", "사문");
+        public static Subject Default => new("사회탐구", "사탐");
         [DataMember] public static Subject Selected { get; set; } = Default;
         public Social() : base(Default) { }
         public Social(in Subject social) : base(social) { }
@@ -60,9 +60,9 @@ namespace TimeTableCore
     public class Language : Subject, ISelectiveSubject
     {
         public static Subject Spanish => new("스페인어권 문화", "스문");
-        public static Subject Japanese => new("일본문화");
-        public static Subject Chinese => new("중국문화");
-        public static Subject Default => new("외국어");
+        public static Subject Japanese => new("일본문화", "일문");
+        public static Subject Chinese => new("중국문화", "중문");
+        public static Subject Default => new("제2외국어", "외국어");
         [DataMember] public static Subject Selected { get; set; } = Default;
         public Language() : base(Default) { }
         public Language(in Subject language) : base(language) { }
@@ -137,10 +137,7 @@ namespace TimeTableCore
             public static Subject AdvancedEnglish => new("심화 영어 독해Ⅱ", "심영독");
             public static Subject GlobalStatistics => new("통계로 바라보는 국제 문제", "통국");
             public static Subject Sports => new("체육");
-
-            public static Subject HomeComing => new("🏠");
             public static Subject Others => new("창의적 체험활동", "창체");
-            public static Subject Empty => new("");
             public static void ResetSelectiveSubjects()
             {
                 Social.Selected = Social.Default;
@@ -151,7 +148,3 @@ namespace TimeTableCore
         }
     }
 }
-
-// Korean -> TraditionalArt
-// Math -> GlobalStatistics
-// EnglishLiterature -> LogicalWriting

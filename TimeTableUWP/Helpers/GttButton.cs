@@ -2,9 +2,7 @@
 
 namespace TimeTableUWP;
 
-public interface IButtonData
-{
-}
+public interface IButtonData { }
 
 public abstract class GttButton<T> : Button
     where T: IButtonData
@@ -24,7 +22,6 @@ public abstract class GttButton<T> : Button
         CornerRadius = new(10);
         VerticalAlignment = VerticalAlignment.Top;
 
-        // TODO: 이거 이름 좀 바꾸자.
         CreateGrid(out Grid inner, out Grid lbgrid, out Grid outter);
         CreateLeftTextBlocks(out TextBlock left_top, out TextBlock left_bottom);
         lbgrid.Children.Add(left_top);

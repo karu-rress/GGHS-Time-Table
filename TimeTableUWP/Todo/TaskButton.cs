@@ -6,6 +6,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 namespace TimeTableUWP.Todo;
 public class TaskButton : GttButton<TodoTask>
 {
+    const int bodyLength = 35;
+
     public TaskButton(TodoTask task, RoutedEventHandler task_click)
         : base(task, task_click)
     {
@@ -15,6 +17,49 @@ public class TaskButton : GttButton<TodoTask>
         {
             BorderThickness = new(2.6);
             BorderBrush = new SolidColorBrush(Info.Settings.ColorType with { A = 200 });
+        }
+
+        switch (Data.Title)
+        {
+            case string ku when ku.Contains("고려대학교"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 139, 0, 41));
+                goto default;
+
+            case string ihs when ihs.Contains("서강대학교"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 182, 0, 5));
+                goto default;
+
+            case string cau when cau.Contains("중앙대학교"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 30, 113, 192));
+                goto default;
+
+            case string khu when khu.Contains("경희대학교"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 153, 14, 23));
+                goto default;
+
+            case string hufs when hufs.Contains("한국외국어대학교"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 130, 148));
+                goto default;
+
+            case string kaist when kaist.Contains("KAIST"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 1, 67, 143));
+                goto default;
+
+            case string gist when gist.Contains("UNIST"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 27, 84));
+                goto default;
+
+            case string dgist when dgist.Contains("DGIST"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 11, 191, 242));
+                goto default;
+
+            case string gist when gist.Contains("GIST"):
+                BorderBrush = new SolidColorBrush(Color.FromArgb(255, 223, 49, 39));
+                goto default;
+
+            default:
+                BorderThickness = new(1.9);
+                break;
         }
     }
 
@@ -109,14 +154,14 @@ public class TaskButton : GttButton<TodoTask>
         subject = new()
         {
             FontSize = 17,
-            Text = Data.Subject,
+            Text = Data.Title,
             Margin = new(80, 12, 0, 44),
             Width = ButtonWidth
         };
         title = new()
         {
             FontSize = 15,
-            Text = Data.Title,
+            Text = string.IsNullOrEmpty(Data.Body) ? "" : (Data.Body!.Length > bodyLength ? Data.Body[0..(bodyLength + 1)] + "..." : Data.Body),
             Margin = new(80, 43, 0, 13),
             HorizontalAlignment = HorizontalAlignment.Left,
             Width = ButtonWidth,

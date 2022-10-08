@@ -19,7 +19,7 @@
                     <Setter Property="HorizontalAlignment" Value="Left"/>
                 </Style>
             </Grid.Resources>
-            <TextBlock x:Name="dDayText" FontSize="72" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" VerticalAlignment="Center" HorizontalAlignment="Right" Text="D-263" />
+            <TextBlock x:Name="dDayText" FontSize="72" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" VerticalAlignment="Center" HorizontalAlignment="Right" Text="D-50" />
             <TextBlock Text="너의 꿈을 응원해" Margin="0,24,0,0" FontSize="26" />
             <TextBlock Text="2023 대학수학능력시험" Margin="0,65,0,0" FontSize="19"/>
         </Grid>
@@ -34,7 +34,7 @@
                 </Style>
             </Grid.Resources>
             <TextBlock x:Name="mainText" Text="GGHS Todo" FontSize="55" Height="73" FontWeight="Bold" Width="294" Margin="-40,0,0,0"/>
-            <TextBlock x:Name="mainText2" Text="Don't forget any of your tasks" FontSize="30" Width="382" Margin="-40,77,0,0"/>
+            <TextBlock x:Name="mainText2" Text="당신의 마지막 도전, GTD와 함께." FontSize="30" Width="460" Margin="-40,77,0,0"/>
         </Grid>
         <Grid Margin="10,175,55,35" HorizontalAlignment="Right" Width="215">
             <Grid.Resources>
@@ -61,21 +61,12 @@
                         <MenuFlyoutItem Text="Delete past tasks" Icon="ClosePane" Click="DeletePastButton_Click"/>
                         <MenuFlyoutItem Text="Delete all" Icon="Rotate" Click="DeleteAllButton_Click"/>
                         <MenuFlyoutSeparator/>
-                        <MenuFlyoutSubItem Text="Advanced">
-                            <MenuFlyoutItem Text="Select date" Icon="Calendar" Click="SelectDate_Click" />
-                            <MenuFlyoutItem Text="Select subject" Icon="AllApps"  Click="SelectSubject_Click"/>
-                        </MenuFlyoutSubItem>
+                        <MenuFlyoutItem Text="Select date" Icon="Calendar" Click="SelectDate_Click" />
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
             <Button x:Name="UndoButton" Margin="0,205,0,0" Click="UndoButton_Click" CornerRadius="0,0,10,10" Height="50">
                 <TextBlock><Run Text="&#xE7A7;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Undo Delete"/></TextBlock>
-            </Button>
-            <Button x:Name="BackupButton" Margin="0,345,0,0" CornerRadius="10,10,0,0" Height="50" Click="BackupButton_Click">
-                <TextBlock><Run Text="&#xE898;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Backup"/></TextBlock>
-            </Button>
-            <Button x:Name="RestoreButton" Margin="0,395,0,0" Click="RestoreButton_Click" CornerRadius="0,0,10,10" Height="50" >
-                <TextBlock><Run Text="&#xE896;" FontFamily="{StaticResource iconFont}" FontSize="21"/><Run Text=" Restore"/></TextBlock>
             </Button>
         </Grid>
         <ScrollViewer Margin="55,175,307,35" VerticalScrollBarVisibility="Auto">

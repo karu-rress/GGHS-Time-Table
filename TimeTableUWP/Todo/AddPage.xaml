@@ -44,9 +44,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="53" />
                 <ColumnDefinition Width="260" />
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="74*" />
-                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="114*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Due" Height="34" Width="46" />
@@ -55,13 +53,11 @@
             <Viewbox MaxHeight="47" MaxWidth="300"  Stretch="Fill" Grid.Column="1" HorizontalAlignment="Center" Width="250" Height="43" VerticalAlignment="Center" >
                 <DatePicker x:Name="DueDatePicker" FontSize="23" />
             </Viewbox>
-            <TextBlock Text="Subject" Grid.Column="2" Height="34" Width="76" />
-            <ComboBox x:Name="SubjectPicker" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="21"  Height="45"/>
-            <TextBlock Text="Title" Grid.Column="4" Height="34" Width="43" />
-            <TextBox x:Name="TitleTextBox" Grid.Column="5" VerticalAlignment="Center" Height="45" FontSize="21" PlaceholderText="수행평가 제목" />
+            <TextBlock Text="Title" Grid.Column="2" Height="34" Width="43" />
+            <TextBox x:Name="TitleTextBox" Grid.Column="3" VerticalAlignment="Center" Height="45" FontSize="21" PlaceholderText="대학명을 입력할 경우 색상 강조 표시됩니다." />
         </Grid>
         <TextBlock Text="Memo (optional)" FontFamily="../Assets/ZegoeLight-U.ttf#Segoe" FontSize="25" Margin="59,176,0,0" HorizontalAlignment="Left" Width="183" Height="41" VerticalAlignment="Top"/>
-        <TextBox x:Name="BodyTextBox" Margin="55,235,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText="참고사항 및 세부 계획, 평가 기준 등..."/>
+        <TextBox x:Name="BodyTextBox" Margin="55,235,307,35" AcceptsReturn="True" FontSize="19" PlaceholderText=""/>
         <Grid Width="215" HorizontalAlignment="Right" Margin="0,40,55,10">
             <Grid.Resources>
                 <Style TargetType="Button">

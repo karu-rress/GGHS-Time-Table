@@ -90,15 +90,6 @@ public sealed partial class TodoListPage : Page
         await DeleteTasks(x => x.DueDate == date);
     }
 
-    private async void SelectSubject_Click(object _, RoutedEventArgs e)
-    {
-        SubjectSelectDialog dialog = new();
-        if (await dialog.ShowAsync() is ContentDialogResult.None)
-            return;
-
-        await DeleteTasks(x => x.Subject == dialog.SelectedSubject);
-    }
-
     private async Task DeleteTasks(Predicate<TodoTask>? match)
     {
         if (TaskList.IsNullOrEmpty)

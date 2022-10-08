@@ -43,7 +43,6 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Timetable (GTT)" Tag="timetable" IsSelected="True" />
                 <muxc:NavigationViewItem Content="To do (GTD)" Tag="todo"/>
-                <muxc:NavigationViewItem Content="My God (GMG)" Tag="mygod"/>
                 <muxc:NavigationViewItem Content="Anonymous" Tag="chat"/>
                 <muxc:NavigationViewItem Content="Conet (Beta)" Tag="conet"/>
             </muxc:NavigationView.MenuItems>

@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Page.Resources>
-        <FontFamily x:Key="segoeFont">ms-appx://Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
+        <FontFamily x:Key="segoeFont">ms-appx:///Assets/ZegoeLight-U.ttf#Segoe</FontFamily>
         <FontFamily x:Key="iconFont">ms-appx:///Assets/segoefluent.ttf#Segoe Fluent Icons</FontFamily>
     </Page.Resources>
 

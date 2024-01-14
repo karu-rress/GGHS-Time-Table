@@ -21,8 +21,6 @@ public sealed partial class TimeTablePage : Page
         foreach (ComboBox combo in ComboBoxes)
             combo.BorderBrush = Info.Settings.Brush;
 
-        SetSubText();
-
         if (Info.User.Status is LoadStatus.NewlyInstalled)
             await ShowMessageAsync(Messages.Welcome, Datas.GTTWithVer, Info.Settings.Theme, XamlRoot);
 
@@ -32,18 +30,6 @@ public sealed partial class TimeTablePage : Page
         // TimeTablePage를 다시 띄웠을 때 똑같은 메시지가 뜨지 않게
         Info.User.Status = LoadStatus.Normal;
     }
-
-    /// <summary>
-    /// Sets the subtitle for TimeTablePage
-    /// </summary>
-    private void SetSubText() => mainText2.Text = Info.User.ActivationLevel switch
-    {
-        ActivationLevel.Developer => SubTitles.Developer,
-        ActivationLevel.Azure => SubTitles.Azure,
-        ActivationLevel.Bisque => SubTitles.Bisque,
-        ActivationLevel.Coral => SubTitles.Coral,
-        _ => string.Empty
-    };
 
     private void DrawTimeTable()
     {

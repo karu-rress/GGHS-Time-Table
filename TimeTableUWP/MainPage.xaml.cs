@@ -19,7 +19,7 @@ public sealed partial class MainPage : Page
         ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
         titleBar.ButtonBackgroundColor = Colors.Transparent;
         titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        AppTitle.Text = $"GGHS Time Table {Info.Version}";
+        AppTitle.Text = $"GGHS Time Table";
         // NavigationFrame = Frame;
         if (IsGoingToTodoPage)
         {

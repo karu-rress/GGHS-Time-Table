@@ -23,7 +23,7 @@ public sealed partial class SettingsPage : Page
             yield return feedbackButton;
             yield return activateButton;
             yield return troubleButton;
-            yield return howtoButton;
+            yield return farewellButton;
         }
     }
 
@@ -33,8 +33,6 @@ public sealed partial class SettingsPage : Page
         use24Toggle.IsOn = Info.Settings.Use24Hour;
         dateFormatRadio.SelectedIndex = DateFormatDict[Info.Settings.DateFormat];
         colorPicker.Color = Info.Settings.ColorType;
-        SilentToggle.IsOn = Info.Settings.SilentMode;
-        ReloadToggle.IsOn = Info.Settings.HotReload;
         SetDarkToggle(Info.Settings.IsDarkMode);
 
         SetButtonColor();
@@ -59,12 +57,6 @@ public sealed partial class SettingsPage : Page
         Info.Settings.IsDarkMode = darkToggle.IsOn;
         AppStyle.SetTheme(Info.Settings.Theme);
     }
-
-    private void SilentToggle_Toggled(object sender, RoutedEventArgs e)
-=> Info.Settings.SilentMode = SilentToggle.IsOn;
-
-    private void ReloadToggle_Toggled(object sender, RoutedEventArgs e)
-    => Info.Settings.HotReload = ReloadToggle.IsOn;
 
     private void dateFormatRadio_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -138,41 +130,6 @@ public sealed partial class SettingsPage : Page
     private async void troubleButton_Click(object sender, RoutedEventArgs e)
 => await ShowMessageAsync(string.Format(Messages.Troubleshoot), "Troubleshoot", Info.Settings.Theme);
 
-    private async void howtoButton_Click(object sender, RoutedEventArgs e)
-    {
-
-        Hyperlink hyperlink = new() { NavigateUri = new("https://blog.naver.com/nsun527/222659315481") };
-        hyperlink.AddText($"{Datas.GTTWithVer}의 자세한 사용법을 보려면 여기를 클릭하세요.");
-
-        TextBlock tb = new();
-        tb.AddHyperlink(hyperlink);
-        tb.AddTextLine("\n\n- GGHS Time Table");
-        tb.AddTextLine("자신의 반과 선택과목을 선택한 뒤, 시간표의 칸을 누르면");
-        tb.AddTextLine("클래스룸 링크와 ZOOM 링크를 띄워줍니다. (ZOOM 링크 계획 미정)\n");
-
-        tb.AddTextLine("- GGHS Todo");
-        tb.AddTextLine("수행평가 일정 및 To do 리스트를 등록할 수 있습니다.");
-        tb.AddTextLine("다양한 삭제 옵션을 사용할 수 있으며, 메인화면에서 각 항목을 클릭하거나");
-        tb.AddTextLine("마우스 오른쪽을 클릭하면 수정 및 삭제를 할 수 있습니다.\n");
-
-        tb.AddTextLine("- GGHS Anonymous");
-        tb.AddTextLine("10기 전용 익명 채팅방입니다. Azure / Bisque의 경우 채팅이 가능하며,");
-        tb.AddTextLine("Coral 레벨은 현재 공지 읽기만 가능합니다.");
-
-        ContentDialog contentDialog = new()
-        {
-            Title = "How To Use",
-            Content = tb,
-            PrimaryButtonText = "자세한 사용법 보기",
-            CloseButtonText = "닫기",
-            DefaultButton = ContentDialogButton.Primary,
-            RequestedTheme = Info.Settings.Theme
-        };
-
-        if (await contentDialog.ShowAsync() is ContentDialogResult.Primary)
-            await Launcher.LaunchUriAsync(new("https://blog.naver.com/nsun527/222659315481"));
-    }
-
     private void SetDarkToggle(bool value)
     {
         if (darkToggle.IsOn == value)
@@ -182,5 +139,24 @@ public sealed partial class SettingsPage : Page
         darkToggle.Toggled -= handler;
         darkToggle.IsOn = value;
         darkToggle.Toggled += handler;
+    }
+
+    private async void farewellButton_Click(object sender, RoutedEventArgs e)
+    {
+         ContentDialog contentDialog = new()
+        {
+            Title = "Farewell to GTT",
+            Content = @"환영합니다, Rolling Ress의 카루입니다.
+
+본 화면을 캡처하거나 스마트폰으로 찍어
+저의 개인톡 또는 인스타 @karu.rress로 보내주세요.
+
+이벤트에 대한 설명은 인스타그램을 참고해주세요!
+많은 참여 부탁드립니다 😊",
+            CloseButtonText = "닫기",
+            DefaultButton = ContentDialogButton.Primary,
+            RequestedTheme = Info.Settings.Theme
+        };
+        await contentDialog.ShowAsync();
     }
 }

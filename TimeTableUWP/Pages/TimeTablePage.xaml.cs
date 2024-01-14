@@ -202,8 +202,6 @@ public sealed partial class TimeTablePage : Page
             // 인증을 하지 않았다면 return
             if (await User.ActivateAsync() is false)
                 return;
-
-            SetSubText();
         }
 
         if (NotInvoked && Info.Settings.HotReload && Links.Dictionary.Count is 0)

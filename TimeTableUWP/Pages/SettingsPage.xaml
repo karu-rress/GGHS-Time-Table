@@ -36,14 +36,12 @@
                 <Setter Property="FontFamily" Value="Segoe"/>
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="80,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table 6 Settings" FontWeight="Bold"/>
+        <TextBlock x:Name="mainText" Margin="80,24,0,0"  FontSize="55" Height="73" Text="GGHS Time Table Settings" FontWeight="Bold"/>
 
         <ScrollViewer Margin="43,97,457,53" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid VerticalAlignment="Top">
                 <ToggleSwitch x:Name="use24Toggle" Header="Use 24 hour format" Margin="50,61,0,0" OffContent="Use 12 hour format" OnContent="Use 24 hour format" Toggled="use24Toggle_Toggled" />
                 <ToggleSwitch x:Name="darkToggle" Header="Enable dark theme" Margin="50,182,0,0" OffContent="Light theme" OnContent="Dark theme" Toggled="DarkToggleSwitch_Toggled" />
-                <ToggleSwitch x:Name="SilentToggle" Header="Enable silent mode" Margin="50,298,0,0" OffContent="Play alarm sound" OnContent="Mute alarm sound" Toggled="SilentToggle_Toggled" />
-                <ToggleSwitch x:Name="ReloadToggle" Header="Enable hot reload" Margin="50,404,0,0" OffContent="Use default links" OnContent="Get links from server" Toggled="ReloadToggle_Toggled" />
                 <muxc:RadioButtons x:Name="dateFormatRadio" Header="Date format" HorizontalAlignment="Left" Height="182" Margin="353,58,0,0" VerticalAlignment="Top" Width="159" FontSize="25" SelectionChanged="dateFormatRadio_SelectionChanged" FontFamily="Segoe">
                     <x:String>2020/06/03</x:String>
                     <x:String>2020-06-03</x:String>
@@ -58,7 +56,7 @@
             </Grid>
         </ScrollViewer>
         <Button x:Name="aboutButton" Margin="0,100,55,0" Click="aboutButton_Click" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE946;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" About GGHS Time Table 6" /></TextBlock>
+            <TextBlock><Run Text="&#xE946;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" About GGHS Time Table" /></TextBlock>
         </Button>
         <Button x:Name="feedbackButton" Margin="0,200,55,0" Click="feedbackButton_Click" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE724;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Send Feedback" /></TextBlock>
@@ -69,8 +67,8 @@
         <Button x:Name="troubleButton" Margin="0,400,55,0" Click="troubleButton_Click" BorderThickness="1.8">
             <TextBlock><Run Text="&#xE7BA;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Troubleshoot Errors" /></TextBlock>
         </Button>
-        <Button x:Name="howtoButton" Margin="0,500,55,0" Click="howtoButton_Click" BorderThickness="1.8">
-            <TextBlock><Run Text="&#xE897;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" How To Use GTT" /></TextBlock>
+        <Button x:Name="farewellButton" Margin="0,500,55,0" Click="farewellButton_Click" BorderThickness="1.8">
+            <TextBlock><Run Text="&#xe734;" FontFamily="{StaticResource iconFont}" FontSize="22"/><Run Text=" Farewell to GTT" /></TextBlock>
         </Button>
     </Grid>
 </Page>

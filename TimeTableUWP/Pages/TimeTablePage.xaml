@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <SolidColorBrush x:Key="txtColor" Color="{ThemeResource SystemBaseHighColor}" />
-        <SolidColorBrush x:Key="dayColor" Color="#EECBF6C4" />
+        <SolidColorBrush x:Key="dayColor" Color="#EEc5c0ea" />
         <CornerRadius x:Key="corner">10</CornerRadius>
         <!-- Red, LightGreen, LightSteelBlue, HotPink 등등 -->
         <!--SolidColorBrush x:Key="cellColor" Color="#EEF4F4F4" /-->
@@ -32,8 +32,8 @@
                 <Setter Property="FontFamily" Value="ms-appx:///Assets/ZegoeLight-U.ttf#Segoe" />
             </Style>
         </Grid.Resources>
-        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table 6" FontSize="55" Height="73" FontWeight="Bold"/>
-        <TextBlock x:Name="mainText2" Margin="80,100,0,0" FontSize="30" Width="544" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
+        <TextBlock x:Name="mainText" Margin="80,25,0,0" Text="GGHS Time Table" FontSize="55" Height="73" FontWeight="Bold"/>
+        <TextBlock x:Name="subMainText" Margin="80,100,0,0" FontSize="30" Width="544" Text="Farewell to GTT" Foreground="{ThemeResource SystemBaseMediumHighColor}"/>
 
         <Grid Name="clockGrid" Margin="0,25,19,0" HorizontalAlignment="Right" Width="445" Height="135" VerticalAlignment="Top" >
             <Grid.Resources>
@@ -120,42 +120,41 @@
             <Border Grid.Column="4" x:Name="friBorder">
                 <TextBlock Text="Friday"/>
             </Border>
-            <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" Click="TableButtons_Click"  />
-            <Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed1Button"  Grid.Row="1" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu1Button" Grid.Row="1" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri1Button" Grid.Row="1" Grid.Column="4" Click="TableButtons_Click" />
-            <Button x:Name="mon2Button" Grid.Row="2" Grid.Column="0" Click="TableButtons_Click" />
-            <Button x:Name="tue2Button" Grid.Row="2" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed2Button" Grid.Row="2" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu2Button" Grid.Row="2" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri2Button" Grid.Row="2" Grid.Column="4" Click="TableButtons_Click" />
-            <Button x:Name="mon3Button" Grid.Row="3" Grid.Column="0" Click="TableButtons_Click" />
-            <Button x:Name="tue3Button" Grid.Row="3" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed3Button" Grid.Row="3" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu3Button" Grid.Row="3" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri3Button" Grid.Row="3" Grid.Column="4" Click="TableButtons_Click" />
-            <Button x:Name="mon4Button" Grid.Row="4" Grid.Column="0" Click="TableButtons_Click" />
-            <Button x:Name="tue4Button" Grid.Row="4" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed4Button" Grid.Row="4" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu4Button" Grid.Row="4" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri4Button" Grid.Row="4" Grid.Column="4" Click="TableButtons_Click" />
-            <Button x:Name="mon5Button" Grid.Row="5" Grid.Column="0" Click="TableButtons_Click" />
-            <Button x:Name="tue5Button" Grid.Row="5" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed5Button" Grid.Row="5" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu5Button" Grid.Row="5" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri5Button" Grid.Row="5" Grid.Column="4" Click="SpecialButtons_Click" />
-            <Button x:Name="mon6Button" Grid.Row="6" Grid.Column="0" Click="SpecialButtons_Click" />
-            <Button x:Name="tue6Button" Grid.Row="6" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed6Button" Grid.Row="6" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu6Button" Grid.Row="6" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri6Button" Grid.Row="6" Grid.Column="4" Click="SpecialButtons_Click" />
-            <Button x:Name="mon7Button" Grid.Row="7" Grid.Column="0" Click="SpecialButtons_Click" />
-            <Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" Click="TableButtons_Click" />
-            <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" Click="TableButtons_Click" />
-            <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3" Click="TableButtons_Click" />
-            <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4" Click="SpecialButtons_Click" >
-
+            <Button x:Name="mon1Button" Grid.Row="1" Grid.Column="0" />
+            <Button x:Name="tue1Button" Grid.Row="1" Grid.Column="1" />
+            <Button x:Name="wed1Button"  Grid.Row="1" Grid.Column="2" />
+            <Button x:Name="thu1Button" Grid.Row="1" Grid.Column="3" />
+            <Button x:Name="fri1Button" Grid.Row="1" Grid.Column="4" />
+            <Button x:Name="mon2Button" Grid.Row="2" Grid.Column="0" />
+            <Button x:Name="tue2Button" Grid.Row="2" Grid.Column="1"/>
+            <Button x:Name="wed2Button" Grid.Row="2" Grid.Column="2" />
+            <Button x:Name="thu2Button" Grid.Row="2" Grid.Column="3" />
+            <Button x:Name="fri2Button" Grid.Row="2" Grid.Column="4" />
+            <Button x:Name="mon3Button" Grid.Row="3" Grid.Column="0" />
+            <Button x:Name="tue3Button" Grid.Row="3" Grid.Column="1" />
+            <Button x:Name="wed3Button" Grid.Row="3" Grid.Column="2" />
+            <Button x:Name="thu3Button" Grid.Row="3" Grid.Column="3" />
+            <Button x:Name="fri3Button" Grid.Row="3" Grid.Column="4" />
+            <Button x:Name="mon4Button" Grid.Row="4" Grid.Column="0" />
+            <Button x:Name="tue4Button" Grid.Row="4" Grid.Column="1" />
+            <Button x:Name="wed4Button" Grid.Row="4" Grid.Column="2" />
+            <Button x:Name="thu4Button" Grid.Row="4" Grid.Column="3" />
+            <Button x:Name="fri4Button" Grid.Row="4" Grid.Column="4" />
+            <Button x:Name="mon5Button" Grid.Row="5" Grid.Column="0" />
+            <Button x:Name="tue5Button" Grid.Row="5" Grid.Column="1" />
+            <Button x:Name="wed5Button" Grid.Row="5" Grid.Column="2" />
+            <Button x:Name="thu5Button" Grid.Row="5" Grid.Column="3" />
+            <Button x:Name="fri5Button" Grid.Row="5" Grid.Column="4" />
+            <Button x:Name="mon6Button" Grid.Row="6" Grid.Column="0"/>
+            <Button x:Name="tue6Button" Grid.Row="6" Grid.Column="1" />
+            <Button x:Name="wed6Button" Grid.Row="6" Grid.Column="2" />
+            <Button x:Name="thu6Button" Grid.Row="6" Grid.Column="3"/>
+            <Button x:Name="fri6Button" Grid.Row="6" Grid.Column="4" />
+            <Button x:Name="mon7Button" Grid.Row="7" Grid.Column="0" />
+            <Button x:Name="tue7Button" Grid.Row="7" Grid.Column="1" />
+            <Button x:Name="wed7Button" Grid.Row="7" Grid.Column="2" />
+            <Button x:Name="thu7Button" Grid.Row="7" Grid.Column="3"/>
+            <Button x:Name="fri7Button" Grid.Row="7" Grid.Column="4">
                 <FontIcon FontFamily="{StaticResource iconFont}" Glyph="&#xE80F;" FontSize="28"/>
             </Button>
         </Grid>

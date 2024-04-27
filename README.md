@@ -1,75 +1,110 @@
 # GGHS Time Table
-고양국제고등학교 10기 전용 학교 생활 도우미 프로그램입니다.
+환영합니다, Rolling Ress의 카루입니다.  
+GGHS Time Table(GTT)은 고양국제고등학교 10기 학생들을 위한 학교 생활 도우미 프로그램입니다.
+<br><br>
+![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/b68eb875-0773-40da-8ec8-7140d8863ee0)  
+![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/a4ce01ba-9021-412a-a247-91773a038796)  
+![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/bd17d950-fcca-47d2-912e-e7bdbc3ac785)
 
 # Features
-- GTT(GGHS Time Table): 개인 맞춤 시간표 제작
-- GTD(GGHS Todo): 수행평가 일정 관리 프로그램
-- Anonymous: 전교생 대상 익명 채팅 프로그램
+- GGHS Time Table(GTT): 개인 맞춤 시간표 제작
+- GGHS Todo(GTD): 수행평가 일정 관리 프로그램
+- GGHS Anonymous: 전교생 대상 익명 채팅방
+- Conet: 전교생 대상 커뮤니티
 
 # Changelogs
-- 자신의 학급과 선택과목을 선택하면 상응하는 시간표를 자동으로 띄워줌 (V0.5.7)
-- 학급에 따라 선택과목 제한 (수강생이 없는 과목은 선택 불가) (V0.5.7)
-- 상단 날짜 형식을 바꿀 수 있음 (V0.5.7)
-- 2학년 전체 시간표 및 선택과목 추가 (V1.0.2)
-- 24시간 / 12시간 형식 변경 (V1.0.2)
-- 현재 시간에 맞추어 시간표의 특정 셀 강조 (V1.0.2)
-- 전체 줌 ID 및 비밀번호 표시 (V1.0.2)
-- 각 셀 클릭시 해당 과목에 맞는 줌 링크 제공 (2-4, 2-8) (V1.5.0)
-- 스크롤바 추가 및 UI 변경 (V1.6.1)
-- 줌 링크 유출 방지를 위한 인증 시스템 도입 (V1.7.1)
-- UI 일부 변경 및 프로그램 최적화 (V1.8.1)
-- 줌 링크 대폭 확대 (V1.8.3)
-- 과목 선택 및 인증 상태 저장 기능 추가 (V1.9.0)
-- 줌 링크 추가 및 버그 수정 (V1.9.1~V1.10.1)
+**Full changelos are available [here](Changelog.txt)**
 
-- 반응형 UI 적용 (V2.0.1)
-- 클래스룸 링크 제공 (V2.0.1)
-- 새로운 설정 시스템 적용 (V2.0.1)
-- 액센트 색상 변경 지원 (V2.1.0)
-- 피드백 기능 추가 (V2.1.0)
-- 피드백 기능 개선 및 버그 수정 (V2.2.0)
+<details><summary>V6.0 (Beta)</summary><ul>
+  <li><b>2학기 시간표 지원 (6.0.0)</b></li>
+  <li><b>Conet 탭 지원 (6.0.1)</b></li>
+  <li>가상화폐 <에그> 지원 (6.0.2)</li>
+  <li>변환내신산출기 초기 도입 (6.0.5)</li>
+</ul></details>
 
-- 2학기 시간표 적용 (V3.0)
-- UI 변경 (V3.0)
-- 인증 시스템 간편화 (V3.0)
-- Insider 레벨 신설 (V3.1)
-- (Insider) 다크 모드 지원 (V3.1)
-- (Insider) 3분 전 알람 기능 추가 (V3.2)
-- 인증키 변경 지원 (V3.2)
-- 각종 버그 수정 및 최적화
+<details><summary>V5.0</summary><ul>
+  <li>전체적인 디자인 변경 (Beta 1)</li>
+  <li><b>익명 채팅방 GGHS Anonymous 추가 (Beta 1)</b></li>
+  <li>Azure/Bisque/Coral 인증 레벨 개편 (Beta 1)</li>
+  <li>GGHS Todo 디데이 목록에 사용자 지정 색상 적용 (Beta 6)</li>
+  <li>Anonymous 공지 및 오류 보고 봇 추가 (Beta 7)</li>
+  <li>Coral 레벨 공지 읽기 가능하도록 변경 (Beta 8)</li>
+  <li>피드백 전송시 Anonymous에서 알림 (Beta 8)</li>
+  <li>알람 기능 삭제 (Release Candidate)</li>
+  <li>(GTD) 수능 디데이 카운터 추가 (Release Candidate)</li>
+  <li>전반적인 디자인 통일 및 UI 변경 (RC 2)</li>
+  <li>사용설명서 추가 (RC 2)</li>
+  <li>10기 시간표 정식 지원 (RC 2)</li>
+  <li>Mica 테마 적용 및 상단바 변경 (RC 3)</li>
+  <li>다크 테마 사용성 개선 (RC 3)</li>
+</ul></details>
 
-- GGHS Todo 기능 추가 (V4.0)
-- 최소 버전 격상 [Windows 1909] (V4.0)
-- 새로운 설정창 도입 (V4.0)
-- 3분 전 알람 기능 확대 (V4.0)
-- 업데이트 안내 추가 (V4.0)
-- 데이터 저장 방식 변경 (V4.0)
-- Grade 선택 제한 (V4.0.31)
-- ShareTech 인증 레벨 추가 (V4.0 Build 1752: Preview)
-- 프로그램 최적화 (V4.0 Build 1752: Preview)
-- 무음 모드 추가 (V4.0 Build 1752: Preview)
-- 인터넷 연결 없을 시 피드백 전송 차단 (V4.0 Build 1752: Preview)
-- 에러 처리 개편 (V4.0 Build 1900: Release Candidate)
-- 설정창 개편 (V4.0 Build 2937: Release Candidate)
-- Todo 기능 관련 버그 수정 (V4.0 Build 2937: Release Candidate)
-- 기본 색상 변경 (#FFD9C0F9) (V4.1: RTM)
-- 색상 초기화 옵션 추가 (V4.1: RTM)
+<details><summary>V4.0</summary><ul>
+  <li>Grade 선택 제한 (Build 31)</li>
+  <li>셰어텍 인증 레벨 추가 (Build 1752: Preview)</li>
+  <li>무음 모드 추가 (Build 1752: Preview)</li>
+  <li>설정창 개편 (Build 2937: Release Candidate)</li>
+  <li><b>GGHS Todo 기능 추가 (4.0)</b></li>
+  <li>새로운 설정창 도입 (4.0)</li>
+  <li>3분 전 알람 기능 확대 (4.0)</li>
+  <li>업데이트 안내 추가 (4.0)</li>
+  <li>비교문화 줌 표시 방식 변경 (4.2)</li>
+</ul></details>
 
-- - **3학년 시간표 지원** (5 Beta 1)
-- 전체적인 디자인 변경 (5 Beta 1)
-- 내부 구조 모듈화 (5 Beta 1)
-- **익명 채팅방 GGHS Anonymous 추가** (5 Beta 1)
-- Azure/Bisque/Coral 인증 레벨 개편 (5 Beta 1)
-- GGHS Anonymous 랙 개선 (5 Beta 2)
-- 메시지 전송 버그 수정 (5 Beta 2)
-- 채팅 전송 버그 수정 (5 Beta 2)
-- **저장 방식 개편** (5 Beta 3) -> 기존 방식과 호환되지 않습니다.
-- 색상 옵션 변경 (5 Beta 3)
-- 채팅창 순서가 바뀌는 문제 수정 (5 Beta 4)
-- 채팅 기능 안정성 향상 (5 Beta 4)
-- 채팅창 디자인 수정 (5 Beta 5)
-- 채팅창 랙 및 입력 지연 개선 (5 Beta 5)
-- 인터넷 연결 없을시 채팅창 로드 안 함 (5 Beta 6)
-- 채팅창 스크롤바 추가 (5 Beta 6)
-- **채팅창 및 상단바에 사용자 지정 색상 적용** (5 Beta 6)
-- 채팅창 버그 수정 (5 Beta 6)
+<details><summary>V3.0</summary><ul>
+  <li><b>2학기 시간표 적용 (3.0)</b></li>
+  <li>Windows 11의 디자인 채용 (3.0)</li>
+  <li>기본 테마 및 버튼 스타일 변경 (3.0)</li>
+  <li>인증 시스템 간편화 (3.0)</li>
+  <li>Insider 레벨 신설(3.1)</li>
+  <li><b>(Insider) 앱 전역 다크 모드 지원(3.1)</b></li>
+  <li>(Insider) 3분 전 알람 기능 추가 (3.2)</li>
+  <li>인증키 변경 지원 (3.2)</li>
+  <li>인증 상태에 따라 서브 텍스트 변경 (3.2)</li>
+</ul></details>
+
+<details><summary>V2.0</summary><ul>
+  <li>반응형 UI 적용 (2.0.1)</li>
+  <li>클래스룸 링크 제공 (2.0.1)</li>
+  <li>새로운 설정 시스템 적용 (2.0.1)</li>
+  <li>색상 변경 지원 (2.1.0)</li>
+  <li>피드백 적용 (2.1.0)</li>
+  <li>피드백 기능 개선 (2.2)</li>
+</ul></details>
+  
+<details><summary>V1.0</summary><ul>
+  <li><b>2학년 전체의 시간표 및 선택과목 추가 (1.0.2.0)</b></li>
+  <li>24시간 / 12시간 형식 변경 (1.0.2.0)</li>
+  <li>날짜 표시 형식 추가 (yyyy-mm-dd) (1.0.2.0)</li>
+  <li>현재 시간에 맞추어 시간표의 셀 색상 변경 (1.0.2.0)</li>
+  <li>UI를 완전히 개편하여 전체화면이 아닌 경우에 대응함 (1.5.0.0)</li>
+  <li>각 셀 클릭 시 셀에 맞는 줌 링크 제공 (2-4, 2-8 전용) (1.5.0.0)</li>
+  <li>Get Zoom Link 기능 삭제 (시간표의 각 셀이 대체함) (1.5.0.0)</li>
+  <li>스크롤 바 추가로 인해 화면이 잘리는 문제 개선 (1.6.1)</li>
+  <li>콤보박스가 선택되지 않은 경우 시간표에 공백 표시 (1.7.1)</li>
+  <li>줌 링크 유출 방지를 위한 인증 시스템 도입 (1.7.1)</li>
+  <li>메인 UI 문구 개편 (1.8.1)</li>
+  <li>학년 및 반 미 선택시 시간표 표시 대기 (1.8.1)</li>
+  <li>다음 시간 시간표 강조 (1.8.1)</li>
+  <li>저장 기능 추가 (과목 선택 및 인증 상태 유지) (1.9.0)</li>
+  <li>About 버튼 추가 (1.9.0)</li>
+  <li>스페인어 링크 추가 (1.10.1)</li>
+</ul></details>
+
+<details><summary>BETA</summary><ul>
+  <li>자신의 학급과 선택과목을 추가하면 그에 맞는 시간표를 자동으로 만들어줌 (0.5.7.0)</li>
+  <li>학급에 따라 선택과목을 제한함 (ex. 2-8반은 '실천윤리학의 이해' 선택 불가능) (0.5.7.0)</li>
+  <li>2-4반의 시간표 추가 (0.5.7.0)</li>
+  <li>오른쪽 상단의 날짜 표시 형식을 바꿀 수 있음 (mm/dd/yyyy <=> yyyy/mm/dd) (0.5.7.0)</li>
+​</ul></details>
+
+# Usage
+- **Full usage is available in [Rolling Ress blog](https://blog.naver.com/rollingress/222659315481).**
+- **[GGHS Time Table 5 공식 홍보자료](https://blog.naver.com/rollingress/222658804897)**
+
+# Activation Key
+인증 레벨에 따라 사용 가능한 기능이 달라집니다.
+- Azure / ShareTech
+- Bisque
+- Coral
+- Unactivated

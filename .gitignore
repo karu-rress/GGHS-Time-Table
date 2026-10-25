@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Memo.txt
+
 # Connection String
 connection.txt
 mailpassword.txt

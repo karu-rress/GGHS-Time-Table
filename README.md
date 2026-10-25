@@ -1,16 +1,24 @@
 # GGHS Time Table
 환영합니다, Rolling Ress의 카루입니다.  
-GGHS Time Table(GTT)은 고양국제고등학교 10기 학생들을 위한 학교 생활 도우미 프로그램입니다.
+GGHS Time Table(GTT)은 고양국제고등학교 학생들을 위한 학교 생활 도우미 프로그램입니다.
 <br><br>
-![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/b68eb875-0773-40da-8ec8-7140d8863ee0)  
-![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/a4ce01ba-9021-412a-a247-91773a038796)  
-![image](https://github.com/karu-rress/GGHS-Time-Table/assets/32568363/bd17d950-fcca-47d2-912e-e7bdbc3ac785)
+![GTT Image 1](Assets/gtt1.png)  
+![GTT Image 2](Assets/gtt2.png)  
+![GTT Image 3](Assets/gtt3.png)
+![GTT Image 4](Assets/gtt4.png)
+![GTT Image 5](Assets/gtt5.png)
 
 # Features
 - GGHS Time Table(GTT): 개인 맞춤 시간표 제작
 - GGHS Todo(GTD): 수행평가 일정 관리 프로그램
 - GGHS Anonymous: 전교생 대상 익명 채팅방
 - Conet: 전교생 대상 커뮤니티
+
+# Usage
+![Gtt Usage 1](Assets/gtt6.png)
+![Gtt Usage 2](Assets/gtt7.png)
+- **Full usage is available in [Rolling Ress blog](https://blog.naver.com/rollingress/222659315481).**
+- ~~[GGHS Time Table 5 공식 홍보자료](https://blog.naver.com/rollingress/222658804897)~~
 
 # Changelogs
 **Full changelos are available [here](Changelog.txt)**
@@ -71,7 +79,7 @@ GGHS Time Table(GTT)은 고양국제고등학교 10기 학생들을 위한 학�
   <li>피드백 적용 (2.1.0)</li>
   <li>피드백 기능 개선 (2.2)</li>
 </ul></details>
-  
+
 <details><summary>V1.0</summary><ul>
   <li><b>2학년 전체의 시간표 및 선택과목 추가 (1.0.2.0)</b></li>
   <li>24시간 / 12시간 형식 변경 (1.0.2.0)</li>
@@ -97,10 +105,6 @@ GGHS Time Table(GTT)은 고양국제고등학교 10기 학생들을 위한 학�
   <li>2-4반의 시간표 추가 (0.5.7.0)</li>
   <li>오른쪽 상단의 날짜 표시 형식을 바꿀 수 있음 (mm/dd/yyyy <=> yyyy/mm/dd) (0.5.7.0)</li>
 ​</ul></details>
-
-# Usage
-- **Full usage is available in [Rolling Ress blog](https://blog.naver.com/rollingress/222659315481).**
-- **[GGHS Time Table 5 공식 홍보자료](https://blog.naver.com/rollingress/222658804897)**
 
 # Activation Key
 인증 레벨에 따라 사용 가능한 기능이 달라집니다.
